@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="topMenu"></div>
-    资料共享
+    <div class="componentBox">资料共享</div>
   </div>
 </template>
 

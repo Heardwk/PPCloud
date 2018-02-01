@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="topMenu"></div>
-    数据分析
+    <div class="componentBox">数据分析</div>
   </div>
 </template>
 

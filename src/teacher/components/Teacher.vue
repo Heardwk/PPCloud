@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="teac">
     <el-container>
       <!-- 头部 -->
       <el-header>
@@ -17,7 +17,7 @@
               <el-dropdown-item command="first"><router-link class="droplink" to="Geren">基本信息</router-link></el-dropdown-item>
               <el-dropdown-item command="second"><router-link class="droplink" to="Geren">我的消息</router-link></el-dropdown-item>
               <el-dropdown-item command="third"><router-link class="droplink" to="Geren">资料管理</router-link></el-dropdown-item>
-              <el-dropdown-item command=""><router-link class="droplink" to="../Load">退出</router-link></el-dropdown-item>
+              <el-dropdown-item command=""><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -111,7 +111,7 @@ header {
   position: absolute;
   width: 165px;
   height: 40px;
-  top: 30px;
+  top: 20px;
   background: url('../../share/img/img_logo1_index.png') no-repeat;
 }
 .head .logoW {

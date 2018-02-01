@@ -52,7 +52,7 @@ export default {
   width: 960px;
   margin: 0 auto;
   text-align: right;
-  background: url('../img/img_logo_index.png') 0 30px no-repeat;
+  background: url('../img/img_logo_index.png') 0 20px no-repeat;
 }
 .head a {
   color: white;

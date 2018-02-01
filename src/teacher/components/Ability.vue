@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="topMenu"></div>
-    能力档案
+    <div class="componentBox">能力档案</div>
   </div>
 </template>
 

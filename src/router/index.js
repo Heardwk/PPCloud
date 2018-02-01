@@ -10,6 +10,7 @@ import Shuju from '@/teacher/components/Shuju'
 import Ability from '@/teacher/components/Ability'
 import Ziliao from '@/teacher/components/Ziliao'
 import Geren from '@/teacher/components/Geren'
+import Course from '@/teacher/components/Course'
 
 import Student from '@/student/components/Student'
 import trainingCenter from '@/student/components/trainingCenter'
@@ -26,52 +27,59 @@ export default new Router({
       path: '', redirect: '/Load'
     },
     {
-      path: '/Load/',
+      path: '/Load',
       name: 'Load',
       component: Load
     },
     {
-      path: '/Teacher/',
+      path: '/Teacher',
       component: Teacher,
       children: [
         {
-          path: '', redirect: 'Shixun'
+          path: '', redirect: '/Teacher/Shixun'
         },
         {
-          path: 'Yuanxiao',
+          path: '/Teacher/Yuanxiao',
           name: 'Yuanxiao',
           component: Yuanxiao
         },
         {
-          path: 'Shixun',
+          path: '/Teacher/Shixun',
           name: 'Shixun',
-          component: Shixun
+          component: Shixun,
+          children: [
+            {
+              path: 'Course',
+              name: 'Course',
+              component: Course
+            },
+          ]
         },
         {
-          path: 'Renwu',
+          path: '/Teacher/Renwu',
           name: 'Renwu',
           component: Renwu
         },
         {
-          path: 'Shuju',
+          path: '/Teacher/Shuju',
           name: 'Shuju',
           component: Shuju
         },
         {
-          path: 'Ability',
+          path: '/Teacher/Ability',
           name: 'Ability',
           component: Ability
         },
         {
-          path: 'Ziliao',
+          path: '/Teacher/Ziliao',
           name: 'Ziliao',
           component: Ziliao
         },
         {
-          path: 'Geren',
+          path: '/Teacher/Geren',
           name: 'Geren',
           component: Geren
-        },
+        }
       ]
     },
     {
@@ -108,5 +116,8 @@ export default new Router({
         },
       ]
     },
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    // return 期望滚动到哪个的位置
+  }
 })

@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="topMenu"></div>
-    任务管理
+    <div class="componentBox">任务管理</div>
   </div>
 </template>
 

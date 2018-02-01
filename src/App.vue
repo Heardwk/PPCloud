@@ -29,7 +29,7 @@ export default {
 html,
 body {
   height: 100%;
-  font-family: "Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: "Microsoft YaHei","微软雅黑","Helvetica Neue","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -83,12 +83,12 @@ header {
   left: 0;
   width: 100%;
   z-index: 100;
-  height: 70px;
-  line-height: 80px;
+  line-height: 79px;
 }
 .topMenu {
   height: 80px;
   background: white;
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
 }
 .head .white {
   color: white;
@@ -109,5 +109,10 @@ header {
   color: #A5B7C5;
   position: absolute;
   right: 0;
+}
+.teac .componentBox {
+  width: 960px;
+  margin: 0 auto;
+  overflow: hidden
 }
 </style>
