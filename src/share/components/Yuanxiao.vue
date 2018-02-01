@@ -67,11 +67,17 @@ export default {
     
   },
   mounted() {
-    var colo = document.getElementsByClassName("colo");
-    for(let i=0; i<colo.length; i++) {
-      colo[i].classList.add("white");
+    try {
+      var colo = document.getElementsByClassName("colo");
+      if(colo[0]){
+        for(let i=0; i<colo.length; i++) {
+          colo[i].classList.add("white");
+        }
+        colo[0].classList.add("logoW");
+      }
+    }catch(error){
+      console.log(error)
     }
-    colo[0].classList.add("logoW");
   },
   methods: {
   	handleClick(tab,events){
@@ -79,11 +85,17 @@ export default {
   	}
   },
   destroyed() {
-    var colo = document.getElementsByClassName("colo");
-    for(let i=0; i<colo.length; i++) {
-      colo[i].classList.remove("white");
+    try{
+      var colo = document.getElementsByClassName("colo");
+      if(colo[0]){  
+        for(let i=0; i<colo.length; i++) {
+          colo[i].classList.remove("white");
+        }
+        colo[0].classList.remove("logoW");
+      }
+    }catch(error){
+      console.log(error)
     }
-    colo[0].classList.remove("logoW");
   }
 }
 </script>

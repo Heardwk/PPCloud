@@ -1,9 +1,11 @@
 <template>
   <div class="" style="position: relative">
+    <div class="loadBox" v-if="show"><dialogs @dialog="dialog"></dialogs></div>
     <el-header>
       <div class="head">
         <router-link to="Teacher">教师登录</router-link>
         <router-link to="Student">学生登录</router-link>
+        <button @click="loading">登录</button>
       </div>
     </el-header>
     <yuanxiao></yuanxiao>
@@ -21,15 +23,25 @@
 
 <script>
 import yuanxiao from './Yuanxiao'
+import dialogs from './dialogs'
 export default {
   name: 'Load',
   data () {
     return {
-      
+      show: false
+    }
+  },
+  methods: {
+    loading() {
+      this.show = true
+    },
+    dialog(msg) {
+      console.log(msg);
+      this.show = false
     }
   },
   components: {
-  	yuanxiao,
+  	yuanxiao,dialogs,
   }
 }
 </script>
@@ -44,5 +56,9 @@ export default {
 }
 .head a {
   color: white;
+}
+.loadBox {
+  position: relative;
+  z-index: 1000;
 }
 </style>
