@@ -5,13 +5,13 @@
      		   <a :href="shref" class="logo-left_img"></a>
      		   <span >云上实训</span>
      	</div>
-			 <div class="head">
+			 <div class="heads">
         <el-header class="mainMenu" height="65px">
-        	<router-link class="link" data-content="实训中心" to="/trainingCenter">实训中心</router-link>
-          <router-link class="link" data-content="我的任务" to="/myTask">我的任务</router-link>
-          <router-link class="link" data-content="成绩管理" to="/management">成绩管理</router-link>
-          <router-link class="link" data-content="能力档案" to="/abilityfile">能力档案</router-link>
-          <router-link class="link" data-content="资料共享" to="/datasharing">资料共享</router-link>
+        	<router-link class="link" data-content="实训中心" to="trainingCenter">实训中心</router-link>
+          <router-link class="link" data-content="我的任务" to="myTask">我的任务</router-link>
+          <router-link class="link" data-content="成绩管理" to="management">成绩管理</router-link>
+          <router-link class="link" data-content="能力档案" to="abilityfile">能力档案</router-link>
+          <router-link class="link" data-content="资料共享" to="datasharing">资料共享</router-link>
           <el-dropdown>
           <img class="logo-img" src="" alt="" />
 					  <span class="el-dropdown-link">学生</span>
@@ -24,7 +24,7 @@
      </div>
 			</ul>
 			 <transition name="page">
-          <keep-alive>
+         <keep-alive> 
             <router-view />
           </keep-alive>
        </transition>
@@ -117,7 +117,7 @@ ul{
           transition: all 200ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
 }
 /* 顶部菜单 */
-.head {
+.heads {
   display: flex;
   display: -webkit-flex;
   justify-content: center;
@@ -205,7 +205,7 @@ ul{
 	  background-color: rgba(0, 24, 46, 1);
 	  margin: 0;  
 }
-.head a{
+.heads a{
 	   height:65px;
 	  line-height: 65px;
 	  color: #fff;
@@ -244,6 +244,7 @@ ul{
   float: left;
 	width: 69px;
   height: 64px;
+  background-image: url(../assets/u28.png);
   background-repeat: no-repeat;
   cursor: pointer;
 }

@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <div class="topMenu"></div>
     数据分析
   </div>
 </template>
@@ -11,7 +12,10 @@ export default {
     return {
       
     }
-  }
+  },
+  mounted() {
+
+  },
 }
 </script>
 

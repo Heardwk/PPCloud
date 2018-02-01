@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <div class="topMenu"></div>
     <el-tabs v-model="activeName.activeName" @tab-click="handleClick" tab-position="left">
 	    <el-tab-pane label="基本信息" name="first">基本信息</el-tab-pane>
 	    <el-tab-pane label="我的消息" name="second">我的消息</el-tab-pane>
@@ -16,6 +17,9 @@ export default {
     return {
       
     }
+  },
+  mounted() {
+
   },
   methods: {
     handleClick(tab, event) {

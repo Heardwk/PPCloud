@@ -55,15 +55,59 @@ a {
   cursor: pointer;
   text-decoration: none;
 }
-textarea,input,button {
+button {
   outline: none;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
 }
-header {
-  text-align: center;
+/* 院校首页 */
+.tabNav .el-tabs__item {
+  font-size: 18px;
   line-height: 60px;
-  background-color: white;
+  height: 60px;
+}
+.tabNav .el-tabs__item:hover {
+  color: rgba(0, 176, 255, 1);
+}
+.tabNav .el-tabs__item.is-active {
+  color: rgba(0, 176, 255, 1);
+}
+.el-main {
+  padding: 0;
+}
+header {
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  height: 70px;
+  line-height: 80px;
+}
+.topMenu {
+  height: 80px;
+  background: white;
+}
+.head .white {
+  color: white;
+}
+.foot {
+  width: 960px;
+  margin: 0 auto;
+  height: 70px;
+  line-height: 90px;
+  overflow: hidden;
+  color: #A5B7C5;
+  position: relative;
+}
+.foot span {
+  margin-right: 25px;
+}
+.foot a {
+  color: #A5B7C5;
+  position: absolute;
+  right: 0;
 }
 </style>

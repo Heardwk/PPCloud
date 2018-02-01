@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <div class="topMenu"></div>
     能力档案
   </div>
 </template>
@@ -11,7 +12,10 @@ export default {
     return {
       
     }
-  }
+  },
+  mounted() {
+
+  },
 }
 </script>
 

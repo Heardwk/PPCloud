@@ -35,7 +35,7 @@ export default new Router({
       component: Teacher,
       children: [
         {
-          path: '', redirect: 'Yuanxiao'
+          path: '', redirect: 'Shixun'
         },
         {
           path: 'Yuanxiao',

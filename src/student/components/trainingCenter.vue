@@ -27,7 +27,7 @@ export default {
        	   	    name:'基础会计',
        	   	    description:'课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程',
                 node:{
-                	 
+                	  backgroundImage: "url(" + require('../assets/logo.png') + ")",
                 	  backgroundRepeat:'no-repeat'
                 },
        	   	    url: 'http://www.baidu.com',
@@ -35,7 +35,7 @@ export default {
        	   	    name:'财务管理',
        	   	    description:'课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程',
        	   	    node:{
-               
+                	  backgroundImage: "url(" + require('../assets/logo.png') + ")",
                 	  backgroundRepeat:'no-repeat'
                 },
        	   	    url: 'http://www.baidu.com',
@@ -43,7 +43,7 @@ export default {
        	   	    name:'纳税实务',
        	   	    description:'课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程',
        	   	    node:{
-                
+                	  backgroundImage: "url(" + require('../assets/logo.png') + ")",
                 	  backgroundRepeat:'no-repeat'
                 },
        	   	    url: 'http://www.baidu.com',
@@ -57,7 +57,7 @@ export default {
        	   	    name:'会计岗位',
        	   	    description:'描述描述描述描述描述描述描述描述描述描述描述',
        	   	     node:{
-                	
+                	  backgroundImage: "url(" + require('../assets/u28.png') + ")",
                 	  backgroundRepeat:'no-repeat'
                 },
        	   	    url: 'http://www.baidu.com',
@@ -65,7 +65,7 @@ export default {
        	   	    name:'出纳岗位',
        	   	    description:'描述描述描述描述描述描述描述描述描述描述描述',
        	   	     node:{
-                	 
+                	  backgroundImage: "url(" + require('../assets/u28.png') + ")",
                 	  backgroundRepeat:'no-repeat'
                 },
        	   	    url: 'http://www.baidu.com',
@@ -73,7 +73,7 @@ export default {
        	   	    name:'纳税申报',
        	   	    description:'描述描述描述描述描述描述描述描述描述描述描述',
        	   	     node:{
-                
+                	  backgroundImage: "url(" + require('../assets/u28.png') + ")",
                 	  backgroundRepeat:'no-repeat'
                 },
        	   	    url: 'http://www.baidu.com',
@@ -81,7 +81,7 @@ export default {
        	   	    name:'防伪开票',
        	   	    description:'描述描述描述描述描述描述描述描述描述描述描述',
        	   	     node:{
-                	
+                	  backgroundImage: "url(" + require('../assets/u28.png') + ")",
                 	  backgroundRepeat:'no-repeat'
                 },
        	   	    url: 'http://www.baidu.com',
