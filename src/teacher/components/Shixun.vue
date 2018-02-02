@@ -1,35 +1,36 @@
 <template>
   <div class="">
   	<div class="topMenu"></div>
-    <div class="componentBox">
+    <div v-if="shixun.shixun" class="componentBox">
       <p class="boxTitle">最近使用</p>
       <div class="recently">
         <div class="recentlyList" v-for="(item,index) in recentlyData" :key="index">
-          <router-link :to="item.url">
+          <router-link :to="{path:item.url, query: {name: item.name}}">
             <img :src="item.src" height="180" width="120">
           </router-link>
-          <h4><router-link :to="item.url">{{item.name}}</router-link></h4>
+          <h4><router-link :to="{path:item.url, query: {name: item.name}}">{{item.name}}</router-link></h4>
           <p>案例数量：{{item.number}}题</p>
           <p>更新时间：{{item.time}}</p>
         </div>
       </div>
     </div>
-    <div style="background: white; padding-top: 1px;">
+    <div v-if="shixun.shixun" style="background: white; padding-top: 1px;">
       <div class="componentBox">
         <p class="boxTitle">课程实训</p>
         <div class="boxList">
-          <router-link v-for="(item,index) in bookList" :key="index" :to="item.url">
+          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url, query: {name: item.name}}">
             <div><img :src="item.src" height="180" width="120"></div><h5>{{item.name}}</h5>
           </router-link>
         </div>
         <p class="boxTitle">综合实训</p>
         <div class="boxList">
-          <router-link v-for="(item,index) in bookList" :key="index" :to="item.url">
+          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url, query: {name: item.name}}">
             <div><img :src="item.src" height="180" width="120"></div><h5>{{item.name}}</h5>
           </router-link>
         </div>
       </div>
     </div>
+    <router-view />
   </div>
 </template>
 
@@ -44,36 +45,36 @@ export default {
           number: '3281',
           time: '2017/8/22',
           src: require('../../share/img/image_class_cover.png'),
-          url: 'Course'
+          url: '/Teacher/Shixun/Course'
         },{
           name: '财务管理',
           number: '3281',
           time: '2017/8/22',
           src: require('../../share/img/image_class_cover.png'),
-          url: 'Course'
+          url: '/Teacher/Shixun/Course'
         },{
           name: '初级会计电算化',
           number: '3281',
           time: '2017/8/22',
           src: require('../../share/img/image_class_cover.png'),
-          url: 'Course'
+          url: '/Teacher/Shixun/Course'
         },
       ],
       bookList: [
         {
-          url: 'Course',
+          url: '/Teacher/Shixun/Course',
           src: require('../../share/img/image_class_cover.png'),
           name: '基础会计'
         },{
-          url: 'Course',
+          url: '/Teacher/Shixun/Course',
           src: require('../../share/img/image_class_cover.png'),
           name: '财务管理'
         },{
-          url: 'Course',
+          url: '/Teacher/Shixun/Course',
           src: require('../../share/img/image_class_cover.png'),
           name: '初级会计电算化'
         },{
-          url: 'Course',
+          url: '/Teacher/Shixun/Course',
           src: require('../../share/img/image_class_cover.png'),
           name: '财务管理'
         },
@@ -83,6 +84,14 @@ export default {
   mounted() {
 
   },
+  computed: {
+    shixun() {
+      return this.$store.state
+    }
+  },
+  components: {
+    
+  }
 }
 </script>
 

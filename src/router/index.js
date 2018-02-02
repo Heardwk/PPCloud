@@ -36,15 +36,15 @@ export default new Router({
       component: Teacher,
       children: [
         {
-          path: '', redirect: '/Teacher/Shixun'
+          path: '', redirect: 'Shixun'
         },
         {
-          path: '/Teacher/Yuanxiao',
+          path: 'Yuanxiao',
           name: 'Yuanxiao',
           component: Yuanxiao
         },
         {
-          path: '/Teacher/Shixun',
+          path: 'Shixun',
           name: 'Shixun',
           component: Shixun,
           children: [
@@ -56,27 +56,27 @@ export default new Router({
           ]
         },
         {
-          path: '/Teacher/Renwu',
+          path: 'Renwu',
           name: 'Renwu',
           component: Renwu
         },
         {
-          path: '/Teacher/Shuju',
+          path: 'Shuju',
           name: 'Shuju',
           component: Shuju
         },
         {
-          path: '/Teacher/Ability',
+          path: 'Ability',
           name: 'Ability',
           component: Ability
         },
         {
-          path: '/Teacher/Ziliao',
+          path: 'Ziliao',
           name: 'Ziliao',
           component: Ziliao
         },
         {
-          path: '/Teacher/Geren',
+          path: 'Geren',
           name: 'Geren',
           component: Geren
         }

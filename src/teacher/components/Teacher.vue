@@ -4,7 +4,7 @@
       <!-- 头部 -->
       <el-header>
         <div class="head">
-          <router-link to='Yuanxiao' class="logo colo"></router-link>
+          <router-link to='/Teacher/Yuanxiao' class="logo colo"></router-link>
           <router-link 
             v-for="(item,index) in urlData" class="link colo" 
             :key="index" :to="item.url"
@@ -14,9 +14,9 @@
           <el-dropdown placement="bottom" @command="gerenlink" class="user colo">
             <span class="el-dropdown-link">狗剩</span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
-              <el-dropdown-item command="first"><router-link class="droplink" to="Geren">基本信息</router-link></el-dropdown-item>
-              <el-dropdown-item command="second"><router-link class="droplink" to="Geren">我的消息</router-link></el-dropdown-item>
-              <el-dropdown-item command="third"><router-link class="droplink" to="Geren">资料管理</router-link></el-dropdown-item>
+              <el-dropdown-item command="first"><router-link class="droplink" to="/Teacher/Geren">基本信息</router-link></el-dropdown-item>
+              <el-dropdown-item command="second"><router-link class="droplink" to="/Teacher/Geren">我的消息</router-link></el-dropdown-item>
+              <el-dropdown-item command="third"><router-link class="droplink" to="/Teacher/Geren">资料管理</router-link></el-dropdown-item>
               <el-dropdown-item command=""><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -50,19 +50,19 @@ export default {
       urlData:[
         {
           name: '实训中心',
-          url: 'Shixun'
+          url: '/Teacher/Shixun'
         },{
           name: '任务管理',
-          url: 'Renwu'
+          url: '/Teacher/Renwu'
         },{
           name: '数据分析',
-          url: 'Shuju'
+          url: '/Teacher/Shuju'
         },{
           name: '能力档案',
-          url: 'Ability'
+          url: '/Teacher/Ability'
         },{
           name: '资料共享',
-          url: 'Ziliao'
+          url: '/Teacher/Ziliao'
         }
       ]
     }

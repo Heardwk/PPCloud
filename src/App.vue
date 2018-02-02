@@ -51,7 +51,7 @@ ul li {
   list-style: none;
 }
 a {
-  color: #888888;
+  color: #687178;
   cursor: pointer;
   text-decoration: none;
 }
