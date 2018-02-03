@@ -15,6 +15,43 @@
           </p>
         </div>
       </div>
+
+      <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="kechengTab">
+        <el-tab-pane label="我的题组" name="first">
+          <span slot="label" class="icon1">我的题组</span>
+          <div class="tabCard" :class="{ topicLass: has }">
+            <div class="cardTitle">
+              <span class="careName">我的题组 <span> (共{{topicList.number}}个)</span></span>
+              <span class="addName">新建题组</span><span class="addBtn">+</span>
+            </div>
+            <div v-if="!has">
+              <div v-for="(item,index) in topicList.topicArr" :key="index" class="tizuBox">
+                <h3>{{item.title}}<span>{{item.time}}</span></h3>
+                <p>基本信息： 已选择<span>{{item.point}}</span>个知识点，共<span>{{item.case}}</span>个案例，总分值<span>{{item.count}}</span>分</p>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="实训计划" name="second">
+          <span slot="label" class="icon2">实训计划</span>
+          <div class="tabCard">
+            <div class="cardTitle">实训计划</div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="实训总结" name="third">
+          <span slot="label" class="icon3">实训总结</span>
+          <div class="tabCard">
+            <div class="cardTitle">实训总结</div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="课程资料" name="fourth">
+          <span slot="label" class="icon4">课程资料</span>
+          <div class="tabCard">
+            <div class="cardTitle">课程资料</div>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+
     </div>
   </div>
 </template>
@@ -33,6 +70,38 @@ export default {
       teac: {
         classone: "暂无",
         classtwo: "暂无",
+      },
+      activeName: 'first',
+      topicList: {
+        number: 1,
+        topicArr: [
+          {
+            title: '第一学期摸底题',
+            time: '2018-2-13',
+            point: 10,
+            case: 40,
+            count: 100,
+            classification: [
+              {
+                clas: '选择题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '填空题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '计算题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '不限定',
+                quantity: 10,
+                score: 20
+              },
+            ]
+          },
+        ]
       }
     }
   },
@@ -44,7 +113,17 @@ export default {
   },
   destroyed() {
     this.$store.commit("shixunshow",true)
-  }
+  },
+  methods: {
+    handleClick(tab, event) {
+      
+    }
+  },
+  computed: {
+    has() {
+      return this.topicList.number>0? false: true
+    }
+  },
 }
 </script>
 
@@ -80,15 +159,21 @@ export default {
   width: 120px;
   height: 40px; 
   background: rgba(0,176,255,1);
-  background-image: url('../../share/img/icon_class_mouse.png');
   background-repeat: no-repeat;
   background-position: 14px 9px;
+  background-image: url('../../share/img/icon_class_mouse.png');
   border-radius: 7px;
   font-family: PingFangSC-Regular;
   color: rgba(255,255,255,1);
   line-height: 40px;
   text-indent: 50px;
   font-size: 14px;
+}
+.anli:hover {
+  background: #F99090;
+  background-repeat: no-repeat;
+  background-position: 14px 9px;
+  background-image: url('../../share/img/icon_class_mouse2.png');
 }
 .book {
   height: 180px;
@@ -120,16 +205,158 @@ export default {
   color: rgba(36,56,71,1);
   line-height: 20px;
 }
-.book .ico .one {
+.book .ico span {
   padding-left: 50px;
+}
+.book .ico .one {
+  cursor: pointer;
   background: url('../../share/img/icon_setclass_normal.png') 20px 0 no-repeat;
 }
+.book .ico .one:hover {
+  background: url('../../share/img/icon_setclass_normalcopy.png') 20px 0 no-repeat;
+  color: #F99090;
+}
 .book .ico .two {
-  padding-left: 50px;
+  cursor: pointer;
   background: url('../../share/img/icon_class_classdata_normalcopy.png') 20px 0 no-repeat;
+}
+.book .ico .two:hover {
+  background: url('../../share/img/icon_class_classdata_normalcopy2.png') 20px 0 no-repeat;
+  color: #F99090;
 }
 .book .ico .three {
   padding-left: 190px;
   background: url('../../share/img/icon_class_count_normal.png') 160px 0 no-repeat;
+}
+.el-tabs__item span {
+  font-size: 12px;
+  color: #A5B7C5;
+  width: 90px;
+  height: 35px;
+  line-height: 35px;
+  text-align: right;
+  padding-right: 10px;
+  display: block;
+  background-position: 5px 8px;
+  background-repeat: no-repeat;
+}
+.el-tabs__item.is-active span {
+  color: #323C47;
+  background-color: white;
+  font-family: PingFangSC-Regular;
+}
+.el-tabs__item .icon1 {
+  background-image: url('../../share/img/icon_class_tab_1_normal.png');
+}
+.el-tabs__item .icon1:hover, .el-tabs__item.is-active .icon1 {
+  background-image: url('../../share/img/icon_class_hover.png');
+}
+.el-tabs__item .icon2 {
+  background-image: url('../../share/img/icon_class_tab_2_normal.png');
+}
+.el-tabs__item .icon2:hover, .el-tabs__item.is-active .icon2 {
+  background-image: url('../../share/img/icon_class_tab_2_hover.png');
+}
+.el-tabs__item .icon3 {
+  background-image: url('../../share/img/icon_class_tab_3_normal.png');
+}
+.el-tabs__item .icon3:hover, .el-tabs__item.is-active .icon3 {
+  background-image: url('../../share/img/icon_class_tab_3_hover.png');
+}
+.el-tabs__item .icon4 {
+  background-image: url('../../share/img/icon_class_tab_4_normal.png');
+}
+.el-tabs__item .icon4:hover, .el-tabs__item.is-active .icon4 {
+  background-image: url('../../share/img/icon_class_tab_4_hover.png');
+}
+.tabCard {
+  background-color: white;
+  padding: 25px 40px 25px 20px;
+  min-height: 415px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.topicLass {
+  background-image: url('../../share/img/img_unress.png');
+}
+.cardTitle {
+  position: relative;
+  font-family: PingFangSC-Regular;
+  margin-bottom: 25px;
+}
+.careName {
+  font-size: 14px;
+  color: #243847;
+  line-height: 20px;
+  padding-bottom: 5px;
+  margin-left: 20px;
+  border-bottom: 5px solid #00B0FF;
+}
+.careName span {
+  font-size: 12px;
+  color: rgba(165,183,197,1);
+  line-height: 12px;
+}
+.addBtn {
+  position: absolute;
+  right: 60px;
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #00B0FF;
+  color: white;
+  font-size: 28px;
+  text-indent: 1px;
+  text-align: center;
+  line-height: 23px;
+  cursor: pointer;
+}
+.addName {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  height: 28px;
+  line-height: 28px;
+  font-size: 11px;
+  color: rgba(36,56,71,1);
+  cursor: pointer;
+  padding-left: 40px;
+  z-index: 2;
+}
+.addName:hover {
+  color: #F77676;
+}
+.addName:hover+span {
+  background-color: #F77676;
+}
+.tizuBox {
+  padding: 20px;
+  border: 1px solid #E9EFF4;
+  border-radius: 6px;
+}
+.tizuBox h3 {
+  font-family: PingFangSC-Regular;
+  color: #00B0FF;
+  font-size: 14px;
+  position: relative;
+  font-weight: normal;
+}
+.tizuBox h3 span {
+  position: absolute;
+  color: #989898;
+  font-size: 12px;
+  right: 0;
+}
+.tizuBox p {
+  line-height: 24px;
+  background-color: rgba(247, 118, 118, 0.1);
+  margin-top: 10px;
+  text-indent: 20px;
+  font-size: 12px;
+  color: #687178;
+}
+.tizuBox p span {
+  color: #00B0FF;
 }
 </style>

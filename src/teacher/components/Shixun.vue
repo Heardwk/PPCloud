@@ -4,14 +4,13 @@
     <div v-if="shixun.shixun" class="componentBox">
       <p class="boxTitle">最近使用</p>
       <div class="recently">
-        <div class="recentlyList" v-for="(item,index) in recentlyData" :key="index">
-          <router-link :to="{path:item.url, query: {name: item.name}}">
-            <img :src="item.src" height="180" width="120">
-          </router-link>
-          <h4><router-link :to="{path:item.url, query: {name: item.name}}">{{item.name}}</router-link></h4>
+        <router-link class="recentlyList" tag="div" v-for="(item,index) in recentlyData" 
+        :key="index" :to="{path:item.url, query: {name: item.name}}">
+          <img :src="item.src" height="180" width="120">
+          <h4>{{item.name}}</h4>
           <p>案例数量：{{item.number}}题</p>
           <p>更新时间：{{item.time}}</p>
-        </div>
+        </router-link>
       </div>
     </div>
     <div v-if="shixun.shixun" style="background: white; padding-top: 1px;">
@@ -116,6 +115,7 @@ export default {
   border-radius: 8px;
   padding-left: 160px;
   margin-bottom: 50px;
+  cursor: pointer;
   font-family: PingFangSC;
   color: #FFFFFF;
   box-shadow: 0 6px 16px 0px rgba(0, 0, 0, 0.15);

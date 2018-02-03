@@ -115,4 +115,20 @@ header {
   margin: 0 auto;
   overflow: hidden
 }
+/*课程*/
+.kechengTab .el-tabs__header {
+  border-bottom: 0;
+  border-bottom: none;
+  margin: 0;
+}
+.kechengTab .el-tabs__header .el-tabs__nav {
+  border: 0;
+  border: none;
+}
+.kechengTab .el-tabs__header .el-tabs__nav .el-tabs__item {
+  border: 0;
+  border: none;
+  padding: 0;
+  margin: 20px 25px 20px 0;
+}
 </style>
