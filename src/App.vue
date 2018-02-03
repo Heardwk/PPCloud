@@ -26,15 +26,38 @@ export default {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
+::-webkit-scrollbar{
+  width: 0;
+  opacity: 0;
+  -webkit-overflow-scrolling: touch;
+}
+::-moz-scrollbar{
+  width: 0;
+  opacity: 0;
+  -moz-overflow-scrolling: touch;
+}
+@-moz-document url-prefix(chrome://), url-prefix(about:), 
+url-prefix(file:///), url-prefix(http://), url-prefix(https://){
+  scrollbar{
+    -moz-appearance: none !important;
+    background-color: transparent !important;/* 滚动条背景透明 */
+    background-image: none !important; /* 滚动条背景图案不显示 */
+    position: relative !important; /* 更改滚动条的定位方式为相对 */
+    overflow: hidden !important;
+    z-index: 999999999 !important; /* 把滚动条提到Z轴最上层 */
+  }
+  scrollbar[orient="vertical"] {   
+    width: 0 !important;   
+  } 
+}
 html,
 body {
   height: 100%;
+  width: 100%;
   font-family: "Microsoft YaHei","微软雅黑","Helvetica Neue","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-  overflow-x: hidden;
-  overflow-y: auto;
   background-color: #F8F8F8;
 }
 div {
@@ -75,6 +98,8 @@ button {
 }
 .el-main {
   padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 header {
   background-color: transparent;
@@ -130,5 +155,8 @@ header {
   border: none;
   padding: 0;
   margin: 20px 25px 20px 0;
+}
+.el-dialog__close {
+  display: none;
 }
 </style>

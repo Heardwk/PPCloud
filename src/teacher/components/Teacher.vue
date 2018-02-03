@@ -84,12 +84,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 
-}
 .dropdownList li {
   padding: 0;
 }

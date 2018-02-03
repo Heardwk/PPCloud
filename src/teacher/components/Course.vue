@@ -9,8 +9,8 @@
           <h3>{{bookAttr.name}}</h3>
           <p>{{bookAttr.text}}</p>
           <p class="ico">
-            <span class="one">任教班级: {{teac.classone}}</span>
-            <span class="two">任教班级: {{teac.classtwo}}</span>
+            <span class="one" @click="setDailog=true">任教班级: {{teac.classone}}</span>
+            <span class="two" @click="setDailog=true">任教期间: {{teac.classtwo}}</span>
             <span class="three">{{bookAttr.topic}}题</span>
           </p>
         </div>
@@ -73,8 +73,39 @@
           </div>
         </el-tab-pane>
       </el-tabs>
-
     </div>
+    <!-- 教师设置弹窗 -->
+    <el-dialog :visible.sync="setDailog" width="600px">
+      <span class="setTitle">设置任教班级及期间</span>
+      <div class="setBox"><span>任教时间：</span>{{setTime}}</div>
+      <div class="setBox">
+        <span>任教班级：</span>
+        <el-select v-model="setValue1" placeholder="选择院系">
+          <el-option
+            v-for="item in setOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-select v-model="setValue2" placeholder="选择年级">
+          <el-option
+            v-for="item in setOptionsA"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+      <div class="setBox">
+        <span>选择班级：</span>
+        <span v-for="(item,index) in hasClass" :key="index">{{item.class}}</span>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setDailog=false">取 消</el-button>
+        <el-button type="primary" @click="setDailogT">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -83,6 +114,61 @@ export default {
   name: 'Course',
   data () {
     return {
+      setTime: "2017-2018年第二学期",
+      setClass: [
+        {
+          class: '18会计',
+          xibie: "会计系",
+          nianji: '2018级'
+        },{
+          class: '18财会',
+          xibie: "会计系",
+          nianji: '2018级'
+        },{
+          class: '18财会',
+          xibie: "会计系",
+          nianji: '2018级'
+        },{
+          class: '18会计',
+          xibie: "会计系",
+          nianji: '2018级'
+        },{
+          class: '18财会',
+          xibie: "会计系",
+          nianji: '2018级'
+        },{
+          class: '17经管',
+          xibie: "经管系",
+          nianji: '2017级'
+        },
+      ],
+      setOptions: [
+        {
+          value: '会计系',
+          label: '会计系',
+        },{
+          value: '经管系',
+          label: '经管系',
+        },{
+          value: '信息系',
+          label: '信息系',
+        }
+      ],
+      setOptionsA: [
+        {
+          value: '2018级',
+          label: '2018级'
+        },{
+          value: '2017级',
+          label: '2017级'
+        },{
+          value: '2016级',
+          label: '2016级'
+        }
+      ],
+      setValue1: '',
+      setValue2: '',
+      setDailog: true,
       bookAttr: {
         name: '没有',
         src: require('../../share/img/image_class_cover.png'),
@@ -95,7 +181,7 @@ export default {
       },
       activeName: 'first',
       topicList: {
-        number: 1,
+        number: 0,
         topicArr: [
           {
             title: '第一学期摸底题',
@@ -212,11 +298,23 @@ export default {
   methods: {
     handleClick(tab, event) {
       
+    },
+    setDailogT() {
+      this.setDailog = false;
     }
   },
   computed: {
     has() {
       return this.topicList.number>0? false: true
+    },
+    hasClass() {
+      let arr = [];
+      for(let i in this.setClass){
+        if(this.setClass[i].xibie==this.setValue1&&this.setClass[i].nianji==this.setValue2){
+          arr.push(this.setClass[i])
+        }
+      }
+      return arr;
     }
   },
 }
@@ -302,26 +400,32 @@ export default {
 }
 .book .ico span {
   padding-left: 50px;
+  line-height: 25px;
+  height: 25px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 20px 1px;
 }
 .book .ico .one {
   cursor: pointer;
-  background: url('../../share/img/icon_setclass_normal.png') 20px 0 no-repeat;
+  background-image: url('../../share/img/icon_setclass_normal.png');
 }
 .book .ico .one:hover {
-  background: url('../../share/img/icon_setclass_normalcopy.png') 20px 0 no-repeat;
+  background-image: url('../../share/img/icon_setclass_normalcopy.png');
   color: #F99090;
 }
 .book .ico .two {
   cursor: pointer;
-  background: url('../../share/img/icon_class_classdata_normalcopy.png') 20px 0 no-repeat;
+  background-image: url('../../share/img/icon_class_classdata_normalcopy.png');
 }
 .book .ico .two:hover {
-  background: url('../../share/img/icon_class_classdata_normalcopy2.png') 20px 0 no-repeat;
+  background-image: url('../../share/img/icon_class_classdata_normalcopy2.png');
   color: #F99090;
 }
 .book .ico .three {
   padding-left: 190px;
-  background: url('../../share/img/icon_class_count_normal.png') 160px 0 no-repeat;
+  background-position: 160px 2px;
+  background-image: url('../../share/img/icon_class_count_normal.png');
 }
 .el-tabs__item span {
   font-size: 12px;
@@ -552,5 +656,34 @@ export default {
 }
 .border .light {
   color: #00B0FF;
+}
+/* 设置教师任教 */
+.setTitle {
+  position: absolute;
+  top: 15px;
+  left: 25px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  color: #687178;
+  line-height: 25px;
+  border-bottom: 4px solid #00B0FF;
+  font-size: 12px;
+}
+.setBox {
+  font-family: PingFangSC-Regular;
+  margin: 0 30px 0 25px;
+  padding: 8px 0 15px 0;
+  border-bottom: 1px solid #EEEEEE;
+}
+.setBox span {
+  color: #A5B7C5;
+  margin-right: 20px;
+}
+.el-select {
+  width: 140px;
+  margin-top: 5px;
+}
+.el-select:last-child {
+  margin-left: 20px;
 }
 </style>
