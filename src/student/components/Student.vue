@@ -1,43 +1,44 @@
 <template>
   <div class="">
-         <ul class="navigation">
-     	<div class="logo-left">
-     		   <a :href="shref" class="logo-left_img"></a>
-     		   <span >云上实训</span>
-     	</div>
-			 <div class="heads">
-        <el-header class="mainMenu" height="65px">
-        	<router-link class="link" data-content="实训中心" to="trainingCenter">实训中心</router-link>
-          <router-link class="link" data-content="我的任务" to="myTask">我的任务</router-link>
-          <router-link class="link" data-content="成绩管理" to="management">成绩管理</router-link>
-          <router-link class="link" data-content="能力档案" to="abilityfile">能力档案</router-link>
-          <router-link class="link" data-content="资料共享" to="datasharing">资料共享</router-link>
-          <el-dropdown>
-          <img class="logo-img" src="" alt="" />
-					  <span class="el-dropdown-link">学生</span>
-					  <el-dropdown-menu slot="dropdown">
-					    <el-dropdown-item>个人中心</el-dropdown-item>
-					    <el-dropdown-item>退出</el-dropdown-item>
-					  </el-dropdown-menu>
-					</el-dropdown>
-        </el-header>
-     </div>
+        <ul class="navigation">
+				 <div class="heads">
+	        <el-header class="mainMenu">
+	        	<div class="logo-left">
+			     		   <a :href="shref" class="logo-left_img"></a>
+			     	</div>
+	        	<router-link class="link" data-content="实训中心" to="trainingCenter">实训中心</router-link>
+	          <router-link class="link" data-content="我的任务" to="myTask">我的任务</router-link>
+	          <router-link class="link" data-content="成绩管理" to="management">成绩管理</router-link>
+	          <router-link class="link" data-content="能力档案" to="abilityfile">能力档案</router-link>
+	          <router-link class="link" data-content="资料共享" to="datasharing">资料共享</router-link>
+	         <!-- <router-link class="link" data-content="资料共享" to="dialogs">资料共享</router-link>-->
+	          <el-dropdown>
+	          <img class="logo-img" :src="studentimgs" />
+						  <span class="el-dropdown-link">学生</span>
+						  <el-dropdown-menu slot="dropdown">
+						    <el-dropdown-item>个人中心</el-dropdown-item>
+						    <el-dropdown-item>退出</el-dropdown-item>
+						  </el-dropdown-menu>
+						</el-dropdown>
+	        </el-header>
+	     </div>
 			</ul>
-			 <transition name="page">
-         <keep-alive> 
-            <router-view />
-          </keep-alive>
-       </transition>
-       <el-footer>
+			<transition name="page">
+          <div class="el-main—ss">
+	          <keep-alive> 
+	            <router-view />
+	          </keep-alive>
+          </div>
+      </transition>
        	<div class="footer">
        	     <ul>
        	     	<li><a href="#">帮助</a></li>
-       	     	<li><a href="#">隐私</a></li>
-       	     	<li><a href="#">条款</a></li>
+       	     	<li><a href="#" class="tk">隐私条款</a></li>
+       	     	<li><a href="#">版权声明</a></li>
        	     </ul>
+       	     <span>copyright&nbsp;©&nbsp;2018&nbsp;中德安普大数据网络科技有限公司</span>
+       	     <b>湘ICP备15000989号-1</b>
        	</div>
-       	  <p>copyright&nbsp;&nbsp;©&nbsp;2018&nbsp; 中德安普大数据网络科技有限公司</p>
-       </el-footer>
   </div>
 </template>
 
@@ -46,7 +47,8 @@ export default {
   name: 'Student',
   data () {
     return {
-      shref: 'www.baidu.com'
+      shref: '',
+      studentimgs:require('../../share/img/img_logo_top@2x.png'),
     }
   }
 }
@@ -54,6 +56,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+	.el-dropdown-menu__item{
+		padding: 10px;
+	}
 	html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -121,20 +126,18 @@ ul{
   display: flex;
   display: -webkit-flex;
   justify-content: center;
-  margin-right: 3vw;
 }
 .head a{
 	 color: #FFFFFF;
 }
 .mainMenu {
-  width: 100%;
+  height: 80px!important;
+  width: 1440px;
   display: flex;
-  display: -webkit-flex;
-  justify-content: flex-end;
-  align-self: center;
+  justify-content: center;
 }
 .link {
-  margin: 0 2vw;
+  margin: 0 15px;
   padding: 0;
   -webkit-transition: all .3s linear;
           transition: all .3s linear;
@@ -154,25 +157,9 @@ ul{
   -webkit-clip-path: inset(0% 100% 0% 0%);
           clip-path: inset(0% 100% 0% 0%);
 }
-.link::before {
-  position: absolute;
-  content: '';
-  left: 0;
-  right: 100%;
-  bottom: 9px;
-  height: 2px;
-  background-color: #157cf0;
-  -webkit-transition: all .3s linear;
-     -moz-transition: all .3s linear;
-          transition: all .3s linear;
-          
-}
 .link:hover::after, .router-link-active::after {
   -webkit-clip-path: inset(0% 0% 0% 0%);
           clip-path: inset(0% 0% 0% 0%);
-}
-.router-link-active::before {
-  right: 0;
 }
 .fixed {
   position: fixed;
@@ -190,25 +177,33 @@ ul{
   padding-bottom: 1.3rem
 }
 .el-dropdown-link{
-	  height: 65px;
-    line-height: 65px;
+	  height: 80px;
+    line-height: 80px;
     padding: 0;
     font-size: 16px;
-    color: #fff;
+    color:rgba(104,113,120,1);
     -webkit-transition: all .3s linear;
     transition: all .3s linear;
     position: relative;
     text-decoration: none;
-        margin: 0 1vw;
+    margin: 0 1vw;
 }
 .navigation{
-	  background-color: rgba(0, 24, 46, 1);
-	  margin: 0;  
+	  background-color:#FFFFFF;
+	  margin: 0; 
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0px 0px 16px 6px rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 12px 6px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 1;
 }
 .heads a{
-	   height:65px;
-	  line-height: 65px;
-	  color: #fff;
+	width:72px;
+	height:80px; 
+	font-size:18px;
+	font-family:MicrosoftYaHei;
+	color:rgba(104,113,120,1);
+	line-height:80px;
 }
 .logo-img{
 	  display: inline-block;
@@ -223,52 +218,82 @@ ul{
     box-shadow: none;
     font-size: 18px;
     color: #FFFFFF;
-    vertical-align:middle; 
+    vertical-align:middle;
 }
 .el-dropdown {
     display: inline-block;
     position: relative;
     color: #606266;
     font-size: 14px;
-    margin-left: 2vw;
+    margin-left: 51px;
 }
 .logo-left{
-	float: left;
-	margin-left: 1vw;
-	height:65px;
-	width: 300px;
-	justify-content: center;
-	vertical-align: center;
+	 width: 200px;
+	 height: 80px;
+	 text-align: center;
+	 margin-right: 105px;
+	 display: flex;
+   justify-content: center;
+   align-items: center;
 }
-.logo-left_img{
-  float: left;
-	width: 69px;
-  height: 64px;
-  background-image: url(../assets/u28.png);
+.logo-left>.logo-left_img{
+	display: inline-block;
+	width: 164px;
+  background-image: url('../../share/img/img_logo_top@2x.png');
   background-repeat: no-repeat;
   cursor: pointer;
+  height: 38px;
 }
-.logo-left>span{
-  float: left;
-	width: 110px;
-  height: 65px;
-  line-height: 65px;
-  color: #FFFFFF;
-  font-size: 20px;
-}
-.footer>ul{
+
+.footer{
 	 width: 100%;
 	 display: flex;
 	 justify-content: center;
+	 align-items: center;
+	 height: 65px;
+	 line-height: 65px;
+}
+.footer>ul{
+	display: flex;
+	
+}
+.footer>ul>Li{
+	margin: 0px 17px;
 }
 .footer>ul>li>a{
-  display:inline-block;
-	width: 70px;
-	height: 20px;
-	color: #333333;
-	text-align:center;
-	text-decoration: none;
-	line-height: 20px;
-	margin-bottom: 1vw;
+	font-size:16px;
+	font-family:MicrosoftYaHei;
+	color:rgba(165,183,197,1);
+	line-height:21px;	
 }
+.footer>span{
+	margin-left: 52px;
+	width:384px;
+	height:21px; 
+	font-size:16px;
+	font-family:MicrosoftYaHei;
+	color:rgba(165,183,197,1);
+	line-height:21px;
+}
+.footer>b{
+	margin-left: 106px;
+	display:inline-block ;
+	font-weight: 400;
+	width:165px;
+	height:21px; 
+	font-size:16px;
+	font-family:MicrosoftYaHei;
+	color:rgba(165,183,197,1);
+	line-height:21px;
+}
+.tk{
+   color:#00B0FF!important;
+}
+/*内容*/
+.el-main—ss{
+	width: 100%;
+	height: 100%;
+	background-color: white;
+}
+
 </style>

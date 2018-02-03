@@ -18,6 +18,7 @@ import myTask from '@/student/components/myTask'
 import management from '@/student/components/management'
 import abilityfile from '@/student/components/abilityfile'
 import datasharing from '@/student/components/datasharing'
+import Basic_Accounting from '@/student/components/Basic_Accounting'
 
 Vue.use(Router)
 
@@ -113,6 +114,11 @@ export default new Router({
           path:'datasharing',
           name:'datasharing',
           component:datasharing
+        },
+        {
+          path:'Basic_Accounting',
+          name:'Basic_Accounting',
+          component:Basic_Accounting
         },
       ]
     },

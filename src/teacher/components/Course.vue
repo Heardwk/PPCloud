@@ -26,8 +26,30 @@
             </div>
             <div v-if="!has">
               <div v-for="(item,index) in topicList.topicArr" :key="index" class="tizuBox">
-                <h3>{{item.title}}<span>{{item.time}}</span></h3>
-                <p>基本信息： 已选择<span>{{item.point}}</span>个知识点，共<span>{{item.case}}</span>个案例，总分值<span>{{item.count}}</span>分</p>
+                <div class="ctrlBox">
+                  <p><span>逐题预览</span></p>
+                  <p><span>编辑题组</span></p>
+                  <p><span>发布任务</span></p>
+                  <div><span>删除</span><span>下载</span></div>
+                </div>
+                <div class="borR">
+                  <h3>{{item.title}}<span>{{item.time}}</span></h3>
+                  <p>基本信息： 已选择<span>{{item.point}}</span>个知识点，共<span>{{item.case}}</span>个案例，总分值<span>{{item.count}}</span>分</p>
+                  <div class="list">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <div v-for="(i,index) in item.classification" :key="index">
+                      <div class="abso" v-if="index==0"><span>题型</span><span>数量</span><span>计分</span></div>
+                      <div class="abso" v-else-if="index==4"><span>题型</span><span>数量</span><span>计分</span></div>
+                      <div class="abso" v-else-if="index==8"><span>题型</span><span>数量</span><span>计分</span></div>
+                      <div class="border">
+                        <span>{{i.clas}}</span>
+                        <span class="light">{{i.quantity}}</span>
+                        <span>{{i.score}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -97,8 +119,81 @@ export default {
               },{
                 clas: '不限定',
                 quantity: 10,
+                score: 4
+              },{
+                clas: '选择题',
+                quantity: 10,
                 score: 20
-              },
+              },{
+                clas: '填空题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '计算题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '不限定',
+                quantity: 10,
+                score: 8
+              },{
+                clas: '选择题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '填空题',
+                quantity: 10,
+                score: 20
+              }
+            ]
+          },{
+            title: '第一学期摸底题',
+            time: '2018-2-13',
+            point: 10,
+            case: 40,
+            count: 100,
+            classification: [
+              {
+                clas: '选择题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '填空题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '计算题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '不限定',
+                quantity: 10,
+                score: 4
+              },{
+                clas: '选择题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '填空题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '计算题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '不限定',
+                quantity: 10,
+                score: 8
+              },{
+                clas: '选择题',
+                quantity: 10,
+                score: 20
+              },{
+                clas: '填空题',
+                quantity: 10,
+                score: 20
+              }
             ]
           },
         ]
@@ -334,21 +429,72 @@ export default {
   padding: 20px;
   border: 1px solid #E9EFF4;
   border-radius: 6px;
+  position: relative;
+  margin-bottom: 25px;
 }
-.tizuBox h3 {
+.tizuBox .borR {
+  margin-right: 160px;
+  padding-right: 20px;
+  position: relative;
+  border-right: 1px solid #EEEEEE;
+}
+.tizuBox .ctrlBox {
+  position: absolute;
+  right: 10px;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+}
+.ctrlBox span {
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: 12px 5px;
+}
+.ctrlBox span:hover {
+  color: #F77676;
+  background-image: url('../../share/img/icon_setclass_normalcopy.png');
+}
+.ctrlBox p {
+  text-align: center;
+  margin: 8px 0 16px 0;
+}
+.ctrlBox p span {
+  margin: 0 auto;
+  width: 110px;
+  line-height: 30px;
+  display: block;
+  text-indent: 18px;
+  border-radius: 2px;
+  border: 1px solid #00B0FF;
+  color: rgba(0,176,255,1);
+  background-image: url('../../share/img/icon_setclass_normal.png');
+}
+.ctrlBox p span:hover {
+  color: #F77676;
+  border-color: #F77676;
+}
+.ctrlBox div span {
+  color: #A5B7C5;
+  padding-left: 35px;
+  line-height: 40px;
+  width: 80px;
+  display: inline-block;
+  background-position: 7px 10px;
+  background-image: url('../../share/img/icon_setclass_normal.png');
+}
+.borR h3 {
   font-family: PingFangSC-Regular;
   color: #00B0FF;
   font-size: 14px;
   position: relative;
   font-weight: normal;
 }
-.tizuBox h3 span {
+.borR h3 span {
   position: absolute;
   color: #989898;
   font-size: 12px;
   right: 0;
 }
-.tizuBox p {
+.borR p {
   line-height: 24px;
   background-color: rgba(247, 118, 118, 0.1);
   margin-top: 10px;
@@ -356,7 +502,55 @@ export default {
   font-size: 12px;
   color: #687178;
 }
-.tizuBox p span {
+.borR p span {
+  color: #00B0FF;
+}
+.list {
+  columns: 100px 3;
+  -moz-columns: 100px 3;
+  -webkit-columns: 100px 3;
+  position: relative;
+  padding-top: 45px;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+}
+.line {
+  position: absolute;
+  width: 1px;
+  height: 150px;
+  background: #EEEEEE;
+  top: 15px;
+  left: 441px;
+}
+.line:first-child {
+  left: 212px;
+}
+.abso {
+  position: absolute;
+  line-height: 25px;
+  top: 16px;
+}
+.abso span {
+  color: rgba(165,183,197,1);
+  border-bottom: 1px solid #EEEEEE;
+  padding-bottom: 2px;
+  display: inline-block;
+  width: 65px;
+  text-align: center;
+}
+.border {
+  clear: both;
+}
+.border span {
+  width: 65px;
+  text-align: center;
+  color: #687178;
+  line-height: 30px;
+  height: 29px;
+  border-bottom: 1px solid #EEEEEE;
+  float: left;
+}
+.border .light {
   color: #00B0FF;
 }
 </style>
