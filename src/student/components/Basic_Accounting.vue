@@ -140,11 +140,11 @@ export default{
 	display: inline-block;
 	width: 18px;
 	height: 18px;
-	background: url(../../share/img/icon_setclass_normal@2x.png);
+	background: url('../../share/img/icon_setclass_normal@2x.png');
 	margin-right:11px ;
 }
 .Basic_index_top_rig>b>i:hover{
-	background: url(../../share/img/icon_setclass_normal_copy@2x.png);
+	background: url('../../share/img/icon_setclass_normal_copy@2x.png');
 	 
 }
 .Basic_index_bot{

@@ -9,7 +9,10 @@
           <h3>{{bookAttr.name}}</h3>
           <p>{{bookAttr.text}}</p>
           <p class="ico">
-            <span class="one" @click="setDailog=true">任教班级: {{teac.classone}}</span>
+            <span class="one" @click="setDailog=true">
+              任教班级: 
+              <span v-for="(item,index) in teac.classone" :key="index">{{item}} </span>
+            </span>
             <span class="two" @click="setDailog=true">任教期间: {{teac.classtwo}}</span>
             <span class="three">{{bookAttr.topic}}题</span>
           </p>
@@ -21,11 +24,11 @@
           <span slot="label" class="icon1">我的题组</span>
           <div class="tabCard" :class="{ topicLass: has }">
             <div class="cardTitle">
-              <span class="careName">我的题组 <span> (共{{topicList.number}}个)</span></span>
-              <span class="addName">新建题组</span><span class="addBtn">+</span>
+              <span class="careName">我的题组 <span> (共{{topicList.length}}个)</span></span>
+              <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn">+</span>
             </div>
             <div v-if="!has">
-              <div v-for="(item,index) in topicList.topicArr" :key="index" class="tizuBox">
+              <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
                 <div class="ctrlBox">
                   <p><span>逐题预览</span></p>
                   <p><span>编辑题组</span></p>
@@ -99,12 +102,22 @@
       </div>
       <div class="setBox">
         <span>选择班级：</span>
-        <span v-for="(item,index) in hasClass" :key="index">{{item.class}}</span>
+        <div id="checkClas" class="checkClas">
+          <span v-for="(item,index) in hasClass" :key="index">
+            <input :id="index" type="checkbox" name="cls" :disabled="item.chec" :value="item.class">
+            <label :for="index">{{item.class}}</label>
+          </span>
+        </div>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setDailog=false">取 消</el-button>
         <el-button type="primary" @click="setDailogT">确 定</el-button>
       </span>
+    </el-dialog>
+
+    <!-- 新建题组弹窗 -->
+    <el-dialog :visible.sync="newDailog" width="600px">
+      <span class="setTitle">新建题组</span>
     </el-dialog>
   </div>
 </template>
@@ -119,27 +132,33 @@ export default {
         {
           class: '18会计',
           xibie: "会计系",
-          nianji: '2018级'
+          nianji: '2018级',
+          chec: false
         },{
           class: '18财会',
           xibie: "会计系",
-          nianji: '2018级'
+          nianji: '2018级',
+          chec: false
         },{
           class: '18财会',
           xibie: "会计系",
-          nianji: '2018级'
+          nianji: '2018级',
+          chec: false
         },{
           class: '18会计',
           xibie: "会计系",
-          nianji: '2018级'
+          nianji: '2018级',
+          chec: true
         },{
           class: '18财会',
           xibie: "会计系",
-          nianji: '2018级'
+          nianji: '2018级',
+          chec: false
         },{
           class: '17经管',
           xibie: "经管系",
-          nianji: '2017级'
+          nianji: '2017级',
+          chec: false
         },
       ],
       setOptions: [
@@ -168,7 +187,8 @@ export default {
       ],
       setValue1: '',
       setValue2: '',
-      setDailog: true,
+      setDailog: false,
+      newDailog: true,
       bookAttr: {
         name: '没有',
         src: require('../../share/img/image_class_cover.png'),
@@ -176,114 +196,62 @@ export default {
         topic: 1234
       },
       teac: {
-        classone: "暂无",
+        classone: ["暂无"],
         classtwo: "暂无",
       },
       activeName: 'first',
-      topicList: {
-        number: 0,
-        topicArr: [
-          {
-            title: '第一学期摸底题',
-            time: '2018-2-13',
-            point: 10,
-            case: 40,
-            count: 100,
-            classification: [
-              {
-                clas: '选择题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '填空题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '计算题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '不限定',
-                quantity: 10,
-                score: 4
-              },{
-                clas: '选择题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '填空题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '计算题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '不限定',
-                quantity: 10,
-                score: 8
-              },{
-                clas: '选择题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '填空题',
-                quantity: 10,
-                score: 20
-              }
-            ]
-          },{
-            title: '第一学期摸底题',
-            time: '2018-2-13',
-            point: 10,
-            case: 40,
-            count: 100,
-            classification: [
-              {
-                clas: '选择题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '填空题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '计算题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '不限定',
-                quantity: 10,
-                score: 4
-              },{
-                clas: '选择题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '填空题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '计算题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '不限定',
-                quantity: 10,
-                score: 8
-              },{
-                clas: '选择题',
-                quantity: 10,
-                score: 20
-              },{
-                clas: '填空题',
-                quantity: 10,
-                score: 20
-              }
-            ]
-          },
-        ]
-      }
+      topicList: [
+        {
+          title: '第一学期摸底题',
+          time: '2018-2-13',
+          point: 10,
+          case: 40,
+          count: 100,
+          classification: [
+            {
+              clas: '选择题',
+              quantity: 10,
+              score: 20
+            },{
+              clas: '填空题',
+              quantity: 10,
+              score: 20
+            },{
+              clas: '计算题',
+              quantity: 10,
+              score: 20
+            },{
+              clas: '不限定',
+              quantity: 10,
+              score: 4
+            },{
+              clas: '选择题',
+              quantity: 10,
+              score: 20
+            },{
+              clas: '填空题',
+              quantity: 10,
+              score: 20
+            },{
+              clas: '计算题',
+              quantity: 10,
+              score: 20
+            },{
+              clas: '不限定',
+              quantity: 10,
+              score: 8
+            },{
+              clas: '选择题',
+              quantity: 10,
+              score: 20
+            },{
+              clas: '填空题',
+              quantity: 10,
+              score: 20
+            }
+          ]
+        }
+      ] 
     }
   },
   mounted() {
@@ -301,11 +269,24 @@ export default {
     },
     setDailogT() {
       this.setDailog = false;
+      let checkClas = document.getElementById("checkClas");
+      let checkI = checkClas.getElementsByTagName("input");
+      let arr = [];
+      for(let i=0; i<checkI.length; i++) {
+        if(checkI[i].checked) {
+          arr.push(checkI[i].value);
+        }
+      }
+      if(arr.length==0){
+        arr.push("暂无")
+      }
+      this.teac.classone = arr;
+      this.teac.classtwo = this.setTime;
     }
   },
   computed: {
     has() {
-      return this.topicList.number>0? false: true
+      return this.topicList.length>0? false: true
     },
     hasClass() {
       let arr = [];
@@ -351,7 +332,7 @@ export default {
   bottom: 25px;
   width: 120px;
   height: 40px; 
-  background: rgba(0,176,255,1);
+  background-color: rgba(0,176,255,1);
   background-repeat: no-repeat;
   background-position: 14px 9px;
   background-image: url('../../share/img/icon_class_mouse.png');
@@ -363,10 +344,7 @@ export default {
   font-size: 14px;
 }
 .anli:hover {
-  background: #F99090;
-  background-repeat: no-repeat;
-  background-position: 14px 9px;
-  background-image: url('../../share/img/icon_class_mouse2.png');
+  background-color: #F99090;
 }
 .book {
   height: 180px;
@@ -397,14 +375,18 @@ export default {
   font-family: PingFangSC-Regular;
   color: rgba(36,56,71,1);
   line-height: 20px;
+  display: block;
+  width: 100%;
+  padding-right: 120px;
 }
-.book .ico span {
-  padding-left: 50px;
+.book .ico>span {
+  padding-left: 35px;
   line-height: 25px;
+  margin-right: 5px;
   height: 25px;
   display: inline-block;
   background-repeat: no-repeat;
-  background-position: 20px 1px;
+  background-position: 7px 3px;
 }
 .book .ico .one {
   cursor: pointer;
@@ -423,8 +405,9 @@ export default {
   color: #F99090;
 }
 .book .ico .three {
-  padding-left: 190px;
-  background-position: 160px 2px;
+  position: absolute;
+  right: 25px;
+  top: 0;
   background-image: url('../../share/img/icon_class_count_normal.png');
 }
 .el-tabs__item span {
@@ -672,18 +655,92 @@ export default {
 .setBox {
   font-family: PingFangSC-Regular;
   margin: 0 30px 0 25px;
-  padding: 8px 0 15px 0;
+  padding: 10px 0 15px 0;
   border-bottom: 1px solid #EEEEEE;
+  position: relative;
 }
-.setBox span {
+.setBox>span {
   color: #A5B7C5;
-  margin-right: 20px;
+  margin-right: 11px;
 }
 .el-select {
   width: 140px;
-  margin-top: 5px;
 }
 .el-select:last-child {
   margin-left: 20px;
+}
+.checkClas {
+  margin-left: 85px;
+  margin-top: -25px;
+  min-height: 40px;
+}
+.checkClas>span {
+  display: inline-block;
+  position: relative;
+}
+.checkClas>span input {
+  position: absolute;
+  top: 5px;
+  left: 15px;
+  display: block;
+  cursor: pointer;
+  z-index: -1;
+  opacity: 0;
+}
+.checkClas>span label {
+  width: 95px;
+  padding: 0 15px;
+  line-height: 28px;
+  border-radius: 3px;
+  display: block;
+  font-size: 12px;
+  font-family: PingFangSC-Regular;
+  color: #A5B7C5;
+  text-align: right;
+  border: 1px solid #A5B7C5;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  background-color: white;
+  cursor: pointer;
+  background-image: url('../../share/img/CombinedShapeB.png');
+  background-repeat: no-repeat;
+  background-position: 15px 5px;
+}
+.checkClas>span input:checked+label {
+  background-color: #7ED321;
+  color: white;
+  border: 1px solid #7ED321;
+  background-image: url('../../share/img/CombinedShapeW.png');
+}
+.checkClas>span input:disabled+label {
+  background-color: #D8D8D8;
+  color: white;
+  border: 1px solid #D8D8D8;
+  cursor: default;
+  background-image: url('../../share/img/CombinedShapeE.png');
+}
+.dialog-footer {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+.dialog-footer .el-button {
+  font-size: 12px;
+  padding: 10px 30px;
+}
+.dialog-footer .el-button--default {
+  border: 1px solid #A5B7C5;
+  color: #A5B7C5;
+  background-color: white;
+  margin-right: 35px;
+}
+.dialog-footer .el-button--default:hover {
+  color: white;
+  background-color: #A5B7C5;
+}
+.dialog-footer .el-button--primary {
+  border: 1px solid #00B0FF;
+  color: white;
+  background-color: #00B0FF;
 }
 </style>
