@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div class="componentBox">
+    <div v-if="course.course">
       <p class="path"><router-link to="/Teacher/Shixun">实训中心</router-link> &gt; {{bookAttr.name}}</p>
       <div class="whiteBox booktop">
         <img :src="bookAttr.src" height="180" width="120" class="bookimg">
@@ -18,7 +18,6 @@
           </p>
         </div>
       </div>
-
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="kechengTab">
         <el-tab-pane label="我的题组" name="first">
           <span slot="label" class="icon1">我的题组</span>
@@ -105,7 +104,10 @@
         <div id="checkClas" class="checkClas">
           <span v-for="(item,index) in hasClass" :key="index">
             <input :id="index" type="checkbox" name="cls" :disabled="item.chec" :value="item.class">
-            <label :for="index">{{item.class}}</label>
+            <label v-if="!item.chec" :for="index">{{item.class}}</label>
+            <el-tooltip v-else effect="dark" :content="item.teac+str" placement="top-start">
+              <label :for="index">{{item.class}}</label>
+            </el-tooltip>
           </span>
         </div>
       </div>
@@ -116,9 +118,24 @@
     </el-dialog>
 
     <!-- 新建题组弹窗 -->
-    <el-dialog :visible.sync="newDailog" width="600px">
+    <el-dialog :visible.sync="newDailog" width="700px">
       <span class="setTitle">新建题组</span>
+      <div class="newBox">
+        <div class="newOne">
+          <router-link to='/Teacher/Shixun/Course/addProblemSet'>
+            <el-button type="primary" @click="newDailog=false">快速选择案例</el-button>
+          </router-link>
+          <p>通过对知识点的选择，随机生成一定数量的案例保存为题组，给学生发布练习任务</p>
+        </div>
+        <span class="line"></span>
+        <div class="newTwo">
+          <el-button type="primary" @click="newDailog=false">快速选择案例</el-button>
+          <p>手动挑选每一个具体的案例，交将其保存为题组，给学生发布练习任务</p>
+        </div>
+      </div>
     </el-dialog>
+
+    <router-view />
   </div>
 </template>
 
@@ -127,38 +144,45 @@ export default {
   name: 'Course',
   data () {
     return {
+      str: "老师已经选择",
       setTime: "2017-2018年第二学期",
       setClass: [
         {
           class: '18会计',
           xibie: "会计系",
           nianji: '2018级',
-          chec: false
+          chec: false,
+          teac: ''
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
-          chec: false
+          chec: false,
+          teac: ''
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
-          chec: false
+          chec: false,
+          teac: ''
         },{
           class: '18会计',
           xibie: "会计系",
           nianji: '2018级',
-          chec: true
+          chec: true,
+          teac: '张三'
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
-          chec: false
+          chec: false,
+          teac: ''
         },{
           class: '17经管',
           xibie: "经管系",
           nianji: '2017级',
-          chec: false
+          chec: false,
+          teac: ''
         },
       ],
       setOptions: [
@@ -188,7 +212,7 @@ export default {
       setValue1: '',
       setValue2: '',
       setDailog: false,
-      newDailog: true,
+      newDailog: false,
       bookAttr: {
         name: '没有',
         src: require('../../share/img/image_class_cover.png'),
@@ -257,11 +281,11 @@ export default {
   mounted() {
     this.$store.commit("shixunshow",false);
     if(this.$route.query.name){
-      this.bookAttr.name = this.$route.query.name
+      this.$store.commit("setbook",this.$route.query.name);
+      this.bookAttr.name = this.$route.query.name;
+    }else {
+      this.bookAttr.name = this.$store.state.book;
     }
-  },
-  destroyed() {
-    this.$store.commit("shixunshow",true)
   },
   methods: {
     handleClick(tab, event) {
@@ -285,6 +309,9 @@ export default {
     }
   },
   computed: {
+    course() {
+      return this.$store.state
+    },
     has() {
       return this.topicList.length>0? false: true
     },
@@ -297,6 +324,9 @@ export default {
       }
       return arr;
     }
+  },
+  destroyed() {
+    this.$store.commit("shixunshow",true)
   },
 }
 </script>
@@ -601,7 +631,7 @@ export default {
   font-size: 12px;
   font-family: PingFangSC-Regular;
 }
-.line {
+.list .line {
   position: absolute;
   width: 1px;
   height: 150px;
@@ -609,7 +639,7 @@ export default {
   top: 15px;
   left: 441px;
 }
-.line:first-child {
+.list .line:first-child {
   left: 212px;
 }
 .abso {
@@ -742,5 +772,48 @@ export default {
   border: 1px solid #00B0FF;
   color: white;
   background-color: #00B0FF;
+}
+/*新建题组弹窗*/
+.newBox {
+  padding: 50px 30px;
+  position: relative;
+}
+.newBox>div {
+  width: 240px;
+  vertical-align: top;
+  display: inline-block;
+  padding-top: 160px;
+  text-align: left;
+  background-repeat: no-repeat;
+  background-image: url('../../share/img/img_class_goto_left.png');
+}
+.newBox>div:hover {
+  opacity: 0.7;
+}
+.newBox .line {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.newBox .newOne {
+  margin-left: 25px;
+}
+.newBox .newTwo {
+  margin-left: 66px;
+}
+.newBox>div .el-button {
+  display: block;
+  width: 145px;
+  text-indent: 25px;
+  background-color: #00B0FF;
+  background-repeat: no-repeat;
+  background-position: 10px 8px;
+  background-image: url('../../share/img/icon_class_mouse.png');
+  margin: 20px auto;
+}
+.newBox>div p {
+  font-size: 12px;
+  color: #A5B7C5;
+  text-indent: 20px;
 }
 </style>

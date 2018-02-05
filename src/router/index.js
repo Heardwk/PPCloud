@@ -11,6 +11,7 @@ import Ability from '@/teacher/components/Ability'
 import Ziliao from '@/teacher/components/Ziliao'
 import Geren from '@/teacher/components/Geren'
 import Course from '@/teacher/components/Course'
+import addProblemSet from '@/teacher/components/addProblemSet'
 
 import Student from '@/student/components/Student'
 import trainingCenter from '@/student/components/trainingCenter'
@@ -52,7 +53,14 @@ export default new Router({
             {
               path: 'Course',
               name: 'Course',
-              component: Course
+              component: Course,
+              children: [
+                {
+                  path: 'addProblemSet',
+                  name: 'addProblemSet',
+                  component: addProblemSet
+                }
+              ]
             },
           ]
         },

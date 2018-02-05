@@ -29,7 +29,8 @@
         </div>
       </div>
     </div>
-    <router-view />
+    <div class="componentBox"><router-view /></div>
+    
   </div>
 </template>
 
