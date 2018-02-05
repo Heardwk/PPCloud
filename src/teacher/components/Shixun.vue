@@ -5,7 +5,7 @@
       <p class="boxTitle">最近使用</p>
       <div class="recently">
         <router-link class="recentlyList" tag="div" v-for="(item,index) in recentlyData" 
-        :key="index" :to="{path:item.url, query: {name: item.name}}">
+        :key="index" :to="{path:item.url}" @click.native="goto(item.name)">
           <img :src="item.src" height="180" width="120">
           <h4>{{item.name}}</h4>
           <p>案例数量：{{item.number}}题</p>
@@ -17,13 +17,13 @@
       <div class="componentBox">
         <p class="boxTitle">课程实训</p>
         <div class="boxList">
-          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url, query: {name: item.name}}">
+          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url}">
             <div><img :src="item.src" height="180" width="120"></div><h5>{{item.name}}</h5>
           </router-link>
         </div>
         <p class="boxTitle">综合实训</p>
         <div class="boxList">
-          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url, query: {name: item.name}}">
+          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url}">
             <div><img :src="item.src" height="180" width="120"></div><h5>{{item.name}}</h5>
           </router-link>
         </div>
@@ -87,6 +87,11 @@ export default {
   computed: {
     shixun() {
       return this.$store.state
+    }
+  },
+  methods: {
+    goto(name) {
+      this.$store.commit("setbook",name);
     }
   },
   components: {

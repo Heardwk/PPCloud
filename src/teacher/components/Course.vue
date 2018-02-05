@@ -280,12 +280,7 @@ export default {
   },
   mounted() {
     this.$store.commit("shixunshow",false);
-    if(this.$route.query.name){
-      this.$store.commit("setbook",this.$route.query.name);
-      this.bookAttr.name = this.$route.query.name;
-    }else {
-      this.bookAttr.name = this.$store.state.book;
-    }
+    this.bookAttr.name = this.$store.state.book;
   },
   methods: {
     handleClick(tab, event) {
