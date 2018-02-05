@@ -33,8 +33,17 @@
       </div>
       <div class="rightContent">
         <p><span class="hasLine">已选知识点</span></p>
-        <div>
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;">
           <span v-for="(item,index) in ckeckList" :key="index">{{item}}</span>
+        </div>
+        <p class="all">
+          <span class="el-icon-info"></span>
+          已选择<span class="light">{{title.point}}</span>个知识点，
+          共计<span class="light">{{title.count}}</span>个案例，您可以在下一个步骤调整具体的题型及数量
+        </p>
+        <div class="btnBox">
+          <el-button>取 消</el-button>
+          <el-button @click="next" type="primary">下一步</el-button>
         </div>
       </div>
     </div>
@@ -121,7 +130,9 @@ export default {
 
       // 所有被选中的
       // console.log(this.$refs.tree.getCheckedNodes());
-
+    },
+    next() {
+      this.active++;
     }
   },
   computed: {
@@ -129,6 +140,9 @@ export default {
       let arr = [false,false,false,false];
       arr[this.active] = true;
       return arr;
+    },
+    title() {
+      return {point:5, count:150}
     }
   },
   destroyed() {
@@ -207,6 +221,29 @@ export default {
   font-size: 14px;
   background-color: white;
   border-radius: 4px;  
+}
+.all {
+  color: #687178;
+  margin-top: 5px
+}
+.all .el-icon-info {
+  color: #1890FF;
+  margin: 0 5px 0 20px;
+}
+.all .light {
+  color: #00B0FF;
+}
+.btnBox {
+  padding: 30px 70px 10px 0px;
+  text-align: right;  
+}
+.btnBox button {
+  margin-left: 20px;
+  height: 35px;
+  line-height: 35px;
+  width: 95px;
+  padding: 0;
+  display: inline-block;
 }
 .contentBox {
   margin-top: 20px;
