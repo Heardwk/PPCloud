@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     goto(name) {
-      this.$store.commit("setbook",name);
+      localStorage.setItem("bookName",name);
     }
   },
   components: {

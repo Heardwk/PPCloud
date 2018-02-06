@@ -24,7 +24,7 @@
           <div class="tabCard" :class="{ topicLass: has }">
             <div class="cardTitle">
               <span class="careName">我的题组 <span> (共{{topicList.length}}个)</span></span>
-              <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn">+</span>
+              <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn el-icon-circle-plus"></span>
             </div>
             <div v-if="!has">
               <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
@@ -280,7 +280,7 @@ export default {
   },
   mounted() {
     this.$store.commit("shixunshow",false);
-    this.bookAttr.name = this.$store.state.book;
+    this.bookAttr.name = localStorage.getItem("bookName");
   },
   methods: {
     handleClick(tab, event) {
@@ -507,16 +507,8 @@ export default {
 .addBtn {
   position: absolute;
   right: 60px;
-  display: inline-block;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background-color: #00B0FF;
-  color: white;
   font-size: 28px;
-  text-indent: 1px;
-  text-align: center;
-  line-height: 23px;
+  color: #00B0FF;
   cursor: pointer;
 }
 .addName {
@@ -535,7 +527,7 @@ export default {
   color: #F77676;
 }
 .addName:hover+span {
-  background-color: #F77676;
+  color: #F77676;
 }
 .tizuBox {
   padding: 20px;
@@ -779,11 +771,12 @@ export default {
   display: inline-block;
   padding-top: 160px;
   text-align: left;
+  opacity: 0.7;
   background-repeat: no-repeat;
   background-image: url('../../share/img/img_class_goto_left.png');
 }
 .newBox>div:hover {
-  opacity: 0.7;
+  opacity: 1;
 }
 .newBox .line {
   position: absolute;

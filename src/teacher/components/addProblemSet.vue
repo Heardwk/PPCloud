@@ -19,7 +19,14 @@
     </div>
     <div v-if="showBox[0]" class="pointBox">
       <div class="leftContent">
-        <p><span class="hasLine">知识点</span></p>
+        <p>
+          <span class="hasLine">知识点</span>
+          <el-input
+            class="serch"
+            placeholder="关键字搜索"
+            v-model="filterText">
+          </el-input>
+        </p>
         <el-tree
           class="tree"
           :props="defaultProps"
@@ -27,14 +34,24 @@
           node-key="id"
           show-checkbox
           ref="tree"
+          :filter-node-method="filterNode"
           :accordion = "isAccordion"
           @check-change="handleCheckChange">
         </el-tree>
       </div>
       <div class="rightContent">
         <p><span class="hasLine">已选知识点</span></p>
-        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;">
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
           <span v-for="(item,index) in ckeckList" :key="index">{{item}}</span>
+          <div v-if="checkTree.length>0">
+            <el-tag
+              v-for="item in checkTree"
+              :key="item.id"
+              @close="handleClose(item)"
+              closable>
+              {{item.label}}
+            </el-tag>
+          </div>
         </div>
         <p class="all">
           <span class="el-icon-info"></span>
@@ -42,14 +59,48 @@
           共计<span class="light">{{title.count}}</span>个案例，您可以在下一个步骤调整具体的题型及数量
         </p>
         <div class="btnBox">
-          <el-button>取 消</el-button>
-          <el-button @click="next" type="primary">下一步</el-button>
+          <el-button @click="active">取 消</el-button>
+          <el-button @click="active++" type="primary">下一步</el-button>
         </div>
       </div>
     </div>
-    <div v-if="showBox[1]" class="contentBox">2</div>
-    <div v-if="showBox[2]" class="contentBox">3</div>
-    <div v-if="showBox[3]" class="contentBox">4</div>
+    <div v-if="showBox[1]" class="contentBox">
+      <p><span class="hasLine">已选题型及数量</span></p>
+      <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+        
+      </div>
+      <p class="all">
+        <span class="el-icon-info"></span>
+        已选择<span class="light">{{title.point}}</span>个知识点，
+        共计<span class="light">{{title.count}}</span>个案例，
+        累计总分<span class="light">{{allCount}}</span>分，创建完成后，您可以随时调整这些参数。
+      </p>
+      <div class="btnBox">
+        <el-button @click="active--">上一步</el-button>
+        <el-button @click="active++" type="primary">下一步</el-button>
+      </div>
+    </div>
+    <div v-if="showBox[2]" class="contentBox">
+      <p><span class="hasLine">设置题组基本信息</span></p>
+      <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+        基本信息
+      </div>
+      <p class="all"><span class="el-icon-info"></span>设置个性的名称和备注，以便更快速的找到目标题组。</p>
+      <div class="btnBox">
+        <el-button @click="active--">上一步</el-button>
+        <el-button @click="active++" type="primary">下一步</el-button>
+      </div>
+    </div>
+    <div v-if="showBox[3]" class="contentBox">
+     <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
+       完成
+     </div>
+      <p class="all"><span class="el-icon-info"></span>完成后可以将立即将题组中的题目作为任务推送给学习进行练习。</p>
+       <div class="btnBox">
+          <el-button @click="active--">上一步</el-button>
+          <el-button @click="active" type="primary">完成</el-button>
+        </div>
+    </div>
   </div>
 </template>
 
@@ -65,6 +116,8 @@ export default {
         label: 'label',
         children: 'children'
       },
+      checkTree: [],
+      filterText: '',
       dataList: [
         {
           id: 1,
@@ -116,11 +169,35 @@ export default {
         }
       ],
       ckeckList: [],
+      tixing: [
+        {
+          type: '选择题',
+          count: 0,
+          point: 0
+        },{
+          type: "多选题",
+          count: 0,
+          point: 0
+        },{
+          type: "判断题",
+          count: 0,
+          point: 0
+        },{
+          type: "综合题",
+          count: 0,
+          point: 0
+        },
+      ]
     }
   },
   mounted() {
     this.$store.commit("courseshow",false);
-    this.bookName = this.$store.state.book;
+    this.bookName = localStorage.getItem("bookName");
+  },
+  watch: {
+    filterText(val) {
+      this.$refs.tree.filter(val);
+    },
   },
   methods: {
     handleCheckChange(data, checked, indeterminate) {
@@ -129,10 +206,15 @@ export default {
       // }
 
       // 所有被选中的
-      // console.log(this.$refs.tree.getCheckedNodes());
+      this.checkTree = this.$refs.tree.getCheckedNodes();
     },
-    next() {
-      this.active++;
+    filterNode(value, data) {
+      if (!value) return true;
+      return data.label.indexOf(value) !== -1;
+    },
+    handleClose(item) {
+      this.checkTree.splice(this.checkTree.indexOf(item), 1);
+      this.$refs.tree.setCheckedNodes(this.checkTree);
     }
   },
   computed: {
@@ -143,6 +225,13 @@ export default {
     },
     title() {
       return {point:5, count:150}
+    },
+    allCount() {
+      let count = 0;
+      for(let i=0; i<this.tixing.length; i++){
+        count+=this.tixing[i].point;
+      }
+      return count
     }
   },
   destroyed() {
@@ -207,6 +296,12 @@ export default {
   border-radius: 4px;
   font-size: 14px;
 }
+.el-input {
+  display: inline-block;
+  width: 135px;
+  font-size: 12px;
+  margin-left: 30px;
+}
 .tree {
   margin-top: 10px;
   height: 530px;
@@ -221,6 +316,9 @@ export default {
   font-size: 14px;
   background-color: white;
   border-radius: 4px;  
+}
+.el-tag {
+  margin: 0 20px 20px 0;
 }
 .all {
   color: #687178;
@@ -247,8 +345,9 @@ export default {
 }
 .contentBox {
   margin-top: 20px;
-  padding: 20px 0;
+  padding: 20px;
   background-color: white;
   border-radius: 4px;
+  font-size: 14px;
 }
 </style>

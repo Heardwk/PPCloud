@@ -159,4 +159,8 @@ header {
 .el-dialog__close {
   display: none;
 }
+.serch input {
+  height: 28px;
+  line-height: 28px;
+}
 </style>
