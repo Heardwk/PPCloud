@@ -125,7 +125,7 @@
       <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
         <div class="succBox">
           <h3>创建成功</h3>
-          <p ref="time">5秒后跳转至课程页面</p>
+          <p ref="time">秒后跳转至课程页面</p>
           <div><router-link to="/Teacher/Shixun/Course">返回课程</router-link></div>
         </div>
       </div>
@@ -140,6 +140,7 @@ export default {
   data () {
     return {
       bookName: '',
+      time: 5,
       active: 0,
       isAccordion: true,
       defaultProps: {
@@ -298,8 +299,23 @@ export default {
       return count
     }
   },
+  updated() {
+    if(this.active==3){
+      let that = this;
+      let time = this.$refs.time;
+      let interval = window.setInterval(function() {
+        if ((that.time--) <= 1) {
+          time.innerText = "正在跳转至课程页面...";
+          window.clearInterval(interval);
+          window.location.href = "#/Teacher/Shixun/Course";
+        }else {
+          time.innerText = that.time + "秒后跳转至课程页面"
+        }
+      }, 1000);
+    }
+  },
   destroyed() {
-    this.$store.commit("courseshow",true)
+    this.$store.commit("courseshow",true) 
   },
 
 }
