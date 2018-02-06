@@ -59,47 +59,77 @@
           共计<span class="light">{{title.count}}</span>个案例，您可以在下一个步骤调整具体的题型及数量
         </p>
         <div class="btnBox">
-          <el-button @click="active">取 消</el-button>
-          <el-button @click="active++" type="primary">下一步</el-button>
+          <router-link to="/Teacher/Shixun/Course">返回课程</router-link>
+          <el-button @click="next" type="primary">下一步</el-button>
         </div>
       </div>
     </div>
     <div v-if="showBox[1]" class="contentBox">
       <p><span class="hasLine">已选题型及数量</span></p>
       <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
-        
+        <ul class="titleUl">
+          <li class="titleHead">
+            <span class="titleOne">题型</span>
+            <span class="titleTwo">数量</span>
+            <span class="titleThr">分值</span>
+          </li>
+          <li v-for="(item,index) in tixing" :key="index" class="titleList">
+            <span class="titleOne">{{item.type}}</span>
+            <span class="titleTwo">
+              <el-input-number v-model="item.count" @change="handleChangeCount" :min="0"></el-input-number>
+            </span>
+            <span class="titleThr">
+              <el-input-number v-model="item.point" @change="handleChangePoint" :min="0"></el-input-number>
+            </span>
+          </li>
+        </ul>
       </div>
       <p class="all">
         <span class="el-icon-info"></span>
         已选择<span class="light">{{title.point}}</span>个知识点，
         共计<span class="light">{{title.count}}</span>个案例，
-        累计总分<span class="light">{{allCount}}</span>分，创建完成后，您可以随时调整这些参数。
+        累计总分<span class="light">{{allPoint}}</span>分，创建完成后，您可以随时调整这些参数。
       </p>
       <div class="btnBox">
         <el-button @click="active--">上一步</el-button>
-        <el-button @click="active++" type="primary">下一步</el-button>
+        <el-button @click="next" type="primary">下一步</el-button>
       </div>
     </div>
     <div v-if="showBox[2]" class="contentBox">
       <p><span class="hasLine">设置题组基本信息</span></p>
       <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
-        基本信息
+        <div class="titleMsgBox">
+          <p>
+            <span class="leftSpan">题组名称</span>
+            <el-input v-model="tizuName" placeholder="请输入内容"></el-input>
+          </p>
+          <div style="margin-top: 20px;">
+            <span class="leftSpan">备&nbsp;&nbsp;注</span>
+            <el-input
+              type="textarea"
+              placeholder="请输入内容"
+              resize="none"
+              :autosize="{ minRows: 6, maxRows: 8}"
+              v-model="textarea">
+            </el-input>
+          </div>
+        </div>
       </div>
       <p class="all"><span class="el-icon-info"></span>设置个性的名称和备注，以便更快速的找到目标题组。</p>
       <div class="btnBox">
         <el-button @click="active--">上一步</el-button>
-        <el-button @click="active++" type="primary">下一步</el-button>
+        <el-button @click="next" type="primary">下一步</el-button>
       </div>
     </div>
     <div v-if="showBox[3]" class="contentBox">
-     <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
-       完成
-     </div>
-      <p class="all"><span class="el-icon-info"></span>完成后可以将立即将题组中的题目作为任务推送给学习进行练习。</p>
-       <div class="btnBox">
-          <el-button @click="active--">上一步</el-button>
-          <el-button @click="active" type="primary">完成</el-button>
+      <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
+        <div class="succBox">
+          <h3>创建成功</h3>
+          <p ref="time">5秒后跳转至课程页面</p>
+          <div><router-link to="/Teacher/Shixun/Course">返回课程</router-link></div>
         </div>
+      </div>
+      <p class="all"><span class="el-icon-info"></span>完成后可以将立即将题组中的题目作为任务推送给学习进行练习。</p>
     </div>
   </div>
 </template>
@@ -136,10 +166,6 @@ export default {
           children: [{
             id: 5,
             label: '二级 2-1',
-            children: [{
-              id: 10,
-              label: '三级 2-1-1'
-            }]
           }, {
             id: 6,
             label: '二级 2-2',
@@ -169,25 +195,31 @@ export default {
         }
       ],
       ckeckList: [],
+      title: {
+        point: 5,
+        count: 150
+      },
       tixing: [
         {
           type: '选择题',
           count: 0,
-          point: 0
+          point: 0,
         },{
           type: "多选题",
           count: 0,
-          point: 0
+          point: 0,
         },{
           type: "判断题",
           count: 0,
-          point: 0
+          point: 0,
         },{
           type: "综合题",
           count: 0,
-          point: 0
+          point: 0,
         },
-      ]
+      ],
+      tizuName: '',
+      textarea: '', 
     }
   },
   mounted() {
@@ -197,7 +229,7 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.tree.filter(val);
-    },
+    }
   },
   methods: {
     handleCheckChange(data, checked, indeterminate) {
@@ -215,6 +247,34 @@ export default {
     handleClose(item) {
       this.checkTree.splice(this.checkTree.indexOf(item), 1);
       this.$refs.tree.setCheckedNodes(this.checkTree);
+    },
+    handleChangeCount(val) {
+      // 数量
+    },
+    handleChangePoint(val){
+      // 分值
+    },
+    next() {
+      if(this.active==0){
+        if(this.checkTree.length==0){
+          this.$message.error('请选择知识点');
+          return
+        }
+      }else if(this.active==1) {
+        if(this.allCount==0){
+          this.$message.error('请添加题数');
+          return
+        }else if(this.allPoint==0){
+          this.$message.error('请选择分数');
+          return
+        }
+      }else if(this.active==2) {
+        if(this.tizuName==""){
+          this.$message.error('请填写题组名字');
+          return
+        }
+      }
+      this.active++
     }
   },
   computed: {
@@ -223,13 +283,17 @@ export default {
       arr[this.active] = true;
       return arr;
     },
-    title() {
-      return {point:5, count:150}
+    allPoint() {
+      let point = 0;
+      for(let i=0; i<this.tixing.length; i++){
+        point+=this.tixing[i].point;
+      }
+      return point
     },
     allCount() {
       let count = 0;
       for(let i=0; i<this.tixing.length; i++){
-        count+=this.tixing[i].point;
+        count+=this.tixing[i].count;
       }
       return count
     }
@@ -296,7 +360,7 @@ export default {
   border-radius: 4px;
   font-size: 14px;
 }
-.el-input {
+.leftContent .el-input {
   display: inline-block;
   width: 135px;
   font-size: 12px;
@@ -335,7 +399,7 @@ export default {
   padding: 30px 70px 10px 0px;
   text-align: right;  
 }
-.btnBox button {
+.btnBox button,.btnBox a {
   margin-left: 20px;
   height: 35px;
   line-height: 35px;
@@ -343,11 +407,116 @@ export default {
   padding: 0;
   display: inline-block;
 }
+.btnBox a {
+  border: 1px solid #dcdfe6;
+  color: #606266;
+  text-align: center;
+  border-radius: 4px;
+  line-height: 34px;
+}
+.btnBox a:hover {
+  color: #409EFF;
+  background-color: #ECF5FF;
+  border-color: #C6E2FF;
+}
 .contentBox {
   margin-top: 20px;
   padding: 20px;
   background-color: white;
   border-radius: 4px;
   font-size: 14px;
+  font-family: PingFangSC;
+}
+.titleUl {
+  padding: 0;
+}
+.titleHead {
+  line-height: 54px;
+  color: #000000;
+  border-radius: 4px 4px 0px 0px;
+  background-color: #FAFAFA;
+}
+.titleList {
+  line-height: 54px;
+  border-top: 1px solid #E8E8E8;
+}
+.titleUl .titleOne{
+  width: 110px;
+  text-align: center;
+  margin-left: 85px;
+  display: inline-block;
+}
+.titleUl .titleTwo{
+  width: 155px;
+  text-align: center;
+  margin-left: 120px;
+  display: inline-block;
+}
+.titleUl .titleThr{
+  width: 155px;
+  text-align: center;
+  margin-left: 150px;
+  display: inline-block;
+}
+.titleList .el-input-number {
+  width: 155px;
+}
+.titleMsgBox {
+  padding-top: 50px;
+}
+.titleMsgBox span {
+  font-size: 16px;
+  display: inline-block;
+  width: 85px;
+  text-align: right;
+  margin-right: 35px;
+}
+.titleMsgBox .el-input {
+  display: inline-block;
+  width: 240px;
+  line-height: 40px;
+  color: #243847;
+}
+.titleMsgBox .el-textarea {
+  display: inline-block;
+  width: 428px;
+  vertical-align: top;
+}
+.succBox {
+  text-align: center;
+  padding-top: 125px;
+  background-image: url('../../share/img/icon_diago.png');
+  background-repeat: no-repeat;
+  background-position: center 20px;
+}
+.succBox h3 {
+  font-size: 24px;
+  font-family: PingFangSC-Medium;
+  color: rgba(0,0,0,0.85);
+}
+.succBox p {
+  margin-top: 8px;
+  font-size: 14px;
+  font-family: PingFangSC-Regular;
+  color: rgba(0,0,0,0.43);
+}
+.succBox div {
+  margin-top: 25px;
+}
+.succBox div a {
+  width: 135px;
+  height: 35px; 
+  border-radius: 3px; 
+  border: 1px solid #52C41A;
+  display: inline-block;
+  line-height: 34px;
+  padding: 0;
+  margin: 0 10px;
+  color: #52C41A;
+}
+.succBox div a:hover {
+  color: white;
+  border: 1px solid #52C41A;
+  background-color: #52C41A;
 }
 </style>
