@@ -146,7 +146,6 @@ export default new Router({
 		    },
 		     {
           path: 'Yuanxiao',
-          name: 'Yuanxiao',
           component: Yuanxiao
         },
          {
