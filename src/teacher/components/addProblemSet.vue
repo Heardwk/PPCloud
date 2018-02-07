@@ -33,6 +33,7 @@
           :data="dataList"
           node-key="id"
           show-checkbox
+          :default-checked-keys = "isChecArr"
           ref="tree"
           :filter-node-method="filterNode"
           :accordion = "isAccordion"
@@ -125,7 +126,7 @@
       <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
         <div class="succBox">
           <h3>创建成功</h3>
-          <p ref="time">秒后跳转至课程页面</p>
+          <p ref="times">5秒后跳转至课程页面</p>
           <div><router-link to="/Teacher/Shixun/Course">返回课程</router-link></div>
         </div>
       </div>
@@ -139,6 +140,7 @@ export default {
   name: 'addProblemSet',
   data () {
     return {
+      isChecArr: [],
       bookName: '',
       time: 5,
       active: 0,
@@ -237,7 +239,6 @@ export default {
       // if(checked) {
       //   this.ckeckList.push(data.label);
       // }
-
       // 所有被选中的
       this.checkTree = this.$refs.tree.getCheckedNodes();
     },
@@ -246,6 +247,7 @@ export default {
       return data.label.indexOf(value) !== -1;
     },
     handleClose(item) {
+      console.log(item.$treeNodeId)
       this.checkTree.splice(this.checkTree.indexOf(item), 1);
       this.$refs.tree.setCheckedNodes(this.checkTree);
     },
@@ -302,14 +304,14 @@ export default {
   updated() {
     if(this.active==3){
       let that = this;
-      let time = this.$refs.time;
+      let $times = this.$refs.times;
       let interval = window.setInterval(function() {
         if ((that.time--) <= 1) {
-          time.innerText = "正在跳转至课程页面...";
+          $times.innerText = "正在跳转至课程页面...";
           window.clearInterval(interval);
           window.location.href = "#/Teacher/Shixun/Course";
         }else {
-          time.innerText = that.time + "秒后跳转至课程页面"
+          $times.innerText = that.$times + "秒后跳转至课程页面"
         }
       }, 1000);
     }
@@ -317,7 +319,6 @@ export default {
   destroyed() {
     this.$store.commit("courseshow",true) 
   },
-
 }
 </script>
 

@@ -30,7 +30,9 @@
               <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
                 <div class="ctrlBox">
                   <p><span>逐题预览</span></p>
-                  <p><span>编辑题组</span></p>
+                  <p>
+                    <router-link tag="span" to="/Teacher/Shixun/Course/editProblem">编辑题组</router-link>
+                  </p>
                   <p><span>发布任务</span></p>
                   <div><span>删除</span><span>下载</span></div>
                 </div>
@@ -275,7 +277,7 @@ export default {
             }
           ]
         }
-      ] 
+      ],
     }
   },
   mounted() {
@@ -555,7 +557,6 @@ export default {
 }
 .ctrlBox span:hover {
   color: #F77676;
-  background-image: url('../../share/img/icon_setclass_normalcopy.png');
 }
 .ctrlBox p {
   text-align: center;
@@ -570,7 +571,22 @@ export default {
   border-radius: 2px;
   border: 1px solid #00B0FF;
   color: rgba(0,176,255,1);
-  background-image: url('../../share/img/icon_setclass_normal.png');
+  background-image: url('../../share/img/icon_recyclecopy4.png');
+}
+.ctrlBox p span:hover {
+  background-image: url('../../share/img/icon_recyclecopy10.png');
+}
+.ctrlBox p:first-child span {
+  background-image: url('../../share/img/icon_recyclecopy3.png');
+}
+.ctrlBox p:last-child span {
+  background-image: url('../../share/img/icon_recyclecopy5.png');
+}
+.ctrlBox p:first-child span:hover {
+  background-image: url('../../share/img/icon_recyclecopy9.png');
+}
+.ctrlBox p:last-child span:hover {
+  background-image: url('../../share/img/icon_recyclecopy11.png');
 }
 .ctrlBox p span:hover {
   color: #F77676;
@@ -583,7 +599,16 @@ export default {
   width: 80px;
   display: inline-block;
   background-position: 7px 10px;
-  background-image: url('../../share/img/icon_setclass_normal.png');
+  background-image: url('../../share/img/icon_recyclecopy2.png');
+}
+.ctrlBox div span:hover {
+  background-image: url('../../share/img/icon_recyclecopy8.png');
+}
+.ctrlBox div span:first-child {
+  background-image: url('../../share/img/icon_recyclecopy.png');
+}
+.ctrlBox div span:first-child:hover {
+  background-image: url('../../share/img/icon_recyclecopy7.png');
 }
 .borR h3 {
   font-family: PingFangSC-Regular;
