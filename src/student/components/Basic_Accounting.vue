@@ -1,13 +1,14 @@
 <template>
-   <div style="background-color: #FFF8F8F8;">
+   <div style="background-color: rgba(255, 248, 248, 0.2 );">
 	   <div class="Basic">
+	   	   	 <p>实训中心><b>{{Eattr.listName}}</b></p>
 	       <div class="Basic_index_top">
 		       	<a href="">
-		       		<img :src="listImg"/>
+		       		<img :src="Eattr.listImg"/>
 		       	</a>
 		      <!-- 	<span>{{listName}}</span>-->
 		       	<div class="Basic_index_top_rig">
-		       	       <p>{{listName}}</p>
+		       	       <p>{{Eattr.listName}}</p>
 		       	       <span>
 		       	       	这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程
 		       	       	描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实
@@ -31,37 +32,55 @@ export default{
   name:'Basic_Accounting',
 	data(){
 		return {
-			listImg:'',
-			listId:'',
-			listName:'',
+			Eattr:{
+				listImg:'获取数据失败',
+				listId:'获取数据失败',
+				listName:'获取数据失败',
+			}
 		}
 	},
-	mounted () {
-    this.listId = this.$route.params.id;
-    this.listName = this.$route.params.name;
-    this.listImg = this.$route.params.imgs;
-
-        },
-    watch: {
+ mounted () {
+       this.$store.commit("studentshow",false);
+	   if(this.$route.query.id&&this.$route.query.name&&this.$route.query.imgs){
+	    this.Eattr.listId = this.$route.query.id,
+	    this.Eattr.listName = this.$route.query.name,
+	    this.Eattr.listImg = this.$route.query.imgs
+	 }
+ },
+  watch: {
         '$route': function () {
-            //2. $route发生变化时再次赋值listId
-            this.listId = this.$route.params.id;
-            this.listName = this.$route.params.name;
-            this.listImg = this.$route.params.imgs;
+	        this.Eattr.listId = this.$route.query.id,
+		    this.Eattr.listName = this.$route.query.name,
+		    this.Eattr.listImg = this.$route.query.imgs
         }
-     },
-    components: {
+   },
+  components: {
 	  detailscon,
+  },
+
+  destroyed() {
+    this.$store.commit("studentshow",true)
   },
 }
 </script>
 
 <style scoped>
+.Basic>p{	
+	font-size: 16px;
+	margin-bottom: 20px;
+}
+.Basic>p>b{
+	color: #666;	
+	font-size: 16px;
+	font-weight: 400;
+	padding: 0 10px;
+}
 .Basic{
 	width: 1000px;
 	min-height: 700px;
 	margin: auto;
-	padding-top: 50px;
+	padding-top: 80px;
+	margin-bottom: 50px;
 }
 .Basic_index_top{
 	width: 1000px;
@@ -105,7 +124,7 @@ export default{
     text-align: center;
 }
 .Basic_index_top_rig>p{
-	width:64px;
+	width:50%;
 	height:20px; 
 	font-size:16px;
 	font-family:PingFangSC-Medium;
@@ -140,11 +159,11 @@ export default{
 	display: inline-block;
 	width: 18px;
 	height: 18px;
-	background: url('../../share/img/icon_setclass_normal@2x.png');
+	background: url(../../share/img/icon_setclass_normal@2x.png);
 	margin-right:11px ;
 }
 .Basic_index_top_rig>b>i:hover{
-	background: url('../../share/img/icon_setclass_normal_copy@2x.png');
+	background: url(../../share/img/icon_setclass_normal_copy@2x.png);
 	 
 }
 .Basic_index_bot{

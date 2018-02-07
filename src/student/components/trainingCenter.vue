@@ -1,16 +1,24 @@
 <template>
-  <div class="content">
+<div>
+  <div class="content" v-if='showst.student'>
  	  <template v-for="productitem in course"> 
           <h3>{{ productitem.title}}</h3>
           <ul class="index-left-block">
-            <li v-for="item in productitem.list" class="data-course" :style="item.node">
-	            		<div class="productimg"><a :href="item.url" @click="goDetail(item.id,item.name,item.imgs)"><img :src="item.imgs"/></a></div>
+            <li v-for="(item,index) in productitem.list" :key="index" class="data-course" :style="item.node">
+		          <router-link 
+		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}">
+		        		  <div class="productimg"><a :href="item.url"><img :src="item.imgs"/>
+		        		  </a></div>
+		          </router-link>
             	<div class="intro">
             	    <span>{{ item.name }}</span>
             	    <p>{{ item.description }}</p>
             	</div>
-              <a class="descend"  @click="goDetail(item.id,item.name,item.imgs)" :href="item.url">{{ item.name }}</a>
-              <span v-if="item.hot" class="hot-tag">HOT</span>
+            	<router-link 
+		          	v-for="(items,index) in productitem.list"
+		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}">
+                 <a class="descend"  :href="items.url">{{ item.name }}</a>
+		          </router-link>
             </li>
           </ul>
           <div class="hr"></div>
@@ -18,18 +26,22 @@
     <template v-for="item in sides"> 
           <h3>{{ item.title}}</h3>
           <ul class="index-block">
-            <li v-for="item in item.list" :style="item.node" class="data-course">
+            <li v-for="items in item.list" :style="items.node" class="data-course">
             	<a :href="item.url">
-	            	<div class="productimgs"><img :src="item.imgs"/></div>
+            	 <router-link  
+		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}">
+	            	<div class="productimgs"><img :src="items.imgs"/></div>
+	            	</router-link>
 	            	<div class="intros">
-	            	    <span>{{ item.name }}</span>    	   
+	            	    <span>{{ items.name }}</span>    	   
 	            	</div>
             	</a>
             </li>
           </ul>
-          <div class="hr"></div>
     </template> 
   </div>
+         <router-view></router-view>
+	</div>
 </template>
 
 <script>
@@ -40,13 +52,13 @@ export default {
        course:{
        	   training: {
        	   	 title:'课程实训',
-       	   	 list: [
+       	   	 list:[
         	   	   { 
         	   	  id:'basics',
        	   	    name:'基础会计',
        	   	    description:'课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程简介课程',
                 node:{
-                	  background:'linear-gradient(rgba(150,214,255,1),rgba(200,234,252,1))',
+                	   background:'linear-gradient(rgba(150,214,255,1),rgba(200,234,252,1))',
                 },
                 imgs:require('../../share/img/image_class_cover.png')
        	   	   },{ 
@@ -117,14 +129,19 @@ export default {
       	}
       } 
     },
-    methods:{
-      goDetail(id,name,imgs){
-        this.$router.push({ name:'Basic_Accounting',params: {id:id,name:name,imgs:imgs}});
-      },
+  methods:{
+//  goDetail(id,name,imgs){
+////      this.$router.push({ name:'Basic_Accounting',params: {id:id,name:name,imgs:imgs}});
+////  this.$router.push({ p:'trainingCenter/Basic_Accounting',params: {id:id,name:name,imgs:imgs}});
+// },
+ }, 
+  computed: {
+    showst() {
+      return this.$store.state
     }
+  },
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .data-course{
@@ -155,6 +172,8 @@ export default {
 	width: 960px;
 	min-height: 700px;
 	margin: 0 auto;
+	padding-top: 50px;
+
 }
 .content>h3{
 	display: inline-block;

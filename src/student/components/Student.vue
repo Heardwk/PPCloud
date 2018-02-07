@@ -4,20 +4,20 @@
 				 <div class="heads">
 	        <el-header class="mainMenu">
 	        	<div class="logo-left">
-			     		   <a :href="shref" class="logo-left_img"></a>
+	        		  <router-link to='/Student/Yuanxiao' class="logo-left_img">
+			     		   <a></a>
+			     		   </router-link>
 			     	</div>
-	        	<router-link class="link" data-content="实训中心" to="trainingCenter">实训中心</router-link>
-	          <router-link class="link" data-content="我的任务" to="myTask">我的任务</router-link>
-	          <router-link class="link" data-content="成绩管理" to="management">成绩管理</router-link>
-	          <router-link class="link" data-content="能力档案" to="abilityfile">能力档案</router-link>
-	          <router-link class="link" data-content="资料共享" to="datasharing">资料共享</router-link>
-	         <!-- <router-link class="link" data-content="资料共享" to="dialogs">资料共享</router-link>-->
+	        	<router-link class="link" data-content="实训中心" to="/Student/trainingCenter">实训中心</router-link>
+	          <router-link class="link" data-content="我的任务" to="/Student/myTask">我的任务</router-link>
+	          <router-link class="link" data-content="成绩管理" to="/Student/management">成绩管理</router-link>
+	          <router-link class="link" data-content="能力档案" to="/Student/abilityfile">能力档案</router-link>
+	          <router-link class="link" data-content="资料共享" to="/Student/datasharing">资料共享</router-link>
 	          <el-dropdown>
-	          <img class="logo-img" :src="studentimgs" />
-						  <span class="el-dropdown-link">学生</span>
+						  <span class="el-dropdown-link"> <img class="logo-img" :src="studentimgs" />学生</span>
 						  <el-dropdown-menu slot="dropdown">
-						    <el-dropdown-item>个人中心</el-dropdown-item>
-						    <el-dropdown-item>退出</el-dropdown-item>
+						    <el-dropdown-item><router-link class="droplink" to="/Student/MyCenter">个人中心</router-link></el-dropdown-item>
+						    <el-dropdown-item><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
 						  </el-dropdown-menu>
 						</el-dropdown>
 	        </el-header>
@@ -48,9 +48,14 @@ export default {
   data () {
     return {
       shref: '',
-      studentimgs:require('../../share/img/img_logo_top@2x.png'),
+      studentimgs:require('../../share/img/img_head_top.png'),
     }
-  }
+  },
+    methods:{
+    goDetail(){
+      this.$router.push({ name:'/Yuanxiao'});
+   },
+ },
 }
 </script>
 
@@ -132,7 +137,6 @@ ul{
 }
 .mainMenu {
   height: 80px!important;
-  width: 1440px;
   display: flex;
   justify-content: center;
 }
@@ -191,12 +195,15 @@ ul{
 .navigation{
 	  background-color:#FFFFFF;
 	  margin: 0; 
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    /*border-bottom: 1px solid rgba(0,0,0,0.1);
     -webkit-box-shadow: 0px 0px 16px 6px rgba(0,0,0,0.2);
-    box-shadow: 0px 0px 12px 6px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 12px 6px rgba(0,0,0,0.1);*/
     position: relative;
     z-index: 1;
 }
+/*.heads{
+	height: 80px;
+}*/
 .heads a{
 	width:72px;
 	height:80px; 
@@ -219,6 +226,7 @@ ul{
     font-size: 18px;
     color: #FFFFFF;
     vertical-align:middle;
+    margin-right: 20px;
 }
 .el-dropdown {
     display: inline-block;
@@ -233,16 +241,16 @@ ul{
 	 text-align: center;
 	 margin-right: 105px;
 	 display: flex;
-   justify-content: center;
+   justify-content: flex-start;
    align-items: center;
 }
 .logo-left>.logo-left_img{
 	display: inline-block;
-	width: 164px;
-  background-image: url('../../share/img/img_logo_top@2x.png');
+  background-image: url(../../share/img/img_logo1_index.png);
   background-repeat: no-repeat;
   cursor: pointer;
-  height: 38px;
+  width: 165px;
+  height: 40px;
 }
 
 .footer{

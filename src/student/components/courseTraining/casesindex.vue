@@ -1,14 +1,15 @@
  <template>
 	 <div>
 	     <div class="casesindex_top">
-	         <b>《基础会计》全真案例</b>
+	         <b>{{msgtochild.texts}}</b>
 	     </div>
 	     <div class="correct">
 	         <b>错误更正 &gt;</b>
+	         <div class="news"v-if='showst.student'><i></i><span>新建题组</span></div>
 	         <el-tag
 	          size="medium"
 			  :key="tag"
-			  v-for="tag in dynamicTags"
+			  v-for="tag in msgtochild.dynamicTags"
 			  closable
 			  :disable-transitions="false"
 			  @close="handleClose(tag)">
@@ -24,21 +25,18 @@
 			  @blur="handleInputConfirm"
 			>
 			</el-input>
-			<!--<el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>-->
 	     </div>
 	     <div class="casesindex_top_m">
 	     	   <ul v-for="item in productList">
 	     	     <b>{{item.title}}</b>
 	     	     <div class="casesindex_top_Lis">
-	     	     <template v-for="items in item.list" >
-	     	   		 <li>{{items.name}}</li>
-	     	   	 </template>
+	     	   		 <li>{{msgtochild.name}}</li>
 	     	   	 </div>
 	     	   </ul>
 	     </div>
 	     <div class="table_list">
 	           <el-table
-			    :data="tableData2"
+			    :data="msgtochild.tableData2"
 			    style="width: 90%;margin: auto;"
 			    :row-class-name="tableRowClassName"
 			    >
@@ -53,10 +51,6 @@
 			      width="350"
 			      >
 			    </el-table-column>
-			    <!--<el-table-column
-			      prop="Tests"
-			      label="题型">
-			    </el-table-column>-->
 			     <el-table-column
 				      prop="tag"
 				      label="题型"
@@ -92,119 +86,30 @@
 </template>
 <script>
   export default {
+  	 props:{  
+		    msgtochild:{}
+		  }, 
     data() {
-      return {
+      return {  
         input21:'',
-        dynamicTags: ['划线更正法概念适···', '222···', '33···'],
         inputVisible: false,
         inputValue: '',
         currentPage4: 1,
         productList: {
 	        pc: {
 	          title: '知识点:',
-	          list: [
-	            {
-	              name: '划线更正法概念、适用范围和操作要求',
-	            },
-	            {
-	              name: '数红字更正法概念、适用范围和操作要求据预测',
-	            },
-	            {
-	              name: '补充登记法概念、适用范围和操作要求',
-	            },
-	            {
-	              name: '红字更正法概念、适用范围和操作要求 ',
-	            }
-	          ]
 	        },
-//	        app: {
-//	          title: '题       型:',
-//	          list: [
-//	            {
-//	              name: '单选题(132)',
-//	            },
-//	            {
-//	              name: '多选题(132)',
-//	            },
-//	            {
-//	              name: '判断题(46)',
-//	            },
-//	            {
-//	              name: '不限定题(13)',
-//	            },
-//	            {
-//	              name: '填表题(10)',
-//	            },
-//	            {
-//	              name: '制表题(32)',
-//	            },
-//	            {
-//	              name: '综合题(134)',
-//	            }
-//	          ]
-//	        }
 	      },
-	      tableData2: [{
-          date: '1',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '单选题',
-          degree:'102'
-        }, {
-          date: '2',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '多选题',
-          degree:'102'
-        }, {
-          date: '3',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '单选题',
-          degree:'102'
-        }, {
-          date: '4',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '单选题',
-          degree:'102'
-        }, {
-          date: '5',
-           name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '单选题',
-          degree:'102'
-        }, {
-          date: '6',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '多选题',
-          degree:'102'
-        }, {
-          date: '7',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '单选题',
-          degree:'102'
-      }, {
-          date: '8',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '单选题',
-          degree:'102'
-      },{
-          date: '9',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '单选题',
-          degree:'102'
-      },{
-          date: '10',
-          name: '提供的原始单据、记账凭证、账薄资料等,要',
-          tag: '单选题',
-          degree:'102'
-      }]
       }
     },
-       methods: {
+      methods: {
       handleClose(tag) {
-        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+        this.msgtochild.dynamicTags.splice(this.msgtochild.dynamicTags.indexOf(tag), 1);
       },
       handleInputConfirm() {
         let inputValue = this.inputValue;
         if (inputValue) {
-          this.dynamicTags.push(inputValue);
+          this.msgtochild.dynamicTags.push(inputValue);
         }
         this.inputVisible = false;
         this.inputValue = '';
@@ -223,7 +128,7 @@
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       },
-            formatter(row, column) {
+      formatter(row, column) {
         return row.address;
       },
       filterTag(value, row) {
@@ -233,7 +138,18 @@
         const property = column['property'];
         return row[property] === value;
       }
-    }
+    },
+    computed: {
+	  showst() {
+	      return this.$store.state
+	  },
+	},
+	mounted() {
+      this.$store.commit("studentshow",false);
+    },
+     destroyed() {
+     this.$store.commit("studentshow",true)
+  },
   }
 
 </script>
@@ -248,23 +164,16 @@
   	background: rgba(239,239,244,1);
   }
   .el-table-filter{
-    top:640px!important;
-  }
+	top:610px!important;
+	}
 </style>
 <style scoped>
-	/*{
-		    position: absolute;
-    top: 683px;
-    left: 1175px;
-    transform-origin: center top 0px;
-    z-index: 2003;
-}
-	}*/
 .block{
 	width: 83%;
 	margin: auto;
 	margin-top: 20px;
 	position: relative;
+	margin-bottom: 20px;
 }
 .casesindex_top{
 	width: 100%;
@@ -276,13 +185,17 @@
 }
 .casesindex_top>b{
 	display: inline-block;
-	width:140px;
+	width:148px;
 	height:20px; 
+	text-align: center;
 	font-size:14px;
 	font-family:PingFangSC-Regular;
 	color:rgba(36,56,71,1);
 	line-height:20px;
 	font-weight: 400;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }	
 .casesindex_top>b::after{
 	content:'' ;
@@ -301,6 +214,7 @@
 	line-height: 28px;
 	margin-top: 28px;
 	padding-left: 41px;
+	position:relative;
 }
 .correct>b{
 	width:73px;
@@ -311,26 +225,55 @@
 	line-height:20px;
 	font-weight: 400;
 }
- .el-tag + .el-tag {
+.news{
+	position: absolute;
+	top: -38px;
+    right: 127px;
+    display: flex;
+    align-items: center;
+}
+.news>span{
+	display: inline-block;
+	width:80px;
+	height:28px; 
+	font-size:11px;
+	font-family:PingFangSC-Regular;
+	color:rgba(36,56,71,1);
+	line-height:28px;
+	padding-left: 20px;
+	cursor: pointer;
+}
+.news:hover span{
+	color:rgba(0,176,255,1);
+}
+.news>i{
+	display: inline-block;
+	width: 28px;
+	height: 28px;
+	background: url(../../../share/img/img_addbutton.png);
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+.el-tag + .el-tag {
     margin-left: 10px;
-  }
-  .button-new-tag {
+}
+.button-new-tag {
     margin-left: 10px;
     height: 32px;
     line-height: 30px;
     padding-top: 0;
     padding-bottom: 0;
-  }
-  .input-new-tag {
+}
+.input-new-tag {
     width: 90px;
     margin-left: 10px;
     vertical-align: bottom;
-  }
-  .casesindex_top_m>ul{
-    	display: flex;
-    	padding-left: 44px;
-    }
-  .casesindex_top_m>ul>b{
+}
+.casesindex_top_m>ul{
+   	display: flex;
+    padding-left: 44px;
+}
+.casesindex_top_m>ul>b{
   	font-weight: 400;
   	display: inline-block;
   	width:60px;
@@ -339,26 +282,25 @@
 	font-family:MicrosoftYaHei;
 	color:rgba(0,176,255,1);
 	line-height:16px;
-  }
-  .casesindex_top_m>ul li{
+}
+.casesindex_top_m>ul li{
   	display: inline-block;
   	font-size:12px;
 	font-family:MicrosoftYaHei;
 	color:rgba(66,66,78,1);
 	line-height:16px;
 	margin: 0px 15px;
-  }
-   ul{
- 	   -webkit-padding-start: 0px;
- }
- .casesindex_top_Lis{
+}
+ul{
+ 	-webkit-padding-start: 0px;
+}
+.casesindex_top_Lis{
  	width: 85%;
- }
- .el-table .warning-row {
+}
+.el-table .warning-row {
     background: oldlace;
-  }
-
-  .el-table .success-row {
+}
+.el-table .success-row {
     background: #f0f9eb;
-  }
+}
 </style>

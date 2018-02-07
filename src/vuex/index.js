@@ -14,6 +14,7 @@ export default new Vuex.Store({
     activeName: 'first',
     shixun: true,
     course: true,
+    student:true
   },
   mutations: {
     add(state,command) {
@@ -24,6 +25,9 @@ export default new Vuex.Store({
     },
     courseshow(state,val) {
       state.course = val;
-    }
+    },
+    studentshow (state,val) {
+    	state.student = val
+    },
   }
 })
