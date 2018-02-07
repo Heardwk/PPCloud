@@ -20,6 +20,9 @@ import management from '@/student/components/management'
 import abilityfile from '@/student/components/abilityfile'
 import datasharing from '@/student/components/datasharing'
 import Basic_Accounting from '@/student/components/Basic_Accounting'
+import MyCenter from '@/student/components/MyCenter'
+import allcase from '@/student/components/allcase'
+import casesindex  from '@/student/components/courseTraining/casesindex'
 
 Vue.use(Router)
 
@@ -92,7 +95,7 @@ export default new Router({
       ]
     },
     {
-      path: '/Student/',
+      path: '/Student',
       component: Student,
       children: [
         {
@@ -101,10 +104,17 @@ export default new Router({
         {
           path: 'trainingCenter',
           name: 'trainingCenter',
-          component:trainingCenter
+          component:trainingCenter,
+          children:[
+		        {
+		          path:'Basic_Accounting',
+		          name:'Basic_Accounting',
+		          component:Basic_Accounting
+		        },
+          ]
         },
         {
-          path: 'myTask',
+          path:'myTask',
           name:'myTask',
           component: myTask
         },
@@ -123,13 +133,29 @@ export default new Router({
           name:'datasharing',
           component:datasharing
         },
+		    {
+		      path: 'MyCenter',
+		      name: 'MyCenter',
+		      component: MyCenter
+		    },
+		     {
+          path: 'Yuanxiao',
+          name: 'Yuanxiao',
+          component: Yuanxiao
+        },
+         {
+          path: 'allcase',
+          name: 'allcase',
+          component: allcase
+        },
         {
-          path:'Basic_Accounting',
-          name:'Basic_Accounting',
-          component:Basic_Accounting
+          path: 'casesindex',
+          name: 'casesindex',
+          component: casesindex
         },
       ]
     },
+
   ],
   scrollBehavior (to, from, savedPosition) {
     // return 期望滚动到哪个的位置

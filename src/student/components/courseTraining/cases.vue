@@ -21,11 +21,11 @@
 							</div>
 	                    </div>
 						<div class="cases_cot_left_content">
-						    <ul v-for="item in knowledge">
-						    	<li>
+						    <ul v-for="(item,index) in knowledge">
+						    	<li @click="aa(index)">
 						    		 <i></i>
 						    		 <span>
-						    		 	{{item.text}}
+						    		 	{{item.texts}}
 						    		 </span>
 						    		 <b></b>
 						    	</li>
@@ -34,7 +34,7 @@
 	              </div>
 	         </div>
 	         <div class="cases_cot_rig">
-	             <casesindex></casesindex>
+	             <casesindex :msgtochild="knowledge[bb]"></casesindex>
 	         </div>
 	     </div>
 	 </div>
@@ -45,20 +45,95 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
     data() {
       return {
          input21:'',
+         parentMsg:'1',
          knowledge :[
-            { text: '会计账薄' },
-            { text: '错账更正' },
-            { text: '财产清查的会计处理' },
-            { text: '会计账务处理程序' },
-            { text: '原始凭证的填制与审核 ' },
-            { text: '会计报表的编制' },
-            { text: '会计报表的发放与收集' },
-            { text: '原始凭证的填制与审核 ' },
-            { text: '会计报表在财务中的应用' },
-            { text: '三年会计二年实战模拟' },
+            { texts: '会计账薄',
+              dynamicTags: ['划线更正法概念适···', '111···'],
+              name: '划线更正法概念、适用范围和操作要求',
+              tableData2: [{
+			          date: '1',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			        }, {
+			          date: '2',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '多选题',
+			          degree:'102'
+			        }, {
+			          date: '3',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			        }, {
+			          date: '4',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			        }, {
+			          date: '5',
+			           name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			        }, {
+			          date: '6',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '多选题',
+			          degree:'102'
+			        }, {
+			          date: '7',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			      }, {
+			          date: '8',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			      },{
+			          date: '9',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			      },{
+			          date: '10',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			      }]
+            },
+            { texts: '错账更正',
+              dynamicTags: ['划线更正法概念适···', '222···'],
+              name: '划线更正法概念、适用范围和操作要求',
+            },
+            { texts: '财产清查的会计处理',
+              dynamicTags: ['划线更正法概念适···','33···'],
+              name: '划线更正法概念、适用范围和操作要求',
+            }, 
+            { texts: '会计账务处理程序',
+              dynamicTags: ['划线更正法概念适···','44···'],
+              name: '划线更正法概念、适用范围和操作要求,适用范围和操作要求',
+            },
+             { texts: '原始凭证的填制与审核',
+              dynamicTags: ['划线更正法概念适···','55···'],
+              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
+            },
+             { texts: '原始凭证的填制与审核',
+              dynamicTags: ['划线更正法概念适···','55···'],
+              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
+            },
+             { texts: '会计报表在财务中的应用',
+              dynamicTags: ['划线更正法概念适···','55···'],
+              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
+            },
+             { texts: '三年会计二年实战模拟',
+              dynamicTags: ['划线更正法概念适···','55···'],
+              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
+            },
          ],
         restaurants: [],
         state: '',
+        bb:'0',
         sidess: [
           { "value": "提供的原始单据"},
           { "value": "提供的原始单据"},
@@ -71,7 +146,6 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
      querySearch(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
-        // 调用 callback 返回建议列表的数据
         cb(results);
       },
       createFilter(queryString) {
@@ -84,29 +158,33 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
       },
       handleSelect(item) {
         console.log(item);
-      }
-    },
+      },
+      list_s(id,name,imgs){
+        this.$router.push({ name:'casesindex',query: {id:id,name:name,imgs:imgs}});
+        
+      },
+      aa(index) {
+	     this.bb = index
+	  }
+	},
     components:{
     	casesindex,
     },
     mounted() {
       this.restaurants = this.loadAll();
-    }
+    },
   };
 </script>
 <style>
 .el-autocomplete-suggestion{
-	 transform-origin: center top 0px;
-	z-index: 2006;
-	width: 131px;
 	position: absolute;
-	top: 468px!important;
-	left: 529px;
+	top: 450px!important;
 }
 #input_s{
-	width: 130px;
+   width: 130px;
    margin-left: 18px; 
 }
+
 </style>
 <style scoped>
 .cases_cot{
@@ -196,9 +274,9 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
     left: 13px;
     height: 24px;
 }
- ul{
+ul{
  	-webkit-padding-start: 0px;
- }
+}
 .cases_cot_left_content>ul>li>i{
 	margin-left: 15px;
 	display: inline-block;
@@ -254,5 +332,4 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
     background-repeat: no-repeat;
     margin-left: 23.5px;
 }
-
 </style>
