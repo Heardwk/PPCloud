@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="content" v-if='showst.student'>
- 	  <template v-for="productitem in course"> 
+ 	  <template v-for="(productitem,index) in course" > 
           <h3>{{ productitem.title}}</h3>
           <ul class="index-left-block">
             <li v-for="(item,index) in productitem.list" :key="index" class="data-course" :style="item.node">
@@ -16,7 +16,9 @@
             	</div>
             	<router-link 
 		          	v-for="(items,index) in productitem.list"
-		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}">
+		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}"
+		          	:key="index"
+		          	>
                  <a class="descend"  :href="items.url">{{ item.name }}</a>
 		          </router-link>
             </li>
@@ -26,7 +28,7 @@
     <template v-for="item in sides"> 
           <h3>{{ item.title}}</h3>
           <ul class="index-block">
-            <li v-for="items in item.list" :style="items.node" class="data-course">
+            <li v-for="(items,index) in item.list" :style="items.node" class="data-course" :key="index">
             	<a :href="item.url">
             	 <router-link  
 		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}">

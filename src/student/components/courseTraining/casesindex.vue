@@ -1,19 +1,20 @@
  <template>
 	 <div>
 	     <div class="casesindex_top">
-	         <b>{{msgtochild.texts}}</b>
+	         <b>{{msgtochild.name}}</b>
 	     </div>
 	     <div class="correct">
-	         <b>错误更正 &gt;</b>
-	         <div class="news"v-if='showst.student'><i></i><span>新建题组</span></div>
-	         <el-tag
-	          size="medium"
-			  :key="tag"
-			  v-for="tag in msgtochild.dynamicTags"
+	         <b>{{msgtochild.name}} &gt;</b>
+	         <router-link to="/Student/SeeTheCase"v-if='showst.student'>
+	         	<div class="news"><i></i><span>新建题组</span></div>
+	         </router-link>
+			<el-tag
+			  v-for="(tag,index) in dynamicTags"
+			  :key="index"
 			  closable
 			  :disable-transitions="false"
 			  @close="handleClose(tag)">
-			  {{tag}}
+			  {{tag.name}}
 			</el-tag>
 			<el-input
 			  class="input-new-tag"
@@ -30,7 +31,19 @@
 	     	   <ul v-for="item in productList">
 	     	     <b>{{item.title}}</b>
 	     	     <div class="casesindex_top_Lis">
-	     	   		 <li>{{msgtochild.name}}</li>
+	     	   		 <template v-for="(item,index) in dataA">
+	     	   		   <li @click="qiehuan(index,$event)" >{{item.name}}</li>
+	     	   		 </template>
+	     	   	 </div>
+	     	   </ul>
+	     </div>  
+	     <div class="casesindex_top_m "v-if='showst.student'>
+	     	   <ul v-for="item in productList">
+	     	     <b>题型:</b>
+	     	     <div class="casesindex_top_Lis">
+	     	   		 <template v-for="(item,index) in tx">
+	     	   		   <li>{{item.title}}({{item.num}})</li>
+	     	   		 </template>
 	     	   	 </div>
 	     	   </ul>
 	     </div>
@@ -91,28 +104,76 @@
 		  }, 
     data() {
       return {  
+      	thisClass:'active',
         input21:'',
         inputVisible: false,
         inputValue: '',
+        dynamicTags:[],
         currentPage4: 1,
         productList: {
 	        pc: {
-	          title: '知识点:',
+	          title: '知识点',
+	          num:0
 	        },
 	      },
+       tx: [
+		   {
+		      title: '单选题:',
+		      num:50
+		   },
+		   {
+		      title: '多选题',
+		      num:40
+		   },
+		   {
+		      title: '填表题',
+		      num:30
+		   },
+		   {
+		      title: '制表题',
+		      num:20
+		   },
+		   {
+		      title: '综合题',
+		      num:10
+		   },
+        ],
+        dataA: []
       }
     },
+    watch: {
+    	msgtochild(){
+    		this.dataA = this.msgtochild.child
+    	},
+    },
+     computed: {
+	  showst() {
+	      return this.$store.state
+	  },
+	 },
       methods: {
+      qiehuan(index,event){
+        var el = event.target;
+        if(this.dynamicTags.indexOf(this.dataA[index])>0){
+		}else{
+			this.dynamicTags.push(this.dataA[index]);
+		}
+		let arr = [];
+		this.dynamicTags[this.dynamicTags.length-1].child? arr = this.dynamicTags[this.dynamicTags.length-1].child : arr = [];
+
+		this.dataA = arr;
+      }, 
       handleClose(tag) {
-        this.msgtochild.dynamicTags.splice(this.msgtochild.dynamicTags.indexOf(tag), 1);
+        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+        this.dynamicTags.length>0? this.dataA = this.dynamicTags[this.dynamicTags.length-1].child : this.dataA = this.msgtochild.child
       },
       handleInputConfirm() {
-        let inputValue = this.inputValue;
-        if (inputValue) {
-          this.msgtochild.dynamicTags.push(inputValue);
-        }
-        this.inputVisible = false;
-        this.inputValue = '';
+//      let inputValue = this.inputValue;
+//      if (inputValue) {
+//        this.dynamicTags.push(inputValue);
+//      }
+//      this.inputVisible = false;
+//      this.inputValue = '';
       },
        tableRowClassName({row, rowIndex}) {
         if (rowIndex %2 !==0 ) {
@@ -139,13 +200,10 @@
         return row[property] === value;
       }
     },
-    computed: {
-	  showst() {
-	      return this.$store.state
-	  },
-	},
 	mounted() {
+	  this.dataA = this.msgtochild.child
       this.$store.commit("studentshow",false);
+//    console.log(this.son)
     },
      destroyed() {
      this.$store.commit("studentshow",true)
@@ -164,7 +222,7 @@
   	background: rgba(239,239,244,1);
   }
   .el-table-filter{
-	top:610px!important;
+	top:635px!important;
 	}
 </style>
 <style scoped>
@@ -179,7 +237,7 @@
 	width: 100%;
 	height: 20px;
 	line-height: 20px;
-	margin-left: 30px;
+	padding-left: 42px;
 	margin-top: 24px;
 	position: relative;
 }
@@ -205,21 +263,21 @@
 	border-radius: 11px ;  
     position: absolute;
     top:23px;
-    left: 0px;
+    left: 43px;
     background-color: #157CF0;
 }	
 .correct{
 	width: 100%;
-	height: 28px;
-	line-height: 28px;
 	margin-top: 28px;
 	padding-left: 41px;
 	position:relative;
+	align-items: center;
 }
 .correct>b{
 	width:73px;
-	height:28px; 
-	font-size:18px;
+	height:30px; 
+	line-height: 30px;
+	font-size:16px;
 	font-family:PingFangSC-Regular;
 	color:rgba(110,118,143,1);
 	line-height:20px;
@@ -256,6 +314,7 @@
 }
 .el-tag + .el-tag {
     margin-left: 10px;
+    margin-bottom: 10px;
 }
 .button-new-tag {
     margin-left: 10px;
@@ -272,13 +331,16 @@
 .casesindex_top_m>ul{
    	display: flex;
     padding-left: 44px;
+    align-items: center;
+    height: 40px;
+    line-height: 40px;
 }
 .casesindex_top_m>ul>b{
   	font-weight: 400;
   	display: inline-block;
   	width:60px;
 	height:16px; 
-	font-size:12px;
+	font-size:16px;
 	font-family:MicrosoftYaHei;
 	color:rgba(0,176,255,1);
 	line-height:16px;
@@ -289,7 +351,16 @@
 	font-family:MicrosoftYaHei;
 	color:rgba(66,66,78,1);
 	line-height:16px;
-	margin: 0px 15px;
+	padding: 5px 15px;
+	cursor: pointer;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	
+}
+.casesindex_top_m>ul li:hover{
+  	border: 1px solid white;
+  	color: white;
+  	background-color: rgb(202,228,255);
 }
 ul{
  	-webkit-padding-start: 0px;
