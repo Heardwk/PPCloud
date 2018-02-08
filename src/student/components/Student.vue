@@ -61,6 +61,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+ .droplink{
+		display: block;
+	}
 	.el-dropdown-menu__item{
 		padding: 10px;
 	}

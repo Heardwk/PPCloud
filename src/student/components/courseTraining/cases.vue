@@ -15,17 +15,16 @@
 							      placeholder="搜索"
 							      @select="handleSelect"
 							    ></el-autocomplete>
-							  
 							  </el-col>
 							</el-row>
 							</div>
 	                    </div>
 						<div class="cases_cot_left_content">
 						    <ul v-for="(item,index) in knowledge">
-						    	<li @click="aa(index)">
+						    		<li @click="aa(index)"  v-if="myfilter(item.name)":class="{'classactive':ind === index}">
 						    		 <i></i>
 						    		 <span>
-						    		 	{{item.texts}}
+						    		 {{myfilter(item.name)}}
 						    		 </span>
 						    		 <b></b>
 						    	</li>
@@ -34,6 +33,7 @@
 	              </div>
 	         </div>
 	         <div class="cases_cot_rig">
+	             <!--<casesindex :msgtochild="knowledge[bb]"></casesindex>-->
 	             <casesindex :msgtochild="knowledge[bb]"></casesindex>
 	         </div>
 	     </div>
@@ -47,107 +47,103 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
          input21:'',
          parentMsg:'1',
          knowledge :[
-            { texts: '会计账薄',
-              dynamicTags: ['划线更正法概念适···', '111···'],
-              name: '划线更正法概念、适用范围和操作要求',
-              tableData2: [{
-			          date: '1',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			        }, {
-			          date: '2',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '多选题',
-			          degree:'102'
-			        }, {
-			          date: '3',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			        }, {
-			          date: '4',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			        }, {
-			          date: '5',
-			           name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			        }, {
-			          date: '6',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '多选题',
-			          degree:'102'
-			        }, {
-			          date: '7',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			      }, {
-			          date: '8',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			      },{
-			          date: '9',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			      },{
-			          date: '10',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			      }]
-            },
-            { texts: '错账更正',
-              dynamicTags: ['划线更正法概念适···', '222···'],
-              name: '划线更正法概念、适用范围和操作要求',
-            },
-            { texts: '财产清查的会计处理',
-              dynamicTags: ['划线更正法概念适···','33···'],
-              name: '划线更正法概念、适用范围和操作要求',
-            }, 
-            { texts: '会计账务处理程序',
-              dynamicTags: ['划线更正法概念适···','44···'],
-              name: '划线更正法概念、适用范围和操作要求,适用范围和操作要求',
-            },
-             { texts: '原始凭证的填制与审核',
-              dynamicTags: ['划线更正法概念适···','55···'],
-              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
-            },
-             { texts: '原始凭证的填制与审核',
-              dynamicTags: ['划线更正法概念适···','55···'],
-              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
-            },
-             { texts: '会计报表在财务中的应用',
-              dynamicTags: ['划线更正法概念适···','55···'],
-              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
-            },
-             { texts: '三年会计二年实战模拟',
-              dynamicTags: ['划线更正法概念适···','55···'],
-              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
-            },
+             {
+		        name: "这是1级菜单",
+		        dynamicTags:['11'],
+		        child: [
+		          {
+		            name: "这是1.1",
+		            number:"1",
+		            child: [
+			           {
+			            name: "这是1.1.2",
+			            number:"2",
+			            child: [
+					           {
+					            name: "这是1.1.2.3",
+					            number:"2",
+					           },
+					           {
+					            name: "这是1.1.2.4",
+					            number:"2",
+					           },
+					         ]
+			            },
+			            {
+			            name: "这是1.1.3",
+			            number:"3",
+			           },
+			             {
+			            name: "这是1.1.4",
+			            number:"4",
+			           }
+		            ]
+		          },
+		          {
+		            name: "这是2.1",
+		            number:"1",
+		            child: [
+			              {
+			            name: "这是2.1.2",
+			            number:"2",
+			           }
+		            ]
+		          },
+		        ]
+		      },
+              {
+		        name: "这是第二个1级菜单",
+		        dynamicTags:['ss'],
+		        child: [
+		          {
+		            name: "这是2.1",
+		            number:"1",
+		            child: [
+			              {
+			            name: "这是2.1.2",
+			            number:"2",
+			           }
+		            ]
+		          },
+		          {
+		            name: "这是2.2",
+		            number:"1",
+		            child: [
+			              {
+			            name: "这是2.1.2",
+			            number:"2",
+			           }
+		            ]
+		          },
+		        ]
+		      },
          ],
         restaurants: [],
         state: '',
         bb:'0',
+        ind:0,
         sidess: [
-          { "value": "提供的原始单据"},
-          { "value": "提供的原始单据"},
-          { "value": "提供的原始单据"},
+          { "value": "错账更正"},
+          { "value": "会计账务处理程序"},
+          { "value": "会计报表在财务中的应用"},
+          { "value": "三年会计二年实战模拟"},
         ]
       };
     },
     
     methods: {
-     querySearch(queryString, cb) {
+      querySearch(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         cb(results);
       },
+      myfilter(arr){
+                if(arr.indexOf(this.state)>-1){
+                    return arr
+                }else{
+                	
+                }
+            },
       createFilter(queryString) {
         return (restaurant) => {
           return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
@@ -157,20 +153,22 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
         return this.sidess
       },
       handleSelect(item) {
-        console.log(item);
+//      console.log(item);
       },
       list_s(id,name,imgs){
         this.$router.push({ name:'casesindex',query: {id:id,name:name,imgs:imgs}});
         
       },
-      aa(index) {
+      aa(index,event) {
 	     this.bb = index
+	     this.ind = index
 	  }
 	},
     components:{
     	casesindex,
     },
     mounted() {
+//    this.sidess = this.knowledge[0].texts
       this.restaurants = this.loadAll();
     },
   };
@@ -287,6 +285,23 @@ ul{
 .cases_cot_left_content>ul>li:hover{
 	background-color: #157CF0;
 }
+.classactive{
+	background-color: #157CF0;
+}
+.cases_cot_left_content>ul .classactive i{
+	display: inline-block!important;
+	height: 26px!important;
+	width: 26px!important;
+	background: url(../../../share/img/icon_list_folder_hover@2x.png)no-repeat!important;
+	}
+.cases_cot_left_content>ul>.classactive>b{
+		display: inline-block;
+    width: 4px;
+    height: 18px;
+    background-image: url(../../../share/img/img_class_list_point_hover.png)!important;
+    background-repeat: no-repeat;
+    margin-left: 23.5px;
+}
 .cases_cot_left_content>ul>li:hover i{
 	display: inline-block;
 	height: 26px;
@@ -302,7 +317,6 @@ ul{
 	width:200px;
 	border: 1px solid #E9EFF4;
 	height:53px; 
-	background:rgba(255,255,255,1);
 	border-radius: 5px ; 
 	cursor: pointer;
 }

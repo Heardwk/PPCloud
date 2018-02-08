@@ -25,6 +25,7 @@ import Basic_Accounting from '@/student/components/Basic_Accounting'
 import MyCenter from '@/student/components/MyCenter'
 import allcase from '@/student/components/allcase'
 import casesindex  from '@/student/components/courseTraining/casesindex'
+import SeeTheCase  from '@/student/components/SeeTheCase'
 
 Vue.use(Router)
 
@@ -157,13 +158,18 @@ export default new Router({
          {
           path: 'allcase',
           name: 'allcase',
-          component: allcase
+          component: allcase,
         },
         {
           path: 'casesindex',
           name: 'casesindex',
           component: casesindex
         },
+         {
+						  path: 'SeeTheCase',
+						  name: 'SeeTheCase',
+						  component: SeeTheCase,
+					  }
       ]
     },
 

@@ -9,7 +9,7 @@
 	                    <div class="cases_cot_left_tit">
 	                        <span>知识点</span>
 							  <div id="input_s">   
-							   <el-row class="demo-autocomplete">
+							    <el-row class="demo-autocomplete">
 							  <el-col>
 							      <el-autocomplete
 							      class="inline-input"
@@ -18,17 +18,16 @@
 							      placeholder="搜索"
 							      @select="handleSelect"
 							    ></el-autocomplete>
-							  
 							  </el-col>
 							</el-row>
 							</div>
 	                    </div>
 						<div class="cases_cot_left_content">
 						    <ul v-for="(item,index) in knowledge">
-						    	<li @click="aa(index)">
+						    		<li @click="aa(index)" v-if="myfilter(item.texts)">
 						    		 <i></i>
 						    		 <span>
-						    		 	{{item.texts}}
+						    		   {{myfilter(item.texts)}}
 						    		 </span>
 						    		 <b></b>
 						    	</li>
@@ -52,7 +51,10 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
          knowledge :[
             { texts: '会计账薄',
               dynamicTags: ['划线更正法概念适···', '111···'],
-              name: '划线更正法概念、适用范围和操作要求',
+              'name': [
+                  '这是知识点1',
+                  '这是知识点2',
+              ],
               tableData2: [{
 			          date: '1',
 			          name: '提供的原始单据、记账凭证、账薄资料等,要',
@@ -107,36 +109,55 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
             },
             { texts: '错账更正',
               dynamicTags: ['划线更正法概念适···', '222···'],
-              name: '划线更正法概念、适用范围和操作要求',
+              'name': [
+                  '这是知识点1',
+                  '这是知识点2',
+              ],
             },
             { texts: '财产清查的会计处理',
               dynamicTags: ['划线更正法概念适···','33···'],
-              name: '划线更正法概念、适用范围和操作要求',
+              'name': [
+                  '这是知识点1',
+                  '这是知识点2',
+              ],
               
             }, 
             { texts: '会计账务处理程序',
               dynamicTags: ['划线更正法概念适···','44···'],
-              name: '划线更正法概念、适用范围和操作要求,适用范围和操作要求',
+              'name': [
+                  '这是知识点1',
+                  '这是知识点2',
+              ],
               
             },
              { texts: '原始凭证的填制与审核',
               dynamicTags: ['划线更正法概念适···','55···'],
-              name: '划线更正法概念、适用范围和操作要求适用范围和操作要求适用范围和操作要求',
-              
+             'name': [
+                  '这是知识点1',
+                  '这是知识点2',
+              ],
            },
          ],
         restaurants: [],
         state: '',
         bb:'0',
-        sidess: [
-          { "value": "提供的原始单据"},
-          { "value": "提供的原始单据"},
-          { "value": "提供的原始单据"},
+         sidess: [
+          { "value": "错账更正"},
+          { "value": "会计账务处理程序"},
+          { "value": "会计报表在财务中的应用"},
+          { "value": "三年会计二年实战模拟"},
         ]
       };
     },
     
     methods: {
+	myfilter(arr){
+            if(arr.indexOf(this.state)>-1){
+                return arr
+            }else{
+            	
+            }
+        },
      querySearch(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
