@@ -131,7 +131,9 @@
         </div>
         <span class="line"></span>
         <div class="newTwo">
-          <el-button type="primary" @click="newDailog=false">快速选择案例</el-button>
+          <router-link to='/Teacher/Shixun/Course/addProblem'>
+            <el-button type="primary" @click="newDailog=false">快速选择案例</el-button>
+          </router-link>
           <p>手动挑选每一个具体的案例，交将其保存为题组，给学生发布练习任务</p>
         </div>
       </div>
@@ -333,7 +335,6 @@ export default {
 .path {
   color: #687178;
   font-size: 16px;
-  font-family: PingFangSC;
   margin-top: 40px;
   margin-bottom: 20px;
 }
@@ -364,7 +365,6 @@ export default {
   background-position: 14px 9px;
   background-image: url('../../share/img/icon_class_mouse.png');
   border-radius: 7px;
-  font-family: PingFangSC-Regular;
   color: rgba(255,255,255,1);
   line-height: 40px;
   text-indent: 50px;
@@ -384,14 +384,12 @@ export default {
 }
 .book h3 {
   font-size: 16px;
-  font-family: PingFangSC-Medium;
   color: rgba(66,66,78,1);
   line-height: 20px;
   margin-bottom: 15px;
 }
 .book p {
   font-size: 12px;
-  font-family: PingFangSC-Regular;
   color: rgba(104,113,120,1);
   line-height: 20px;
 }
@@ -399,7 +397,6 @@ export default {
   position: absolute;
   bottom: 0px;
   font-size: 14px;
-  font-family: PingFangSC-Regular;
   color: rgba(36,56,71,1);
   line-height: 20px;
   display: block;
@@ -452,7 +449,6 @@ export default {
 .el-tabs__item.is-active span {
   color: #323C47;
   background-color: white;
-  font-family: PingFangSC-Regular;
 }
 .el-tabs__item .icon1 {
   background-image: url('../../share/img/icon_class_tab_1_normal.png');
@@ -490,7 +486,6 @@ export default {
 }
 .cardTitle {
   position: relative;
-  font-family: PingFangSC-Regular;
   margin-bottom: 25px;
 }
 .careName {
@@ -548,7 +543,6 @@ export default {
   position: absolute;
   right: 10px;
   font-size: 12px;
-  font-family: PingFangSC-Regular;
 }
 .ctrlBox span {
   cursor: pointer;
@@ -611,7 +605,6 @@ export default {
   background-image: url('../../share/img/icon_recyclecopy7.png');
 }
 .borR h3 {
-  font-family: PingFangSC-Regular;
   color: #00B0FF;
   font-size: 14px;
   position: relative;
@@ -641,7 +634,6 @@ export default {
   position: relative;
   padding-top: 45px;
   font-size: 12px;
-  font-family: PingFangSC-Regular;
 }
 .list .line {
   position: absolute;
@@ -688,14 +680,12 @@ export default {
   top: 15px;
   left: 25px;
   font-size: 14px;
-  font-family: PingFangSC-Regular;
   color: #687178;
   line-height: 25px;
   border-bottom: 4px solid #00B0FF;
   font-size: 12px;
 }
 .setBox {
-  font-family: PingFangSC-Regular;
   margin: 0 30px 0 25px;
   padding: 10px 0 15px 0;
   border-bottom: 1px solid #EEEEEE;
@@ -736,7 +726,6 @@ export default {
   border-radius: 3px;
   display: block;
   font-size: 12px;
-  font-family: PingFangSC-Regular;
   color: #A5B7C5;
   text-align: right;
   border: 1px solid #A5B7C5;

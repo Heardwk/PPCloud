@@ -311,7 +311,7 @@ export default {
           window.clearInterval(interval);
           window.location.href = "#/Teacher/Shixun/Course";
         }else {
-          $times.innerText = that.$times + "秒后跳转至课程页面"
+          $times.innerText = that.time + "秒后跳转至课程页面"
         }
       }, 1000);
     }
@@ -327,7 +327,6 @@ export default {
 .path {
   color: #687178;
   font-size: 16px;
-  font-family: PingFangSC;
   margin-top: 40px;
   margin-bottom: 20px;
 }
@@ -338,7 +337,6 @@ export default {
 }
 .headBox p {
   color: #687178;
-  font-family: PingFangSC;
   font-size: 12px;
   padding: 20px 50px 0 50px;
 }
@@ -442,7 +440,6 @@ export default {
   background-color: white;
   border-radius: 4px;
   font-size: 14px;
-  font-family: PingFangSC;
 }
 .titleUl {
   padding: 0;
@@ -508,13 +505,11 @@ export default {
 }
 .succBox h3 {
   font-size: 24px;
-  font-family: PingFangSC-Medium;
   color: rgba(0,0,0,0.85);
 }
 .succBox p {
   margin-top: 8px;
   font-size: 14px;
-  font-family: PingFangSC-Regular;
   color: rgba(0,0,0,0.43);
 }
 .succBox div {

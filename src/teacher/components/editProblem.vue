@@ -72,13 +72,13 @@
                 <span class="titleTwo">数量</span>
                 <span class="titleThr">分值</span>
               </li>
-              <li v-for="(item,index) in tixing" :key="index" class="titleList">
-                <span class="titleOne">{{item.type}}</span>
+              <li v-for="(item,index) in topicList.classification" :key="index" class="titleList">
+                <span class="titleOne">{{item.clas}}</span>
                 <span class="titleTwo">
-                  <el-input-number v-model="item.count" @change="handleChangeCount" :min="0"></el-input-number>
+                  <el-input-number v-model="item.quantity" @change="handleChangeCount" :min="0"></el-input-number>
                 </span>
                 <span class="titleThr">
-                  <el-input-number v-model="item.point" @change="handleChangePoint" :min="0"></el-input-number>
+                  <el-input-number v-model="item.score" @change="handleChangePoint" :min="0"></el-input-number>
                 </span>
               </li>
             </ul>
@@ -253,25 +253,6 @@ export default {
           count: 2,
         },
       ],
-      tixing: [
-        {
-          type: '选择题',
-          count: 0,
-          point: 0,
-        },{
-          type: "多选题",
-          count: 0,
-          point: 0,
-        },{
-          type: "判断题",
-          count: 0,
-          point: 0,
-        },{
-          type: "综合题",
-          count: 0,
-          point: 0,
-        },
-      ],
     }
   },
   mounted() {
@@ -300,8 +281,8 @@ export default {
   computed: {
     allPoint() {
       let point = 0;
-      for(let i=0; i<this.tixing.length; i++){
-        point+=this.tixing[i].point;
+      for(let i=0; i<this.topicList.classification.length; i++){
+        point+=this.topicList.classification[i].score;
       }
       return point
     },
@@ -317,7 +298,6 @@ export default {
 .path {
   color: #687178;
   font-size: 16px;
-  font-family: PingFangSC;
   margin-top: 40px;
   margin-bottom: 20px;
 }
@@ -331,7 +311,6 @@ export default {
   position: relative;
 }
 .topContentBox>div h3 {
-  font-family: PingFangSC-Regular;
   color: #00B0FF;
   font-size: 14px;
   position: relative;
@@ -361,7 +340,6 @@ export default {
   position: relative;
   padding-top: 45px;
   font-size: 12px;
-  font-family: PingFangSC-Regular;
   padding-right: 160px;
 }
 .list .line {
@@ -418,7 +396,6 @@ export default {
 .el-tabs__item.is-active span {
   color: #323C47;
   background-color: white;
-  font-family: PingFangSC-Regular;
 }
 .el-tabs__item .icon1 {
   background-image: url('../../share/img/icon_class_tab_1_normal.png');
@@ -451,7 +428,6 @@ export default {
 }
 .tabContent>p {
   font-size: 14px;
-  font-family: PingFangSC-Regular;
   color: rgba(104,113,120,1);
   margin-top: 8px;
 }
@@ -465,7 +441,6 @@ export default {
 .titleUlBox {
   font-size: 12px;
   color: #42424E;
-  font-family: PingFangSC;
   padding: 0;
 }
 .titleUlBox li:first-child {
@@ -495,7 +470,7 @@ export default {
 }
 .titleUlBox .name {
   display: inline-block;
-  width: 420px;
+  width: 410px;
   text-align: center;
 }
 .titltLi .name {

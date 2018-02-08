@@ -12,6 +12,7 @@ import Ziliao from '@/teacher/components/Ziliao'
 import Geren from '@/teacher/components/Geren'
 import Course from '@/teacher/components/Course'
 import addProblemSet from '@/teacher/components/addProblemSet'
+import addProblem from '@/teacher/components/addProblem'
 import editProblem from '@/teacher/components/editProblem'
 
 import Student from '@/student/components/Student'
@@ -63,6 +64,11 @@ export default new Router({
                   path: 'addProblemSet',
                   name: 'addProblemSet',
                   component: addProblemSet
+                },
+                {
+                  path: 'addProblem',
+                  name: 'addProblem',
+                  component: addProblem
                 },
                 {
                   path: 'editProblem',
