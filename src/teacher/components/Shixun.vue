@@ -17,13 +17,13 @@
       <div class="componentBox">
         <p class="boxTitle">课程实训</p>
         <div class="boxList">
-          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url}">
+          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url}" @click.native="goto(item.name)">
             <div><img :src="item.src" height="180" width="120"></div><h5>{{item.name}}</h5>
           </router-link>
         </div>
         <p class="boxTitle">综合实训</p>
         <div class="boxList">
-          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url}">
+          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url}" @click.native="goto(item.name)">
             <div><img :src="item.src" height="180" width="120"></div><h5>{{item.name}}</h5>
           </router-link>
         </div>

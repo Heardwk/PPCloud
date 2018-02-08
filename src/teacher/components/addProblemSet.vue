@@ -302,6 +302,11 @@ export default {
     }
   },
   updated() {
+    if(this.active==0){
+      if(this.checkTree.length>0){
+        this.$refs.tree.setCheckedNodes(this.checkTree);
+      }
+    }
     if(this.active==3){
       let that = this;
       let $times = this.$refs.times;
