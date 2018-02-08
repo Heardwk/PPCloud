@@ -54,7 +54,7 @@ html,
 body {
   height: 100%;
   width: 100%;
-  font-family: "Microsoft YaHei","微软雅黑","Helvetica Neue","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  font-family: PingFang SC,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Microsoft Yahei,\\5FAE\8F6F\96C5\9ED1,STHeiti,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;

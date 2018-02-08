@@ -122,7 +122,6 @@ export default {
   padding-left: 160px;
   margin-bottom: 50px;
   cursor: pointer;
-  font-family: PingFangSC;
   color: #FFFFFF;
   box-shadow: 0 6px 16px 0px rgba(0, 0, 0, 0.15);
   background: -webkit-linear-gradient(#D8D1FF, #BAADFF);

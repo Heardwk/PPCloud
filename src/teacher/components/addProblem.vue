@@ -14,8 +14,9 @@
       </el-steps>
       <p v-if="showBox[0]"><span class="el-icon-info"></span>请在左边的树形列表中勾选题组所涉及的知识点。</p>
       <p v-if="showBox[1]"><span class="el-icon-info"></span>可在下表中调整题组所涉题型的数量及每个题型的单题分值。</p>
-      <p v-if="showBox[2]"><span class="el-icon-info"></span>可在下表中调整题组所涉题型的数量及每个题型的单题分值。</p>
-      <p v-if="showBox[3]"><span class="el-icon-info"></span>收获创建成功的喜悦！</p>
+      <p v-if="showBox[2]"><span class="el-icon-info"></span>勾选您需要收纳在题组内的案例。</p>
+      <p v-if="showBox[3]"><span class="el-icon-info"></span>可在下表中调整题组所涉题型的数量及每个题型的单题分值。</p>
+      <p v-if="showBox[4]"><span class="el-icon-info"></span>收获创建成功的喜悦！</p>
     </div>
     <div v-if="showBox[0]" class="pointBox">
       <div class="leftContent">
@@ -98,6 +99,18 @@
     </div>
     <div v-if="showBox[2]" class="contentBox">
       <p><span class="hasLine">设置题组基本信息</span></p>
+      <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;"></div>
+      <p class="all"><span class="el-icon-info"></span>
+        已选择<span class="light">{{title.point}}</span>个知识点，
+        共计<span class="light">{{title.count}}</span>个案例，
+      </p>
+      <div class="btnBox">
+        <el-button @click="active--">上一步</el-button>
+        <el-button @click="next" type="primary">下一步</el-button>
+      </div>
+    </div>
+    <div v-if="showBox[3]" class="contentBox">
+      <p><span class="hasLine">设置题组基本信息</span></p>
       <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
         <div class="titleMsgBox">
           <p>
@@ -122,7 +135,7 @@
         <el-button @click="next" type="primary">下一步</el-button>
       </div>
     </div>
-    <div v-if="showBox[3]" class="contentBox">
+    <div v-if="showBox[4]" class="contentBox">
       <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
         <div class="succBox">
           <h3>创建成功</h3>
@@ -137,7 +150,7 @@
 
 <script>
 export default {
-  name: 'addProblemSet',
+  name: 'addProblem',
   data () {
     return {
       isChecArr: [],
@@ -271,7 +284,7 @@ export default {
           this.$message.error('请选择分数');
           return
         }
-      }else if(this.active==2) {
+      }else if(this.active==3) {
         if(this.tizuName==""){
           this.$message.error('请填写题组名字');
           return
@@ -282,7 +295,7 @@ export default {
   },
   computed: {
     showBox() {
-      let arr = [false,false,false,false];
+      let arr = [false,false,false,false,false];
       arr[this.active] = true;
       return arr;
     },
@@ -302,7 +315,7 @@ export default {
     }
   },
   updated() {
-    if(this.active==3){
+    if(this.active==4){
       let that = this;
       let $times = this.$refs.times;
       let interval = window.setInterval(function() {
