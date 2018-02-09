@@ -290,7 +290,7 @@ export default {
     allPoint() {
       let point = 0;
       for(let i=0; i<this.tixing.length; i++){
-        point+=this.tixing[i].point;
+        point+=(this.tixing[i].point*this.tixing[i].count)
       }
       return point
     },

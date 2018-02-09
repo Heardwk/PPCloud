@@ -14,6 +14,7 @@ import Course from '@/teacher/components/Course'
 import addProblemSet from '@/teacher/components/addProblemSet'
 import addProblem from '@/teacher/components/addProblem'
 import editProblem from '@/teacher/components/editProblem'
+import allTrueCase from '@/teacher/components/allTrueCase'
 
 import Student from '@/student/components/Student'
 import trainingCenter from '@/student/components/trainingCenter'
@@ -75,6 +76,11 @@ export default new Router({
                   path: 'editProblem',
                   name: 'editProblem',
                   component: editProblem
+                },
+                {
+                  path: 'allTrueCase',
+                  name: 'allTrueCase',
+                  component: allTrueCase
                 }
               ]
             },

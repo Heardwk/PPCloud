@@ -4,7 +4,7 @@
       <p class="path"><router-link to="/Teacher/Shixun">实训中心</router-link> &gt; {{bookAttr.name}}</p>
       <div class="whiteBox booktop">
         <img :src="bookAttr.src" height="180" width="120" class="bookimg">
-        <router-link to="#" class="anli">全真案例</router-link>
+        <router-link to="/Teacher/Shixun/Course/allTrueCase" class="anli">全真案例</router-link>
         <div class="book">
           <h3>{{bookAttr.name}}</h3>
           <p>{{bookAttr.text}}</p>
