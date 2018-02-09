@@ -26,16 +26,16 @@ export default {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-::-webkit-scrollbar{
-  width: 0;
+/*::-webkit-scrollbar{
+  width: 8px;
   opacity: 0;
   -webkit-overflow-scrolling: touch;
 }
 ::-moz-scrollbar{
-  width: 0;
+  width: 8px;
   opacity: 0;
   -moz-overflow-scrolling: touch;
-}
+}*/
 @-moz-document url-prefix(chrome://), url-prefix(about:), 
 url-prefix(file:///), url-prefix(http://), url-prefix(https://){
   scrollbar{

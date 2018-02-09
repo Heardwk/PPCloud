@@ -24,6 +24,7 @@
           <el-input
             class="serch"
             placeholder="关键字搜索"
+            clearable
             v-model="filterText">
           </el-input>
         </p>
@@ -102,7 +103,7 @@
         <div class="titleMsgBox">
           <p>
             <span class="leftSpan">题组名称</span>
-            <el-input v-model="tizuName" placeholder="请输入内容"></el-input>
+            <el-input v-model="tizuName" placeholder="请输入内容" clearable></el-input>
           </p>
           <div style="margin-top: 20px;">
             <span class="leftSpan">备&nbsp;&nbsp;注</span>
@@ -302,6 +303,11 @@ export default {
     }
   },
   updated() {
+    if(this.active==0){
+      if(this.checkTree.length>0){
+        this.$refs.tree.setCheckedNodes(this.checkTree);
+      }
+    }
     if(this.active==3){
       let that = this;
       let $times = this.$refs.times;

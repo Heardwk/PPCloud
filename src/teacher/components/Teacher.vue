@@ -106,10 +106,10 @@ export default {
   width: 165px;
   height: 40px;
   top: 20px;
-  background: url('../../share/img/img_logo1_index.png') no-repeat;
+  background: url('../../share/img/logo_Dark.png') no-repeat;
 }
 .head .logoW {
-  background: url('../../share/img/img_logo_index.png') no-repeat;
+  background: url('../../share/img/logo_Light.png') no-repeat;
 }
 .head .link:nth-child(2) {
   margin-left: 325px;
