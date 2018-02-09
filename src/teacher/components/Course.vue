@@ -156,37 +156,43 @@ export default {
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },{
           class: '18会计',
           xibie: "会计系",
           nianji: '2018级',
           chec: true,
-          teac: '张三'
+          teac: '张三',
+          kechen: '基础会计'
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },{
           class: '17经管',
           xibie: "经管系",
           nianji: '2017级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },
       ],
       setOptions: [

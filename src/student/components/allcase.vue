@@ -46,85 +46,64 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
   export default {
     data() {
       return {
-         input21:'',
-         parentMsg:'1',
-         knowledge :[
-             {
-		        name: "这是1级菜单",
-		        dynamicTags:['11'],
-		        child: [
-		          {
-		            name: "这是1.1",
-		            number:"1",
-		            child: [
-			           {
-			            name: "这是1.1.2",
-			            number:"2",
-			            child: [
-					           {
-					            name: "这是1.1.2.3",
-					            number:"2",
-					           },
-					           {
-					            name: "这是1.1.2.4",
-					            number:"2",
-					           },
-					         ]
-			            },
-			            {
-			            name: "这是1.1.3",
-			            number:"3",
-			           },
-			             {
-			            name: "这是1.1.4",
-			            number:"4",
-			           }
-		            ]
-		          },
-		          {
-		            name: "这是2.1",
-		            number:"1",
-		            child: [
-			              {
-			            name: "这是2.1.2",
-			            number:"2",
-			           }
-		            ]
-		          },
-		        ]
-		      },
-              {
-		        name: "这是第二个1级菜单",
-		        dynamicTags:['ss'],
-		        child: [
-		          {
-		            name: "这是2.1",
-		            number:"1",
-		            child: [
-			              {
-			            name: "这是2.1.2",
-			            number:"2",
-			           }
-		            ]
-		          },
-		          {
-		            name: "这是2.2",
-		            number:"1",
-		            child: [
-			              {
-			            name: "这是2.1.2",
-			            number:"2",
-			           }
-		            ]
-		          },
-		        ]
-		      },
-         ],
+        input21:'',
+        parentMsg:'1',
+        knowledge :[{
+		      name: "这是1级菜单",
+		      dynamicTags:['11'],
+		      child: [{
+		        name: "这是1.1",
+		        number:"1",
+		        child: [{
+				      name: "这是1.1.2",
+				      number:"2",
+				      child: [{
+					      name: "这是1.1.2.3",
+					      number:"2",
+					    },{
+					      name: "这是1.1.2.4",
+					      number:"2",
+					    }]
+			      },{
+			        name: "这是1.1.3",
+			        number:"3",
+			      },{
+			        name: "这是1.1.4",
+			        number:"4",
+			      }]
+		      },{
+		        name: "这是2.1",
+		        number:"1",
+		        child: [{
+			        name: "这是2.1.2",
+			        number:"2",
+			      }]
+		      }]
+		  	},
+        {
+		      name: "这是第二个1级菜单",
+		      dynamicTags:['ss'],
+		      child: [{
+		        name: "这是2.1",
+		        number:"1",
+		        child: [{
+			        name: "这是2.1.2",
+			        number:"2",
+			      }]
+		      },{
+		        name: "这是2.2",
+		        number:"1",
+		        child: [{
+			        name: "这是2.1.2",
+			        number:"2",
+			      }]
+		      }]
+		    }],
         restaurants: [],
         state: '',
         bb:'0',
         ind:0,
-         sidess: [
+        sidess: [
           { "value": "错账更正"},
           { "value": "会计账务处理程序"},
           { "value": "会计报表在财务中的应用"},
@@ -291,13 +270,13 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 	display: inline-block!important;
 	height: 26px!important;
 	width: 26px!important;
-	background: url(../../share/img/icon_list_folder_hover@2x.png)no-repeat!important;
+	background: url('../../share/img/icon_list_folder_hover@2x.png')no-repeat!important;
 	}
 .cases_cot_left_content>ul>.classactive>b{
 		display: inline-block;
     width: 4px;
     height: 18px;
-    background-image: url(../../share/img/img_class_list_point_hover.png)!important;
+    background-image: url('../../share/img/img_class_list_point_hover.png')!important;
     background-repeat: no-repeat;
     margin-left: 23.5px;
 }
@@ -318,7 +297,7 @@ ul{
 	display: inline-block;
 	height: 26px;
 	width: 26px;
-	background: url(../../share/img/icon_list_folder_hover@2x.png)no-repeat;
+	background: url('../../share/img/icon_list_folder_hover@2x.png')no-repeat;
 }
 .cases_cot_left_content>ul>li{
 	width: 200px;
@@ -346,7 +325,7 @@ ul{
 	display: inline-block;
     width: 4px;
     height: 18px;
-    background-image: url(../../share/img/img_class_list_point_normal@2x.png);
+    background-image: url('../../share/img/img_class_list_point_normal@2x.png');
     background-repeat: no-repeat;
     margin-left: 23.5px;
 }
@@ -354,7 +333,7 @@ ul{
 	display: inline-block;
     width: 4px;
     height: 18px;
-    background-image: url(../../share/img/img_class_list_point_hover.png);
+    background-image: url('../../share/img/img_class_list_point_hover.png');
     background-repeat: no-repeat;
     margin-left: 23.5px;
 }

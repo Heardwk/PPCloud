@@ -110,7 +110,7 @@
           </el-input>
         </p>
         <div class="chooseBox">
-          <div v-for="(item,index) in choooseTree" class="chooseList">
+          <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
             <span class="el-icon-tickets"></span>
             {{item.label}}
           </div>
@@ -356,7 +356,8 @@ export default {
         },
       ],
       tizuName: '',
-      textarea: '', 
+      textarea: '',
+      isact: 0
     }
   },
   mounted() {
@@ -436,6 +437,9 @@ export default {
     changePage() {
 
     },
+    hasact(val) {
+      this.isact = val;
+    }
   },
   computed: {
     showBox() {
@@ -456,7 +460,7 @@ export default {
         count+=this.tixing[i].count;
       }
       return count
-    }
+    },
   },
   updated() {
     if(this.active==0){
