@@ -14,28 +14,26 @@
 	                      <div class="g_set_le_to">
 	                          <i></i>
 	                          <div class="g_inr">
-	                              <b>单选题</b>
+	                              <b>{{choice[0].name}}</b>
 	                              <p>请选择唯一个对应的答案。</p>
 	                          </div>
 	                      </div>
 	                      <div class="g_inr_tit">
-	                                         下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。
+	                             {{choice[0].title}}
 	                      </div> 
 	                      <div class="g_inr_xz">
-	                           <ul>
-	                           	<li><span>【A】</span>债券的票面利率大于市场利率债券的票面利率大于债券的票面利率大于市场利率。</li>
-	                           	<li><span>【B】</span>债券的票面利率大于市场利率债券的票面利率大于债券的票面利率大于市场利率。</li>
-	                           	<li><span>【C】</span>债券的票面利率大于市场利率债券的票面利率大于债券的票面利率大于市场利率。</li>
-	                           	<li><span>【D】</span>债券的票面利率大于市场利率债券的票面利率大于债券的票面利率大于市场利率。</li>
+	                           <ul v-for="(item,index) in choice[0].elect"
+	                           	:key="index">
+	                           	<li><span>【{{item.Letter}}】</span>{{item.options}}</li>
 	                           </ul>  
 	                      </div>
-	                      <div class="g_inr_bu">
+	                      <div class="g_inr_bu"  v-if="act">
 	                          <el-button type="success" size="medium" plain icon="el-icon-success">A</el-button>
 	                          <el-button type="success" size="medium" plain icon="el-icon-success">B</el-button>
 	                          <el-button type="success" size="medium" plain icon="el-icon-success">C</el-button>
 	                          <el-button type="success" size="medium" plain icon="el-icon-success">D</el-button>
 	                      </div>
-	                      <div class="g_set_re">
+	                      <div class="g_set_re" v-if="act">
 	                           <div class="g_set_re_t">
 	                                <span>答案解析</span>
 	                                <div class="g_set_pre">
@@ -47,39 +45,49 @@
 	                      <div class="ts"></div>
 	                      <div class="tss"></div>
 	                      <div class="consult">
-	                     <div class="consult_ti">
-	                     	<b>参考答案：<span>【B】</span></b>
+		                     <div class="consult_ti">
+		                     	<i></i>
+		                     	<b>参考答案：<span>【{{choice[0].answer[0].correct}}】</span></b>
+		                     </div>
+		                     <div class="consult_bot">
+		                         <img src="" alt="" />
+		                         <p>{{choice[0].answer[0].cot}}</p>
+		                     </div>
 	                     </div>
-	                     <div class="consult_bot">
-	                         <img src="" alt="" />
-	                         <p>下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的票面利率小于市场利率。</p>
-	                     </div>
-	                </div>
 	                </div>
 	                <div class="g_set_reig">
 	                     <div class="g_set_reig_top">
-	                          <img src="" />
+	                          <img src="../../share/img/img_class_view_Enclosure Copy.png" />
 	                          <div class="g_set_reig_p">
 	                              <b>附件</b>
 	                              <p>点击放大附件，通过缩略图切换</p>
 	                          </div>
 	                     </div>
-	                     <div class="g_set_reig_ti">
-	                                                  这里是附件的描述，这个附件的第一个表，代表我们是一个中国人的财务软件描述。这里是附件的描述，这个附件的第一个表，代表我们是一个中国人的财务软件描述。
+	                     <div v-if="act_show" class="g_set_reig_ti">本题没有案例</div>
+	                     <div v-if="act" class="g_set_reig_ti">
+	                               {{choice[0].adjunct}}
 	                     </div>
 	                     <div class="g_set_img">
-	                         
+	                     	 <img class="show_img" v-if="act_show" :src="imgs"/>
+	                     	 <div v-if="act">
+		                         <img 
+	                         	  	:src="ss" 
+	                         	  	@click="bigshow=!bigshow" 
+	                         	  	:class="{big: bigshow}" >
+                         	 </div>
 	                     </div>
-	                     <div class="sides">
-	                         <i></i>
-	                         <ul>
-	                         	<li>
-	                         		<a :href="slides[nowIndex].href">
-								          <img v-if="!isShow" :src="slides[nowIndex].src">
-							      </a>
-	                         	</li>
-	                         </ul>
-	                         <i></i>
+	                     <div 
+	                     	class="sides"
+	                     	v-if="act" >
+	                          <ul class="slide-pages">
+							      <li @click="goto(prevIndex)"><i class="pres"></i></li>
+							      <li v-for="(item, index) in slides"
+							      @click="goto(index)"
+							      >
+							        <a :class="{on: index === nowIndex}"><img :src="item.src"/></a>
+							      </li>
+							      <li @click="goto(nextIndex)"><i class="nexts"></i></li>
+							  </ul>
 	                     </div>
 	                </div>
 	          </div>
@@ -92,33 +100,119 @@
   export default {
     data() {
       return {
-      	nowIndex:0,
+       bigshow:false,
+       nowIndex:0,
+       act_show:false,
+       act:true,
+       imgs:require('../../share/img/img_unress.png'),
        slides: [
         {
-          src: require('../../share/img/image_class_cover.png'),
+          src: require('../../share/img/Bitmap.png'),
           title: 'xxx1',
         },
         {
-          src: require('../../share/img/image_class_cover.png'),
+          src: require('../../share/img/Bitmap.png'),
           title: 'xxx2',
         },
         {
-          src: require('../../share/img/image_class_cover.png'),
+          src: require('../../share/img/Bitmap.png'),
           title: 'xxx3',
         },
         {
-          src: require('../../share/img/image_class_cover.png'),
+          src: require('../../share/img/Bitmap.png'),
           title: 'xxx4',
         }
+       ],
+       choice:[
+          {
+          	name:'单选题',
+          	title:'下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
+          	elect:[
+          	  {
+          	  	Letter:'A',
+          	  	options:'债券的票面利率大于市场利率债券的票面利率'
+          	  },
+          	  {
+          	   Letter:'B',
+          	   options:'债券的票面利率等于市场利率'
+          	  },
+          	  {
+          	  	Letter:'C',
+          	  	options:'债券的票面利率小于市场利率'
+          	  },
+          	  {
+          	  	Letter:'D',
+          	  	options:'以上都不对'
+          	  }
+          	],
+          	answer:[
+          	   { 
+          	   	correct:'B',
+          	    cot:'下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的票面利率小于市场利率。'
+          	   },
+          	],
+          	adjunct:'下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的票面利率小于市场利率。'
+          }
        ]
       }
     },
-   methods:{
-
-       },
-  };
+	  computed: {
+	  	ss(){
+	  		if(this.slides.length > 0 ){
+	  			return this.thiss = this.slides[this.nowIndex].src
+	  		}
+	  		else{
+	  			console.log("a")
+	  		}
+	  	},
+	    prevIndex () {
+	     if (this.nowIndex === 0) {
+	        return this.slides.length - 1
+	      }
+	      else {
+	        return this.nowIndex - 1
+	      } 
+	    },
+	    nextIndex () {
+	      if (this.nowIndex === this.slides.length - 1) {
+          return 0
+	      }
+	      else {
+	        return this.nowIndex + 1
+	      }
+	    }
+	  },
+	methods: {
+	    goto (index) {
+	      this.isShow = false
+	      setTimeout(() => {
+	        this.isShow = true
+	        this.nowIndex = index
+	      }, 10)
+	    },
+	  },
+	   mounted(){
+    	if(this.slides == ''){
+    		this.act  = false,
+    		this.act_show  = true
+    	}else{
+    		this.slides = this.slides
+    	}
+    }
+	}
 </script>
 <style>
+	.big{
+	  transform: scale(2);
+	  position: fixed;
+	  margin: auto;
+	  top: 0px;
+	  left: 0px;
+	  right: 0px;
+	  bottom: 0px;
+      z-index: 10;
+      position: fixed;
+	}
 	.g_set_bo{
 		margin-bottom: 15px;
 		display: flex;
@@ -215,11 +309,13 @@
 	}
 	.g_set_le_to>i{
 		display: inline-block;
-		width:42px;
-		height:42px; 
-		border-radius: 4px ; 
-		border: 1px solid #DDDDDD;
-		margin-right: 9px;
+		width:47px;
+		height:47px; 
+		background-image:url(../../share/img/Icon_baseCopy.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        margin-right: 10px;
+		
 	}
 	.g_inr>p{
 		width:144px;
@@ -358,6 +454,16 @@
     	height: 57px;
     	line-height: 57px;
     	border-bottom:1px solid #DDDDDD;
+    	display: flex;
+    	align-items: center;
+    }
+    .consult_ti>i{
+    	display: inline-block;
+    	width: 20px;
+    	height: 20px;
+    	background-image: url(../../share/img/icon_view.png);
+		background-position: center;
+		background-repeat: no-repeat;
     }
     .consult>.consult_ti>b{
     	display: inline-block;
@@ -384,8 +490,10 @@
     	display: inline-block;
     	width:44px;
 		height:53px; 
-		background:rgba(126,211,33,1);
 		margin-right: 33px;
+		background-image: url(../../share/img/img_light.png);
+		background-position: center;
+		background-repeat: no-repeat;
     }
     .consult_bot>p{
     	width:353px;
@@ -438,7 +546,7 @@
     	width: 90%;
     	margin: auto;
     	width:418px;
-		height:70px; 
+		/*height:70px;*/ 
 		font-size:12px;
 		font-family:PingFangSC-Regular;
 		color:rgba(152,152,152,1);
@@ -452,6 +560,12 @@
 		height:210px; 
 		margin: auto;
 		margin-top: 10px;
+		display: flex;
+    	justify-content: center;
+    }
+    .g_set_img>img{
+    	z-index: 100;
+    	cursor: pointer;
     }
     .sides{
     	height: 50px;
@@ -460,7 +574,7 @@
     	margin-top: 15px;
     	position: relative;
     }
-    .sides>i:first-child{
+    .pres{
     	display: inline-block;
     	width: 20px;
     	height: 20px;
@@ -469,8 +583,9 @@
     	position: absolute;
     	top: 30%;
     	left: 2%;
+    	cursor: pointer;
     }
-    .sides>i:last-child{
+    .nexts{
     	display: inline-block;
     	width: 20px;
     	height: 20px;
@@ -479,13 +594,28 @@
     	position: absolute;
     	top: 30%;
     	right: 2%;
+    	cursor: pointer;
+    	
     }
     .sides> ul{
 		width: 80%;
 		height: 50px;
 		margin: auto;
+		display: flex;
+		align-items: center;
+    }
+    .sides> ul>li img{
+        display: inline-block;
+		width: 41px;
+		height: 41px;
+    }
+    .on{
+    	display: inline-block;
+    	width: 43px;
+    	height: 43px;
+    	border: 1px solid #157CF0;
     }
     .sides> ul>li{
-		
+        margin: 0px 5px;
     }
 </style>

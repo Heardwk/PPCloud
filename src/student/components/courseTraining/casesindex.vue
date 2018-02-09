@@ -168,12 +168,7 @@
         this.dynamicTags.length>0? this.dataA = this.dynamicTags[this.dynamicTags.length-1].child : this.dataA = this.msgtochild.child
       },
       handleInputConfirm() {
-//      let inputValue = this.inputValue;
-//      if (inputValue) {
-//        this.dynamicTags.push(inputValue);
-//      }
-//      this.inputVisible = false;
-//      this.inputValue = '';
+
       },
        tableRowClassName({row, rowIndex}) {
         if (rowIndex %2 !==0 ) {
@@ -245,7 +240,7 @@
 	display: inline-block;
 	width:148px;
 	height:20px; 
-	text-align: center;
+	text-align: left;
 	font-size:14px;
 	font-family:PingFangSC-Regular;
 	color:rgba(36,56,71,1);
@@ -272,6 +267,8 @@
 	padding-left: 41px;
 	position:relative;
 	align-items: center;
+	height: 50px;
+	line-height: 50px;
 }
 .correct>b{
 	width:73px;
@@ -314,7 +311,6 @@
 }
 .el-tag + .el-tag {
     margin-left: 10px;
-    margin-bottom: 10px;
 }
 .button-new-tag {
     margin-left: 10px;
