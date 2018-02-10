@@ -121,61 +121,6 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 		        ]
 		      },
          ],
-=======
-        input21:'',
-        parentMsg:'1',
-        knowledge :[{
-		      name: "这是1级菜单",
-		      dynamicTags:['11'],
-		      child: [{
-		        name: "这是1.1",
-		        number:"1",
-		        child: [{
-				      name: "这是1.1.2",
-				      number:"2",
-				      child: [{
-					      name: "这是1.1.2.3",
-					      number:"2",
-					    },{
-					      name: "这是1.1.2.4",
-					      number:"2",
-					    }]
-			      },{
-			        name: "这是1.1.3",
-			        number:"3",
-			      },{
-			        name: "这是1.1.4",
-			        number:"4",
-			      }]
-		      },{
-		        name: "这是2.1",
-		        number:"1",
-		        child: [{
-			        name: "这是2.1.2",
-			        number:"2",
-			      }]
-		      }]
-		  	},
-        {
-		      name: "这是第二个1级菜单",
-		      dynamicTags:['ss'],
-		      child: [{
-		        name: "这是2.1",
-		        number:"1",
-		        child: [{
-			        name: "这是2.1.2",
-			        number:"2",
-			      }]
-		      },{
-		        name: "这是2.2",
-		        number:"1",
-		        child: [{
-			        name: "这是2.1.2",
-			        number:"2",
-			      }]
-		      }]
-		    }],
->>>>>>> 4a742736a9b20335cb370a5e189094bba47ba296
         restaurants: [],
         state: '',
         bb:'0',
