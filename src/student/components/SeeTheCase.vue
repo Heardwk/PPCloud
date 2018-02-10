@@ -162,7 +162,7 @@
 	  			return this.thiss = this.slides[this.nowIndex].src
 	  		}
 	  		else{
-	  			console.log("a")
+	  		
 	  		}
 	  	},
 	    prevIndex () {

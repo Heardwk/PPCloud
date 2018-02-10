@@ -1,7 +1,11 @@
 <template>
    <div style="background-color: rgba(255, 248, 248, 0.2 );">
 	   <div class="Basic">
-	   	   	 <p>实训中心><b>{{Eattr.listName}}</b></p>
+	   	   	 <p>实训中心&nbsp;&gt;
+	   	   	 	<router-link to="/Student/trainingCenter">
+	   	   	 		<b>基础会计</b>
+	   	   	 	</router-link>
+	   	   	 </p>
 	       <div class="Basic_index_top">
 		       	<a href="">
 		       		<img :src="Eattr.listImg"/>
@@ -69,7 +73,7 @@ export default{
 	font-size: 16px;
 	margin-bottom: 20px;
 }
-.Basic>p>b{
+.Basic>p b{
 	color: #666;	
 	font-size: 16px;
 	font-weight: 400;

@@ -56,6 +56,7 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 		          {
 		            name: "这是1.1",
 		            number:"1",
+		            
 		            child: [
 			           {
 			            name: "这是1.1.2",

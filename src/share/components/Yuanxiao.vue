@@ -34,6 +34,7 @@ export default {
   data () {
     return {
       activeName: 'first',
+      	shows: true,
       noticeData: [
         {
           text: '云上实训2.0正式上线，新功能激动人心！',
@@ -63,9 +64,6 @@ export default {
       ]
     }
   },
-  created() {
-    
-  },
   mounted() {
     try {
       var colo = document.getElementsByClassName("colo");
@@ -74,6 +72,12 @@ export default {
           colo[i].classList.add("white");
         }
         colo[0].classList.add("logoW");
+      } 
+      var ls = document.getElementsByClassName("ls");
+      if(ls.length>0){
+          for(let i=0; i<ls.length; i++) {
+          ls[i].classList.add("white");
+        }
       }
     }catch(error){
       console.log(error)

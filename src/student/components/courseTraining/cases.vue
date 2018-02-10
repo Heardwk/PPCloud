@@ -33,7 +33,6 @@
 	              </div>
 	         </div>
 	         <div class="cases_cot_rig">
-	             <!--<casesindex :msgtochild="knowledge[bb]"></casesindex>-->
 	             <casesindex :msgtochild="knowledge[bb]"></casesindex>
 	         </div>
 	     </div>
@@ -168,7 +167,6 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
     	casesindex,
     },
     mounted() {
-//    this.sidess = this.knowledge[0].texts
       this.restaurants = this.loadAll();
     },
   };

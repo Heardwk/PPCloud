@@ -1,23 +1,22 @@
 <template>
-  <div class="">
+  <div>
         <ul class="navigation">
 				 <div class="heads">
 	        <el-header class="mainMenu">
 	        	<div class="logo-left">
-	        		  <router-link to='/Student/Yuanxiao' class="logo-left_img">
-			     		   <a></a>
-			     		   </router-link>
+	        		  <router-link to='/Student/Yuanxiao' @click.native='increment' active-class="active" class="logo-left_img colo ">
+			     		  </router-link>
 			     	</div>
-	        	<router-link class="link" data-content="实训中心" to="/Student/trainingCenter">实训中心</router-link>
-	          <router-link class="link" data-content="我的任务" to="/Student/myTask">我的任务</router-link>
-	          <router-link class="link" data-content="成绩管理" to="/Student/management">成绩管理</router-link>
-	          <router-link class="link" data-content="能力档案" to="/Student/abilityfile">能力档案</router-link>
-	          <router-link class="link" data-content="资料共享" to="/Student/datasharing">资料共享</router-link>
+	        	<router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="实训中心" to="/Student/trainingCenter">实训中心</router-link>
+	          <router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="我的任务" to="/Student/myTask">我的任务</router-link>
+	          <router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="成绩管理" to="/Student/management">成绩管理</router-link>
+	          <router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="能力档案" to="/Student/abilityfile">能力档案</router-link>
+	          <router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="资料共享" to="/Student/datasharing">资料共享</router-link>
 	          <el-dropdown>
-						  <span class="el-dropdown-link"> <img class="logo-img" :src="studentimgs" />学生</span>
+						  <span class="el-dropdown-link ls" :class="{'classactive':shows}"> <img class="logo-img" :src="studentimgs"/>学生</span>
 						  <el-dropdown-menu slot="dropdown">
-						    <el-dropdown-item><router-link class="droplink" to="/Student/MyCenter">个人中心</router-link></el-dropdown-item>
-						    <el-dropdown-item><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
+						    <el-dropdown-item><router-link @click.native='ins' class="droplink" to="/Student/MyCenter">个人中心</router-link></el-dropdown-item>
+						    <el-dropdown-item><router-link @click.native='ins' class="droplink" to="/Load">退出</router-link></el-dropdown-item>
 						  </el-dropdown-menu>
 						</el-dropdown>
 	        </el-header>
@@ -47,7 +46,7 @@ export default {
   name: 'Student',
   data () {
     return {
-      shref: '',
+    	shows: false,
       studentimgs:require('../../share/img/img_head_top.png'),
     }
   },
@@ -55,19 +54,42 @@ export default {
     goDetail(){
       this.$router.push({ name:'/Yuanxiao'});
    },
- },
+   increment(){
+   	  this.shows = true
+   },
+   ins(){
+   	var classactive = document.getElementsByClassName("classactive");
+    if(classactive.length > 0){
+        this.shows = false
+    }
+    var ls = document.getElementsByClassName("ls");
+    if(ls.length > 0){
+          for(let i=0; i<ls.length; i++) {
+          ls[i].classList.remove("white");
+        }
+    }
+   }
+  }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
- .droplink{
+.classactive {
+	color: white!important;
+}
+.white {
+	color: white!important;
+}
+.active{
+  background: url('../../share/img/logo_Light.png') no-repeat !important;
+	}
+.droplink{
 		display: block;
 	}
-	.el-dropdown-menu__item{
+.el-dropdown-menu__item{
 		padding: 10px;
-	}
-	html, body, div, span, applet, object, iframe,
+}
+html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -100,11 +122,11 @@ ol, ul {
 }
 ul{
 		list-style: none;
-	}
-	body,html{
+}
+body,html{
 		margin: 0;
 		padding: 0;
-	}
+}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -188,7 +210,6 @@ ul{
     line-height: 80px;
     padding: 0;
     font-size: 16px;
-    color:rgba(104,113,120,1);
     -webkit-transition: all .3s linear;
     transition: all .3s linear;
     position: relative;
@@ -198,15 +219,9 @@ ul{
 .navigation{
 	  background-color:#FFFFFF;
 	  margin: 0; 
-    /*border-bottom: 1px solid rgba(0,0,0,0.1);
-    -webkit-box-shadow: 0px 0px 16px 6px rgba(0,0,0,0.2);
-    box-shadow: 0px 0px 12px 6px rgba(0,0,0,0.1);*/
     position: relative;
     z-index: 1;
 }
-/*.heads{
-	height: 80px;
-}*/
 .heads a{
 	width:72px;
 	height:80px; 
@@ -227,7 +242,6 @@ ul{
     -webkit-box-shadow: none;
     box-shadow: none;
     font-size: 18px;
-    color: #FFFFFF;
     vertical-align:middle;
     margin-right: 20px;
 }
@@ -249,7 +263,7 @@ ul{
 }
 .logo-left>.logo-left_img{
 	display: inline-block;
-  background-image: url(../../share/img/img_logo1_index.png);
+  background-image: url(../../share/img/logo_Dark.png);
   background-repeat: no-repeat;
   cursor: pointer;
   width: 165px;
