@@ -4,7 +4,7 @@
       <p class="path"><router-link to="/Teacher/Shixun">实训中心</router-link> &gt; {{bookAttr.name}}</p>
       <div class="whiteBox booktop">
         <img :src="bookAttr.src" height="180" width="120" class="bookimg">
-        <router-link to="#" class="anli">全真案例</router-link>
+        <router-link to="/Teacher/Shixun/Course/allTrueCase" class="anli">全真案例</router-link>
         <div class="book">
           <h3>{{bookAttr.name}}</h3>
           <p>{{bookAttr.text}}</p>
@@ -156,37 +156,43 @@ export default {
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },{
           class: '18会计',
           xibie: "会计系",
           nianji: '2018级',
           chec: true,
-          teac: '张三'
+          teac: '张三',
+          kechen: '基础会计'
         },{
           class: '18财会',
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },{
           class: '17经管',
           xibie: "经管系",
           nianji: '2017级',
           chec: false,
-          teac: ''
+          teac: '',
+          kechen: '基础会计'
         },
       ],
       setOptions: [
