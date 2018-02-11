@@ -5,6 +5,7 @@
       <div class="head">
         <router-link to="Teacher">教师登录</router-link>
         <router-link to="Student">学生登录</router-link>
+        <router-link to="Educat">教务登录</router-link>
         <button @click="loading">登录</button>
       </div>
     </el-header>
