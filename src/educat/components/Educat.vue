@@ -1,7 +1,7 @@
 <template>
   <div class="">
   	<el-container>
-      <el-header style="background: white; height: 80px;" >
+      <el-header style="background: white; height: 80px;" class="ww">
         <div class="head">
           <div class="schoolBox">
             {{schoolName}}
@@ -24,7 +24,7 @@
         </div>
       </el-header>
       <div style="height: 80px;"></div>
-      <el-container style="width: 960px;margin: 0 auto">
+      <el-container class="ww">
         <el-aside width="200px">
           <router-link v-for="(item,index) in linkList" :to="item.link" :key="index">
             <span :class="item.icon"></span>
@@ -75,8 +75,6 @@ export default {
   color: #678178;
 }
 .head {
-  width: 960px;
-  margin: 0 auto;
   text-align: right;
   position: relative;
   color: #678178;
@@ -89,5 +87,10 @@ export default {
   background-image: url('../../share/img/School.png');
   background-repeat: no-repeat;
   background-position: 0 center;
+}
+.ww {
+  min-width: 960px;
+  max-width: 1440px;
+  margin: 0 auto;
 }
 </style>
