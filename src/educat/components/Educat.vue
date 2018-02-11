@@ -1,7 +1,7 @@
 <template>
   <div class="">
   	教务端
-  <view-router></view-router>
+    <router-view />
   </div>
 </template>
 

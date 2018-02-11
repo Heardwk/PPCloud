@@ -3,14 +3,15 @@
     <p class="path">
       <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
       <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
-      快速创建题组
+      <router-link to="/Teacher/Shixun/Course/allTrueCase">全真案例</router-link> &gt;
+      发布任务
     </p>
     <div class="headBox">
       <el-steps :active="active" finish-status="success" simple>
         <el-step title="选择知识点"></el-step>
         <el-step title="调整题型"></el-step>
         <el-step title="案例甄选"></el-step>
-        <el-step title="题组参数"></el-step>
+        <el-step title="任务信息"></el-step>
         <el-step title="完成"></el-step>
       </el-steps>
       <p v-if="showBox[0]"><span class="el-icon-info"></span>请在左边的树形列表中勾选题组所涉及的知识点。</p>
@@ -157,15 +158,53 @@
       </div>
     </div>
     <div v-if="showBox[3]" class="contentBox">
-      <p><span class="hasLine">设置题组基本信息</span></p>
+      <p><span class="hasLine">设置任务基本信息</span></p>
       <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
         <div class="titleMsgBox">
-          <p>
-            <span class="leftSpan">题组名称</span>
-            <el-input v-model="tizuName" placeholder="请输入内容" clearable></el-input>
+          <p style="position: relative">
+            <span class="leftSpan">任务名称</span>
+            <el-input v-model="missName" placeholder="请输入内容" clearable></el-input>
           </p>
-          <div style="margin-top: 20px;">
-            <span class="leftSpan">备&nbsp;&nbsp;注</span>
+          <div class="rela">
+            <span class="leftSpan">开始时间</span>
+            <el-date-picker
+              v-model="begintime"
+              type="datetime"
+              @change = "changeBegintime"
+              placeholder="选择日期时间">
+            </el-date-picker>
+          </div>
+          <div class="rela" style="padding-top: 10px">
+            <span class="leftSpan" style="margin-top: -2px">结束时间</span>
+            <div class="slide">
+              <span v-for="(item,index) in slideVal" :key="item" @click="getT(index)">
+                <input type="radio" name="chec" :id="item" v-model="pick" :value="slideVal[index]">
+                <label :for="item">{{item}}</label>
+              </span>
+            </div>
+            <el-date-picker
+              v-model="endtime"
+              type="datetime"
+              @change = "changeEndtime"
+              placeholder="选择日期时间">
+            </el-date-picker>
+          </div>
+          <div class="rela">
+            <span class="leftSpan">参与班级</span>
+            <div class="checkClas">
+              <span v-for="(item,index) in hasClass" :key="index">
+                <input :id="index" type="checkbox" name="cls" :value="item.class" v-model="classNum">
+                <label :for="index">{{item.class}}</label>
+              </span>
+            </div>
+            <p class="all">
+              <span class="el-icon-info" style="margin-left: 0"></span>
+              已选中<span class="light">{{classNum.length}}</span>个班级，
+              共<span class="light">120</span>人
+              </p>
+          </div>
+          <div class="rela">
+            <span class="leftSpan">备&nbsp;注</span>
             <el-input
               type="textarea"
               placeholder="请输入内容"
@@ -185,19 +224,19 @@
     <div v-if="showBox[4]" class="contentBox">
       <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
         <div class="succBox">
-          <h3>创建成功</h3>
-          <p ref="times">5秒后跳转至课程页面</p>
-          <div><router-link to="/Teacher/Shixun/Course">返回课程</router-link></div>
+          <h3>发布任务成功</h3>
+          <p ref="times">5秒后跳转至全真案例</p>
+          <div><router-link to="/Teacher/Shixun/Course/allTrueCase">返回案例</router-link></div>
         </div>
       </div>
-      <p class="all"><span class="el-icon-info"></span>完成后可以将立即将题组中的题目作为任务推送给学习进行练习。</p>
+      <p class="all"><span class="el-icon-info"></span>请关注已发布任务的状态了解任务进度</p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'addProblem',
+  name: 'pubMission',
   data () {
     return {
       isChecArr: [],
@@ -355,13 +394,25 @@ export default {
           point: 0,
         },
       ],
-      tizuName: '',
-      textarea: '',
-      isact: 0
+      missName: '',
+      isact: 0,
+      pick: "24小时",
+      begintime: new Date(),
+      endtime: new Date(new Date().getTime() + 24*60*60*1000),
+      slideVal: ["自定义","24小时","12小时","6小时","3小时","1小时","半小时"],
+      hasClass: [
+        {
+          class: '18会计',
+        },{
+          class: '18财会',
+        }
+      ],
+      classNum: [],
+      textarea: ''
     }
   },
   mounted() {
-    this.$store.commit("courseshow",false);
+    this.$store.commit("allcaseshow",false);
     this.bookName = localStorage.getItem("bookName");
   },
   watch: {
@@ -427,8 +478,8 @@ export default {
           return
         }
       }else if(this.active==3) {
-        if(this.tizuName==""){
-          this.$message.error('请填写题组名字');
+        if(this.missName==""){
+          this.$message.error('请填写任务名字');
           return
         }
       }
@@ -439,7 +490,46 @@ export default {
     },
     hasact(val) {
       this.isact = val;
-    }
+    },
+    changeBegintime() {
+      let index = this.slideVal.indexOf(this.pick);
+      switch(index){
+        case 0: break;
+        case 1: 
+          this.endtime = this.begintime.getTime() + 24*60*60*1000; break;
+        case 2: 
+          this.endtime = this.begintime.getTime() + 12*60*60*1000; break;
+        case 3: 
+          this.endtime = this.begintime.getTime() +  6*60*60*1000; break;
+        case 4: 
+          this.endtime = this.begintime.getTime() +  3*60*60*1000; break;
+        case 5: 
+          this.endtime = this.begintime.getTime() +  1*60*60*1000; break;
+        case 6: 
+          this.endtime = this.begintime.getTime() +    30*60*1000; break;
+      }
+    },
+    getT(val) {
+      this.pick = this.slideVal[val];
+      switch(val){
+        case 0: break;
+        case 1: 
+          this.endtime = this.begintime.getTime() + 24*60*60*1000; break;
+        case 2: 
+          this.endtime = this.begintime.getTime() + 12*60*60*1000; break;
+        case 3: 
+          this.endtime = this.begintime.getTime() +  6*60*60*1000; break;
+        case 4: 
+          this.endtime = this.begintime.getTime() +  3*60*60*1000; break;
+        case 5: 
+          this.endtime = this.begintime.getTime() +  1*60*60*1000; break;
+        case 6: 
+          this.endtime = this.begintime.getTime() +    30*60*1000; break;
+      }
+    },
+    changeEndtime() {
+      this.pick = this.slideVal[0]
+    },
   },
   computed: {
     showBox() {
@@ -460,7 +550,7 @@ export default {
         count+=this.tixing[i].count;
       }
       return count
-    },
+    }
   },
   updated() {
     if(this.active==0){
@@ -475,7 +565,7 @@ export default {
         if ((that.time--) <= 1) {
           $times.innerText = "正在跳转至课程页面...";
           window.clearInterval(interval);
-          window.location.href = "#/Teacher/Shixun/Course";
+          window.location.href = "#/Teacher/Shixun/Course/allTrueCase";
         }else {
           $times.innerText = that.time + "秒后跳转至课程页面"
         }
@@ -483,7 +573,7 @@ export default {
     }
   },
   destroyed() {
-    this.$store.commit("courseshow",true) 
+    this.$store.commit("allcaseshow",true)
   },
 }
 </script>
@@ -642,26 +732,95 @@ export default {
     width: 155px;
   }
   .titleMsgBox {
-    padding-top: 50px;
+    padding-top: 15px;
+  }
+  .titleMsgBox .rela {
+    position: relative;
+    margin-top: 20px;
+    padding-left: 120px;
   }
   .titleMsgBox .leftSpan {
     font-size: 14px;
-    display: inline-block;
+    position: absolute;
+    left: 0;
     width: 85px;
     text-align: right;
     margin-right: 35px;
     color: #243847;
+    line-height: 40px;
   }
-  .titleMsgBox .el-input {
+  .titleMsgBox p .el-input, .titleMsgBox .rela .el-input {
     display: inline-block;
-    width: 240px;
+    width: 420px;
     line-height: 40px;
     color: #243847;
+    margin-left: 120px;
   }
-  .titleMsgBox .el-textarea {
-    display: inline-block;
-    width: 428px;
-    vertical-align: top;
+  .titleMsgBox .rela .el-input {
+    margin-left: 0;
+  }
+  .rela .slide {
+    width: 470px;
+    height: 6px;
+    margin: 16px 0;
+    padding: 0 10px 0 5px;
+    background-color: #e4e7ed;
+    border-radius: 3px;
+    position: relative;
+    cursor: pointer;
+    vertical-align: middle;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+  }
+  .rela .slide span {
+    position: relative;
+  }
+  .rela .slide span input {
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    margin: 0;
+    cursor: pointer;
+    opacity: 0;
+  }
+  .rela .slide span input:checked+label {
+    color: #409EFF;
+  }
+  .rela .slide span label {
+    position: absolute;
+    width: 50px;
+    top: -30px;
+    display: block;
+    height: 45px;
+    left: 0;
+    width: 50px;
+    cursor: pointer;
+    text-align: center;
+    margin-left: -20px;
+  }
+  .rela .slide span label::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    top: 30px;
+    left: 20px;
+    border-radius: 50%;
+    position: absolute;
+    background-color: white;
+  }
+  .rela .slide span input:checked+label::after {
+    content: '';
+    width: 15px;
+    height: 15px;
+    top: 25px;
+    left: 15px;
+    border-radius: 50%;
+    border: 2px solid #409EFF;
+    position: absolute;
+    background-color: white;
   }
   .succBox {
     text-align: center;
@@ -828,5 +987,51 @@ export default {
     font-size: 18px;
     color: #4DA1FF;
     margin-right: 10px;
+  }
+  .checkClas {
+    padding-top: 5px;
+  }
+  .checkClas>span {
+    display: inline-block;
+    position: relative;
+  }
+  .checkClas>span input {
+    position: absolute;
+    top: 5px;
+    left: 15px;
+    display: block;
+    cursor: pointer;
+    z-index: -1;
+    opacity: 0;
+  }
+  .checkClas>span label {
+    width: 95px;
+    padding: 0 15px;
+    line-height: 28px;
+    border-radius: 3px;
+    display: block;
+    font-size: 12px;
+    color: #A5B7C5;
+    text-align: right;
+    border: 1px solid #A5B7C5;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    background-color: white;
+    cursor: pointer;
+    background-image: url('../../share/img/CombinedShapeB.png');
+    background-repeat: no-repeat;
+    background-position: 15px 5px;
+  }
+  .checkClas>span input:checked+label {
+    background-color: #7ED321;
+    color: white;
+    border: 1px solid #7ED321;
+    background-image: url('../../share/img/CombinedShapeW.png');
+  }
+  .rela .el-textarea {
+    display: inline-block;
+    width: 428px;
+    vertical-align: top;
+    margin-bottom: 20px;
   }
 </style>

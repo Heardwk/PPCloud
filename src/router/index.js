@@ -15,6 +15,7 @@ import addProblemSet from '@/teacher/components/addProblemSet'
 import addProblem from '@/teacher/components/addProblem'
 import editProblem from '@/teacher/components/editProblem'
 import allTrueCase from '@/teacher/components/allTrueCase'
+import pubMission from '@/teacher/components/pubMission'
 
 import Student from '@/student/components/Student'
 import trainingCenter from '@/student/components/trainingCenter'
@@ -82,7 +83,14 @@ export default new Router({
                 {
                   path: 'allTrueCase',
                   name: 'allTrueCase',
-                  component: allTrueCase
+                  component: allTrueCase,
+                  children: [
+                    {
+                      path: 'pubMission',
+                      name: 'pubMission',
+                      component: pubMission
+                    }
+                  ]
                 }
               ]
             },
