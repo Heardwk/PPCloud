@@ -484,12 +484,13 @@ export default {
 .titleMsgBox {
   padding-top: 50px;
 }
-.titleMsgBox span {
-  font-size: 16px;
+.titleMsgBox .leftSpan {
+  font-size: 14px;
   display: inline-block;
   width: 85px;
   text-align: right;
   margin-right: 35px;
+  color: #243847;
 }
 .titleMsgBox .el-input {
   display: inline-block;

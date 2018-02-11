@@ -105,7 +105,7 @@
         <span>选择班级：</span>
         <div id="checkClas" class="checkClas">
           <span v-for="(item,index) in hasClass" :key="index">
-            <input :id="index" type="checkbox" name="cls" :disabled="item.chec" :value="item.class">
+            <input :id="index" type="checkbox" name="cls" :disabled="item.chec" :value="item.class" v-model="classNum">
             <label v-if="!item.chec" :for="index">{{item.class}}</label>
             <el-tooltip v-else effect="dark" :content="item.teac+str" placement="top-start">
               <label :for="index">{{item.class}}</label>
@@ -150,6 +150,7 @@ export default {
     return {
       str: "老师已经选择",
       setTime: "2017-2018年第二学期",
+      classNum: [],
       setClass: [
         {
           class: '18会计',

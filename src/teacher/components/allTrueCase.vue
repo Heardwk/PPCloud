@@ -1,83 +1,85 @@
 <template>
-  <div class="">
-    <p class="path">
-      <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
-      <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
-      全真案例
-    </p>
-    <div class="contentBox">
-      <div class="contentLeft">
-        <p>
-          <span class="hasLine">知识点</span>
-          <el-input
-            class="serch"
-            placeholder="关键字搜索"
-            v-model="filterText">
-          </el-input>
-          <div class="scrollL">
-            <div v-for="(item,index) in pointList" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
-              <span class="el-icon-tickets"></span>{{item.name}}
+  <div>
+    <div v-if="allcase.allcase">
+      <p class="path">
+        <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
+        <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
+        全真案例
+      </p>
+      <div class="contentBox">
+        <div class="contentLeft">
+          <p>
+            <span class="hasLine">知识点</span>
+            <el-input
+              class="serch"
+              placeholder="关键字搜索"
+              v-model="filterText">
+            </el-input>
+            <div class="scrollL">
+              <div v-for="(item,index) in pointList" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
+                <span class="el-icon-tickets"></span>{{item.name}}
+              </div>
             </div>
+          </p>
+        </div>
+        <div class="contentRight">
+          <p style="position: relative">
+            <span class="hasLine">《{{bookName}}》全真案例</span>
+            <router-link to="/Teacher/Shixun/Course/allTrueCase/pubMission" class="pubmis"><span class="el-icon-circle-plus"></span>发布任务</router-link>
+          </p>
+          <div class="err">
+            <span>错账更正 &gt;</span>
+            <p>
+              <el-tag
+                v-for="(tag,index) in errorPoint"
+                :key="index"
+                closable
+                @close="handleClose(tag)"
+                type="info">
+                {{tag}}
+              </el-tag>
+            </p>
           </div>
-        </p>
-      </div>
-      <div class="contentRight">
-        <p><span class="hasLine">《{{bookName}}》全真案例</span></p>
-        <div class="err">
-          <span>错账更正 &gt;</span>
-          <p>
-            <el-tag
-              v-for="(tag,index) in errorPoint"
-              :key="index"
-              closable
-              @close="handleClose(tag)"
-              type="info">
-              {{tag}}
-            </el-tag>
-          </p>
-        </div>
-        <div class="screen">
-          <span class="scrType">知识点：</span>
-          <p>
-            <span v-for="(item,index) in titlePoint" :key="index">{{item}}</span>
-          </p>
-        </div>
-        <div class="screen">
-          <span class="scrType">题&nbsp;型：</span>
-          <p>
-            <span v-for="(item,index) in titleType" :key="index" @click="chec">{{item}}</span>
-          </p>
-        </div>
-        <div class="choooseContent">
-          <ul class="titleUlBox">
-            <li>
-              <span class="num">序号</span>
-              <span class="name">案例名称</span>
-              <!-- <span class="point">课程名称</span> -->
-              <span class="type">题型</span>
-              <span class="count">练习次数</span>
-<!--               <span class="oper">操作</span> -->
-            </li>
-            <li v-for="(item,index) in topicData" class="titltLi">
-              <span class="num">{{index+1}}</span>
-              <span class="name">{{item.name}}</span>
-              <!-- <span class="point">{{item.point}}</span> -->
-              <span class="type">{{item.type}}</span>
-              <span class="count">{{item.count}}</span>
-              <!-- <span class="oper"><el-checkbox v-model="item.chec"></el-checkbox></span> -->
-            </li>
-          </ul>
-          <div style="text-align: right; margin-bottom:20px;">
-            <el-pagination
-              background
-              layout="prev, pager, next"
-              @current-change="changePage"
-              :total="50">
-            </el-pagination>
+          <div class="screen">
+            <span class="scrType">知识点：</span>
+            <p>
+              <span v-for="(item,index) in titlePoint" :key="index">{{item}}</span>
+            </p>
+          </div>
+          <div class="screen">
+            <span class="scrType">题&nbsp;型：</span>
+            <p>
+              <span v-for="(item,index) in titleType" :key="index" @click="chec">{{item}}</span>
+            </p>
+          </div>
+          <div class="choooseContent">
+            <ul class="titleUlBox">
+              <li>
+                <span class="num">序号</span>
+                <span class="name">案例名称</span>
+                <span class="type">题型</span>
+                <span class="count">练习次数</span>
+              </li>
+              <li v-for="(item,index) in topicData" class="titltLi">
+                <span class="num">{{index+1}}</span>
+                <span class="name">{{item.name}}</span>
+                <span class="type">{{item.type}}</span>
+                <span class="count">{{item.count}}</span>
+              </li>
+            </ul>
+            <div style="text-align: right; margin-bottom:20px;">
+              <el-pagination
+                background
+                layout="prev, pager, next"
+                @current-change="changePage"
+                :total="50">
+              </el-pagination>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <router-view />
   </div>
 </template>
 
@@ -189,6 +191,11 @@ export default {
     this.$store.commit("courseshow",false);
     this.bookName = localStorage.getItem("bookName");
   },
+  computed: {
+    allcase() {
+      return this.$store.state
+    },
+  },
   methods: {
     hasact(val) {
       this.isact = val;
@@ -249,6 +256,27 @@ export default {
     height: 4px;
     background-color: #00B0FF;
     border-radius: 11px;
+  }
+  .pubmis {
+    position: absolute;
+    right: 0;
+    color: #243847;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 28px;
+    padding-left: 35px;
+  }
+  .pubmis:hover {
+    color: #F77676;
+  }
+  .pubmis span {
+    font-size: 28px;
+    color: #00B0FF;
+    position: absolute;
+    left: 0px;
+  }
+  .pubmis:hover span {
+    color: #F77676;
   }
   .scrollL {
     height: 650px;

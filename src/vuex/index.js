@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2018-01-29 10:18:28
 * @Last Modified by:   Administrator
-* @Last Modified time: 2018-02-06 09:00:54
+* @Last Modified time: 2018-02-11 10:16:53
 */
 import Vue from 'vue'
 import Vuex from 'Vuex'
@@ -14,6 +14,7 @@ export default new Vuex.Store({
     activeName: 'first',
     shixun: true,
     course: true,
+    allcase: true,
     student:true
   },
   mutations: {
@@ -25,6 +26,9 @@ export default new Vuex.Store({
     },
     courseshow(state,val) {
       state.course = val;
+    },
+    allcaseshow(state,val) {
+      state.allcase = val;
     },
     studentshow (state,val) {
     	state.student = val
