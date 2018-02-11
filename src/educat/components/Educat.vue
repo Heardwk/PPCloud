@@ -25,8 +25,13 @@
       </el-header>
       <div style="height: 80px;"></div>
       <el-container class="ww">
-        <el-aside width="200px">
-          <router-link v-for="(item,index) in linkList" :to="item.link" :key="index">
+        <el-aside width="200px" style="padding-top: 20px; background: #001529; min-height: 100%;">
+          <router-link 
+            v-for="(item,index) in linkList" 
+            :to="item.link" :key="index"
+            class="roLink" 
+            @click.native="goto(index)"
+            :class="{'active': activeId===index}">
             <span :class="item.icon"></span>
             {{item.name}}
           </router-link>
@@ -45,17 +50,53 @@ export default {
   data () {
     return {
       schoolName: "湖南外贸职业学院",
+      activeId: 0,
       linkList: [
         {
-          link: '',
+          link: '/Educat/Monitor',
+          icon: 'el-icon-view',
+          name: '实训监控'
+        },
+        {
+          link: '/Educat/Teaching',
           icon: '',
-          name: ''
+          name: '任教管理'
+        },
+        {
+          link: '/Educat/Plan',
+          icon: '',
+          name: '教学计划'
+        },
+        {
+          link: '/Educat/Account',
+          icon: '',
+          name: '账号管理'
+        },
+        {
+          link: '/Educat/EAbility',
+          icon: '',
+          name: '能力档案'
+        },
+        {
+          link: '/Educat/Manaportal',
+          icon: '',
+          name: '门户管理'
+        },
+        {
+          link: '/Educat/Usermsg',
+          icon: '',
+          name: '个人信息'
         },
       ]
     }
   },
   mounted() {
 
+  },
+  methods: {
+    goto(val) {
+      this.activeId = val;
+    }
   },
 }
 </script>
@@ -90,7 +131,15 @@ export default {
 }
 .ww {
   min-width: 960px;
-  max-width: 1440px;
-  margin: 0 auto;
+}
+.roLink {
+  display: block;
+  line-height: 54px;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 14px;
+}
+.active {
+  background: rgba(0,176,255,0.3);
 }
 </style>
