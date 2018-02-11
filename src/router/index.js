@@ -28,6 +28,8 @@ import allcase from '@/student/components/allcase'
 import casesindex  from '@/student/components/courseTraining/casesindex'
 import SeeTheCase  from '@/student/components/SeeTheCase'
 
+import Educat from '@/educat/components/Educat'
+
 Vue.use(Router)
 
 export default new Router({
@@ -178,7 +180,11 @@ export default new Router({
 					  }
       ]
     },
-
+    {
+      path: '/Educat',
+      component: Educat,
+      children: []
+    }
   ],
   scrollBehavior (to, from, savedPosition) {
     // return 期望滚动到哪个的位置
