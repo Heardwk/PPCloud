@@ -30,7 +30,8 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 import SeeTheCase  from '@/student/components/SeeTheCase'
 
 import Educat from '@/educat/components/Educat'
-
+import Teaching from '@/educat/components/Teaching'
+import taskdetail from '@/educat/components/taskdetail'
 Vue.use(Router)
 
 export default new Router({
@@ -167,7 +168,7 @@ export default new Router({
 		      name: 'MyCenter',
 		      component: MyCenter
 		    },
-		     {
+		    {
           path: 'Yuanxiao',
           component: Yuanxiao
         },
@@ -181,18 +182,32 @@ export default new Router({
           name: 'casesindex',
           component: casesindex
         },
-         {
-						  path: 'SeeTheCase',
-						  name: 'SeeTheCase',
-						  component: SeeTheCase,
-					  }
+        {
+				  path: 'SeeTheCase',
+				  name: 'SeeTheCase',
+				  component: SeeTheCase,
+				}
       ]
     },
     {
       path: '/Educat',
       component: Educat,
-      children: []
+      children: [
+        {
+        path: 'Teaching',
+        name: 'Teaching',
+        component: Teaching,
+        children:[
+		        {
+		        path: 'taskdetail',
+		        name: 'taskdetail',
+		        component: taskdetail,
+		        }
+        	]
+        },
+      ]
     }
+    
   ],
   scrollBehavior (to, from, savedPosition) {
     // return 期望滚动到哪个的位置
