@@ -1,7 +1,8 @@
 <template>
   <div class="">
   	教务端
-  <view-router></view-router>
+  	<router-link to="/Educat/Teaching">任教管理</router-link>
+  	<router-view ></router-view>
   </div>
 </template>
 
