@@ -46,8 +46,14 @@
     	   	 </div>
     	   	 <div class="tea_tables">
     	       <table>
+    	       	<!--<tr>
+    	       		<th
+    	       		v-for="(itemdata,index) in data"
+    	       		:key="index">{{itemdata}}
+    	       		</th>
+    	       	</tr>-->
 			   <tbody class="tabod">
-			       <!--<tr 
+			       <tr 
 			       	v-for="(itemgridData,index) in gridData"
 			       	:key="index"
 			       	v-if="myfilterindex(itemgridData.name)&&myfilter(itemgridData.when)"
@@ -57,17 +63,7 @@
 			        v-for="(item,index) in itemgridData">
 			        {{item}}
 			        </td>
-			      </tr>-->
-			      <router-link tag="tr" to="/Educat/Teaching/taskdetail"
-			       	v-for="(itemgridData,index) in gridData"
-			       	:key="index"
-			       	v-if="myfilterindex(itemgridData.name)&&myfilter(itemgridData.when)"
-			       	@click="go(index)">
-				       	 <td 
-				        v-for="(item,index) in itemgridData">
-				        {{item}}
-				        </td>
-			      </router-link>
+			      </tr>
 			    </tbody>
 			  </table>
 			 </div>
@@ -76,7 +72,7 @@
     	       <span>下载表单</span>
     	   </div>
     	</div>
-         <router-view :gridData = gridData[zindex]></router-view>
+         <router-view :gridData = "gridData[z]"></router-view>
 	</div>
 </template>
 
@@ -87,7 +83,7 @@ export default {
     return {
     	values_select: '',
     	values_index: '',
-    	zindex:0,
+    	z:'0',
 		options: [{
 	      value: '选项1',
           label: '基础会计2'
@@ -141,15 +137,12 @@ export default {
         if(arr.indexOf(this.values_select)>-1){
             return arr
         }else{
-        }
+       }
     },
     go(index){
-    	//this.$router.push({ path:'/Educat/Teaching/taskdetail'});
-    	this.zindex = index
+    	this.$router.push({ path:'/Educat/Teaching/taskdetail'});
+    	this.z = index
     },
-    mounted(){
-    	
-    }
   }
 }
 </script>
@@ -180,11 +173,10 @@ export default {
 </style>
 <style scoped>
 .tea_top{
-	width: 1240px;
 	border: 1px solid #E8E8E8;
 	min-height: 705px;
-	margin: auto;
 	background-color: rgb(255,255,255);
+	max-width: 1200px;
 }
 .tea_tit{
 	margin-top: 16px;
@@ -228,12 +220,9 @@ export default {
 .tea_table thead{
     height: 48px;
 }
-.tea_table thead tr>th{
-    width: 100px;
-}
 .tabod>tr>td{
 	text-align: center;
-	width: 150px;
+    width: 9rem;
 }
 .tabod>tr{
 	height: 48px;
@@ -246,8 +235,20 @@ export default {
 	color: white;
 }
 .tea_tables{
-	height: 450px;
-	overflow: auto;
+	height: 500px;
+	overflow-y: scroll;
+    width: 1147px;
+}
+table{ 
+    border-collapse:collapse;}
+.tea_table_top{
+	width: 1147px;
+}
+.tea_table{
+	overflow-x: scroll;
+}
+.tabod{
+	display: inline-block;
 }
 .tea_table_top ul{
 	display: flex;
@@ -261,16 +262,25 @@ ul{
 	-webkit-padding-start: 0px;
 }
 .tea_table_top ul>li{
-	width: 150px;
 	text-align: center;
 	height: 48px;
 	line-height: 48px;
-}
-table{ 
-	border-collapse:collapse;
+	width: 100%;
 }
 tr{
 	border-bottom:1px solid #EEEEEE;
+    height:48px; 
+	box-shadow: 0px -1px 0px 0px rgba(232,232,232,1);
+	border-radius: 2px 2px 0px 0px ; 
+	margin-bottom: 0px;
+}
+table>tr{
+	border-bottom:1px solid #EEEEEE;
+    height:48px; 
+    background:rgba(248,248,248,1);
+	box-shadow: 0px -1px 0px 0px rgba(232,232,232,1);
+	border-radius: 2px 2px 0px 0px ; 
+	margin-bottom: 0px;
 }
 .bot{
 	display: flex;

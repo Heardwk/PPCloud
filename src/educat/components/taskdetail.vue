@@ -22,6 +22,15 @@
     	       	  </ul>
     	      </div>
     	   </div>
+    	   <div class="">
+    	        <div class="task_tit">
+    	           <b>实训详情</b>
+    	           <span>共实训三次</span>
+    	        </div>
+    	        <div class="t_task_con">
+    	            
+    	        </div>
+    	   </div>
         </div>
 	</div>
 </template>
@@ -30,10 +39,7 @@
 export default {
   name: 'taskdetail',
   props:{
-  	gridData:{
-  		type:Object,
-  		default:''
-  	}
+  	gridData:{}
   },
   data () {
     return {
@@ -75,8 +81,14 @@ ul{
 .task_top{
 	padding-left: 25px;
 	margin-top: 25px;
+	margin-bottom: 10px;
+	border-bottom: 10px solid #f0f2f5;
+}
+.task_top>p{
+	font-weight: 600;
 }
 .t_task_t{
+	margin-bottom: 25px;
 	display: flex;
 }
 .t_task_t>li{
@@ -103,4 +115,39 @@ ul{
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+.task_tit{
+	height: 60px;
+	line-height: 60px;
+	margin-left: 25px;
+	display: flex;
+	position: relative;
+	align-items: center;
+	border-bottom:2px solid #f0f2f5;
+    margin-right: 25px;
+}
+.task_tit>span{
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	width:74px;
+	height:24px; 
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	color:rgba(0,0,0,0.65);
+}
+.task_tit>b{
+	display: inline-block;
+	width:64px;
+	height:24px; 
+	font-size:16px;
+	font-family:PingFangSC-Medium;
+	color:rgba(0,0,0,0.85);
+	line-height:24px;
+}
+.t_task_con{
+	border-left: 1px solid #F0F2F5;
+	min-height: 200px;
+	margin-left: 25px;
+}
+
 </style>
