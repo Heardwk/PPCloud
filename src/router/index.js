@@ -201,6 +201,9 @@ export default new Router({
       component: Educat,
       children: [
         {
+          path: '', redirect: 'Monitor'
+        },
+        {
           path: 'Monitor',
           name: 'Monitor',
           component: Monitor,

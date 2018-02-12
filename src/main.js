@@ -8,12 +8,15 @@ import App from './App'
 import store from './vuex'
 import router from './router'
 import animate from 'animate.css'
+import echarts from 'echarts'
 
 Vue.config.productionTip = false
 
 Vue.use(ElementUI);
 Vue.use(VueResource);
 Vue.use(animate);
+Vue.prototype.$echarts = echarts;
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

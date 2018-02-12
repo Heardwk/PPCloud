@@ -17,7 +17,7 @@
           <el-dropdown placement="bottom">
             <span class="el-dropdown-link">狗剩</span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
-              <el-dropdown-item><span class="droplink">基本信息</span></el-dropdown-item>
+              <el-dropdown-item><router-link class="droplink" to="/Educat/Usermsg"  @click.native="active='/Educat/Usermsg'">基本信息</router-link></el-dropdown-item>
               <el-dropdown-item><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -29,7 +29,7 @@
           <span v-model="menuToggle" @click="menuToggle=!menuToggle" 
             class="el-icon-menu"
             :class="menuToggle?'menutog':''"></span>
-          <el-menu default-active="/Educat/Monitor" router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="menuToggle">
+          <el-menu :default-active="active" router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="menuToggle">
             <el-menu-item v-for="(item,index) in linkList" :key="index" :index="item.link">
               <i :class="item.icon"></i>
               <span slot="title">{{item.name}}</span>
@@ -87,6 +87,7 @@ export default {
           name: '个人信息',
         },
       ],
+      active: '/Educat/Monitor',
       menuToggle: false,
     }
   },
@@ -106,6 +107,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.el-header {
+  box-shadow: 0px 1px 4px 0px rgba(0,21,41,0.12) 
+}
 .el-dropdown {
   margin: 0 5px;
 }
@@ -168,7 +172,6 @@ export default {
   width: 200px;
 }
 .el-menu-item {
-  text-align: center;
   color: #FFFFFF;
   font-size: 14px;
 }
