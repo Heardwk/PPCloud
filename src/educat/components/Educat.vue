@@ -38,6 +38,9 @@
         </el-aside>
         <el-main>
         	<router-view />
+          <footer>
+            Copyright © 云上实训 技术支持
+          </footer>
         </el-main>
       </el-container>
     </el-container>
@@ -177,5 +180,12 @@ export default {
 }
 .el-menu-item:hover, .is-active {
   background: rgba(0,176,255,0.3);
+}
+footer {
+  line-height: 66px;
+  color: #A5B7C5;
+  font-size: 12px;
+  background: #F0F2F5;
+  text-align: center;
 }
 </style>
