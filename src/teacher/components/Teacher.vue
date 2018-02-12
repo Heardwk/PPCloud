@@ -1,6 +1,6 @@
 <template>
   <div class="teac">
-    <el-container>
+    <el-container style="min-height: 100%;position:relative; padding-bottom: 20px;">
       <!-- 头部 -->
       <el-header>
         <div class="head">
@@ -23,7 +23,7 @@
         </div>
       </el-header>
       <!-- 内容 -->
-      <el-main>
+      <el-main style="min-height: 100%; padding-bottom: 50px;">
         <transition name="" mode="out-in">
           <router-view />
         </transition>
@@ -123,5 +123,11 @@ export default {
 }
 .user .el-dropdown-link {
   font-size: 16px;
+}
+footer {
+  line-height: 65px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 </style>

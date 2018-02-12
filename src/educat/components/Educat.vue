@@ -1,6 +1,6 @@
 <template>
   <div class="">
-  	<el-container>
+  	<el-container class="con">
       <el-header style="background: white; height: 80px;" class="ww">
         <div class="head">
           <div class="schoolBox">
@@ -24,7 +24,7 @@
         </div>
       </el-header>
       <div style="height: 80px;"></div>
-      <el-container class="ww">
+      <el-container class="ww con">
         <el-aside style="background: #001529; min-height: 100%;" :width="menuToggle?'64px':'200px'">
           <span v-model="menuToggle" @click="menuToggle=!menuToggle" 
             class="el-icon-menu"
@@ -36,7 +36,7 @@
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>
+        <el-main class="con" style="padding-bottom: 66px;">
         	<router-view />
           <footer>
             Copyright © 云上实训 技术支持
@@ -110,6 +110,10 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.con {
+  min-height: 100%;
+  position: relative;
+}
 .el-header {
   box-shadow: 0px 1px 4px 0px rgba(0,21,41,0.12) 
 }
@@ -187,5 +191,8 @@ footer {
   font-size: 12px;
   background: #F0F2F5;
   text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 </style>
