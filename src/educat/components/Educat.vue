@@ -90,7 +90,7 @@ export default {
           name: '个人信息',
         },
       ],
-      active: '/Educat/Monitor',
+      active: window.location.href.split("#")[1],
       menuToggle: false,
     }
   },
