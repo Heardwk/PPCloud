@@ -29,7 +29,7 @@
           <span v-model="menuToggle" @click="menuToggle=!menuToggle" 
             class="el-icon-menu"
             :class="menuToggle?'menutog':''"></span>
-          <el-menu :default-active="active" router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="menuToggle">
+          <el-menu :default-active="active" router class="el-menu-vertical-demo" @select="checkMenu" :collapse="menuToggle">
             <el-menu-item v-for="(item,index) in linkList" :key="index" :index="item.link">
               <i :class="item.icon"></i>
               <span slot="title">{{item.name}}</span>
@@ -98,11 +98,8 @@ export default {
 
   },
   methods: {
-    handleOpen() {
-
-    },
-    handleClose() {
-
+    checkMenu(indexPath) {
+      this.active = indexPath;
     }
   },
 }
