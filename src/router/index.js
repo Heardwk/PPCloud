@@ -38,6 +38,7 @@ import EAbility from '@/educat/components/EAbility'
 import Manaportal from '@/educat/components/Manaportal'
 import Usermsg from '@/educat/components/Usermsg'
 import taskdetail from '@/educat/components/taskdetail'
+import pubFile from '@/educat/components/pubFile'
 
 Vue.use(Router)
 
@@ -224,6 +225,13 @@ export default new Router({
           path: 'Plan',
           name: 'Plan',
           component: Plan,
+          children: [
+            {
+              path: 'pubFile',
+              name: 'pubFile',
+              component: pubFile,
+            },
+          ]
         },
         {
           path: 'Account',
