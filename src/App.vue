@@ -162,4 +162,8 @@ header {
   height: 28px;
   line-height: 28px;
 }
+/*教务*/
+.inlineBox input {
+  border-radius: 0;
+}
 </style>
