@@ -67,24 +67,28 @@
 											     <el-table-column
 											      prop="name"
 											      label="姓名"
-											      width="180">
+											      width="180"
+											      >
 											    </el-table-column>
 											    <el-table-column
 											      prop="when"
-											      label="学号">
+											      label="学号"
+											      width="180">
 											    </el-table-column>
 											    <el-table-column
 											      prop="kaitime"
-											      label="开始时间">
+											      label="开始时间"
+											       width="180">
 											    </el-table-column>
 											    <el-table-column
 											      prop="endtime"
-											      label="结束时间">
+											      label="结束时间"
+											       width="180">
 											    </el-table-column>
 											    <el-table-column
 											      prop="degree"
 											      label="状态"
-											      width="100"
+											      width="120"
 											      :filters="[{ text: '使用中', value: '使用中' }, { text: '已到期', value: '已到期' }]"
 											      :filter-method="filterTag"
 											      filter-placement="bottom-end">
