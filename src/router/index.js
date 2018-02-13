@@ -39,6 +39,7 @@ import Manaportal from '@/educat/components/Manaportal'
 import Usermsg from '@/educat/components/Usermsg'
 import taskdetail from '@/educat/components/taskdetail'
 import examine from '@/educat/components/examine'
+import pubFile from '@/educat/components/pubFile'
 
 Vue.use(Router)
 
@@ -202,6 +203,9 @@ export default new Router({
       component: Educat,
       children: [
         {
+          path: '', redirect: 'Monitor'
+        },
+        {
           path: 'Monitor',
           name: 'Monitor',
           component: Monitor,
@@ -229,6 +233,13 @@ export default new Router({
           path: 'Plan',
           name: 'Plan',
           component: Plan,
+          children: [
+            {
+              path: 'pubFile',
+              name: 'pubFile',
+              component: pubFile,
+            },
+          ]
         },
         {
           path: 'Account',

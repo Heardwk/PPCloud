@@ -1,6 +1,6 @@
 <template>
   <div class="">
-  	<el-container>
+  	<el-container class="con">
       <el-header style="background: white; height: 80px;" class="ww">
         <div class="head">
           <div class="schoolBox">
@@ -17,27 +17,30 @@
           <el-dropdown placement="bottom">
             <span class="el-dropdown-link">狗剩</span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
-              <el-dropdown-item><span class="droplink">基本信息</span></el-dropdown-item>
+              <el-dropdown-item><router-link class="droplink" to="/Educat/Usermsg"  @click.native="active='/Educat/Usermsg'">基本信息</router-link></el-dropdown-item>
               <el-dropdown-item><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
       </el-header>
       <div style="height: 80px;"></div>
-      <el-container class="ww">
+      <el-container class="ww con">
         <el-aside style="background: #001529; min-height: 100%;" :width="menuToggle?'64px':'200px'">
           <span v-model="menuToggle" @click="menuToggle=!menuToggle" 
             class="el-icon-menu"
             :class="menuToggle?'menutog':''"></span>
-          <el-menu default-active="/Educat/Monitor" router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="menuToggle">
+          <el-menu :default-active="active" router class="el-menu-vertical-demo" @select="checkMenu" :collapse="menuToggle">
             <el-menu-item v-for="(item,index) in linkList" :key="index" :index="item.link">
               <i :class="item.icon"></i>
               <span slot="title">{{item.name}}</span>
             </el-menu-item>
           </el-menu>
         </el-aside>
-        <el-main>
+        <el-main class="con" style="padding-bottom: 66px;">
         	<router-view />
+          <footer>
+            Copyright © 云上实训 技术支持
+          </footer>
         </el-main>
       </el-container>
     </el-container>
@@ -87,6 +90,7 @@ export default {
           name: '个人信息',
         },
       ],
+      active: window.location.href.split("#")[1],
       menuToggle: false,
     }
   },
@@ -94,11 +98,8 @@ export default {
 
   },
   methods: {
-    handleOpen() {
-
-    },
-    handleClose() {
-
+    checkMenu(indexPath) {
+      this.active = indexPath;
     }
   },
 }
@@ -106,6 +107,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.con {
+  min-height: 100%;
+  position: relative;
+}
+.el-header {
+  box-shadow: 0px 1px 4px 0px rgba(0,21,41,0.12) 
+}
 .el-dropdown {
   margin: 0 5px;
 }
@@ -168,11 +176,20 @@ export default {
   width: 200px;
 }
 .el-menu-item {
-  text-align: center;
   color: #FFFFFF;
   font-size: 14px;
 }
 .el-menu-item:hover, .is-active {
   background: rgba(0,176,255,0.3);
+}
+footer {
+  line-height: 66px;
+  color: #A5B7C5;
+  font-size: 12px;
+  background: #F0F2F5;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 </style>
