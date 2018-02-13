@@ -39,13 +39,13 @@
 											    <el-table-column
 											      prop="id"
 											      label="序号"
-											      width="180">
+											      >
 											    </el-table-column>
 											    <el-table-column
 											      prop="college"
 											      label="全部院系"
 											      sortable
-											      width="180"
+											       width="180"
 											      :filters="college"
 											      :filter-method="filterHandler"
 											    >
@@ -62,28 +62,28 @@
 											    <el-table-column
 											      prop="tea_class"
 											      label="班级"
-											      width="180">
+											      >
 											    </el-table-column>
 											     <el-table-column
 											      prop="name"
 											      label="姓名"
-											      width="180"
+											      
 											      >
 											    </el-table-column>
 											    <el-table-column
 											      prop="when"
 											      label="学号"
-											      width="180">
+											      width="100">
 											    </el-table-column>
 											    <el-table-column
 											      prop="kaitime"
 											      label="开始时间"
-											       width="180">
+											       width="180" >
 											    </el-table-column>
 											    <el-table-column
 											      prop="endtime"
 											      label="结束时间"
-											       width="180">
+											      width="180">
 											    </el-table-column>
 											    <el-table-column
 											      prop="degree"
@@ -205,6 +205,15 @@ ul{
 .tea_tables{
 	height: 500px;
 	overflow-y: scroll;
+}
+.tabod>tr>td:nth-child(4){
+	width: 17%;
+}
+.tea_table_top ul>li:nth-child(4){
+	width: 153%;
+}
+.tea_table_top ul>li:nth-child(5){
+	width: 100%;
 }
 .tabod>tr>td{
 	text-align: left;
