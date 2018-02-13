@@ -30,8 +30,16 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 import SeeTheCase  from '@/student/components/SeeTheCase'
 
 import Educat from '@/educat/components/Educat'
+import Monitor from '@/educat/components/Monitor'
 import Teaching from '@/educat/components/Teaching'
+import Plan from '@/educat/components/Plan'
+import Account from '@/educat/components/Account'
+import EAbility from '@/educat/components/EAbility'
+import Manaportal from '@/educat/components/Manaportal'
+import Usermsg from '@/educat/components/Usermsg'
 import taskdetail from '@/educat/components/taskdetail'
+import examine from '@/educat/components/examine'
+
 Vue.use(Router)
 
 export default new Router({
@@ -194,16 +202,53 @@ export default new Router({
       component: Educat,
       children: [
         {
-        path: 'Teaching',
-        name: 'Teaching',
-        component: Teaching,
-        children:[
+          path: 'Monitor',
+          name: 'Monitor',
+          component: Monitor,
+        },
+        {
+          path: 'Teaching',
+          name: 'Teaching',
+          component: Teaching,
+          children:[
 		        {
 		        path: 'taskdetail',
 		        name: 'taskdetail',
 		        component: taskdetail,
+		        children:[
+				        {
+				        path: 'examine',
+				        name: 'examine',
+				        component: examine,
+				        }
+		        	]
 		        }
         	]
+        },
+        {
+          path: 'Plan',
+          name: 'Plan',
+          component: Plan,
+        },
+        {
+          path: 'Account',
+          name: 'Account',
+          component: Account,
+        },
+        {
+          path: 'EAbility',
+          name: 'EAbility',
+          component: EAbility,
+        },
+        {
+          path: 'Manaportal',
+          name: 'Manaportal',
+          component: Manaportal,
+        },
+        {
+          path: 'Usermsg',
+          name: 'Usermsg',
+          component: Usermsg,
         },
       ]
     }

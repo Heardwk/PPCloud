@@ -25,11 +25,16 @@
       </el-header>
       <div style="height: 80px;"></div>
       <el-container class="ww">
-        <el-aside width="200px">
-          <router-link v-for="(item,index) in linkList" :to="item.link" :key="index">
-            <span :class="item.icon"></span>
-            {{item.name}}
-          </router-link>
+        <el-aside style="background: #001529; min-height: 100%;" :width="menuToggle?'64px':'200px'">
+          <span v-model="menuToggle" @click="menuToggle=!menuToggle" 
+            class="el-icon-menu"
+            :class="menuToggle?'menutog':''"></span>
+          <el-menu default-active="/Educat/Monitor" router class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="menuToggle">
+            <el-menu-item v-for="(item,index) in linkList" :key="index" :index="item.link">
+              <i :class="item.icon"></i>
+              <span slot="title">{{item.name}}</span>
+            </el-menu-item>
+          </el-menu>
         </el-aside>
         <el-main>
         	<router-view />
@@ -47,15 +52,54 @@ export default {
       schoolName: "湖南外贸职业学院",
       linkList: [
         {
-          link: '',
-          icon: '',
-          name: ''
+          link: '/Educat/Monitor',
+          icon: 'el-icon-view',
+          name: '实训监控',
         },
-      ]
+        {
+          link: '/Educat/Teaching',
+          icon: 'el-icon-date',
+          name: '任教管理',
+        },
+        {
+          link: '/Educat/Plan',
+          icon: 'el-icon-edit-outline',
+          name: '教学计划',
+        },
+        {
+          link: '/Educat/Account',
+          icon: 'el-icon-tickets',
+          name: '账号管理',
+        },
+        {
+          link: '/Educat/EAbility',
+          icon: 'el-icon-message',
+          name: '能力档案',
+        },
+        {
+          link: '/Educat/Manaportal',
+          icon: 'el-icon-bell',
+          name: '门户管理',
+        },
+        {
+          link: '/Educat/Usermsg',
+          icon: 'el-icon-setting',
+          name: '个人信息',
+        },
+      ],
+      menuToggle: false,
     }
   },
   mounted() {
 
+  },
+  methods: {
+    handleOpen() {
+
+    },
+    handleClose() {
+
+    }
   },
 }
 </script>
@@ -88,7 +132,47 @@ export default {
   background-repeat: no-repeat;
   background-position: 0 center;
 }
+.menu-collapsed {
+  width: 200px;
+}
+.menu-expanded {
+  width: 50px;
+}
 .ww {
   min-width: 960px;
+}
+.el-aside {
+  transition: all .3s linear;
+  -moz-transition: all .3s linear;
+  -webkit-transition: all .3s linear;
+}
+.el-aside .el-icon-menu {
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+  display: block;
+  line-height: 35px;
+  text-align: right;
+}
+.el-aside .menutog {
+  text-align: center;
+  margin-right: 0;
+}
+.el-menu {
+  border: 1px solid rgb(0, 21, 41);
+  background: rgb(0, 21, 41);
+  max-width: 200px;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+}
+.el-menu-item {
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 14px;
+}
+.el-menu-item:hover, .is-active {
+  background: rgba(0,176,255,0.3);
 }
 </style>

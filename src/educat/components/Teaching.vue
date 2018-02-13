@@ -176,7 +176,7 @@ export default {
 	border: 1px solid #E8E8E8;
 	min-height: 705px;
 	background-color: rgb(255,255,255);
-	max-width: 1200px;
+/*	max-width: 1200px;*/
 }
 .tea_tit{
 	margin-top: 16px;
@@ -209,6 +209,7 @@ export default {
 .el-table-fil{
 	margin-left: 50px;
 }
+
 .tea_table{
    margin-top: 16px;
    font-size:12px;
@@ -222,7 +223,7 @@ export default {
 }
 .tabod>tr>td{
 	text-align: center;
-    width: 9rem;
+    width: 10%;
 }
 .tabod>tr{
 	height: 48px;
@@ -237,18 +238,20 @@ export default {
 .tea_tables{
 	height: 500px;
 	overflow-y: scroll;
-    width: 1147px;
+    /*width: 1147px;*/
 }
 table{ 
-    border-collapse:collapse;}
+    border-collapse:collapse;
+    width: 100%;    
+}
 .tea_table_top{
-	width: 1147px;
+	/*width: 1147px;*/
 }
 .tea_table{
-	overflow-x: scroll;
+	/*overflow-x: scroll;*/
 }
 .tabod{
-	display: inline-block;
+	/*display: inline-block;*/
 }
 .tea_table_top ul{
 	display: flex;
@@ -288,6 +291,7 @@ table>tr{
 	margin-top: 25px;
 }
 .bot>span{
+	margin-bottom: 20px;
 	display: inline-block;
 	width:120px;
 	height:40px; 

@@ -198,7 +198,6 @@
 	mounted() {
 	  this.dataA = this.msgtochild.child
       this.$store.commit("studentshow",false);
-//    console.log(this.son)
     },
      destroyed() {
      this.$store.commit("studentshow",true)
