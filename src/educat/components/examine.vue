@@ -212,4 +212,7 @@ ul{
 .tea_table_top ul>li:nth-child(5){
 	width: 80%;
 }
+.tabod>tr>td:nth-child(5){
+	padding-left: 1%;
+}
 </style>

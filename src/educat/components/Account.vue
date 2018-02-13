@@ -212,6 +212,12 @@ ul{
 .tea_table_top ul>li:nth-child(4){
 	width: 153%;
 }
+.tabod>tr>td:nth-child(3){
+	padding-left: 0.5%;
+}
+.tabod>tr>td:nth-child(5){
+	padding-left: 0.5%;
+}
 .tea_table_top ul>li:nth-child(5){
 	width: 100%;
 }

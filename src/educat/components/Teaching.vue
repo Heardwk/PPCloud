@@ -318,4 +318,16 @@ table>tr{
 	margin-right: 30px;
 	cursor: pointer;
 }
+.tabod>tr>td:nth-child(3){
+	padding-left: 1.5%;
+}
+.tabod>tr>td:nth-child(5){
+	padding-left: 1.5%;
+}
+.tabod>tr>td:nth-child(6){
+	padding-left: 1.5%;
+}
+.tabod>tr>td:nth-child(7){
+	padding-left: 2.5%;
+}
 </style>
