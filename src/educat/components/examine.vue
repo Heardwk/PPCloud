@@ -170,7 +170,7 @@ ul{
 }
 .tabod>tr>td{
 	text-align: center;
-    width: 10%;
+    width: 1%;
 }
 .tabod>tr{
 	height: 48px;
@@ -202,5 +202,17 @@ ul{
 	height: 48px;
 	line-height: 48px;
 	width: 100%;
+}
+.tea_table_top ul>li:nth-child(1){
+	width: 86%;
+}
+.tea_table_top ul>li:nth-child(2){
+	width: 86%;
+}
+.tea_table_top ul>li:nth-child(5){
+	width: 80%;
+}
+.tabod>tr>td:nth-child(5){
+	padding-left: 1%;
 }
 </style>
