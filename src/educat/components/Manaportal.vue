@@ -29,7 +29,7 @@
     	       	<li> 4、下列一提供设计模板，可以下载。</li>
     	       </ul>
     	   </div>
-    	   <div class="man_bo_index">下载设计模板</div>
+    	   <div class="man_bo_index"><a href="#">下载设计模板</a></div>
     </div>
   </div>
 </template>
@@ -144,8 +144,10 @@ ul{
 	color:rgba(0,0,0,0.4);
 	line-height:28px;
 }
-.man_bo_index{
+.man_bo_index>a{
+	display: inline-block;
 	margin-top: 20px;
+	cursor: pointer;
 	width:120px;
 	height:40px; 
 	background:rgba(255,255,255,1);
