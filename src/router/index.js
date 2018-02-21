@@ -40,6 +40,7 @@ import Usermsg from '@/educat/components/Usermsg'
 import taskdetail from '@/educat/components/taskdetail'
 import examine from '@/educat/components/examine'
 import pubFile from '@/educat/components/pubFile'
+import eabilityData from '@/educat/components/eabilityData'
 
 Vue.use(Router)
 
@@ -250,6 +251,13 @@ export default new Router({
           path: 'EAbility',
           name: 'EAbility',
           component: EAbility,
+          children: [
+            {
+              path: 'eabilityData',
+              name: 'eabilityData',
+              component: eabilityData,
+            }
+          ]
         },
         {
           path: 'Manaportal',
