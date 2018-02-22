@@ -48,7 +48,8 @@
         </el-dialog>
         <!-- 更换手机号码 -->
         <el-dialog title="更换手机号" :visible.sync="dialogFormVisible">
-        <el-form :model="form">
+        <div class="borders">
+          <el-form :model="form">
           <el-form-item label="原手机号" :label-width="formLabelWidth">
              <el-input v-model="form.date1" auto-complete="off"></el-input>
           </el-form-item>
@@ -60,6 +61,7 @@
              <el-input v-model="form.name" auto-complete="off"></el-input>
           </el-form-item>
         </el-form>
+        </div>
         <div slot="footer" class="dialog-footer">
           <el-button @click="phone">取 消</el-button>
           <el-button type="primary" @click="phone">确 定</el-button>
@@ -67,21 +69,23 @@
       </el-dialog>
       <!-- 更换密码 -->
       <el-dialog title="更换密码" :visible.sync="dialogFormVisipaw">
-       <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-         <el-form-item label="原密码" prop="pass1">
-          <el-input type="password" v-model="ruleForm2.pass1" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="新密码" prop="pass">
-          <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-          <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
-        </el-form-item>
-      </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="colos">取 消</el-button>
-          <el-button type="primary" @click="submitForm('ruleForm2')">确 定</el-button>
-        </div>
+          <div  class="borders">
+            <el-form :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
+               <el-form-item label="原密码" prop="pass1">
+                <el-input type="password" v-model="ruleForm2.pass1" auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="新密码" prop="pass">
+                <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="确认密码" prop="checkPass">
+                <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
+              </el-form-item>
+            </el-form>
+          </div>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="colos">取 消</el-button>
+            <el-button type="primary" @click="submitForm('ruleForm2')">确 定</el-button>
+          </div>
       </el-dialog>
     </div>
   </div>
@@ -225,6 +229,12 @@ export default {
     font-size: 14px;
     display: inline-block;
     width: 19%;
+}
+.el-dialog__body {
+    padding: 10px 20px; */
+    color: #606266;
+    line-height: 24px;
+    font-size: 14px;
 }
 </style>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -378,7 +388,8 @@ export default {
   padding-top: 50px;
   border-bottom: 1px solid #ddd;
   padding-bottom: 70px;
-
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .contys>i{
   display: inline-block;
@@ -446,5 +457,12 @@ export default {
     width: 178px;
     height: 178px;
     display: block;
+  }
+  .borders{
+    border-top:1px solid #eee;
+    padding-top: 40px;
+    border-bottom:1px solid #eee;
+    padding-bottom: 35px;
+/*    margin-bottom: 20px ;*/
   }
 </style>

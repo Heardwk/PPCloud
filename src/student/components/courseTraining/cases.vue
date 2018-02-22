@@ -47,7 +47,7 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
          parentMsg:'1',
          knowledge :[
              {
-		        name: "这是1级菜单",
+		        name: "错账更正",
 		        dynamicTags:['11'],
 		        child: [
 		          {
@@ -88,10 +88,61 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 			           }
 		            ]
 		          },
-		        ]
+		        ],
+		        tableData2: [{
+			          date: '1',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			        }, {
+			          date: '2',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '多选题',
+			          degree:'102'
+			        }, {
+			          date: '3',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			        }, {
+			          date: '4',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			        }, {
+			          date: '5',
+			           name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			        }, {
+			          date: '6',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '多选题',
+			          degree:'102'
+			        }, {
+			          date: '7',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			      }, {
+			          date: '8',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			      },{
+			          date: '9',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			      },{
+			          date: '10',
+			          name: '提供的原始单据、记账凭证、账薄资料等,要',
+			          tag: '单选题',
+			          degree:'102'
+			      }]
 		      },
               {
-		        name: "这是第二个1级菜单",
+		        name: "会计账务处理程序",
 		        dynamicTags:['ss'],
 		        child: [
 		          {

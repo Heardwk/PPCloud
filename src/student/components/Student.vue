@@ -2,7 +2,7 @@
   <div>
         <ul class="navigation">
 				 <div class="heads">
-	        <el-header class="mainMenu">
+	        <el-header class="mainMenu classactivses" :class="{'classactivse':shows}">
 	        	<div class="logo-left">
 	        		  <router-link to='/Student/Yuanxiao' @click.native='increment' active-class="active" class="logo-left_img colo ">
 			     		  </router-link>
@@ -46,6 +46,7 @@ export default {
   name: 'Student',
   data () {
     return {
+      showss: false,
     	shows: false,
       studentimgs:require('../../share/img/img_head_top.png'),
     }
@@ -61,12 +62,18 @@ export default {
    	var classactive = document.getElementsByClassName("classactive");
     if(classactive.length > 0){
         this.shows = false
+        this.showss = false
     }
     var ls = document.getElementsByClassName("ls");
     if(ls.length > 0){
           for(let i=0; i<ls.length; i++) {
           ls[i].classList.remove("white");
+          this.showss = true
         }
+    }
+    var classactivse = document.getElementsByClassName("classactivse");
+    if(classactivse.length > 0){
+        this.showss = false
     }
    }
   }
@@ -74,6 +81,12 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.classactivses{
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
+}
+.classactivse{
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);  
+}
 .classactive {
 	color: white!important;
 }
@@ -269,7 +282,6 @@ body,html{
   width: 165px;
   height: 40px;
 }
-
 .footer{
 	 width: 100%;
 	 display: flex;
@@ -279,8 +291,7 @@ body,html{
 	 line-height: 65px;
 }
 .footer>ul{
-	display: flex;
-	
+	display: flex;	
 }
 .footer>ul>Li{
 	margin: 0px 17px;
@@ -314,10 +325,8 @@ body,html{
 .tk{
    color:#00B0FF!important;
 }
-/*内容*/
 .el-main—ss{
 	width: 100%;
-	height: 100%;
 	background-color: white;
 }
 
