@@ -163,7 +163,7 @@ export default {
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	background-color: rgba(242, 242, 242, 0.6);
+	background-color: rgba(242, 242, 242, 0.3);
 	color: #333;
 	text-decoration: none;
 	position: absolute;
@@ -175,7 +175,6 @@ export default {
 	min-height: 700px;
 	margin: 0 auto;
 	padding-top: 50px;
-
 }
 .content>h3{
 	display: inline-block;
@@ -239,6 +238,9 @@ export default {
    display:flex;
    flex-wrap:wrap;
    -webkit-padding-start:0px;
+   -webkit-margin-before: 0em;
+   -webkit-margin-after: 0em;
+   padding-bottom: 30px;
 }
 .index-block>li>a{
 	display: inline-block;

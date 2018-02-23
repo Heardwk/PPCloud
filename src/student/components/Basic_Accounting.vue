@@ -1,5 +1,5 @@
 <template>
-   <div style="background-color: rgba(255, 248, 248, 0.2 );">
+   <div>
 	   <div class="Basic">
 	   	   	 <p>实训中心&nbsp;&gt;
 	   	   	 	<router-link to="/Student/trainingCenter">
@@ -72,6 +72,7 @@ export default{
 .Basic>p{	
 	font-size: 16px;
 	margin-bottom: 20px;
+	margin-top: 30px;
 }
 .Basic>p b{
 	color: #666;	
@@ -84,7 +85,7 @@ export default{
 	min-height: 700px;
 	margin: auto;
 	padding-top: 80px;
-	margin-bottom: 50px;
+    padding-bottom: 50px;
 }
 .Basic_index_top{
 	width: 1000px;
