@@ -161,7 +161,6 @@ export default {
   .missionBox {
     margin: 0 auto 20px auto;
     width: 960px;
-    height: 140px;
     padding: 10px;
     border: 1px solid #E9E9E9;
     border-radius: 2px;
@@ -174,7 +173,7 @@ export default {
   .missTextBox {
     width: 785px;
     position: relative;
-    height: 38px;
+    min-height: 38px;
     font-size: 14px;
     overflow: hidden;
     color:  rgba(0, 0, 0, 0.65);
