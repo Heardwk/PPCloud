@@ -11,7 +11,40 @@
         </div>
       </div>
       <div class="contentRight">
-
+        <div class="screenBox">
+          <span>排序</span>
+          <div class="chec">
+            <el-select v-model="rank" size="medium">
+              <el-option
+                v-for="item in rankType"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </div>
+          <div class="rightScreen">
+            <el-radio-group v-model="radioGroup" size="medium">
+              <el-radio-button label="全部">全部</el-radio-button>
+              <el-radio-button label="我收藏得">我收藏得</el-radio-button>
+              <el-radio-button label="我上传的">我上传的</el-radio-button>
+            </el-radio-group>
+            <div class="chec">
+              <el-input placeholder="请输入文件名" suffix-icon="el-icon-search" clearable v-model="search"></el-input>
+            </div>
+          </div>
+        </div>
+        <el-upload
+          class="upload"
+          action="#"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          multiple
+          :limit="3"
+          :file-list="fileList">
+          <el-button size="small">上传新文件</el-button>
+        </el-upload>
       </div>
     </div>
   </div>
@@ -41,6 +74,11 @@ export default {
           name: '知识点E'
         },
       ],
+      rank: '最新',
+      rankType: ['最新','最热'],
+      search: '',
+      radioGroup: '全部',
+      fileList: [],
     }
   },
   mounted() {
@@ -53,6 +91,16 @@ export default {
     hasact(val) {
       this.isact = val;
     },
+    handlePreview(flie) {
+      console.log(`点击已上传的文件${file}`);
+    },
+    beforeRemove(file, fileList) {
+      console.log(`将要删除的文件为${file}`);
+    },
+    handleRemove(file, fileList) {
+      console.log(`删除的文件为${file}`);
+      return this.$confirm(`确定移除 ${ file.name }？`);
+    }
   }
 }
 </script>
@@ -126,5 +174,32 @@ export default {
     background-color: white;
     border-radius: 4px;
     height: 770px; 
+  }
+  .screenBox {
+    position: relative;
+  }
+  .screenBox>span {
+    font-size: 16px;
+    margin-right: 15px;
+    font-weight: 800;
+    color: rgba(0, 0, 0, 0.85);
+  }
+  .chec {
+    display: inline-block;
+    width: 150px;
+  }
+  .rightScreen {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .upload {
+    margin-top: 20px;
+  }
+  .upload>div {
+    display: block;
+  }
+  .upload button {
+    width: 100%;
   }
 </style>
