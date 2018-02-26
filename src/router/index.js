@@ -42,7 +42,7 @@ import examine from '@/educat/components/examine'
 import pubFile from '@/educat/components/pubFile'
 import eabilityData from '@/educat/components/eabilityData'
 
-import topic from '@/topic/components/topic'
+import tizu from '@/topic/components/tizu'
 import teacMarking from '@/topic/components/teacMarking'
 import teacPreview from '@/topic/components/teacPreview'
 import teacTiZu from '@/topic/components/teacTiZu'
@@ -277,8 +277,8 @@ export default new Router({
       ]
     },
     {
-      path: '/topic',
-      component: topic,
+      path: '/tizu',
+      component: tizu,
       children: [
         {
           path: 'teacMarking',

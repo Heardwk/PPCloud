@@ -176,4 +176,8 @@ header {
 .ziliaoupfile .el-upload-dragger {
   width: 227px;
 }
+/*题组*/
+.fuzhuziliao .el-carousel__indicators {
+  display: none;
+}
 </style>

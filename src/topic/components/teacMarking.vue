@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import exercises from './exercises'
 export default {
   name: 'teacMarking',
   data () {
@@ -12,6 +13,9 @@ export default {
       
     }
   },
+  components: {
+  	exercises
+  }
 }
 </script>
 
