@@ -173,4 +173,7 @@ header {
 .sxtabBox .el-tabs__nav-wrap::after {
   background-color: white;
 }
+.ziliaoupfile .el-upload-dragger {
+  width: 227px;
+}
 </style>

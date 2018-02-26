@@ -42,6 +42,11 @@ import examine from '@/educat/components/examine'
 import pubFile from '@/educat/components/pubFile'
 import eabilityData from '@/educat/components/eabilityData'
 
+import topic from '@/topic/components/topic'
+import teacMarking from '@/topic/components/teacMarking'
+import teacPreview from '@/topic/components/teacPreview'
+import teacTiZu from '@/topic/components/teacTiZu'
+
 Vue.use(Router)
 
 export default new Router({
@@ -270,8 +275,28 @@ export default new Router({
           component: Usermsg,
         },
       ]
+    },
+    {
+      path: '/topic',
+      component: topic,
+      children: [
+        {
+          path: 'teacMarking',
+          name: 'teacMarking',
+          component: teacMarking
+        },
+        {
+          path: 'teacPreview',
+          name: 'teacPreview',
+          component: teacPreview
+        },
+        {
+          path: 'teacTiZu',
+          name: 'teacTiZu',
+          component: teacTiZu
+        },
+      ]
     }
-    
   ],
   scrollBehavior (to, from, savedPosition) {
     // return 期望滚动到哪个的位置

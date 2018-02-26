@@ -243,7 +243,7 @@ export default {
     color: #1890FF;
   }
   .pagein {
-    margin: 25px auto 20px auto;
+    margin: 45px auto 0px auto;
     text-align: right;
   }
 </style>
