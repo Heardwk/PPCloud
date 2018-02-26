@@ -14,7 +14,7 @@
           <el-carousel-item v-for="(item,index) in topic.auxiliaryData" :key="index">
             <div class="auxiliaryTop">{{item.name}}<span @click="ishide=false">隐藏</span></div>
             <div class="auxiliaryText">{{item.text}}</div>
-            <img :src="item.src" width="480" height="260">
+            <img :src="item.src" width="480" height="260" style="margin: 0 auto;display:block">
           </el-carousel-item>
         </el-carousel>
       </div>
