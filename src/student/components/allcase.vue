@@ -162,7 +162,7 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
         this.$router.push({ name:'/casesindex',query: {id:id,name:name,imgs:imgs}});
     	 
       },
-       	aa(index) {
+      aa(index) {
 	     this.bb = index
 	     this.ind = index
 	  }

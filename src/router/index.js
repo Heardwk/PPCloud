@@ -28,6 +28,8 @@ import MyCenter from '@/student/components/MyCenter'
 import allcase from '@/student/components/allcase'
 import casesindex  from '@/student/components/courseTraining/casesindex'
 import SeeTheCase  from '@/student/components/SeeTheCase'
+import choice_question from '@/student/components/choice_question'
+import topic from '@/student/components/topic'
 
 import Educat from '@/educat/components/Educat'
 import Monitor from '@/educat/components/Monitor'
@@ -196,7 +198,19 @@ export default new Router({
 				  path: 'SeeTheCase',
 				  name: 'SeeTheCase',
 				  component: SeeTheCase,
-				}
+				},
+         {
+          path: 'choice_question',
+          name: 'choice_question',
+          component: choice_question,
+          children:[
+              {
+                path: 'topic',
+                name: 'topic',
+                component: topic,
+              },
+          ]
+        }
       ]
     },
     {

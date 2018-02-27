@@ -216,7 +216,7 @@
   	background: rgba(239,239,244,1);
   }
   .el-table-filter{
-	top:635px!important;
+	top:680px!important;
 	}
 </style>
 <style scoped>

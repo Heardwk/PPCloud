@@ -225,7 +225,7 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 <style>
 .el-autocomplete-suggestion{
 	position: absolute;
-	top: 450px!important;
+	top: 490px!important;
 }
 #input_s{
    width: 130px;

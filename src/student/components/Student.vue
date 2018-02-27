@@ -2,7 +2,7 @@
   <div>
         <ul class="navigation">
 				 <div class="heads">
-	        <el-header class="mainMenu classactivses" :class="{'classactivse':shows}">
+	        <el-header class="mainMenu classactivses" :class="{'shade':shows}">
 	        	<div class="logo-left">
 	        		  <router-link to='/Student/Yuanxiao' @click.native='increment' active-class="active" class="logo-left_img colo ">
 			     		  </router-link>
@@ -71,8 +71,8 @@ export default {
           this.showss = true
         }
     }
-    var classactivse = document.getElementsByClassName("classactivse");
-    if(classactivse.length > 0){
+    var shade = document.getElementsByClassName("shade");
+    if(shade.length > 0){
         this.showss = false
     }
    }
@@ -84,7 +84,7 @@ export default {
 .classactivses{
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
 }
-.classactivse{
+.shade{
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);  
 }
 .classactive {
