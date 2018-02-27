@@ -27,7 +27,7 @@
                      </div>
                   </div>
                  <div>
-                   <topic :itemContent = "topic[number]" >
+                   <exercises :itemContent = "topic[number]" >
                     <div class="choose"> 你的选择答案：A</div>
                       <div class="g_bu" >
                           <span>A</span>
@@ -35,7 +35,7 @@
                           <span>C</span>
                           <span>D</span>
                       </div>
-                   </topic>
+                   </exercises>
                    <div class="score">答题错误，获得 0 分</div>
                  </div>
               </div>
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import topic from '@/topic/components/topic'
+import exercises from '@/topic/components/exercises'
 export default{
 	name:'achieve',
     data() {
@@ -96,7 +96,7 @@ export default{
 
     },
     components: {
-      topic,
+      exercises,
     },
     methods:{
     aa(index) {
@@ -169,14 +169,12 @@ export default{
 .score{
     height:41px; 
     background:rgba(255,255,255,0.8);
-    margin: 0px 30px;
     line-height:41px;
     font-size:16px;
     font-family:PingFangSC-Regular;
     color:rgba(139,87,42,1);
-    line-height:41px;
+    margin: 30px 0px;
     padding-left: 10px;
-    margin-bottom: 50px;
 }
 .g_bu>.el-button--medium{
     padding: 10px 40px;

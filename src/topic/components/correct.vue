@@ -17,7 +17,7 @@
                      </div>
                   </div>
                  <div>
-                   <topic :itemContent = "topic[number]" ></topic> 
+                   <exercises :itemContent = "topic[number]" ></exercises> 
                     <div class="g_bu"  v-if="isshow" >
                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import topic from '@/topic/components/topic'
+import exercises from '@/topic/components/exercises'
 export default{
 	name:'correct',
     data() {
@@ -84,7 +84,7 @@ export default{
 
     },
     components: {
-      topic,
+      exercises,
     },
     methods:{
     aa(index) {

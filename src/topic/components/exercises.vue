@@ -27,6 +27,7 @@
         <p v-for="(item,index) in topic.answer" :key="index">
           【{{String.fromCharCode(index+65)}}】{{item}}
         </p>
+        <slot></slot>
       </div>  
     </div>
   </div>

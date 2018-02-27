@@ -11,7 +11,7 @@
                 <div class="genre" >
                     <ul>
                       <P>{{topic.caseType}}</P>
-                      <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li>
+                      <!-- <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li> -->
                     </ul>
                 </div>
           </div>
@@ -27,7 +27,7 @@
                      </div>
                   </div>
                  <div>
-                   <topic :itemContent = "topic[number]" ></topic> 
+                   <exercises :id = "1" ></exercises> 
                     <div class="g_bu" >
                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import topic from '@/topic/components/topic'
+import exercises from '@/topic/components/exercises'
 export default{
 	name:'choice_question',
     data() {
@@ -94,7 +94,7 @@ export default{
 
     },
     components: {
-      topic,
+      exercises,
     },
     methods:{
     aa(index) {
