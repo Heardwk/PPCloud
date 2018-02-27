@@ -3,7 +3,7 @@
     <div class="content_choi">
       <div class="content_top">
           <p>基础会计任务一</p>
-          <span><i>倒计时</i><b>60 小时 26 分</b><i class="icom"></i></span>
+          <span><i>得分 : 80 分</i><b>得分详情</b></span>
       </div>
         <div style="display:flex; background-color:#F0F2F5;">
           <div class="solids" :class="mode ? '':'s' " :style="mode ? 'width:0px':'width:230px'">
@@ -17,23 +17,26 @@
           </div>
              <div style="width:100%">
                   <div class="fun">
-                      <span>划线</span>
-                      <span>盖章</span>
-                      <span>计算器</span>
+                      <span @click="chakandaan">查看答案</span>
+                      <span @click="daanjiexi">答案解析</span>
+                      <span @click="jisaunqi">计算器</span>
                      <div class="place">
                           <span>上一题</span>
                           <span>下一题</span>
-                          <p>交卷</p>
+                          <a href="javascipt:;">进入错题汇总练习</a>
                      </div>
                   </div>
                  <div>
-                   <topic :itemContent = "topic[number]" ></topic> 
-                    <div class="g_bu" >
-                        <el-button  size="medium" plain icon="el-icon-success">A</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">B</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">C</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">D</el-button>
-                    </div>
+                   <topic :itemContent = "topic[number]" >
+                    <div class="choose"> 你的选择答案：A</div>
+                      <div class="g_bu" >
+                          <span>A</span>
+                          <span>B</span>
+                          <span>C</span>
+                          <span>D</span>
+                      </div>
+                   </topic>
+                   <div class="score">答题错误，获得 0 分</div>
                  </div>
               </div>
           </div>
@@ -44,14 +47,13 @@
 <script>
 import topic from '@/topic/components/topic'
 export default{
-	name:'choice_question',
+	name:'achieve',
     data() {
       return {
         mode: true,
         ins:0,
         number:0,
         active: 0,
-        arr: [{caseType: 'danxuan',id:1},{caseType: 'danxuan',id:1}],
         topic: {
           id: 1,
           caseType: '单选题',
@@ -100,8 +102,17 @@ export default{
     aa(index) {
       this.number = index  
       this.ins = index
-      }
-    }
+      },
+    chakandaan() {
+
+    },
+    daanjiexi() {
+
+    },
+    jisaunqi() {
+
+    },
+  }
 }
 </script>
 <style scoped>
@@ -134,48 +145,52 @@ export default{
     top: 0px;
     left: 40%;
 }
-.g_bu{
-    margin-left: 30px;
+.choose{
+    margin-bottom: 20px;
+    margin-top: 43px;
+    margin-left: 4px;
 }
-.g_bu>button>span{
-   color:rgba(104,113,120,1);
+.g_bu>span{
+    display: inline-block;
+    width:100px;
+    height:36px; 
+    width:100px;
+    height:36px; 
+    background:rgba(253,253,253,1);
+    border-radius: 3px ; 
+    color:rgba(104,113,120,1);
+    text-align: center;
+    line-height: 36px; 
+    margin: 0px 5px;
 }
-.g_bu>button{
-   color: #D8D8D8;
+ .g_bu>span:active{
+
 }
-.el-button.is-active, .g_bu>button:active{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
-.g_bu>button:focus{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
-.g_bu>button:hover{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
-.g_bu>button:hover{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
+.score{
+    height:41px; 
+    background:rgba(255,255,255,0.8);
+    margin: 0px 30px;
+    line-height:41px;
+    font-size:16px;
+    font-family:PingFangSC-Regular;
+    color:rgba(139,87,42,1);
+    line-height:41px;
+    padding-left: 10px;
+    margin-bottom: 50px;
 }
 .g_bu>.el-button--medium{
     padding: 10px 40px;
 }
 .content_top>span>i{
     display: inline-block;
-    width:42px;
+    width:80px;
     height:20px;   
     font-size:14px;
     font-family:PingFangSC-Regular;
     color:rgba(255,255,255,1);
     line-height:20px;
     font-style: normal;
-    margin-left: 24px;
+    margin-left: 44px;
     padding-top: 7px;
 }
 .content_top>span>b{
@@ -188,7 +203,7 @@ export default{
     margin-left: 17px;
     position: absolute;
     top: 7px;
-    left: 80px;
+    right: 7px;
     font-weight: 400;
 }
 .content_top>span>.icom{
@@ -293,7 +308,7 @@ ul{
     width:80px;
     height:32px; 
     background:rgba(255,255,255,1);
-    border-radius: 2px ; 
+    border-radius: 4px; 
     border:1px solid #eee;
     text-align: center;
     line-height: 32px;
@@ -317,25 +332,24 @@ ul{
     right: 64px;
     display: flex;
 }
-.place>p{
-    border:1px solid #eee;
+.place>a{
+    display: inline-block;
     text-align: center;
-    width:80px;
+    width:115px;
     height:32px; 
-    background:rgba(24,144,255,1);
-    border-radius: 2px ; 
     line-height: 32px;
     font-size:12px;
     font-family:PingFangSC-Regular;
-    color:rgba(255,255,255,1);
+    color:rgba(24,144,255,1);
     cursor: pointer;
+    margin-left: 30px;
 }
 .place>span{
     display: inline-block;
     width:80px;
     height:32px; 
     background:rgba(255,255,255,1);
-    border-radius: 2px ; 
+    border-radius: 4px ; 
     border:1px solid #eee;
     text-align: center;
     line-height: 32px;

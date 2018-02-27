@@ -1,22 +1,21 @@
 <template>
 	<div>
-		<div class="subject" v-if="topic.caseType=='单选题'"  >
-              <p>{{topic.question}}</p>
+		<div class="subject" >
+              <p>{{itemContent.title}}</p>
               <div class="select">
               	  <ul>
-              	      <li v-for="(item,index) in topic.elect"><b>【{{item.Letter}}】</b><span>{{item.options}}</span></li>
-              	      <slot></slot>
+              	  	<li v-for="(item,index) in itemContent.elect"><b>【{{item.Letter}}】</b><span>{{item.options}}</span></li>
               	  </ul>
-	              <b class="show"  @click = "subjectss">{{eie}}</b>
+	               <b class="show"  @click = "subjectss">{{eie}}</b>
                   <div class="subsidiary" v-if = "subjects"  v-drag="greet" >
                   	  <div class="tit">
                   	  	 <p>这里是辅助资料名称</p>
                   	  </div>
                   	  <div class="caption">3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。</div>
-                  	  <div class="sub_con" @mouseover="toggleShow()"  @mouseout="toggleShow()">
+                  	  <div class="sub_con">
                   	  	   <div class="sides">
 	                          <ul class="slide-pages">
-							      <li @click="goto(prevIndex)" v-show = "isShow"><i class="pres"></i></li>
+							      <li @click="goto(prevIndex)" ><i class="pres"></i></li>
 							      <li>
 							         <img class="imgs" 
 							         :src="slides[nowIndex].src" 
@@ -25,7 +24,7 @@
 	                         	  	  />
 	                         	  	  <div class="num">{{nowIndex+1}}/{{slides.length}}</div>
 							      </li>
-							      <li @click="goto(nextIndex)" v-show = "isShow"><i class="nexts"></i></li>
+							      <li @click="goto(nextIndex)"><i class="nexts"></i></li>
 							  </ul>
 	                     </div>
                   	  </div>
@@ -37,12 +36,12 @@
 <script>
 export default{
 	name:'topic',
-	// props:{
-	// 	itemContent:{
- //           type: Object,
- //           default: '没有数据'
-	// 	}
-	// },
+	props:{
+		itemContent:{
+           type: Object,
+           default: '没有数据'
+		}
+	},
 	directives:{
 	  drag:{
 	  	bind:function (el, binding) {
@@ -69,44 +68,7 @@ export default{
 	data() {
         return{
         subjects:false,
-        isShow:false,
         eie:'显示辅助资料',
-        topic: {
-	        id: 1,
-	        caseType: '单选题',
-	        classType: '基础会计',
-	        classify: '错账更正 > 划线更正法概念 > 适用范围和操作要求',
-	        caseCount: 16,
-	        question: '下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
-	        answer: ["债券的票面利率大于市场利率。","债券的票面利率等于市场利率","债券的票面利率小于市场利率","以上都不对"],
-	        auxiliaryData: [
-	          {
-	            text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
-	            src: '#'
-	          },{
-	            text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
-	            src: '#'
-		          } 
-		        ],
-	        elect:[
-	          {
-	            Letter:'A',
-	            options:'债券的票面利率大于市场利率债券的票面利率'
-	          },
-	          {
-	           Letter:'B',
-	           options:'债券的票面利率等于市场利率'
-	          },
-	          {
-	            Letter:'C',
-	            options:'债券的票面利率小于市场利率'
-	          },
-	          {
-	            Letter:'D',
-	            options:'以上都不对'
-	          }
-	        ],
-	      },
         slides: [
         {
           src: require('../../share/img/Bitmap.png'),
@@ -125,7 +87,15 @@ export default{
           title: 'xxx4',
         }
        ],
-       val: '123',
+        val: '123',
+        style: {
+            width: '100px',
+            height: '100px',
+            background: 'aqua',
+            position: 'absolute',
+            right: '30px',
+            top: 0
+        },
        nowIndex:0,
        bigshow:false
        }
@@ -149,27 +119,24 @@ export default{
     }
   },
   methods: {
-    goto (index) { 
-      setTimeout(() => {
-        this.nowIndex = index
-      }, 10)
-    },
-    toggleShow: function() {
-      this.isShow = !this.isShow
-    },
-    subjectss(){
-    	this.subjects = !this.subjects;
-    	if(this.subjects == true)
-    	 {
-           this.eie = '隐藏' 
-    	 }else{
-    	   this.eie = '显示辅助资料'
-    	 }
-    },
-    greet(val){
-            this.val = val;
-        }
-	},
+	    goto (index) { 
+	      setTimeout(() => {
+	        this.nowIndex = index
+	      }, 10)
+	    },
+	    subjectss(){
+	    	this.subjects = !this.subjects;
+	    	if(this.subjects == true)
+	    	 {
+               this.eie = '隐藏' 
+	    	 }else{
+	    	   this.eie = '显示辅助资料'
+	    	 }
+	    },
+      greet(val){
+                this.val = val;
+            }
+	 },
 }
 </script>
 <style scoped>
@@ -182,15 +149,15 @@ ul{
     -webkit-padding-start: 0px;
 }
 .big{
-	transform: scale(2);
-	position: fixed;
-	margin: auto;
-	top: 0px;
-	left: 0px;
-	right: 0px;
-	bottom: 0px;
-	z-index: 10;
-	position: fixed;
+  transform: scale(2);
+  position: fixed;
+  margin: auto;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 10;
+  position: fixed;
 }
 .imgs{
 	cursor: pointer;
@@ -242,6 +209,9 @@ ul{
 	white-space: normal;
 	word-break: break-all;
 }
+.select{
+    
+}
 .sides{
 	height: 50px;
 	width: 90%;
@@ -260,7 +230,7 @@ ul{
 	left: -3%;
 	cursor: pointer;
 }
-.nexts{
+    .nexts{
 	display: inline-block;
 	width: 20px;
 	height: 20px;
@@ -279,7 +249,7 @@ ul{
     -webkit-margin-end: 0px;
     -webkit-padding-start: 0px;
 	border-bottom: 1px dashed #A5B7C5;
-	padding-bottom: 25px;
+	padding-bottom: 50px;
 	margin-bottom: 25px;
 }
 .select>ul>li{
@@ -311,6 +281,10 @@ ul{
 	top:0px;
 	right:0px;
 	z-index: 100;
+/*     -webkit-transition: all .5s linear;
+        -moz-transition: all .5s linear;
+             transition: all .5s linear;*/
+
 }
 .tit{
     width:500px;

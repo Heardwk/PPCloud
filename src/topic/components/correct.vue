@@ -3,32 +3,22 @@
     <div class="content_choi">
       <div class="content_top">
           <p>基础会计任务一</p>
-          <span><i>倒计时</i><b>60 小时 26 分</b><i class="icom"></i></span>
       </div>
         <div style="display:flex; background-color:#F0F2F5;">
-          <div class="solids" :class="mode ? '':'s' " :style="mode ? 'width:0px':'width:230px'">
-                <div class="btn":class="mode ? 'el-icon-d-arrow-left':'el-icon-d-arrow-right' " @click ="mode = !mode"></div>
-                <div class="genre" >
-                    <ul>
-                      <P>{{topic.caseType}}</P>
-                      <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li>
-                    </ul>
-                </div>
-          </div>
              <div style="width:100%">
                   <div class="fun">
-                      <span>划线</span>
-                      <span>盖章</span>
-                      <span>计算器</span>
+                      <span @click="chakandaan">查看答案</span>
+                      <span @click="daanjiexi">答案解析</span>
+                      <span @click="jisaunqi">计算器</span>
                      <div class="place">
                           <span>上一题</span>
                           <span>下一题</span>
-                          <p>交卷</p>
+                          <p>提交</p>
                      </div>
                   </div>
                  <div>
                    <topic :itemContent = "topic[number]" ></topic> 
-                    <div class="g_bu" >
+                    <div class="g_bu"  v-if="isshow" >
                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">C</el-button>
@@ -44,14 +34,14 @@
 <script>
 import topic from '@/topic/components/topic'
 export default{
-	name:'choice_question',
+	name:'correct',
     data() {
       return {
         mode: true,
         ins:0,
         number:0,
         active: 0,
-        arr: [{caseType: 'danxuan',id:1},{caseType: 'danxuan',id:1}],
+        isshow:false,
         topic: {
           id: 1,
           caseType: '单选题',
@@ -100,7 +90,16 @@ export default{
     aa(index) {
       this.number = index  
       this.ins = index
-      }
+      },
+    chakandaan() {
+
+    },
+    daanjiexi() {
+
+    },
+    jisaunqi() {
+
+    },
     }
 }
 </script>
@@ -142,21 +141,6 @@ export default{
 }
 .g_bu>button{
    color: #D8D8D8;
-}
-.el-button.is-active, .g_bu>button:active{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
-.g_bu>button:focus{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
-.g_bu>button:hover{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
 }
 .g_bu>button:hover{
    background-color:#7ED321;
@@ -284,16 +268,15 @@ ul{
     width:100%;
     height:54px; 
     background:rgba(255,255,255,1);
-    padding-left: 100px;
     line-height: 54px;
     position: relative;
+    padding-left: 18px;
 }
 .fun>span{
     display: inline-block;
     width:80px;
     height:32px; 
     background:rgba(255,255,255,1);
-    border-radius: 2px ; 
     border:1px solid #eee;
     text-align: center;
     line-height: 32px;
@@ -302,6 +285,7 @@ ul{
     font-size:12px;
     font-family:PingFangSC-Regular;
     color:rgba(0,21,41,1);
+    border-radius: 4px;
 }
 .fun>span:hover{
     background:rgba(24,144,255,1);
@@ -323,19 +307,18 @@ ul{
     width:80px;
     height:32px; 
     background:rgba(24,144,255,1);
-    border-radius: 2px ; 
     line-height: 32px;
     font-size:12px;
     font-family:PingFangSC-Regular;
     color:rgba(255,255,255,1);
     cursor: pointer;
+    border-radius: 4px;
 }
 .place>span{
     display: inline-block;
     width:80px;
     height:32px; 
     background:rgba(255,255,255,1);
-    border-radius: 2px ; 
     border:1px solid #eee;
     text-align: center;
     line-height: 32px;
@@ -344,6 +327,7 @@ ul{
     font-size:12px;
     font-family:PingFangSC-Regular;
     color:rgba(0,21,41,1);
+    border-radius: 4px;
 }
 .place>span:hover{
     background:rgba(24,144,255,1);

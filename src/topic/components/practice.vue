@@ -2,33 +2,24 @@
    <div>
     <div class="content_choi">
       <div class="content_top">
-          <p>基础会计任务一</p>
-          <span><i>倒计时</i><b>60 小时 26 分</b><i class="icom"></i></span>
+          <p class="titles">基础会计任务一</p>
+          <p class="title_con">{{topic.classify}} &gt<b>适用范围和操作要求</b> <span>案例数量：(1/{{topic.caseCount}})</span></p>
       </div>
         <div style="display:flex; background-color:#F0F2F5;">
-          <div class="solids" :class="mode ? '':'s' " :style="mode ? 'width:0px':'width:230px'">
-                <div class="btn":class="mode ? 'el-icon-d-arrow-left':'el-icon-d-arrow-right' " @click ="mode = !mode"></div>
-                <div class="genre" >
-                    <ul>
-                      <P>{{topic.caseType}}</P>
-                      <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li>
-                    </ul>
-                </div>
-          </div>
              <div style="width:100%">
                   <div class="fun">
-                      <span>划线</span>
-                      <span>盖章</span>
-                      <span>计算器</span>
+                       <el-button plain disabled>查看答案</el-button>
+                         <el-button plain disabled>答案解析</el-button>
+                      <span @click="jisaunqi">计算器</span>
                      <div class="place">
                           <span>上一题</span>
                           <span>下一题</span>
-                          <p>交卷</p>
+                          <p>提交</p>
                      </div>
                   </div>
                  <div>
                    <topic :itemContent = "topic[number]" ></topic> 
-                    <div class="g_bu" >
+                    <div class="g_bu"  v-if="isshow" >
                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">C</el-button>
@@ -44,19 +35,19 @@
 <script>
 import topic from '@/topic/components/topic'
 export default{
-	name:'choice_question',
+	name:'practice',
     data() {
       return {
         mode: true,
         ins:0,
         number:0,
         active: 0,
-        arr: [{caseType: 'danxuan',id:1},{caseType: 'danxuan',id:1}],
+        isshow:true,
         topic: {
           id: 1,
           caseType: '单选题',
           classType: '基础会计',
-          classify: '错账更正 > 划线更正法概念 > 适用范围和操作要求',
+          classify: '错账更正 > 划线更正法概念',
           caseCount: 16,
           question: '下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
           answer: ["债券的票面利率大于市场利率。","债券的票面利率等于市场利率","债券的票面利率小于市场利率","以上都不对"],
@@ -100,7 +91,16 @@ export default{
     aa(index) {
       this.number = index  
       this.ins = index
-      }
+      },
+    chakandaan() {
+
+    },
+    daanjiexi() {
+
+    },
+    jisaunqi() {
+
+    },
     }
 }
 </script>
@@ -110,19 +110,29 @@ export default{
     padding-bottom: 50px;
 }
 .content_top{
-    height:40px; 
+    height:80px; 
     background:rgba(0,33,64,1);
     position: relative;
 }
-.content_top>p{
-    display: inline-block;
-    width:229px;
-    height:40px; 
-    font-size:14px;
+.content_top>.titles{
+    padding-top: 14px;
+    padding-left:17px;
+    font-size:18px;
     font-family:PingFangSC-Regular;
     color:rgba(255,255,255,1);
-    line-height:40px;
-    margin-left: 24px;
+}
+.title_con{
+    padding-top: 10px;
+    padding-left:17px;
+    height:20px; 
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    color:rgba(255,255,255,0.6);
+}
+.title_con>b{
+  color: #fff;
+  margin-right: 50px;
+  font-weight: 400;
 }
 .content_top>span{
     display: inline-block;
@@ -136,6 +146,7 @@ export default{
 }
 .g_bu{
     margin-left: 30px;
+    margin-bottom: 50px;
 }
 .g_bu>button>span{
    color:rgba(104,113,120,1);
@@ -158,13 +169,13 @@ export default{
    border-color: transparent;
    color: #fff;
 }
-.g_bu>button:hover{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
 .g_bu>.el-button--medium{
     padding: 10px 40px;
+}
+.fun>button{
+  width:80px;
+  height:32px; 
+  padding: 0px;
 }
 .content_top>span>i{
     display: inline-block;
@@ -284,16 +295,15 @@ ul{
     width:100%;
     height:54px; 
     background:rgba(255,255,255,1);
-    padding-left: 100px;
     line-height: 54px;
     position: relative;
+    padding-left: 18px;
 }
 .fun>span{
     display: inline-block;
     width:80px;
     height:32px; 
     background:rgba(255,255,255,1);
-    border-radius: 2px ; 
     border:1px solid #eee;
     text-align: center;
     line-height: 32px;
@@ -302,6 +312,7 @@ ul{
     font-size:12px;
     font-family:PingFangSC-Regular;
     color:rgba(0,21,41,1);
+    border-radius: 4px;
 }
 .fun>span:hover{
     background:rgba(24,144,255,1);
@@ -323,19 +334,18 @@ ul{
     width:80px;
     height:32px; 
     background:rgba(24,144,255,1);
-    border-radius: 2px ; 
     line-height: 32px;
     font-size:12px;
     font-family:PingFangSC-Regular;
     color:rgba(255,255,255,1);
     cursor: pointer;
+    border-radius: 4px;
 }
 .place>span{
     display: inline-block;
     width:80px;
     height:32px; 
     background:rgba(255,255,255,1);
-    border-radius: 2px ; 
     border:1px solid #eee;
     text-align: center;
     line-height: 32px;
@@ -344,6 +354,7 @@ ul{
     font-size:12px;
     font-family:PingFangSC-Regular;
     color:rgba(0,21,41,1);
+    border-radius: 4px;
 }
 .place>span:hover{
     background:rgba(24,144,255,1);

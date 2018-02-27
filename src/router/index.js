@@ -47,7 +47,9 @@ import teacMarking from '@/topic/components/teacMarking'
 import teacPreview from '@/topic/components/teacPreview'
 import teacTiZu from '@/topic/components/teacTiZu'
 import choice_question from '@/topic/components/choice_question'
-import topic from '@/topic/components/topic'
+import correct from '@/topic/components/correct'
+import practice from '@/topic/components/practice'
+import achieve from '@/topic/components/achieve'
 
 Vue.use(Router)
 
@@ -303,9 +305,19 @@ export default new Router({
           component: choice_question,
         },
         {
-          path: 'topic',
-          name: 'topic',
-          component: topic,
+          path: 'correct',
+          name: 'correct',
+          component: correct,
+        },
+        {
+          path: 'practice',
+          name: 'practice',
+          component: practice,
+        },
+        {
+          path: 'achieve',
+          name: 'achieve',
+          component: achieve,
         }
       ]
     }

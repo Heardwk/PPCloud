@@ -1,48 +1,52 @@
 <template>
    <div>
-    <div class="content_choi">
-      <div class="content_top">
-          <p>基础会计任务一</p>
-          <span><i>倒计时</i><b>60 小时 26 分</b><i class="icom"></i></span>
-      </div>
-        <div style="display:flex; background-color:#F0F2F5;">
-          <div class="solids" :class="mode ? '':'s' " :style="mode ? 'width:0px':'width:230px'">
-                <div class="btn":class="mode ? 'el-icon-d-arrow-left':'el-icon-d-arrow-right' " @click ="mode = !mode"></div>
-                <div class="genre" >
-                    <ul>
-                      <P>{{topic.caseType}}</P>
-                      <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li>
-                    </ul>
-                </div>
-          </div>
-             <div style="width:100%">
-                  <div class="fun">
-                      <span>划线</span>
-                      <span>盖章</span>
-                      <span>计算器</span>
-                     <div class="place">
-                          <span>上一题</span>
-                          <span>下一题</span>
-                          <p>交卷</p>
-                     </div>
+      <div class="content_choi">
+        <div class="content_top">
+            <p>基础会计任务一</p>
+            <span><i>倒计时</i><b>60 小时 26 分</b><i class="icom"></i></span>
+        </div>
+         <div style="display:flex; background-color:#F0F2F5;">
+            <div class="solids" :class="mode ? '':'s' " :style="mode ? 'width:0px':'width:230px'">
+                  <div class="btn":class="mode ? 'el-icon-d-arrow-left':'el-icon-d-arrow-right' " @click ="mode = !mode"></div>
+                  <div class="genre" >
+                  <!--     <ul v-for="(item,index) in productList" :key="index">
+                          <p>{{item.title}}(20)</p>
+                          <li v-for="(itemlist,index) in item.list.length"><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{itemlist}}</a></li>
+                      </ul> -->
+                      <ul v-for="(item,index,) in choice":key="index">
+                         <P>{{item.name}}</P>
+                         <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{index+1}}</a></li>
+                      </ul>
                   </div>
-                 <div>
-                   <topic :itemContent = "topic[number]" ></topic> 
-                    <div class="g_bu" >
-                        <el-button  size="medium" plain icon="el-icon-success">A</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">B</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">C</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">D</el-button>
-                    </div>
-                 </div>
-              </div>
-          </div>
+            </div>
+               <div style="width:100%">
+                    <div class="fun">
+                        <span>划线</span>
+                        <span>盖章</span>
+                        <span>计算器</span>
+                       <div class="place">
+                            <span>上一题</span>
+                            <span>下一题</span>
+                            <p>交卷</p>
+                       </div>
+                   </div>
+                   <div>
+                        <topic :itemContent = "choice[number]" ></topic> 
+                       <div class="g_bu" >
+                          <el-button type="success" size="medium" plain icon="el-icon-success">A</el-button>
+                          <el-button type="success" size="medium" plain icon="el-icon-success">B</el-button>
+                          <el-button type="success" size="medium" plain icon="el-icon-success">C</el-button>
+                          <el-button type="success" size="medium" plain icon="el-icon-success">D</el-button>
+                      </div>
+                   </div>
+               </div>
+           </div>
       </div>    
    </div>
 </template>
 
 <script>
-import topic from '@/topic/components/topic'
+import topic from '@/student/components/topic'
 export default{
 	name:'choice_question',
     data() {
@@ -50,64 +54,76 @@ export default{
         mode: true,
         ins:0,
         number:0,
+        choice:[
+          {
+            name:'单选题',
+            title:'下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
+            elect:[
+              {
+                Letter:'A',
+                options:'债券的票面利率大于市场利率债券的票面利率'
+              },
+              {
+               Letter:'B',
+               options:'债券的票面利率等于市场利率'
+              },
+              {
+                Letter:'C',
+                options:'债券的票面利率小于市场利率'
+              },
+              {
+                Letter:'D',
+                options:'以上都不对'
+              }
+            ],
+          },
+          {
+            name:'单选题',
+            title:'111。',
+            elect:[
+              {
+                Letter:'A',
+                options:'闺女'
+              },
+              {
+               Letter:'B',
+               options:'ccc'
+              },
+              {
+                Letter:'C',
+                options:'11'
+              },
+              {
+                Letter:'D',
+                options:'以上都不对'
+              }
+            ],
+          },
+       ],
         active: 0,
-        arr: [{caseType: 'danxuan',id:1},{caseType: 'danxuan',id:1}],
-        topic: {
-          id: 1,
-          caseType: '单选题',
-          classType: '基础会计',
-          classify: '错账更正 > 划线更正法概念 > 适用范围和操作要求',
-          caseCount: 16,
-          question: '下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
-          answer: ["债券的票面利率大于市场利率。","债券的票面利率等于市场利率","债券的票面利率小于市场利率","以上都不对"],
-          auxiliaryData: [
-                {
-                  text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
-                  src: '#'
-                },{
-                  text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
-                  src: '#'
-                  } 
-                ],
-              elect:[
-                {
-                  Letter:'A',
-                  options:'债券的票面利率大于市场利率债券的票面利率'
-                },
-                {
-                 Letter:'B',
-                 options:'债券的票面利率等于市场利率'
-                },
-                {
-                  Letter:'C',
-                  options:'债券的票面利率小于市场利率'
-                },
-                {
-                  Letter:'D',
-                  options:'以上都不对'
-                }
-          ],
-        },
       };
     },
     computed: {
-
     },
     components: {
       topic,
     },
     methods:{
     aa(index) {
-      this.number = index  
+      this.number=index  
       this.ins = index
       }
     }
 }
 </script>
+
+
 <style scoped>
 .content_choi{
+    padding-top: 100px;
     margin: auto;
     padding-bottom: 50px;
+    max-width: 1366px;
 }
 .content_top{
     height:40px; 
@@ -135,36 +151,10 @@ export default{
     left: 40%;
 }
 .g_bu{
-    margin-left: 30px;
-}
-.g_bu>button>span{
-   color:rgba(104,113,120,1);
-}
-.g_bu>button{
-   color: #D8D8D8;
-}
-.el-button.is-active, .g_bu>button:active{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
-.g_bu>button:focus{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
-.g_bu>button:hover{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
-}
-.g_bu>button:hover{
-   background-color:#7ED321;
-   border-color: transparent;
-   color: #fff;
+  margin-left: 30px;
 }
 .g_bu>.el-button--medium{
-    padding: 10px 40px;
+   padding: 10px 40px;
 }
 .content_top>span>i{
     display: inline-block;
@@ -202,7 +192,7 @@ export default{
 }
 .solids{
     width: 200px;
-    min-height: 500px;
+    height: 500px;
     border:1px solid #ddd;
     position: relative;
      -webkit-transition: all .5s linear;
@@ -348,5 +338,9 @@ ul{
 .place>span:hover{
     background:rgba(24,144,255,1);
     color: #fff;
+}
+.place>p:hover{
+   
+
 }
 </style>
