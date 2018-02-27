@@ -28,8 +28,6 @@ import MyCenter from '@/student/components/MyCenter'
 import allcase from '@/student/components/allcase'
 import casesindex  from '@/student/components/courseTraining/casesindex'
 import SeeTheCase  from '@/student/components/SeeTheCase'
-import choice_question from '@/student/components/choice_question'
-import topic from '@/student/components/topic'
 
 import Educat from '@/educat/components/Educat'
 import Monitor from '@/educat/components/Monitor'
@@ -48,6 +46,8 @@ import tizu from '@/topic/components/tizu'
 import teacMarking from '@/topic/components/teacMarking'
 import teacPreview from '@/topic/components/teacPreview'
 import teacTiZu from '@/topic/components/teacTiZu'
+import choice_question from '@/topic/components/choice_question'
+import topic from '@/topic/components/topic'
 
 Vue.use(Router)
 
@@ -203,19 +203,7 @@ export default new Router({
 				  path: 'SeeTheCase',
 				  name: 'SeeTheCase',
 				  component: SeeTheCase,
-				},
-         {
-          path: 'choice_question',
-          name: 'choice_question',
-          component: choice_question,
-          children:[
-              {
-                path: 'topic',
-                name: 'topic',
-                component: topic,
-              },
-          ]
-        }
+				}
       ]
     },
     {
@@ -309,6 +297,16 @@ export default new Router({
           name: 'teacTiZu',
           component: teacTiZu
         },
+        {
+          path: 'choice_question',
+          name: 'choice_question',
+          component: choice_question,
+        },
+        {
+          path: 'topic',
+          name: 'topic',
+          component: topic,
+        }
       ]
     }
   ],
