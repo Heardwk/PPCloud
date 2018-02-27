@@ -1,0 +1,25 @@
+<template>
+  <div class="">
+    预览题组
+  </div>
+</template>
+
+<script>
+import exercises from './exercises'
+export default {
+  name: 'teacTiZu',
+  data () {
+    return {
+      
+    }
+  },
+  components: {
+    exercises
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>

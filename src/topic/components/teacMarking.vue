@@ -1,0 +1,25 @@
+<template>
+  <div class="">
+    阅卷
+  </div>
+</template>
+
+<script>
+import exercises from './exercises'
+export default {
+  name: 'teacMarking',
+  data () {
+    return {
+      
+    }
+  },
+  components: {
+  	exercises
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+</style>

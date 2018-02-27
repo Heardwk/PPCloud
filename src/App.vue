@@ -67,6 +67,9 @@ div {
 body,dl,dd,h1,h2,h3,h4,h5,h6,p,form {
   margin: 0;
 }
+ul {
+  -webkit-padding-start: 0px;
+}
 ul li {
   margin: 0;
   padding: 0;
@@ -166,5 +169,15 @@ header {
 /*教务*/
 .inlineBox input {
   border-radius: 0;
+}
+.sxtabBox .el-tabs__nav-wrap::after {
+  background-color: white;
+}
+.ziliaoupfile .el-upload-dragger {
+  width: 227px;
+}
+/*题组*/
+.fuzhuziliao .el-carousel__indicators {
+  display: none;
 }
 </style>
