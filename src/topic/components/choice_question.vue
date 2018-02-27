@@ -120,7 +120,6 @@ export default{
 
 <style scoped>
 .content_choi{
-    padding-top: 100px;
     margin: auto;
     padding-bottom: 50px;
     max-width: 1366px;

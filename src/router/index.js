@@ -47,7 +47,6 @@ import teacMarking from '@/topic/components/teacMarking'
 import teacPreview from '@/topic/components/teacPreview'
 import teacTiZu from '@/topic/components/teacTiZu'
 import choice_question from '@/topic/components/choice_question'
-import topic from '@/topic/components/topic'
 
 Vue.use(Router)
 
@@ -302,11 +301,6 @@ export default new Router({
           name: 'choice_question',
           component: choice_question,
         },
-        {
-          path: 'topic',
-          name: 'topic',
-          component: topic,
-        }
       ]
     }
   ],
