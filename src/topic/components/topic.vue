@@ -6,7 +6,7 @@
               	  <ul>
               	      <li v-for="(item,index) in topic.elect"><b>【{{item.Letter}}】</b><span>{{item.options}}</span></li>
               	      <slot></slot>
-              	  </ul>
+                  </ul>
 	              <b class="show"  @click = "subjectss">{{eie}}</b>
                   <div class="subsidiary" v-if = "subjects"  v-drag="greet" >
                   	  <div class="tit">
