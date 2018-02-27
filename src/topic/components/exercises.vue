@@ -8,7 +8,6 @@
           【{{String.fromCharCode(index+65)}}】{{item}}
         </p>
       </div>
-      <div class="ctrl" @click="ishide=true">显示</div>
       <div :class="ishide?'':'hideAuxiliaryData'" class="auxiliaryData">
         <el-carousel trigger="click" :autoplay="false" class="fuzhuziliao" height="370px">
           <el-carousel-item v-for="(item,index) in topic.auxiliaryData" :key="index">
@@ -18,6 +17,7 @@
           </el-carousel-item>
         </el-carousel>
       </div>
+      <div class="ctrl" @click="ishide=!ishide">{{ishide?'隐藏':'显示'}}</div>
     </div>
   </div>
 </template>
@@ -75,6 +75,7 @@ export default {
     top: 0;
     cursor: pointer;
     font-size: 14px;
+    z-index: 2;
   }
   .ctrl:hover {
     color: #409EFF;
@@ -88,7 +89,8 @@ export default {
     overflow: hidden;
   }
   .hideAuxiliaryData {
-    display: none;
+    /*display: none;*/
+    width: 0;
   }
   .fuzhuziliao {
     font-size: 14px;
@@ -99,6 +101,7 @@ export default {
     line-height: 30px;
     position: relative;
     text-indent: 20px;
+    width: 500px;
   }
   .auxiliaryTop span {
     position: absolute;
@@ -112,6 +115,7 @@ export default {
     background: white;
     padding: 12px;
     color: #151E26;
+    width: 500px;
   }
   .danxaun .dxcontainer {
     margin-right: 505px;

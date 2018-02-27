@@ -69,7 +69,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .titleBox {
-    padding: 15px;
+    padding: 10px 25px;
     background-color: #002140;
     color: white;
   }
