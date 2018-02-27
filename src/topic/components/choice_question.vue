@@ -9,7 +9,7 @@
             <div class="solids" :class="mode ? '':'s' " :style="mode ? 'width:0px':'width:230px'">
                   <div class="btn":class="mode ? 'el-icon-d-arrow-left':'el-icon-d-arrow-right' " @click ="mode = !mode"></div>
                   <div class="genre" >
-                  <!--     <ul v-for="(item,index) in productList" :key="index">
+                  <!--<ul v-for="(item,index) in productList" :key="index">
                           <p>{{item.title}}(20)</p>
                           <li v-for="(itemlist,index) in item.list.length"><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{itemlist}}</a></li>
                       </ul> -->
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import topic from '@/student/components/topic'
+import topic from '@/topic/components/topic'
 export default{
 	name:'choice_question',
     data() {

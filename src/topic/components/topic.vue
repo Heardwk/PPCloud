@@ -1,10 +1,15 @@
 <template>
 	<div>
 		<div class="subject" >
-              <p>{{itemContent.title}}</p>
+              <!-- <p>{{itemContent.title}}</p> -->
+              <p>下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。</p>
               <div class="select">
               	  <ul>
-              	  	<li v-for="(item,index) in itemContent.elect"><b>【{{item.Letter}}】</b><span>{{item.options}}</span></li>
+              	  <!-- 	<li v-for="(item,index) in itemContent.elect"><b>【{{item.Letter}}】</b><span>{{item.options}}</span></li> -->
+              	  <li><b>【A】</b><span>债券的票面利率大于市场利率债券的票面利率</span></li>
+              	  <li><b>【B】</b><span>债券的票面利率大于市场利率债券的票面利率</span></li>
+              	  <li><b>【C】</b><span>债券的票面利率大于市场利率债券的票面利率</span></li>
+              	  <li><b>【D】</b><span>债券的票面利率大于市场利率债券的票面利率</span></li>
               	  </ul>
 	               <b class="show"  @click = "subjectss">{{eie}}</b>
                   <div class="subsidiary" v-if = "subjects"  v-drag="greet" >
@@ -119,24 +124,24 @@ export default{
     }
   },
   methods: {
-	    goto (index) { 
-	      setTimeout(() => {
-	        this.nowIndex = index
-	      }, 10)
-	    },
-	    subjectss(){
-	    	this.subjects = !this.subjects;
-	    	if(this.subjects == true)
-	    	 {
-               this.eie = '隐藏' 
-	    	 }else{
-	    	   this.eie = '显示辅助资料'
-	    	 }
-	    },
-      greet(val){
-                this.val = val;
-            }
-	 },
+    goto (index) { 
+      setTimeout(() => {
+        this.nowIndex = index
+      }, 10)
+    },
+    subjectss(){
+    	this.subjects = !this.subjects;
+    	if(this.subjects == true)
+    	 {
+           this.eie = '隐藏' 
+    	 }else{
+    	   this.eie = '显示辅助资料'
+    	 }
+    },
+    greet(val){
+            this.val = val;
+        }
+	},
 }
 </script>
 <style scoped>
@@ -208,9 +213,6 @@ ul{
 	line-height:28px;
 	white-space: normal;
 	word-break: break-all;
-}
-.select{
-    
 }
 .sides{
 	height: 50px;
