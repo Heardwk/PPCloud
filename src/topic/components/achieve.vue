@@ -28,7 +28,7 @@
                   </div>
                <!-- 题目内容组件 -->
                  <div  style="padding-left: 20px;padding-top: 20px;">
-                   <exercises :itemContent = "topic[number]" >
+                   <exercises :id = "1" >
                     <div class="choose"> 你的选择答案：{{result}}</div>
                       <div class="g_bu" >
                           <span>A</span>

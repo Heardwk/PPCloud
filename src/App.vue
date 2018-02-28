@@ -180,4 +180,38 @@ header {
 .fuzhuziliao .el-carousel__indicators {
   display: none;
 }
+.teacTiZu .el-radio-button__inner {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  padding: 0;
+  text-align: center;
+  border: none;
+  color: black;
+  background-color: #dcdfe6;
+}
+.teacTiZu .el-radio-button__inner:first-child, .teacTiZu .el-radio-button__inner:last-child {
+  border-radius: 4px;
+}
+.teacTiZu .dui .el-radio-button__inner {
+  background-color: #78D895;
+  border-color: #78D895;
+  box-shadow: 0 0 0 white;
+}
+.teacTiZu .cuo .el-radio-button__inner {
+  background-color: #FF7078;
+  border-color: #FF7078;
+  box-shadow: 0 0 0 white;
+}
+.teacTiZu .yiping .el-radio-button__inner {
+  background-color: #FCC049;
+  border-color: #FCC049;
+  box-shadow: 0 0 0 white;
+}
+.teacTiZu .weiping .el-radio-button__inner {
+  background-color: #29C0C0;
+  border-color: #29C0C0;
+  box-shadow: 0 0 0 white;
+}
 </style>

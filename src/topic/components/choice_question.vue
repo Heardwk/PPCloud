@@ -11,6 +11,7 @@
                 <div class="genre" >
                     <ul>
                       <P>{{topic.caseType}}</P>
+                      <!-- <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li> -->
                       <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li>
                     </ul>
                 </div>
@@ -27,7 +28,7 @@
                      </div>
                   </div>
                  <div style="padding-left: 20px;padding-top: 20px;">
-                   <exercises :id = "1" ></exercises> 
+                   <exercises :id="1" ></exercises> 
                     <div class="g_bu" >
                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>
