@@ -3,7 +3,7 @@
     <div class="content_choi">
       <div class="content_top">
           <p>基础会计任务一</p>
-          <span><i>得分 : 80 分</i><b>得分详情</b></span>
+          <span><i>得分 : 80 分</i><b @click="centerDialogVisible = true">得分详情</b></span>
       </div>
         <div style="display:flex; background-color:#F0F2F5;">
           <div class="solids" :class="mode ? '':'s' " :style="mode ? 'width:0px':'width:230px'">
@@ -26,9 +26,10 @@
                           <a href="javascipt:;">进入错题汇总练习</a>
                      </div>
                   </div>
-                 <div>
+               <!-- 题目内容组件 -->
+                 <div  style="padding-left: 20px;padding-top: 20px;">
                    <exercises :itemContent = "topic[number]" >
-                    <div class="choose"> 你的选择答案：A</div>
+                    <div class="choose"> 你的选择答案：{{result}}</div>
                       <div class="g_bu" >
                           <span>A</span>
                           <span>B</span>
@@ -39,6 +40,41 @@
                    <div class="score">答题错误，获得 0 分</div>
                  </div>
               </div>
+              <!-- 查看答案解析 -->
+               <div class="dia"  :style = "zoom ? 'width:800px': 'width:0px'">
+                  <div  class="sideRight">
+                      <p @click = "zoom = !zoom">x</p>
+                      <el-tabs type="border-card">
+                        <el-tab-pane label="正确答案">【B】</el-tab-pane>
+                        <el-tab-pane label="答案解析">答案解析</el-tab-pane>
+                      </el-tabs>
+                  </div>
+               </div>
+              <!-- 得分详情 -->
+              <el-dialog
+                :visible.sync="centerDialogVisible"
+                width="40%"
+                center>
+                <div  class="titi">得分 <span>80</span>分</div>
+                <p @click="centerDialogVisible = false" class="cosl">关闭</p>
+                <span>
+                     <div class="dialog_con">
+                         <div class="dialog_l">
+                             <ul>
+                               <li><span>系统阅卷得分</span><i>89分</i></li>
+                               <li><span>系统阅卷得分</span><i>89分</i></li>
+                               <li><span>系统阅卷得分</span><i>89分</i></li>
+                             </ul>
+                         </div>
+                         <div class="dialog_r">
+                             <ul>
+                               <li><span>老师阅卷得分</span><i>0分</i></li>
+                               <li><span>无需教师判分题型</span></li>
+                             </ul>
+                         </div>
+                     </div>
+                </span>
+              </el-dialog>
           </div>
       </div>    
    </div>
@@ -50,6 +86,9 @@ export default{
 	name:'achieve',
     data() {
       return {
+        centerDialogVisible: false,
+        zoom:false,
+        result:'A',
         mode: true,
         ins:0,
         number:0,
@@ -104,10 +143,10 @@ export default{
       this.ins = index
       },
     chakandaan() {
-
+      this.zoom = true
     },
     daanjiexi() {
-
+      this.zoom = true
     },
     jisaunqi() {
 
@@ -119,6 +158,10 @@ export default{
 .content_choi{
     margin: auto;
     padding-bottom: 50px;
+}
+.g_bu>.classan{
+    background:rgba(165,183,197,1);
+    color: #fff;
 }
 .content_top{
     height:40px; 
@@ -163,9 +206,6 @@ export default{
     line-height: 36px; 
     margin: 0px 5px;
 }
- .g_bu>span:active{
-
-}
 .score{
     height:41px; 
     background:rgba(255,255,255,0.8);
@@ -178,6 +218,29 @@ export default{
 }
 .g_bu>.el-button--medium{
     padding: 10px 40px;
+}
+.titi{
+   font-size:14px;
+  font-family:PingFangSC-Regular;
+  color:rgba(74,74,74,1);
+  line-height:20px;
+  position: absolute;
+  top: 15px;
+  left: 40%;
+}
+.titi>span{
+  display: inline-block;
+  width:62px;
+  height:50px; 
+  font-size:36px;
+  font-family:PingFangSC-Regular;
+  color:rgba(24,144,255,1);
+  line-height:50px;
+}
+.dialog_l{
+  width: 50%;
+  border-right:1px dashed #E6E6E6;
+  min-height: 284px;
 }
 .content_top>span>i{
     display: inline-block;
@@ -203,6 +266,37 @@ export default{
     top: 7px;
     right: 7px;
     font-weight: 400;
+    cursor: pointer;
+}
+.dialog_l>ul>li>i{
+  font-style: normal;
+  margin-left: 20%;
+}
+.dialog_l>ul>li{
+  padding-left:30px;
+}
+.dialog_l>ul>li:nth-child(1){
+  padding-top:20px;
+}
+.dialog_l>ul>li{
+  padding-top:14px;
+}
+.dialog_r{
+  width: 50%;
+  min-height: 284px;
+}
+.dialog_r>ul>li>i{
+  font-style: normal;
+  margin-left: 20%;
+}
+.dialog_r>ul>li{
+  padding-left:30px;
+}
+.dialog_r>ul>li:nth-child(1){
+  padding-top:20px;
+}
+.dialog_r>ul>li{
+  padding-top:14px;
 }
 .content_top>span>.icom{
     display: inline-block;
@@ -212,6 +306,12 @@ export default{
     position: absolute;
     top: 11px;
     right: 27px;
+}
+.dialog_con{
+    height:284px; 
+    background:rgba(240,242,245,1);
+    margin-top: 40px;
+    display: flex;
 }
 .solids{
     width: 200px;
@@ -252,6 +352,21 @@ ul{
 }
 .genre{
     overflow: hidden;
+}
+.cosl{
+  position: absolute;
+  top: 7px;
+  right:12px;
+  cursor: pointer;
+  width:24px;
+  height:17px; 
+  font-size:12px;
+  font-family:PingFangSC-Regular;
+  color:rgba(155,155,155,1);
+  line-height:17px;
+}
+.cosl:hover{
+  color: rgba(24,144,255,1);
 }
 .genre>ul>li>p{
    width:104px;
@@ -360,5 +475,39 @@ ul{
 .place>span:hover{
     background:rgba(24,144,255,1);
     color: #fff;
+}
+.sideRight{
+  width:880px;
+  background:rgba(255,255,255,1);
+  margin-left: 30px;
+}
+.dia{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  z-index: 100;
+  -webkit-transition: all .5s linear;
+  -moz-transition: all .5s linear;
+       transition: all .5s linear;
+}
+.sideRight>P{
+  width:30px;
+  height:30px; 
+  background:rgba(255,255,255,1);
+  font-size: 23px;
+  text-align: center;
+  line-height: 30px;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  color: #979797;
+  cursor: pointer;
+  z-index: 1000;
+  -webkit-box-shadow: 0px 2px 0px 0px rgba(0,0,0,0.08);
+  box-shadow: 0px -1px 0px 0px rgba(0,0,0,0.08);
+
+}
+.sideRight>.el-tabs{
+   min-height:500px; 
 }
 </style>

@@ -11,7 +11,7 @@
                 <div class="genre" >
                     <ul>
                       <P>{{topic.caseType}}</P>
-                      <!-- <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li> -->
+                      <li ><a @click = "aa(index)"  :class="{'activelist':ins === index}">{{topic.id}}</a></li>
                     </ul>
                 </div>
           </div>
@@ -23,10 +23,10 @@
                      <div class="place">
                           <span>上一题</span>
                           <span>下一题</span>
-                          <p>交卷</p>
+                          <p @click="dialogVisible = true">交卷</p>
                      </div>
                   </div>
-                 <div>
+                 <div style="padding-left: 20px;padding-top: 20px;">
                    <exercises :id = "1" ></exercises> 
                     <div class="g_bu" >
                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
@@ -36,6 +36,18 @@
                     </div>
                  </div>
               </div>
+              <!-- 交卷的弹出框 -->
+              <el-dialog
+                :visible.sync="dialogVisible"
+                width="40%"
+                :before-close="handleClose">
+                <span class="title_dialog"><i class="el-icon-question"></i>确认要交卷吗？</span>
+                <div class="title_dialog_content">交卷之后将不能在修改答案，既结束本次练习。</div>
+                <span slot="footer" class="dialog-footer">
+                  <el-button @click="dialogVisible = false">取 消</el-button>
+                  <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+                </span>
+              </el-dialog>
           </div>
       </div>    
    </div>
@@ -51,6 +63,7 @@ export default{
         ins:0,
         number:0,
         active: 0,
+        dialogVisible:false,
         arr: [{caseType: 'danxuan',id:1},{caseType: 'danxuan',id:1}],
         topic: {
           id: 1,
@@ -133,6 +146,30 @@ export default{
     position: absolute;
     top: 0px;
     left: 40%;
+}
+.title_dialog{
+    position: absolute;
+    top: 35px;
+    left: 43px;
+    font-size:16px;
+    font-family:PingFangSC-Medium;
+    color:rgba(0,0,0,0.85);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+.title_dialog>i{
+    display: inline-block;
+    color: #FAAD14;
+    font-size: 26px;
+    margin-right: 20px;
+}
+.title_dialog_content{
+    margin-left: 63px;
+    color:rgba(0,0,0,0.65);
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    margin-top: 20px;
 }
 .g_bu{
     margin-left: 30px;
