@@ -27,7 +27,7 @@
                      </div>
                   </div>
                  <div>
-                   <exercises :id = "1" ></exercises> 
+                   <exercises :id="1" ></exercises> 
                     <div class="g_bu" >
                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>

@@ -130,7 +130,7 @@ export default {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    z-index: 3;
+    z-index: 9999;
   }
   .auxiliaryDataCtrl span {
     cursor: pointer;
@@ -154,7 +154,7 @@ export default {
     overflow: hidden;
     transition: width .5s linear,opacity .5s linear;
     -webkit-transition: width .5s linear,opacity .5s linear;
-    z-index: 2;
+    z-index: 9998;
     cursor: move;
   }
   .fuzhuziliao {
@@ -177,7 +177,6 @@ export default {
   .auxiliaryData .img {
     margin: 0 auto;
     display: block;
-    cursor: pointer;
     transition: all linear .5s;
     -webkit-transition: all linear .5s;
   }

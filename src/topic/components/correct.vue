@@ -17,7 +17,7 @@
                      </div>
                   </div>
                  <div>
-                   <exercises :itemContent = "topic[number]" ></exercises> 
+                   <exercises :id="1" ></exercises> 
                     <div class="g_bu"  v-if="isshow" >
                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>

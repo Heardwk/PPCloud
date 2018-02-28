@@ -1,8 +1,8 @@
 <template>
   <div class="">
-  	<router-link to="/tizu/teacMarking">阅卷</router-link>
-    <router-link to="/tizu/teacPreview">预览题型</router-link>
-    <router-link to="/tizu/teacTiZu">预览题组</router-link>
+  	<router-link to="/tizu/teacMarking">教师阅卷</router-link>
+    <router-link to="/tizu/teacPreview">教师预览题型</router-link>
+    <router-link to="/tizu/teacTiZu">教师预览题组</router-link>
     <router-link to="/tizu/choice_question">预览题型</router-link>
     <router-link to="/tizu/correct">更正题型</router-link>
     <router-link to="/tizu/practice">自主练习题型</router-link>

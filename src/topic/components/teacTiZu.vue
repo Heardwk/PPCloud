@@ -1,7 +1,38 @@
 <template>
-  <div class="">
+  <div class="" style="height: 100%">
     <div class="titleBox">
-      <h3>{{topic.classType}}{{topic.tizuName}}</h3>
+      <h3>{{tizu.tizuType}}{{tizu.tizuName}}</h3>
+    </div>
+    <div class="tizuContainer">
+      <div class="tizuL" :class="menuCtrl?'issmall':''">
+        <div class="tizuLMenuCtrl"  :class="menuCtrl?'':'active'" @click="menuCtrl=!menuCtrl">
+          <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="cross">
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+        <div v-for="(value,key,index) in caseClassify" :key="index" class="teacTiZu">
+          <p>{{key}}({{value.length}})</p>
+          <el-radio-group v-model="activeId">
+            <el-radio-button v-for="item in value" :key="item" :label="item">{{item}}</el-radio-button>
+          </el-radio-group>
+        </div>
+      </div>
+      <div class="tizuR" :class="menuCtrl?'isleft':''">
+        <div class="ctrlBox">
+          <span @click="chakandaan">查看答案</span>
+          <span @click="daanjiexi">答案解析</span>
+          <span @click="jisaunqi">计算器</span>
+          <span @click="next" class="right">上一题</span>
+          <span @click="prev">下一题</span>
+        </div>
+        <exercises :id="activeId" style="padding:20px"></exercises>
+      </div>
     </div>
   </div>
 </template>
@@ -12,29 +43,65 @@ export default {
   name: 'teacTiZu',
   data () {
     return {
-      topic: {
-        id: 1,
-        caseType: '单选题',
-        classType: '基础会计',
+      tizu: {
+        tizuId: 1,
         tizuName: '题组一',
-        classify: '错账更正 > 划线更正法概念 > 适用范围和操作要求',
-        caseCount: 16,
-        question: '下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
-        answer: ["债券的票面利率大于市场利率。","债券的票面利率等于市场利率","债券的票面利率小于市场利率","以上都不对"],
-        auxiliaryData: [
+        tizuType: '基础会计',
+        timu: [
           {
-            text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
-            src: '#'
+            id: 1,
+            caseType: '单选题',
           },{
-            text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
-            src: '#'
-          } 
+            id: 2,
+            caseType: '单选题',
+          },{
+            id: 3,
+            caseType: '多选题',
+          },{
+            id: 4,
+            caseType: '多选题',
+          },{
+            id: 5,
+            caseType: '计算题',
+          },{
+            id: 6,
+            caseType: '综合题',
+          },
         ]
-      }
+      },
+      activeId: 1,
+      menuCtrl: false,
     }
   },
   components: {
     exercises
+  },
+  methods: {
+    chakandaan() {
+
+    },
+    daanjiexi() {
+
+    },
+    jisaunqi() {
+
+    },
+    next() {
+      
+    },
+    prev() {
+      
+    },
+  },
+  computed: {
+    caseClassify() {
+      let obj = {};
+      let arr = this.tizu.timu;
+      for(let i = 0; i<arr.length; i++) {
+        obj.hasOwnProperty(arr[i].caseType)? obj[arr[i].caseType].push(arr[i].id) : obj[arr[i].caseType] = [arr[i].id]
+      }
+      return obj;
+    }
   }
 }
 </script>
@@ -49,5 +116,152 @@ export default {
   .titleBox h3 {
     font-size: 16px;
     font-weight: 100;
+  }
+  .ctrlBox {
+    background-color: white;
+    position: relative;
+    padding: 10px 20px 10px 75px;
+  }
+  .ctrlBox span {
+    width: 80px;
+    line-height: 30px;
+    display: inline-block;
+    text-align: center;
+    border: 1px solid #EEEEEE;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all linear .3s;
+    margin-right: 10px;
+  }
+  .ctrlBox span:hover {
+    border-color: #C6E2FF;
+    background-color: #ECF5FF;
+    color: #409EFF;
+  }
+  .ctrlBox .right {
+    position: absolute;
+    right: 105px;
+  }
+  .ctrlBox span:last-child {
+    position: absolute;
+    right: 10px;
+  }
+  .tizuContainer {
+    position: relative;
+    min-height: 100%;
+  }
+  .tizuL {
+    background: white;
+    padding: 20px;
+    position: absolute;
+    min-height: 100%;
+    width: 230px;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    box-shadow: 2px 0 2px #EEEEEE;
+    -webkit-box-shadow: 2px 0 2px #EEEEEE;
+    transition: all linear .5s;
+    -webkit-transition: all linear .5s;
+  }
+  .issmall {
+    left: -230px;
+  }
+  .tizuL .teacTiZu p {
+    margin-top: 25px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    color: #001529;
+  }
+  .tizuL .teacTiZu:first-child p {
+    margin-top: 0;
+  }
+  .tizuL .teacTiZu .el-radio-button {
+    margin: 0 8px 8px 0;
+  }
+  .tizuR {
+    min-height: 100%;
+    margin-left: 230px;
+    transition: all linear .5s;
+    -webkit-transition: all linear .5s;
+  }
+  .isleft {
+    margin-left: 0;
+  }
+  .tizuLMenuCtrl {
+    position: absolute;
+    top: 15px;
+    right: -28px;
+    cursor: pointer;
+    width: 28px;
+    background: white;
+    height: 28px;
+    line-height: 28px;
+    box-shadow: 2px 2px 2px #EEEEEE, 2px -2px 2px #EEEEEE;
+  }
+  .hamburger,.cross{
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+  .hamburger span{
+    display: block;
+    width: 18px;
+    height: 2px;
+    margin-bottom: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+  .hamburger span:last-child{
+    margin: 0;
+  }
+  .hamburger span::before,.hamburger span::after{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(15,15,15);
+    transform: translateX(-200%);
+    transition: transform ease 300ms;
+  }
+  .hamburger span::after{
+    transform: translateX(0);
+  }
+  .hamburger span:nth-child(2)::before,.hamburger span:nth-child(2)::after{
+    transition-delay: 75ms;
+  }
+  .hamburger span:last-child::before,.hamburger span:last-child::after{
+    transition-delay: 150ms;
+  }
+  .tizuLMenuCtrl:hover .hamburger span::before{
+    transform: translateX(0);
+  }
+  .tizuLMenuCtrl:hover .hamburger span::after{
+    transform: translateX(200%);
+  }
+  .tizuLMenuCtrl.active .hamburger span::before{
+    transform: translateX(100%);
+  }
+  .tizuLMenuCtrl.active .hamburger span::after{
+    transform: translateX(200%);
+  }
+  .cross span{
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: rgb(15,15,15);
+    transform: translateY(50%) rotate(45deg) scaleX(0);
+    transition: transform ease 200ms;
+  }
+  .cross span:last-child{
+    transform: translateY(-50%) rotate(-45deg) scaleX(0);
+  }
+  .tizuLMenuCtrl.active .cross span{
+    transition-delay: 450ms;
+    transform: translateY(50%) rotate(45deg) scaleX(1);
+  }
+  .tizuLMenuCtrl.active .cross span:last-child{
+    transform: translateY(-50%) rotate(-45deg) scaleX(1);
   }
 </style>

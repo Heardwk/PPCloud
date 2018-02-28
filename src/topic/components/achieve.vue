@@ -27,7 +27,7 @@
                      </div>
                   </div>
                  <div>
-                   <exercises :itemContent = "topic[number]" >
+                   <exercises :id = "1" >
                     <div class="choose"> 你的选择答案：A</div>
                       <div class="g_bu" >
                           <span>A</span>
