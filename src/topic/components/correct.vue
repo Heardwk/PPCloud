@@ -7,7 +7,6 @@
         <div style="display:flex; background-color:#F0F2F5;">
              <div style="width:100%">
                   <div class="fun">
-                      <span @click="chakandaan">查看答案</span>
                       <span @click="daanjiexi">答案解析</span>
                       <span @click="jisaunqi">计算器</span>
                      <div class="place">
