@@ -56,44 +56,47 @@
         备注信息：<span>{{claMsgData.text}}</span>
       </p>
       <div class="line"></div>
-      <div class="sxtabBox">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane name="first">
-            <span slot="label"><i class="el-icon-menu" style="margin-right: 8px"></i>成绩列表</span>
-            <div class="tabContentBox">
-              <p>共有账号<span class="light">30</span>个</p>
-              <ul class="chengjiList">
-                <li>
-                  <span class="xm">姓名</span>
-                  <span class="xh">学号</span>
-                  <span class="bj">班级</span>
-                  <span class="defen">得分</span>
-                  <span class="rank">排名</span>
-                  <span class="chaoz">操作</span>
-                </li>
-                <li v-for="(item,index) in chengjiData" :key="index">
-                  <span class="xm">{{item.name}}</span>
-                  <span class="xh">{{item.xuehao}}</span>
-                  <span class="bj">{{item.banji}}</span>
-                  <span class="defen">{{item.defen}}</span>
-                  <span class="rank">{{item.rank}}</span>
-                  <span class="chaoz light"><i class="el-icon-edit-outline"></i>评阅</span>
-                </li>
-              </ul>
-              <div class="pagein">
-                <el-pagination
-                  background
-                  layout="prev, pager, next"
-                  :total="1000">
-                </el-pagination>
+      <div style="position: relative">
+        <div style="width:100%;height:9px;background:#F8F8F8;position:absolute;top: 40px"></div>
+        <div class="sxtabBox">
+          <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane name="first">
+              <span slot="label"><i class="el-icon-menu" style="margin-right: 8px"></i>成绩列表</span>
+              <div class="tabContentBox">
+                <p>共有账号<span class="light">30</span>个</p>
+                <ul class="chengjiList">
+                  <li>
+                    <span class="xm">姓名</span>
+                    <span class="xh">学号</span>
+                    <span class="bj">班级</span>
+                    <span class="defen">得分</span>
+                    <span class="rank">排名</span>
+                    <span class="chaoz">操作</span>
+                  </li>
+                  <li v-for="(item,index) in chengjiData" :key="index">
+                    <span class="xm">{{item.name}}</span>
+                    <span class="xh">{{item.xuehao}}</span>
+                    <span class="bj">{{item.banji}}</span>
+                    <span class="defen">{{item.defen}}</span>
+                    <span class="rank">{{item.rank}}</span>
+                    <span class="chaoz light"><i class="el-icon-edit-outline"></i>评阅</span>
+                  </li>
+                </ul>
+                <div class="pagein">
+                  <el-pagination
+                    background
+                    layout="prev, pager, next"
+                    :total="1000">
+                  </el-pagination>
+                </div>
               </div>
-            </div>
-          </el-tab-pane>
-          <el-tab-pane name="second">
-            <span slot="label"><i class="el-icon-tickets" style="margin-right: 8px"></i>任务分析</span>
-            任务分析
-          </el-tab-pane>
-        </el-tabs>
+            </el-tab-pane>
+            <el-tab-pane name="second">
+              <span slot="label"><i class="el-icon-tickets" style="margin-right: 8px"></i>任务分析</span>
+              任务分析
+            </el-tab-pane>
+          </el-tabs>
+        </div>
       </div>
     </div>
   </div>
@@ -195,7 +198,7 @@ export default {
   }
   .sxtabBox {
     width: 960px;
-    margin: 5px auto;
+    margin: 0 auto;
     background-color: white;
     font-size: 14px;
   }

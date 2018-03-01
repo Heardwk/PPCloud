@@ -217,7 +217,7 @@ export default {
   .missctrlR {
     position: absolute;
     right: 0;
-    top: 0;
+    top: 5px;
     cursor: pointer;
     font-size: 14px;
   }

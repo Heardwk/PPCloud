@@ -21,12 +21,12 @@
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="kechengTab">
         <el-tab-pane label="我的题组" name="first">
           <span slot="label" class="icon1">我的题组</span>
-          <div class="tabCard" :class="{ topicLass: has }">
+          <div class="tabCard" :class="{ topicLass: this.topicList.length==0 }">
             <div class="cardTitle">
               <span class="careName">我的题组 <span> (共{{topicList.length}}个)</span></span>
               <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn el-icon-circle-plus"></span>
             </div>
-            <div v-if="!has">
+            <div v-if="this.topicList.length>0">
               <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
                 <div class="ctrlBox">
                   <p><span>逐题预览</span></p>
@@ -60,8 +60,33 @@
         </el-tab-pane>
         <el-tab-pane label="实训计划" name="second">
           <span slot="label" class="icon2">实训计划</span>
-          <div class="tabCard">
-            <div class="cardTitle">实训计划</div>
+          <div class="tabCard" :class="{ topicLass: this.planList.length==0 }">
+            <div class="cardTitle">
+              <span class="careName">实训计划</span>
+              <span class="addName">新建计划</span><span class="addBtn el-icon-circle-plus"></span>
+            </div>
+            <div v-if="this.planList.length>0">
+              <div v-for="(item,index) in planList" :key="index" class="tizuBox planBox">
+                <div class="planTop">
+                  <img :src="item.img" width="80" height="80">
+                  <h3>{{item.name}}</h3>
+                  <p>{{item.text}}</p>
+                </div>
+                <div class="planBot">
+                  <i class="el-icon-time"></i>
+                  <span>{{item.time}}</span>
+                  <i class="el-icon-tickets"></i>
+                  <span>{{item.clas}}</span>
+                  <div class="planCtrl">
+                    <i class="el-icon-delete"></i>
+                    <span>删除</span>
+                    <span class="shu">|</span>
+                    <i class="el-icon-download"></i>
+                    <span>下载({{item.downloadCount}})</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </el-tab-pane>
         <el-tab-pane label="实训总结" name="third">
@@ -287,6 +312,16 @@ export default {
           ]
         }
       ],
+      planList: [
+        {
+          name: '第一课笔记',
+          text: '第一课笔记的内容，包括:什么是会计？会计的岗位职责。',
+          img: '#',
+          downloadCount: 10,
+          time: '2017-07-01',
+          clas: '1701班 1703班'
+        }
+      ]
     }
   },
   mounted() {
@@ -317,9 +352,6 @@ export default {
   computed: {
     course() {
       return this.$store.state
-    },
-    has() {
-      return this.topicList.length>0? false: true
     },
     hasClass() {
       let arr = [];
@@ -824,5 +856,60 @@ export default {
   font-size: 12px;
   color: #A5B7C5;
   text-indent: 20px;
+}
+/*计划*/
+.planBox {
+  padding-bottom: 0px;
+}
+.planTop {
+  position: relative;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid #E9E9E9;
+}
+.planTop img {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.planTop h3 {
+  color: rgba(0, 0, 0, .65);
+  font-size: 16px;
+  line-height: 48px;
+  margin-left: 100px;
+}
+.planTop p {
+  color: rgba(0, 0, 0, .65);
+  font-size: 14px;
+  line-height: 22px;
+  margin: 0px 0 10px 100px;
+}
+.planBot {
+  position: relative;
+  line-height: 35px;
+  color: rgba(0, 0, 0, .45);
+  font-size: 14px;
+}
+.planBot i {
+  margin-right: 1px;
+}
+.planBot span {
+  margin-right: 20px;
+}
+.planBot .planCtrl {
+  position: absolute;
+  right: 0;
+  color: #00B0FF;
+  top: 0;
+}
+.planBot .planCtrl span {
+  margin: 0;
+  cursor: pointer;
+}
+.planBot .planCtrl i {
+  cursor: pointer;
+}
+.planBot .planCtrl .shu {
+  margin: 0 10px;
+  color: rgba(0, 0, 0, .45);
 }
 </style>
