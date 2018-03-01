@@ -38,7 +38,6 @@ export default {
       this.show = true
     },
     dialog(msg) {
-      console.log(msg);
       this.show = false
     }
   },

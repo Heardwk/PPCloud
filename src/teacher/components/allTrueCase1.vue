@@ -15,25 +15,43 @@
               placeholder="关键字搜索"
               v-model="filterText">
             </el-input>
-            <el-tree
-              class="tree"
-              :props="defaultProps"
-              :data="dataList"
-              node-key="id"
-              show-checkbox
-              :default-checked-keys = "isChecArr"
-              ref="tree"
-              :filter-node-method="filterNode"
-              :accordion = "isAccordion"
-              @check-change="handleCheckChange">
-            </el-tree>
+            <div class="scrollL">
+              <div v-for="(item,index) in pointList" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
+                <span class="el-icon-tickets"></span>{{item.name}}
+              </div>
+            </div>
           </p>
         </div>
         <div class="contentRight">
           <p style="position: relative">
-            <span class="hasLine">案例列表</span>
+            <span class="hasLine">《{{bookName}}》全真案例</span>
             <router-link to="/Teacher/Shixun/Course/allTrueCase/pubMission" class="pubmis"><span class="el-icon-circle-plus"></span>发布任务</router-link>
           </p>
+          <div class="err">
+            <span>错账更正 &gt;</span>
+            <p>
+              <el-tag
+                v-for="(tag,index) in errorPoint"
+                :key="index"
+                closable
+                @close="handleClose(tag)"
+                type="info">
+                {{tag}}
+              </el-tag>
+            </p>
+          </div>
+          <div class="screen">
+            <span class="scrType">知识点：</span>
+            <p>
+              <span v-for="(item,index) in titlePoint" :key="index">{{item}}</span>
+            </p>
+          </div>
+          <div class="screen">
+            <span class="scrType">题&nbsp;型：</span>
+            <p>
+              <span v-for="(item,index) in titleType" :key="index" @click="chec">{{item}}</span>
+            </p>
+          </div>
           <div class="choooseContent">
             <ul class="titleUlBox">
               <li>
@@ -67,63 +85,12 @@
 
 <script>
 export default {
-  name: 'allTrueCase',
+  name: 'allTrueCase1',
   data () {
     return {
       bookName: '',
-      isChecArr: [],
-      isAccordion: true,
-      defaultProps: {
-        label: 'label',
-        children: 'children'
-      },
-      dataList: [
-        {
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1三级'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1',
-          }, {
-            id: 6,
-            label: '二级 2-2',
-            children: [{
-              id: 11,
-              label: '三级 2-2-1'
-            }]
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1',
-            children: [{
-              id: 12,
-              label: '三级 3-1-1'
-            }]
-          }, {
-            id: 8,
-            label: '二级 3-2',
-            children: [{
-              id: 13,
-              label: '三级 3-2-1'
-            }]
-          }]
-        }
-      ],
       filterText: '',
+      isact: 0,
       topicData: [
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
@@ -196,6 +163,28 @@ export default {
           chec: false
         },
       ],
+      pointList: [
+        {
+          id: 0,
+          name: '知识点A'
+        },{
+          id: 1,
+          name: '知识点B'
+        },{
+          id: 2,
+          name: '知识点C'
+        },{
+          id: 3,
+          name: '知识点D'
+        },{
+          id: 4,
+          name: '知识点E'
+        },
+      ],
+      errorPoint: ['划线更正法概念、适用范围和操作要求','红字更正法概念、适用范围和操作要求'],
+      titlePoint: ['划线更正法概念、适用范围和操作要求','红字更正法概念、适用范围和操作要求',
+                  '补充登记法概念、适用范围和操作要求','补充登记法概念、适用范围和操作要求'],
+      titleType: ['单选题(132)','多选题(132)','判断题(46)','不限定题(13)','填表题(10)','制表题(32)','综合题(134)'],
     }
   },
   mounted() {
@@ -207,23 +196,17 @@ export default {
       return this.$store.state
     },
   },
-  watch: {
-    filterText(val) {
-      this.$refs.tree.filter(val);
-    }
-  },
   methods: {
-    filterNode(value, data) {
-      if (!value) return true;
-      return data.label.indexOf(value) !== -1;
+    hasact(val) {
+      this.isact = val;
     },
-    handleCheckChange(data, checked, indeterminate) {
-      // 所有被选中的
-      
+    handleClose(tag) {
+      this.errorPoint.splice(this.errorPoint.indexOf(tag), 1);
     },
     changePage(){
 
     },
+    chec(){},
   },
   destroyed() {
     this.$store.commit("courseshow",true)
@@ -258,14 +241,6 @@ export default {
     width: 135px;
     font-size: 12px;
     margin-left: 30px;
-  }
-  .tree {
-    margin-top: 10px;
-    height: 530px;
-    overflow-y: auto;
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
   }
   .hasLine {
     color: #243847;
@@ -302,6 +277,35 @@ export default {
   }
   .pubmis:hover span {
     color: #F77676;
+  }
+  .scrollL {
+    height: 650px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  .chooseList {
+    padding: 15px;
+    font-size: 12px;
+    color: #243847;
+    border: 1px solid #E9EFF4;
+    border-radius: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .chooseList:hover, .chooseList.act {
+    background-color: #00B0FF;
+    color: white;
+  }
+  .chooseList:hover span, .chooseList.act span {
+    color: white;
+  }
+  .chooseList span {
+    font-size: 18px;
+    color: #4DA1FF;
+    margin-right: 10px;
   }
   .contentRight {
     margin-left: 275px;

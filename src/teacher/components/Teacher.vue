@@ -12,7 +12,7 @@
             {{item.name}}
           </router-link>
           <el-dropdown placement="bottom" @command="gerenlink" class="user colo">
-            <span class="el-dropdown-link">狗剩</span>
+            <span class="el-dropdown-link">狗剩<i class="el-icon-caret-bottom" style="margin-left: 8px"></i></span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
               <el-dropdown-item command="first"><router-link class="droplink" to="/Teacher/Geren">基本信息</router-link></el-dropdown-item>
 <!--               <el-dropdown-item command="second"><router-link class="droplink" to="/Teacher/Geren">我的消息</router-link></el-dropdown-item>
@@ -118,8 +118,9 @@ export default {
   color: #00B0FF;
 }
 .user {
-  margin-left: 73px;
+  margin-left: 55px;
   top: -1px;
+  cursor: pointer;
 }
 .user .el-dropdown-link {
   font-size: 16px;

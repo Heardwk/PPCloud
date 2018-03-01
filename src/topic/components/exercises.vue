@@ -4,19 +4,19 @@
     <div class="auxiliaryDataCtrl">
       <span @click="ishide=!ishide">{{ishide? '隐藏': '显示'}}</span>
       <el-tooltip class="item" effect="dark" content="缩小" placement="top">
-        <span @click="auxiliaryDatascale(false)">-</span>
+        <span @click.prevent="auxiliaryDatascale(false)">-</span>
       </el-tooltip>
       <el-tooltip class="item" effect="dark" content="放大" placement="top">
-        <span @click="auxiliaryDatascale(true)">+</span>
+        <span @click.prevent="auxiliaryDatascale(true)">+</span>
       </el-tooltip>     
     </div>
     <!-- 辅助资料显示 -->
-    <div :class="ishide? '': 'hide'" class="auxiliaryData" :style="{width: thiswidth +'px'}" v-drag="drage">
-      <el-carousel trigger="click" :autoplay="false" class="fuzhuziliao" height="370">
-        <el-carousel-item v-for="(item,index) in topic.auxiliaryData" :key="index">
-          <div class="auxiliaryTop">{{item.name}}</div>
-          <div class="auxiliaryText" ref="imgText">{{item.text}}</div>
-          <img :src="item.src" class="img" :height="thisheight" :width="thiswidth">
+    <div :class="ishide? '': 'hide'" class="auxiliaryData" :style="{width: sizes.w +'px'}" v-drag="drage">
+      <div class="auxiliaryTop">{{topic.auxiliaryData.name}}</div>
+      <div class="auxiliaryText">{{topic.auxiliaryData.text}}</div>
+      <el-carousel trigger="click" :autoplay="false" class="fuzhuziliao" :height="sizes.h+'px'">
+        <el-carousel-item v-for="(item,index) in topic.auxiliaryData.imgs" :key="index">
+          <img :src="item" class="img" :height="sizes.h" :width="sizes.w">
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -53,21 +53,16 @@ export default {
         caseCount: 16,
         question: '下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
         answer: ["债券的票面利率大于市场利率。","债券的票面利率等于市场利率","债券的票面利率小于市场利率","以上都不对"],
-        auxiliaryData: [
-          {
-            text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
-            src: '#',
-            name: '资料名1'
-          },{
-            text: '资料阿斯达四大实打实大所',
-            src: '#',
-            name: '资料名2'
-          } 
-        ]
+        auxiliaryData: {
+          name: '资料名',
+          text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
+          imgs: ['#','#']
+        },
       },
       truewidth: 500,
       trueheight: 260,
       scale: 1,
+      aa: 0,
     }
   },
   directives: {
@@ -107,17 +102,14 @@ export default {
     },
     drage(val) {
       this.val = val;
-    }
+    },
   },
   computed: {
-    thiswidth() {
-      return this.truewidth * this.scale
-    },
-    thisheight() {
-      return this.trueheight * this.scale    
-    },
-    shuffheight() {
-      return ''
+    sizes() {
+      let obj = {};
+      obj.w = this.truewidth * this.scale;
+      obj.h = this.trueheight * this.scale;
+      return obj
     },
   }
 }
@@ -130,7 +122,7 @@ export default {
     position: fixed;
     right: 20px;
     bottom: 20px;
-    z-index: 9999;
+    z-index: 99;
   }
   .auxiliaryDataCtrl span {
     cursor: pointer;
@@ -154,13 +146,14 @@ export default {
     overflow: hidden;
     transition: width .5s linear,opacity .5s linear;
     -webkit-transition: width .5s linear,opacity .5s linear;
-    z-index: 9998;
+    z-index: 98;
     cursor: move;
   }
   .fuzhuziliao {
     font-size: 14px;
   }
   .auxiliaryTop {
+    font-size: 14px;
     background-color: #002140;
     color: white;
     line-height: 30px;
@@ -168,6 +161,7 @@ export default {
     text-indent: 20px;
   }
   .auxiliaryText {
+    font-size: 14px;
     background: white;
     padding: 12px;
     color: #151E26;

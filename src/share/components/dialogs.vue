@@ -70,12 +70,26 @@ export default {
 	  },
 	  methods: {
 	    onLogin () {
-	    this.$emit("dialog","load")
-	  },
-    closeMy(){
-    	this.closeMys=false
-    	this.$emit("dialog","hide")
-    }
+	    	this.$http.post(`${this.$store.state.location}TokenAuth/Authenticate`, 
+		    	{
+					  "userNameOrEmailAddress": this.usernameModel,
+					  "password": this.passwordModel
+					}, 
+					{headers: {
+						"Content-Type": "application/json",
+						"Athena-TenantId": `${this.$store.state.TenantId}`
+					}}).then(response => {
+						console.log(response.body);
+					},response => {
+				    console.log('error');
+				  });
+
+	    	this.$emit("dialog","load")
+		  },
+	    closeMy(){
+	    	this.closeMys=false
+	    	this.$emit("dialog","hide")
+	    }
    }
   }
 </script>

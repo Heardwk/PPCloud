@@ -2,7 +2,7 @@
 * @Author: Administrator
 * @Date:   2018-01-29 10:18:28
 * @Last Modified by:   Administrator
-* @Last Modified time: 2018-02-21 09:58:08
+* @Last Modified time: 2018-03-01 11:35:53
 */
 import Vue from 'vue'
 import Vuex from 'Vuex'
@@ -11,6 +11,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    location: 'http://192.168.1.152:12331/api/',
+    TenantId: 1,
     activeName: 'first',
     shixun: true,
     course: true,

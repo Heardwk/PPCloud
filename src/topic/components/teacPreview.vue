@@ -5,7 +5,6 @@
       <p>{{topic.classify}}<span>案例数量：(1/{{topic.caseCount}})</span></p>
     </div>
     <div class="ctrlBox">
-      <span @click="chakandaan">查看答案</span>
       <span @click="daanjiexi">答案解析</span>
       <span @click="jisaunqi">计算器</span>
       <span @click="next" class="right">上一题</span>
@@ -32,9 +31,6 @@ export default {
     }
   },
   methods: {
-    chakandaan() {
-
-    },
     daanjiexi() {
 
     },
@@ -94,12 +90,7 @@ export default {
     color: #409EFF;
   }
   .ctrlBox .right {
-    position: absolute;
-    right: 105px;
-  }
-  .ctrlBox span:last-child {
-    position: absolute;
-    right: 10px;
+    margin-left: 150px;
   }
   .timu {
     padding: 20px;

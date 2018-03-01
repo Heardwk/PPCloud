@@ -180,6 +180,10 @@ header {
 .fuzhuziliao .el-carousel__indicators {
   display: none;
 }
+.fuzhuziliao .el-carousel__container {  
+  transition: height linear .5s;
+  -webkit-transition: height linear .5s;
+}
 .teacTiZu .el-radio-button__inner {
   display: inline-block;
   width: 24px;
