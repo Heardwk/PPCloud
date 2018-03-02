@@ -8,7 +8,6 @@
         <div style="display:flex; background-color:#F0F2F5;">
              <div style="width:100%">
                   <div class="fun">
-                       <el-button plain disabled>查看答案</el-button>
                          <el-button plain disabled>答案解析</el-button>
                       <span @click="jisaunqi">计算器</span>
                      <div class="place">

@@ -195,6 +195,9 @@ header {
   color: black;
   background-color: #dcdfe6;
 }
+.teacTiZu .el-radio-button__inner:hover{
+  border:1px solid #157cf0;
+}
 .teacTiZu .el-radio-button__inner:first-child, .teacTiZu .el-radio-button__inner:last-child {
   border-radius: 4px;
 }
