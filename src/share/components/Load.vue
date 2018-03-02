@@ -30,7 +30,8 @@ export default {
   name: 'Load',
   data () {
     return {
-      show: false
+      show: false,
+      sessionData: {}
     }
   },
   methods: {
@@ -38,7 +39,33 @@ export default {
       this.show = true
     },
     dialog(msg) {
-      this.show = false
+      if(msg) {
+        this.$http.post(`${this.$store.state.location}services/app/Session/GetCurrentLoginInformations`, 
+        {}, 
+        {headers: {
+          "Content-Type": "application/json",
+          "Athena-TenantId": this.$store.state.TenantId,
+          'Authorization': localStorage.token
+        }}).then(response => {
+          this.sessionData = response.body.result;
+          console.log(this.sessionData.user.roles[0]);
+          if(this.sessionData.user.roles[0]=="Teacher") {
+            window.location.href = '#/Teacher'
+          }else if(this.sessionData.user.roles[0]=="Student") {
+            window.location.href = '#/Student'
+          }else if(this.sessionData.user.roles[0]=="Admin") {
+            window.location.href = '#/Load'
+          }else {
+            window.location.href = '#/Educat'
+          }     
+          this.$message({message: '登录成功',type: 'success',duration: 1000});
+          this.show = false
+        },response => {
+          this.$message.error({message:'登录超时！',duration: 1000});
+        });
+      }else {    
+        this.show = false
+      }
     }
   },
   components: {

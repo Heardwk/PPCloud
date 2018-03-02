@@ -23,8 +23,6 @@
 									        </div>
 									      </div>
   		  	          </div>
-  		  	          <!--密码和用户名错误-->
-  		  	         <!--<span class="g-form-error">{{usernameModel.errorText}}</span>-->
   		  	          <div class="g_pwd">
   		  	              <el-checkbox class="ckd" v-model="checked">记住密码</el-checkbox>
   		  	              <a>忘记密码</a>
@@ -60,9 +58,8 @@ export default {
        bot:require('../img/img_aplogo_login@2x.png'),
        usernameModel: '',
 	     passwordModel: '',
-	     errorText: '',
 	     checked:false,
-	     closeMys:true
+	     loadData: {},
      }
    },
    computed:{
@@ -70,25 +67,25 @@ export default {
 	  },
 	  methods: {
 	    onLogin () {
-	    	this.$http.post(`${this.$store.state.location}TokenAuth/Authenticate`, 
-		    	{
-					  "userNameOrEmailAddress": this.usernameModel,
-					  "password": this.passwordModel
-					}, 
-					{headers: {
-						"Content-Type": "application/json",
-						"Athena-TenantId": `${this.$store.state.TenantId}`
-					}}).then(response => {
-						console.log(response.body);
-					},response => {
-				    console.log('error');
-				  });
-
-	    	this.$emit("dialog","load")
+    	this.$http.post(`${this.$store.state.location}TokenAuth/Authenticate`, 
+	    	{
+				  "userNameOrEmailAddress": this.usernameModel,
+				  "password": this.passwordModel
+				}, 
+				{headers: {
+					"Content-Type": "application/json",
+					"Athena-TenantId": this.$store.state.TenantId
+				}}).then(response => {
+					this.loadData = response.body.result;
+					localStorage.token = `Bearer ${this.loadData.accessToken}`;
+					localStorage.userId = this.loadData.userId;
+					this.$emit("dialog",true)
+				},response => {
+			    this.$message.error({message:'账号或密码错误！',duration: 1000});
+			  });
 		  },
 	    closeMy(){
-	    	this.closeMys=false
-	    	this.$emit("dialog","hide")
+	    	this.$emit("dialog",false)
 	    }
    }
   }
