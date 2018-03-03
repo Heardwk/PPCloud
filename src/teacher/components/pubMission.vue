@@ -126,7 +126,7 @@
               <span class="name">案例名称</span>
               <span class="point">课程名称</span>
               <span class="type">题型</span>
-              <span class="count">练习次数</span>
+        <!--       <span class="count">练习次数</span> -->
               <span class="oper">操作</span>
             </li>
             <li v-for="(item,index) in topicData" class="titltLi">
@@ -134,7 +134,7 @@
               <span class="name">{{item.name}}</span>
               <span class="point">{{item.point}}</span>
               <span class="type">{{item.type}}</span>
-              <span class="count">{{item.count}}</span>
+              <!-- <span class="count">{{item.count}}</span> -->
               <span class="oper"><el-checkbox v-model="item.chec"></el-checkbox></span>
             </li>
           </ul>
