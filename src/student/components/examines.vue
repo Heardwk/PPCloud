@@ -70,8 +70,9 @@
 }
 .booktop {
   background-position: 780px 20px;
-  border:1px solid red;
+  border:1px solid #e9e9e9;
   padding: 5px;
+  border-radius: 2px ; 
 }
 .book {
   margin-left: 20px;
