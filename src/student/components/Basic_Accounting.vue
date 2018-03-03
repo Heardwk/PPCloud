@@ -47,7 +47,7 @@ export default{
   name:'Basic_Accounting',
 	data(){
 		return {
-			Eattr:{
+		    Eattr:{
 				listImg:'获取数据失败',
 				listId:'获取数据失败',
 				listName:'获取数据失败',
