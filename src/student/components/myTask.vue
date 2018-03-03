@@ -1,7 +1,7 @@
 <template>
   <div class="" style="background: white">
     <div class="topMenu"></div>
-    <div style="background: white; padding: 20px 0" v-if='showst.student'>
+    <div style="background: white; padding: 20px 0" v-if='showst.task'>
       <div class="ctrlTop">
         <span>实训课程:</span>
         <el-select v-model="course" size="medium">
@@ -74,9 +74,7 @@
         </el-pagination>
       </div>
     </div>
-     <keep-alive> 
             <router-view/>
-     </keep-alive>
   </div>
 </template>
 <script>

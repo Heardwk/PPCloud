@@ -19,6 +19,7 @@ export default new Vuex.Store({
     allcase: true,
     plan: true,
     student:true,
+    task:true,
     eability: true,
   },
   mutations: {
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     },
     studentshow (state,val) {
     	state.student = val
+    },
+    taskshow (state,val) {
+      state.task = val
     },
     eabilityshow(state,val) {
       state.eability = val;
