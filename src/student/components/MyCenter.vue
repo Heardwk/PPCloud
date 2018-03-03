@@ -1,12 +1,11 @@
  <template>
 	 <div>
-           <div class="">
-                                          个人中心
-           </div>
+      <div class="content">
+            <h3>个人中心</h3>
+      </div>
 	 </div>
 </template>
 <script>
-import casesindex  from '@/student/components/courseTraining/casesindex'
   export default {
     data() {
       return {
@@ -17,6 +16,11 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 </script>
 
 <style scoped>
-
+.content{
+    width: 960px;
+    min-height: 700px;
+    margin: 0 auto;
+    padding-top: 100px;
+}
 
 </style>

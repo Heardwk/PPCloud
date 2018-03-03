@@ -1,32 +1,43 @@
 <template>
    <div>
 	   <div class="Basic">
-	   	   	 <p>实训中心&nbsp;&gt;
-	   	   	 	<router-link to="/Student/trainingCenter">
-	   	   	 		<b>基础会计</b>
-	   	   	 	</router-link>
-	   	   	 </p>
-	       <div class="Basic_index_top">
-		       	<a href="">
-		       		<img :src="Eattr.listImg"/>
-		       	</a>
-		      <!-- 	<span>{{listName}}</span>-->
-		       	<div class="Basic_index_top_rig">
-		       	       <p>{{Eattr.listName}}</p>
-		       	       <span>
-		       	       	这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程
-		       	       	描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实训目标等信息这里是本课程描述信息包括内容简绍实
-		       	       </span>
-		       	       <b><i></i>任教老师：待分配......</b>
-		       	</div>
-	       </div>
-	       <div class="Basic_index_bot">
+           <div class="Basic_content">
+            <div style="width:960px;margin:0 auto;">
+              <div class="nav">
+	   	    	 <el-breadcrumb separator="/">
+				  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+				  <el-breadcrumb-item>实训中心</el-breadcrumb-item>
+				  <el-breadcrumb-item>基本会计</el-breadcrumb-item>
+				</el-breadcrumb>
+	   	    </div>
+			 <div class="whiteBox booktop">
+		        <img :src="bookAttr.src" height="180" width="224" class="bookimg">
+		        <router-link to="/Teacher/Shixun/Course/allTrueCase" class="anli">全真案例</router-link>
+		        <div class="book">
+		          <h3>{{Eattr.listName}}</h3>
+		          <span class="upload">17年8月更新</span>
+		          <p>{{bookAttr.text}}</p>
+		          <p class="ico">
+		            <span class="one" @click="setDailog=true">
+		              张中全老师
+		            </span>
+		            <span class="three">{{bookAttr.topic}}题</span>
+		          </p>
+		        </div>
+		      </div>
+            </div>
+	      </div>
+	      <div style="background:rgba(250,250,250,1);">
+	      	<div style="width:960px;margin:0 auto;">
+	     	 <div class="Basic_index_bot">
 	       		<detailscon></detailscon>
-	       </div>
-	   <keep-alive> 
-	      <router-view />
-	   </keep-alive>
-	   </div>
+	        </div>
+			   <keep-alive> 
+			      <router-view />
+			   </keep-alive>
+	         </div>
+		   </div>
+	     </div>
    </div>
 </template>
 
@@ -40,16 +51,26 @@ export default{
 				listImg:'获取数据失败',
 				listId:'获取数据失败',
 				listName:'获取数据失败',
-			}
+			},
+		    bookAttr: {
+	        name: '没有',
+	        src: require('../../share/img/image_class_cover.png'),
+	        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
+	        topic: 1234
+	      },
+	         teac: {
+	        classone: ["暂无"],
+	        classtwo: "暂无",
+	      },
 		}
 	},
  mounted () {
        this.$store.commit("studentshow",false);
-	   if(this.$route.query.id&&this.$route.query.name&&this.$route.query.imgs){
+	   // if(this.$route.query.id&&this.$route.query.name&&this.$route.query.imgs){
 	    this.Eattr.listId = this.$route.query.id,
-	    this.Eattr.listName = this.$route.query.name,
+	    this.Eattr.listName = localStorage.getItem("kcname")
 	    this.Eattr.listImg = this.$route.query.imgs
-	 }
+	 // }
  },
   watch: {
         '$route': function () {
@@ -69,6 +90,36 @@ export default{
 </script>
 
 <style scoped>
+.nav{
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	color:rgba(0,0,0,0.45);
+	line-height:22px;
+	margin: 30px 0px;
+}
+.Basic_content{
+  border-bottom: 2px solid #FAFAFA;
+  background:rgba(255,255,255,1);
+  margin-bottom: 50px;
+}
+.nav .el-breadcrumb__inner, .el-breadcrumb__inner a{
+	display: inline-block; 
+	color:rgba(0,0,0,0.45);
+}
+.upload{
+    width:90px;
+	height:20px; 
+	background:rgba(0,0,0,0.2);
+	border-radius: 8px ;
+	position: absolute;
+	top: 0px;
+	right: 25px;
+	font-size:12px;
+	font-family:HelveticaNeue;
+	color:rgba(255,255,255,1);
+	text-align: center;
+	line-height: 20px;
+}
 .Basic>p{	
 	font-size: 16px;
 	margin-bottom: 20px;
@@ -81,11 +132,9 @@ export default{
 	padding: 0 10px;
 }
 .Basic{
-	width: 1000px;
 	min-height: 700px;
 	margin: auto;
 	padding-top: 80px;
-    padding-bottom: 50px;
 }
 .Basic_index_top{
 	width: 1000px;
@@ -96,6 +145,91 @@ export default{
     background:rgba(255,255,255,1);
     border-radius: 6px ; 
     box-shadow: 0px 2px 9px rgba(0,0,0,0.03);
+}
+.whiteBox {
+  background: white;
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+}
+.booktop {
+  background-image: url('../../share/img/img_class_goto.png');
+  background-repeat: no-repeat;
+  background-position: 780px 20px;
+}
+
+.book {
+  height: 180px;
+  margin-left: 20px;
+  width: 504px;
+  position: relative;
+  padding-right: 20px;
+  padding: 0px 20px 0 0;
+  border-right: 1px solid #EEEEEE;
+      margin-bottom: 50px;
+}
+.book h3 {
+  font-size: 16px;
+  color: rgba(66,66,78,1);
+  line-height: 20px;
+  margin-bottom: 15px;
+}
+.book p {
+  font-size: 12px;
+  color: rgba(104,113,120,1);
+  line-height: 20px;
+}
+.book .ico {
+  position: absolute;
+  bottom: 0px;
+  font-size: 14px;
+  color: rgba(36,56,71,1);
+  line-height: 20px;
+  display: block;
+  width: 100%;
+  padding-right: 120px;
+}
+.book .ico>span {
+  padding-left: 35px;
+  line-height: 25px;
+  margin-right: 5px;
+  height: 25px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-position: 7px 3px;
+  color:rgba(0,0,0,0.45);
+}
+.book .ico .one {
+  background-image: url('../../share/img/icon_class_classdata_normalcopy.png');
+  color: #00B0FF;
+  font-size:14px;
+  font-family:PingFangSC-Regular;
+  line-height:27px;
+}
+.book .ico .three {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  background-image: url('../../share/img/icon_class_count_normal.png');
+}
+.anli {
+  position: absolute;
+  right: 37px;
+  bottom: 48px;
+  width: 120px;
+  height: 40px; 
+  background-color: rgba(0,176,255,1);
+  background-repeat: no-repeat;
+  background-position: 14px 9px;
+  background-image: url('../../share/img/icon_class_mouse.png');
+  border-radius: 7px;
+  color: rgba(255,255,255,1);
+  line-height: 40px;
+  text-indent: 50px;
+  font-size: 14px;
+}
+.anli:hover {
+  background-color: #F99090;
 }
 .Basic_index_top>a{
 	display: inline-block;
@@ -172,6 +306,6 @@ export default{
 	 
 }
 .Basic_index_bot{
-	margin-top: 20px;
+	
 }
 </style>

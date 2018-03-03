@@ -3,7 +3,7 @@
 	     <div class="casesindex_top">
 	         <b>{{msgtochild.name}}</b>
 	     </div>
-	     <div class="correct">
+<!-- 	     <div class="correct">
 	         <b>{{msgtochild.name}} &gt;</b>
 	         <router-link to="/Student/SeeTheCase"v-if='showst.student'>
 	         	<div class="news"><i></i><span>新建题组</span></div>
@@ -46,7 +46,7 @@
 	     	   		 </template>
 	     	   	 </div>
 	     	   </ul>
-	     </div>
+	     </div> -->
 	     <div class="table_list">
 	           <el-table
 			    :data="msgtochild.tableData2"
@@ -234,10 +234,10 @@
 	padding-left: 42px;
 	margin-top: 24px;
 	position: relative;
+	margin-bottom: 25px
 }
 .casesindex_top>b{
 	display: inline-block;
-	width:148px;
 	height:20px; 
 	text-align: left;
 	font-size:14px;
@@ -251,7 +251,7 @@
 }	
 .casesindex_top>b::after{
 	content:'' ;
-	width:148px;
+	width:8%;
 	height:5px; 
 	background:rgba(0,176,255,1);
 	border-radius: 11px ;  
