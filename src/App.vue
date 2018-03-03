@@ -221,6 +221,9 @@ header {
   border-color: #29C0C0;
   box-shadow: 0 0 0 white;
 }
+.teacTiZu .el-radio-button:focus:not(.is-focus):not(:active){
+  box-shadow: none;
+}
 /*全真案例*/
 .ys>.el-tabs__header {
     border-bottom: 1px solid #fff;
