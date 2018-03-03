@@ -93,6 +93,12 @@ export default {
 .white {
 	color: white!important;
 }
+.el-tabs--border-card {
+     background: #ddd; 
+    /* border: 1px solid #dcdfe6; */
+    /* -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04); */
+    /* box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04); */
+}
 .active{
   background: url('../../share/img/logo_Light.png') no-repeat !important;
 	}
@@ -159,10 +165,20 @@ body,html{
 .page-enter {
   opacity: 0;
 }
+.el-tabs__content{
+  background-color: red
+}
 .page-enter-active {
   -webkit-transition: all 200ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
      -moz-transition: all 200ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
           transition: all 200ms cubic-bezier(0.4, 0.1, 0.7, 0.95);
+}
+.el-tabs--border-card>.el-tabs__content{
+  background-color: red;
+}
+.Basic_index_bot .el-tabs__content {
+    padding: 15px;
+    
 }
 /* 顶部菜单 */
 .heads {
@@ -189,8 +205,12 @@ body,html{
 .link::after {
   content: attr(data-content);
   position: absolute;
+  font-size:18px;
+  color:rgba(104,113,120,1);
+  line-height:80px;
   display: block;
   color: #157cf0;
+  font-family: MicrosoftYaHei;
   top: 0;
   left: 0;
   -webkit-transition: all .3s linear;

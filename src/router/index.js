@@ -28,6 +28,8 @@ import MyCenter from '@/student/components/MyCenter'
 import allcase from '@/student/components/allcase'
 import casesindex  from '@/student/components/courseTraining/casesindex'
 import SeeTheCase  from '@/student/components/SeeTheCase'
+import examines  from '@/student/components/examines'
+
 
 import Educat from '@/educat/components/Educat'
 import Monitor from '@/educat/components/Monitor'
@@ -165,7 +167,14 @@ export default new Router({
         {
           path:'myTask',
           name:'myTask',
-          component: myTask
+          component: myTask,
+            children: [
+                {
+                  path: 'examines',
+                  name: 'examines',
+                  component: examines
+                },
+            ]
         },
         {
           path:'management',

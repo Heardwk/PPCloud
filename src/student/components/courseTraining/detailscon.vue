@@ -1,10 +1,12 @@
  <template>
 	 <div>
-	 	 <el-tabs type="border-card">
+	 	 <el-tabs type="card" class="ys">
 		  <el-tab-pane>
 		    <span slot="label"><i class="el-icon-date"></i> 全真案例</span>
 		    <!--全真案例组件-->	
-		    <cases></cases>
+		     <div class="qz">
+		     	<cases></cases>
+		     </div>
 		  </el-tab-pane>
 		 <el-tab-pane>
 		    <span slot="label"><i class="el-icon-tickets"></i> 实训计划</span>
@@ -49,10 +51,6 @@
 	},
   };
 </script>
-<style>
-.el-tabs--border-card>.el-tabs__header {
-    background-color: #f5f7fa;
-    border: transparent;
-    margin: 0;
-}
+<style scoped>
+
 </style>

@@ -398,7 +398,7 @@ min-height: 284px;
 }
 .content_top>span>i{
   display: inline-block;
-  width:80px;
+  width:100px;
   height:20px;   
   font-size:14px;
   font-family:PingFangSC-Regular;

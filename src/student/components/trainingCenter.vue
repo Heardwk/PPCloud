@@ -6,7 +6,8 @@
           <ul class="index-left-block">
             <li v-for="(item,index) in productitem.list" :key="index" class="data-course" :style="item.node">
 		          <router-link 
-		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}">
+              @click.native = "goDetail(item.name)"
+		          	:to="{path:'trainingCenter/Basic_Accounting'}">
 		        		  <div class="productimg"><a :href="item.url"><img :src="item.imgs"/>
 		        		  </a></div>
 		          </router-link>
@@ -16,10 +17,11 @@
             	</div>
             	<router-link 
 		          	v-for="(items,index) in productitem.list"
-		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}"
+		          	:to="{path:'trainingCenter/Basic_Accounting'}"
 		          	:key="index"
+                @click.native = "goDetail(item.name)"
 		          	>
-                 <a class="descend"  :href="items.url">{{ item.name }}</a>
+                 <a class="descend">{{ item.name }}</a>
 		          </router-link>
             </li>
           </ul>
@@ -31,7 +33,8 @@
             <li v-for="(items,index) in item.list" :style="items.node" class="data-course" :key="index">
             	<a :href="item.url">
             	 <router-link  
-		          	:to="{path:'trainingCenter/Basic_Accounting', query: {id:item.id,name:item.name,imgs:item.imgs}}">
+               :to="{path:'trainingCenter/Basic_Accounting'}"
+               @click.native="goDetail(item.name)">
 	            	<div class="productimgs"><img :src="items.imgs"/></div>
 	            	</router-link>
 	            	<div class="intros">
@@ -132,16 +135,21 @@ export default {
       } 
     },
   methods:{
-//  goDetail(id,name,imgs){
-////      this.$router.push({ name:'Basic_Accounting',params: {id:id,name:name,imgs:imgs}});
-////  this.$router.push({ p:'trainingCenter/Basic_Accounting',params: {id:id,name:name,imgs:imgs}});
-// },
+   goDetail(name){
+        // this.$router.push({ path:'trainingCenter/Basic_Accounting',params: {id:id,name:name,imgs:imgs}});
+         localStorage.setItem("kcname",name)
+  },
  }, 
   computed: {
     showst() {
       return this.$store.state
     }
   },
+  created(){
+      
+  },
+  mounted(){
+  }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

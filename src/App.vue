@@ -221,4 +221,32 @@ header {
   border-color: #29C0C0;
   box-shadow: 0 0 0 white;
 }
+/*全真案例*/
+.ys>.el-tabs__header {
+    border-bottom: 1px solid #fff;
+    width: 48%;
+    position: relative;
+    top: -41px;
+}
+.ys>.el-tabs__header .el-tabs__nav {
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+}
+.ys .el-tabs--border-card>.el-tabs__header {
+    background-color: #f5f7fa;
+    border: transparent;
+    margin: 0;
+}
+.ys .el-tabs__content {
+   position: relative;
+    top: -35px;
+}
+.ys>.el-tabs__header .el-tabs__item{
+  border:0;
+}
+/*我的任务的分页*/
+.pagein>.el-pagination{
+    text-align: center;
+}
 </style>
