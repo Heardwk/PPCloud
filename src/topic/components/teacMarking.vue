@@ -2,6 +2,11 @@
   <div class="" style="height: 100%;">
     <div class="titleBox">
       <h3>{{tizu.tizuType}}{{tizu.tizuName}}</h3>
+      <div class="studentMsg">
+        <span>{{studentData.name}}</span>
+        <span>得分：{{studentData.count}}</span>
+        <span>得分详情</span>
+      </div>
     </div>
     <div class="tizuContainer">
       <div class="tizuL" :class="menuCtrl?'issmall':''">
@@ -74,6 +79,11 @@ export default {
   name: 'teacMarking',
   data () {
     return {
+      studentData: {
+        id: 1,
+        name: '狗剩',
+        count: 78,
+      },
       tizu: {
         tizuId: 1,
         tizuName: '题组一',
@@ -153,10 +163,31 @@ export default {
     padding: 10px 25px;
     background-color: #002140;
     color: white;
+    position: relative;
   }
   .titleBox h3 {
     font-size: 16px;
     font-weight: 100;
+  }
+  .studentMsg {
+    width: 260px;
+    height: 33px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -130px;
+    line-height: 33px;
+    font-size: 14px;
+    color: white;
+    background-color: #1A3753;
+    text-align: center;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    --moz-border-radius-bottomright: 50px;
+    --moz-border-radius-bottomleft: 50px;
+  }
+  .studentMsg span:nth-child(2) {
+    margin: 0 20px;
   }
   .ctrlBox {
     background-color: white;
@@ -196,9 +227,9 @@ export default {
     top: 0;
     z-index: 2;
     box-shadow: 2px 0 2px #EEEEEE;
-    -webkit-box-shadow: 2px 0 2px #EEEEEE;
+    --webkit-box-shadow: 2px 0 2px #EEEEEE;
     transition: all linear .5s;
-    -webkit-transition: all linear .5s;
+    --webkit-transition: all linear .5s;
   }
   .issmall {
     left: -230px;
@@ -220,7 +251,7 @@ export default {
     position: relative;
     margin-left: 230px;
     transition: all linear .5s;
-    -webkit-transition: all linear .5s;
+    --webkit-transition: all linear .5s;
   }
   .isleft {
     margin-left: 0;
