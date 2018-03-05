@@ -281,4 +281,54 @@ header {
     max-height: 455px;
     overflow-y: auto;
 }
+/*成绩管理*/
+.man_nav .el-tabs--border-card>.el-tabs__header {
+    background-color: #fff;
+    border-bottom: 1px solid transparent;
+    margin: 0;
+    position: relative;
+    top: -55px;
+    width: 960px;
+    margin: auto;
+}
+.man_nav.el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+    color: #409EFF;
+    background-color: #fff;
+    border-right-color: #fff; 
+    border-left-color: #fff; 
+}
+.man_nav .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
+    color: #409EFF;
+    background-color: #fff;
+    border-right-color: #fff;
+    border-left-color: #fff;
+}
+.man_nav .el-tabs--border-card{
+   width: 960px;
+   margin: 0 auto;
+}
+.man_nav .el-tabs--border-card>.el-tabs__content {
+    padding: 15px;
+    margin-top: -54px;
+    padding-top: 28px;
+}
+.tables .el-table .cell {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    white-space: normal;
+    word-break: break-all;
+    /*text-align: center;*/
+}
+.tables  .el-table th.is-leaf{
+    background:rgba(248,248,248,1);
+}
+.tables .el-table tr>th:nth-child(3){
+    text-align: left;
+}
+.tables .el-table thead {
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    color:rgba(0,0,0,0.6);
+    line-height:20px;
+}
 </style>

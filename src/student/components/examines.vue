@@ -6,7 +6,7 @@
             <div class="nav">
     	   	   <el-breadcrumb separator="/">
     				  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-    				  <el-breadcrumb-item>我的任务</el-breadcrumb-item>
+    				  <el-breadcrumb-item :to=" { path:'/Student/myTask'}">我的任务</el-breadcrumb-item>
     				  <el-breadcrumb-item>基本会计</el-breadcrumb-item>
     				</el-breadcrumb>
 	   	    </div>
@@ -58,7 +58,6 @@
                         style="width: 100%"
                         >
                         <el-table-column
-                          fixed
                           prop="date"
                           label="序号"
                           width="50">
@@ -74,7 +73,6 @@
                           width="90">
                         </el-table-column>
                         <el-table-column
-                          fixed="right"
                           label="操作"
                           width="90">
                           <template slot-scope="scope">
@@ -108,7 +106,7 @@
                </div>
                   <div class="user_title">
                         <div class="user_img">
-                          <img src="#">
+                          <img src="/static/img/image_class_cover.eb59bb3.png">
                           <span>杨小梅</span>
                         </div>
                         <div class="user_x">
@@ -124,6 +122,22 @@
                             </ul>
                          <div class="x"></div>
                          <div class="ox"></div>
+                        </div>
+                     </div>
+                     <div class="ranking">
+                        <div class="ranking_nav">
+                            <span>排名</span>
+                            <span>总人数</span>
+                            <span>得分</span>            
+                        </div>
+                        <div class="ranking_bod">
+                            <ul>
+                               <li v-for="(item,index) in grade">
+                                 <span>{{index+1}}</span>
+                                 <span><img :src="item.img">{{item.name}}</span>
+                                 <span>{{item.score}}</span>
+                               </li>
+                            </ul>
                         </div>
                      </div>
              </div>
@@ -193,7 +207,43 @@ import cases  from '@/student/components/courseTraining/cases'
         currentPage1: 5,
         currentPage2: 5,
         currentPage3: 5,
-        currentPage4: 4
+        currentPage4: 4,
+        grade: [{
+          date: '1',
+          name: '王琳琳',
+          img:require('../../share/img/image_class_cover.png'),
+          score: '90',
+        }, {
+          date: '2',
+          name: '王琳琳',
+          img:require('../../share/img/image_class_cover.png'),
+          score: '89',
+        }, {
+          date: '3',
+          name: '王琳琳',
+          img:require('../../share/img/image_class_cover.png'),
+          score: '87',
+        }, {
+          date: '4',
+          name: '王琳琳',
+          img:require('../../share/img/image_class_cover.png'),
+          score: '86',
+        }, {
+          date: '5',
+          name: '王琳琳',
+          img:require('../../share/img/image_class_cover.png'),
+          score: '85',
+        }, {
+          date: '6',
+          name: '王琳琳',
+          img:require('../../share/img/image_class_cover.png'),
+          score: '84',
+        }, {
+          date: '7',
+          name: '王琳琳',
+          img:require('../../share/img/image_class_cover.png'),
+          score: '83',
+        }],
       }
     },
    mounted () {
@@ -464,5 +514,62 @@ ul{
     top: 3px;
     left: 97px;
 }
-
+.ranking{
+    margin-top: 22px;
+}
+.ranking_nav{
+     padding: 0px 20px;
+}
+.ranking_nav>span{
+    display: inline-block;
+    width:44px;
+    height:22px; 
+    font-size:12px;
+    font-family:PingFangSC-Regular;
+    color:rgba(0,0,0,0.45);
+    line-height:22px;
+    text-align: center;
+}
+.ranking_nav>span:last-child{
+    text-align: right;
+    width:40px;
+}
+.ranking_nav>span:nth-child(2){
+    text-align: center;
+    width:102px;
+}
+.ranking_bod>ul{
+    max-height: 430px;
+    overflow-y: auto;
+    padding: 0px 20px;
+}
+.ranking_bod>ul>li>span{
+    display: inline-block;
+    width: 44px;
+    text-align: center;
+    width:42px;
+    font-size:14px;
+    font-family:PingFangSC-Regular;
+    color:rgba(0,0,0,0.65);
+    height: 29px;
+    line-height: 29px;
+ }
+.ranking_bod>ul>li>span:nth-child(2){
+    width:102px;
+ }
+.ranking_bod>ul>li>span:last-child{
+    text-align: right;
+    width:40px;
+}
+.ranking_bod>ul>li{
+    margin: 15px 0px; 
+}
+.ranking_bod>ul>li>span>img{
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  vertical-align:middle;
+  margin-right: 8px;
+  border-radius: 50%;
+}
 </style>
