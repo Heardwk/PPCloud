@@ -252,7 +252,7 @@ export default {
 }
 .index-block>li>a{
 	display: inline-block;
-	width: 140px;
+	width: 138px;
 	height: 200px;
 	margin: 0px 26px;
 	text-align: center;

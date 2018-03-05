@@ -31,8 +31,11 @@
                          width="400">
                       </el-table-column>
                       <el-table-column
-                        prop="tag"
                         label="得分/总分">
+                          <template slot-scope="scope">
+                              <span style="margin-left: 10px">{{ scope.row.tag }}</span>
+                              <i class="el_z">/100</i>
+                          </template>
                       </el-table-column>
                       <el-table-column
                         prop="name"
@@ -164,5 +167,8 @@
 .blocks{
   text-align: right;
   margin: 20px 35px;
+}
+.el_z{
+  font-style: normal;
 }
 </style>
