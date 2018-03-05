@@ -331,4 +331,40 @@ header {
     color:rgba(0,0,0,0.6);
     line-height:20px;
 }
+.el-popper {
+    margin-top: 37px;
+}
+
+.table_list  thead {
+    color: #909399;
+    font-weight: 500;
+    background: red; 
+}
+.table_list .el-table th, .el-table tr:only-child {
+    background-color: rgba(250,250,250,1);
+} 
+.cases_cot_left_tit .el-input__inner {
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid #dcdfe6;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 25px;
+    line-height: 1;
+    outline: 0;
+    padding: 0 15px;
+    -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+    margin-left: 8%;
+}
+#input_s{
+   width: 130px;
+   margin-left: 18px; 
+}
 </style>

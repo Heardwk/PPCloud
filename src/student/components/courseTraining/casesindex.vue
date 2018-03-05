@@ -1,4 +1,4 @@
- <template>
+    <template>
 	 <div>
 	     <div class="casesindex_top">
 	         <b>{{msgtochild.name}}</b>
@@ -64,24 +64,13 @@
 			      width="350"
 			      >
 			    </el-table-column>
-			     <el-table-column
-				      prop="tag"
-				      label="题型"
-				      width="100"
-				      :filters="[{ text: '单选题', value: '单选题' }, { text: '多选题', value: '多选题' }]"
-				      :filter-method="filterTag"
-				      filter-placement="bottom-end">
-				      <template slot-scope="scope">
-				        <el-tag
-				          :type="scope.row.tag === '单选题' ? 'primary' : 'success'"
-				          close-transition>{{scope.row.tag}}</el-tag>
-				      </template>
-				    </el-table-column>
-			     <el-table-column
-			      prop="degree"
-			      label="练习次数"
-			   >
-			    </el-table-column>
+			   <el-table-column
+                        prop="tag"
+                        label="题型"
+                        sortable
+                        width="140"
+                      >
+                </el-table-column>
 			  </el-table>
 	     </div>
 	     <div class="block">
@@ -205,20 +194,6 @@
   }
 
 </script>
-<style>
- .el-table .warning-row {
-    background: rgba(239,239,244,1);
-  }
-  .el-table .success-row {
-    background:rgba(251,251,251,1);
-  }
-  .el-table th, .el-table tr{
-  	background: rgba(239,239,244,1);
-  }
-  .el-table-filter{
-	top:680px!important;
-	}
-</style>
 <style scoped>
 .block{
 	width: 83%;

@@ -20,7 +20,7 @@
 							</div>
 	                    </div>
 						<div class="cases_cot_left_content">
-						    <ul v-for="(item,index) in knowledge">
+<!-- 						    <ul v-for="(item,index) in knowledge">
 						    		<li @click="aa(index)"  v-if="myfilter(item.name)":class="{'classactive':ind === index}">
 						    		 <i></i>
 						    		 <span>
@@ -28,8 +28,16 @@
 						    		 </span>
 						    		 <b></b>
 						    	</li>
-						    </ul>
-						</div>
+						    </ul>-->
+                          	 <el-tree
+							  :data="data2"
+							  show-checkbox
+							  node-key="id"
+							  :default-expanded-keys="[2, 3]"
+							  :default-checked-keys="[5]"
+							  :props="defaultProps">
+							</el-tree> 
+						</div> 
 	              </div>
 	         </div>
 	         <div class="cases_cot_rig">
@@ -177,7 +185,46 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
           { "value": "会计账务处理程序"},
           { "value": "会计报表在财务中的应用"},
           { "value": "三年会计二年实战模拟"},
-        ]
+        ],
+        data2: [{
+          id: 1,
+          label: '一级 1',
+          children: [{
+            id: 4,
+            label: '二级 1-1',
+            children: [{
+              id: 9,
+              label: '三级 1-1-1'
+            }, {
+              id: 10,
+              label: '三级 1-1-2'
+            }]
+          }]
+        }, {
+          id: 2,
+          label: '一级 2',
+          children: [{
+            id: 5,
+            label: '二级 2-1'
+          }, {
+            id: 6,
+            label: '二级 2-2'
+          }]
+        }, {
+          id: 3,
+          label: '一级 3',
+          children: [{
+            id: 7,
+            label: '二级 3-1'
+          }, {
+            id: 8,
+            label: '二级 3-2'
+          }]
+        }],
+        defaultProps: {
+          children: 'children',
+          label: 'label'
+        }
       };
     },
     
@@ -222,17 +269,6 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
     },
   };
 </script>
-<style>
-.el-autocomplete-suggestion{
-	position: absolute;
-	top: 490px!important;
-}
-#input_s{
-   width: 130px;
-   margin-left: 18px; 
-}
-
-</style>
 <style scoped>
 .cases_cot{
 	width: 960px;
@@ -270,6 +306,9 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 	width: 123px;
 	height: 24px;
 	line-height: 24px;
+}
+.cases_cot_left_content{
+	margin-top: 15px;
 }
 .cases_cot_left_tit>span{
 	display: inline-block;
