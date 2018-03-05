@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="allcase.allcase">
+    <div v-if="allcase.thirdrouter">
       <p class="path">
         <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
         <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
@@ -199,7 +199,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("courseshow",false);
+    this.$store.commit("secondrouterCtrl",false);
     this.bookName = localStorage.getItem("bookName");
   },
   computed: {
@@ -226,7 +226,7 @@ export default {
     },
   },
   destroyed() {
-    this.$store.commit("courseshow",true)
+    this.$store.commit("secondrouterCtrl",true)
   },
 }
 </script>

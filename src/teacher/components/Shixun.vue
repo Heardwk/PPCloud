@@ -1,7 +1,7 @@
 <template>
   <div class="">
   	<div class="topMenu"></div>
-    <div v-if="shixun.shixun" class="componentBox">
+    <div v-if="shixun.firstrouter" class="componentBox">
       <p class="boxTitle">最近使用</p>
       <div class="recently">
         <router-link class="recentlyList" tag="div" v-for="(item,index) in recentlyData" 
@@ -13,7 +13,7 @@
         </router-link>
       </div>
     </div>
-    <div v-if="shixun.shixun" style="background: white; padding-top: 1px;">
+    <div v-if="shixun.firstrouter" style="background: white; padding-top: 1px;">
       <div class="componentBox">
         <p class="boxTitle">课程实训</p>
         <div class="boxList">

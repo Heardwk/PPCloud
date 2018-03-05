@@ -256,7 +256,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("courseshow",false);
+    this.$store.commit("secondrouterCtrl",false);
     this.bookName = localStorage.getItem("bookName");
     this.tizuName = this.topicList.title;
     this.textarea = this.topicList.text;
@@ -288,7 +288,7 @@ export default {
     },
   },
   destroyed() {
-    this.$store.commit("courseshow",true) 
+    this.$store.commit("secondrouterCtrl",true) 
   },
 }
 </script>

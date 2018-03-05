@@ -80,7 +80,7 @@ export default {
   width: 960px;
   margin: 0 auto;
   text-align: right;
-  background: url('../img/logo_Light.png') 0 20px no-repeat;
+  background: url('../../share/img/logo_Light.png') 0 20px no-repeat;
 }
 .head a {
   color: white;

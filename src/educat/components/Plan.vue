@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div v-if="plan.plan">
+    <div v-if="plan.firstrouter">
       <div class="topBox">
         <p>教学计划</p>
       </div>

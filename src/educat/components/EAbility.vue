@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div v-if="eability.eability">
+    <div v-if="eability.firstrouter">
       <div class="topBox">
         <p>能力档案</p>
         <div class="selectBox">

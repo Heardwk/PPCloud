@@ -118,7 +118,8 @@ export default {
   color: #00B0FF;
 }
 .user {
-  margin-left: 55px;
+  position: absolute;
+  right: 0;
   top: -1px;
   cursor: pointer;
 }
