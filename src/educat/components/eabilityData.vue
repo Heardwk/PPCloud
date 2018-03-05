@@ -17,11 +17,11 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("eabilityshow",false);
+    this.$store.commit("firstrouterCtrl",false);
     this.personalData.name = localStorage.getItem("eabilityName");
   },
   destroyed() {
-    this.$store.commit("eabilityshow",true)
+    this.$store.commit("firstrouterCtrl",true)
   },
 }
 </script>

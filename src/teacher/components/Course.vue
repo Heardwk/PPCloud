@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <div v-if="course.course">
+    <div v-if="course.secondrouter">
       <p class="path"><router-link to="/Teacher/Shixun">实训中心</router-link> &gt; {{bookAttr.name}}</p>
       <div class="whiteBox booktop">
         <img :src="bookAttr.src" height="180" width="120" class="bookimg">
@@ -325,7 +325,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("shixunshow",false);
+    this.$store.commit("firstrouterCtrl",false);
     this.bookAttr.name = localStorage.getItem("bookName");
   },
   methods: {
@@ -364,7 +364,7 @@ export default {
     }
   },
   destroyed() {
-    this.$store.commit("shixunshow",true)
+    this.$store.commit("firstrouterCtrl",true)
   },
 }
 </script>

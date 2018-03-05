@@ -60,7 +60,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("planshow",false)
+    this.$store.commit("firstrouterCtrl",false)
   },
   methods: {
     handlePreview(flie) {
@@ -75,7 +75,7 @@ export default {
     }
   },
   destroyed() {
-    this.$store.commit("planshow",true)
+    this.$store.commit("firstrouterCtrl",true)
   },
 }
 </script>

@@ -412,7 +412,7 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit("allcaseshow",false);
+    this.$store.commit("thirdrouterCtrl",false);
     this.bookName = localStorage.getItem("bookName");
   },
   watch: {
@@ -573,7 +573,7 @@ export default {
     }
   },
   destroyed() {
-    this.$store.commit("allcaseshow",true)
+    this.$store.commit("thirdrouterCtrl",true)
   },
 }
 </script>
