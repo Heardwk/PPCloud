@@ -252,4 +252,33 @@ header {
 .pagein>.el-pagination{
     text-align: center;
 }
+/*我的任务表格*/
+.table_but .el-table th>.cell {
+    position: relative;
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.table_but .el-table .cell {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    white-space: normal;
+    word-break: break-all;
+    line-height: 23px;
+    text-align: center;
+}
+.table_but .el-table th, .el-table tr:only-child{
+    background:rgba(250,250,250,1)
+}
+.table_but .el-table--fit {
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: 25px;
+    max-height: 455px;
+    overflow-y: auto;
+}
 </style>
