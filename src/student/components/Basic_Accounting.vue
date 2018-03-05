@@ -6,7 +6,7 @@
               <div class="nav">
 	   	    	 <el-breadcrumb separator="/">
 				  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-				  <el-breadcrumb-item>实训中心</el-breadcrumb-item>
+				  <el-breadcrumb-item :to="{ path: '/Student/trainingCenter'}">实训中心</el-breadcrumb-item>
 				  <el-breadcrumb-item>基本会计</el-breadcrumb-item>
 				</el-breadcrumb>
 	   	    </div>

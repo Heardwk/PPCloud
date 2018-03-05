@@ -83,7 +83,15 @@
 		      layout=" prev, pager, next,total, jumper"
 		      :total="1000">
 		    </el-pagination>
-		  </div>
+		 </div>
+        <div class="at_present">
+        	<i class="el-icon-info"></i>
+        	<span>当前知识点包含:</span>
+        	<span>单选题<b>231</b>道</span>
+        	<span>多选题<b>231</b>道</span>
+        	<span>问答题<b>231</b>道</span>
+        	<span>综合题<b>231</b>道</span>
+        </div>
 	 </div>
 </template>
 <script>
@@ -343,5 +351,27 @@ ul{
 }
 .el-table .success-row {
     background: #f0f9eb;
+}
+.at_present{
+	width: 90%;
+	margin: auto;
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	color:rgba(0,0,0,0.65);
+	text-align: center;
+	border-top: 1px solid #eee;
+	margin: auto;
+    padding: 20px;
+}
+.at_present>span>b{
+	color: #00B0FF;
+	font-weight: 400;
+}
+.at_present>i{
+	display: inline-block;
+	width:14px;
+	height:14px; 
+	color: #00B0FF;
+	margin-right: 5px;
 }
 </style>
