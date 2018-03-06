@@ -106,7 +106,7 @@
                </div>
                   <div class="user_title">
                         <div class="user_img">
-                          <img src="/static/img/image_class_cover.eb59bb3.png">
+                          <img :src="imgs">
                           <span>杨小梅</span>
                         </div>
                         <div class="user_x">
@@ -156,6 +156,7 @@ import cases  from '@/student/components/courseTraining/cases'
           allcourse: ['全部','基础会计','财务会计'],
           course: '全部',
           search: '',
+          imgs:require('../../share/img/image_class_cover.png'),
           missionData: [
             {
               src: require('../../share/img/image_class_cover.png'),
