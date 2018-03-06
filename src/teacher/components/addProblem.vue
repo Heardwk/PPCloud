@@ -45,12 +45,11 @@
       <div class="rightContent">
         <p><span class="hasLine">已选知识点</span></p>
         <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
-          <span v-for="(item,index) in ckeckList" :key="index">{{item}}</span>
           <div v-if="checkTree.length>0">
             <el-tag
               v-for="item in checkTree"
               :key="item.id"
-              @close="handleClose(item)"
+              @close="handleClose(item.id)"
               closable>
               {{item.label}}
             </el-tag>
@@ -259,7 +258,6 @@ export default {
           }]
         }
       ],
-      ckeckList: [],
       title: {
         point: 5,
         count: 150
@@ -368,9 +366,6 @@ export default {
     filterText(val) {
       this.$refs.tree.filter(val);
     },
-    checkTree() {
-      this.choooseTree = this.checkTree
-    },
     choooseText(val) {
       if(val==""){
         this.choooseTree = this.checkTree
@@ -391,20 +386,18 @@ export default {
   },
   methods: {
     handleCheckChange(data, checked, indeterminate) {
-      // if(checked) {
-      //   this.ckeckList.push(data.label);
-      // }
       // 所有被选中的
       this.checkTree = this.$refs.tree.getCheckedNodes();
+      this.choooseTree = this.checkTree
     },
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
     },
     handleClose(item) {
-      console.log(item.$treeNodeId)
-      this.checkTree.splice(this.checkTree.indexOf(item), 1);
-      this.$refs.tree.setCheckedNodes(this.checkTree);
+      this.$refs.tree.setChecked(item,false,true);
+      this.checkTree = this.$refs.tree.getCheckedNodes();
+      this.choooseTree = this.checkTree;
     },
     handleChangeCount(val) {
       // 数量
