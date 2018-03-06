@@ -5,14 +5,13 @@
             <div style="width:960px;margin:0 auto;">
               <div class="nav">
 	   	    	 <el-breadcrumb separator="/">
-				  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-				  <el-breadcrumb-item>实训中心</el-breadcrumb-item>
+				  <el-breadcrumb-item :to="{ path: '/Student/trainingCenter'}">实训中心</el-breadcrumb-item>
 				  <el-breadcrumb-item>基本会计</el-breadcrumb-item>
 				</el-breadcrumb>
 	   	    </div>
 			 <div class="whiteBox booktop">
 		        <img :src="bookAttr.src" height="180" width="224" class="bookimg">
-		        <router-link to="/Teacher/Shixun/Course/allTrueCase" class="anli">全真案例</router-link>
+		        <router-link to="/" class="anli">全真案例</router-link>
 		        <div class="book">
 		          <h3>{{Eattr.listName}}</h3>
 		          <span class="upload">17年8月更新</span>

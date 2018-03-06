@@ -1,4 +1,4 @@
- <template>
+    <template>
 	 <div>
 	     <div class="casesindex_top">
 	         <b>{{msgtochild.name}}</b>
@@ -64,24 +64,13 @@
 			      width="350"
 			      >
 			    </el-table-column>
-			     <el-table-column
-				      prop="tag"
-				      label="题型"
-				      width="100"
-				      :filters="[{ text: '单选题', value: '单选题' }, { text: '多选题', value: '多选题' }]"
-				      :filter-method="filterTag"
-				      filter-placement="bottom-end">
-				      <template slot-scope="scope">
-				        <el-tag
-				          :type="scope.row.tag === '单选题' ? 'primary' : 'success'"
-				          close-transition>{{scope.row.tag}}</el-tag>
-				      </template>
-				    </el-table-column>
-			     <el-table-column
-			      prop="degree"
-			      label="练习次数"
-			   >
-			    </el-table-column>
+			   <el-table-column
+                        prop="tag"
+                        label="题型"
+                        sortable
+                        width="140"
+                      >
+                </el-table-column>
 			  </el-table>
 	     </div>
 	     <div class="block">
@@ -94,7 +83,15 @@
 		      layout=" prev, pager, next,total, jumper"
 		      :total="1000">
 		    </el-pagination>
-		  </div>
+		 </div>
+        <div class="at_present">
+        	<i class="el-icon-info"></i>
+        	<span>当前知识点包含:</span>
+        	<span>单选题<b>231</b>道</span>
+        	<span>多选题<b>231</b>道</span>
+        	<span>问答题<b>231</b>道</span>
+        	<span>综合题<b>231</b>道</span>
+        </div>
 	 </div>
 </template>
 <script>
@@ -205,20 +202,6 @@
   }
 
 </script>
-<style>
- .el-table .warning-row {
-    background: rgba(239,239,244,1);
-  }
-  .el-table .success-row {
-    background:rgba(251,251,251,1);
-  }
-  .el-table th, .el-table tr{
-  	background: rgba(239,239,244,1);
-  }
-  .el-table-filter{
-	top:680px!important;
-	}
-</style>
 <style scoped>
 .block{
 	width: 83%;
@@ -368,5 +351,27 @@ ul{
 }
 .el-table .success-row {
     background: #f0f9eb;
+}
+.at_present{
+	width: 90%;
+	margin: auto;
+	font-size:14px;
+	font-family:PingFangSC-Regular;
+	color:rgba(0,0,0,0.65);
+	text-align: center;
+	border-top: 1px solid #eee;
+	margin: auto;
+    padding: 20px;
+}
+.at_present>span>b{
+	color: #00B0FF;
+	font-weight: 400;
+}
+.at_present>i{
+	display: inline-block;
+	width:14px;
+	height:14px; 
+	color: #00B0FF;
+	margin-right: 5px;
 }
 </style>
