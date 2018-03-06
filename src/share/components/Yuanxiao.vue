@@ -22,7 +22,7 @@
             </li>
           </ul>
         </el-tab-pane>
-  	    <el-tab-pane label="实训资讯" name="second" class="content">实训资讯</el-tab-pane>
+  	    <el-tab-pane label="实训资讯" name="second" class="content">实训资讯000</el-tab-pane>
   	  </el-tabs>
     </div>
   </div>
