@@ -1,11 +1,10 @@
 <template>
     <div>  
-    	<div class="tea_top"v-if="showst.student">
+    	<div class="tea_top"v-if="showst.firstrouter">
     	   <div class="tea_tit">
-    	        <el-breadcrumb separator-class="el-icon-arrow-right">
-				  <el-breadcrumb-item :to="{ path: '/Educat/Teaching' }">任教管理</el-breadcrumb-item>
-				  <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-			    </el-breadcrumb>
+			    <div class="topBox">
+			        <p>任教管理</p>
+			    </div>
     	   </div>
     	   <div class="tea_cot">
     	   	<b>任课课程</b>
@@ -46,12 +45,6 @@
     	   	 </div>
     	   	 <div class="tea_tables">
     	       <table>
-    	       	<!--<tr>
-    	       		<th
-    	       		v-for="(itemdata,index) in data"
-    	       		:key="index">{{itemdata}}
-    	       		</th>
-    	       	</tr>-->
 			   <tbody class="tabod">
 			       <tr 
 			       	v-for="(itemgridData,index) in gridData"
@@ -71,6 +64,17 @@
     	   <div class="bot">
     	       <span>下载表单</span>
     	   </div>
+    	    <div class="block">
+			    <el-pagination
+			      @size-change="handleSizeChange"
+			      @current-change="handleCurrentChange"
+			      :current-page="currentPage4"
+			      :page-sizes="[100, 200, 300, 400]"
+			      :page-size="100"
+			      layout="total, sizes, prev, pager, next, jumper"
+			      :total="400">
+			    </el-pagination>
+			</div>
     	</div>
          <router-view :gridData = "gridData[z]"></router-view>
 	</div>
@@ -110,15 +114,15 @@ export default {
 	      { id:'04',name: '基础会计2', teacher: '张三3',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
 	      { id:'05',name: '基础会计2', teacher: '张三4',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
 	      { id:'06',name: '基础会计2', teacher: '张三5',when:'2017-2018年第二学期3', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计3', teacher: '张三6',when:'2017-2018年第二学期4', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计3', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计3', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计5', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-      ]
+	      { id:'07',name: '基础会计3', teacher: '张三6',when:'2017-2018年第二学期4', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
+	      { id:'08',name: '基础会计3', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
+	      { id:'09',name: '基础会计3', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
+	      { id:'10',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
+      ],
+        currentPage1: 5,
+        currentPage2: 5,
+        currentPage3: 5,
+        currentPage4: 4
      }
 	},
 	computed: {
@@ -143,40 +147,30 @@ export default {
     	this.$router.push({ path:'/Educat/Teaching/taskdetail'});
     	this.z = index
     },
+    handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+    }
   }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
-.tea_cot>.el-select>.el-input--suffix .el-input__inner{
-	display: inline-block;
-    padding-right: 25px;
-    padding-left: 28px;
-    width: 220px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-left: 79px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-.tea_cot>.el-table-fil>.el-select>.el-input--suffix .el-input__inner{
-	display: inline-block;
-    padding-right: 25px;
-    padding-left: 28px;
-    width: 220px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin-left: 79px;
-    border-top-left-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-</style>
 <style scoped>
+.topBox {
+	margin-top: 1px;
+	background: white;
+}
+.topBox p {
+	color: #687178;
+	font-size: 12px;
+	line-height: 23px;
+}
 .tea_top{
 	border: 1px solid #E8E8E8;
 	min-height: 705px;
 	background-color: rgb(255,255,255);
-/*	max-width: 1200px;*/
 }
 .tea_tit{
 	margin-top: 16px;
@@ -237,21 +231,11 @@ export default {
 }
 .tea_tables{
 	height: 500px;
-	overflow-y: scroll;
-    /*width: 1147px;*/
+	overflow: hidden;
 }
 table{ 
     border-collapse:collapse;
     width: 100%;    
-}
-.tea_table_top{
-	/*width: 1147px;*/
-}
-.tea_table{
-	/*overflow-x: scroll;*/
-}
-.tabod{
-	/*display: inline-block;*/
 }
 .tea_table_top ul{
 	display: flex;
@@ -329,5 +313,10 @@ table>tr{
 }
 .tabod>tr>td:nth-child(7){
 	padding-left: 2.5%;
+}
+.block{
+	margin: 0px 25px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 </style>

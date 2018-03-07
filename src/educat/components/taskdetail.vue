@@ -1,6 +1,6 @@
 <template>
     <div>  
-        <div class="task"v-if="showst.allcase">
+        <div class="task"v-if="showst.secondrouter">
           <div class="tea_tits">
     	        <el-breadcrumb separator-class="el-icon-arrow-right">
 				  <el-breadcrumb-item :to="{ path: '/Educat/Teaching' }">任教管理</el-breadcrumb-item>
@@ -95,10 +95,10 @@ export default {
   	}
   },
   mounted () {
-    this.$store.commit("studentshow",false);
+    this.$store.commit("firstrouterCtrl",false);
   },
   destroyed() {
-    this.$store.commit("studentshow",true)
+    this.$store.commit("firstrouterCtrl",true)
   },
  }
 
@@ -109,7 +109,6 @@ ul{
 	-webkit-padding-start: 0px;
 }
 .task{
-/*    width: 1240px;*/
 	border: 1px solid #E8E8E8;
 	min-height: 705px;
 	background-color: rgb(255,255,255);

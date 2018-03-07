@@ -367,4 +367,27 @@ header {
    width: 130px;
    margin-left: 18px; 
 }
+/*任教管理*/
+.tea_cot>.el-select>.el-input--suffix .el-input__inner{
+  display: inline-block;
+    padding-right: 25px;
+    padding-left: 28px;
+    width: 220px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 79px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+.tea_cot>.el-table-fil>.el-select>.el-input--suffix .el-input__inner{
+  display: inline-block;
+    padding-right: 25px;
+    padding-left: 28px;
+    width: 220px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 79px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
 </style>
