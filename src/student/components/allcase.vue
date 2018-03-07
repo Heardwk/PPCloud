@@ -181,15 +181,6 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
     },
   };
 </script>
-<style>
-#input_s{
-   width: 130px;
-   margin-left: 18px; 
-}
-  .el-table-filter{
-	top:0px!important;
-	}
-</style>
 <style scoped>
 .boxTitle{
     width: 960px;

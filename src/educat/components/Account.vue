@@ -34,72 +34,72 @@
 				    	 	 <p class="title_t">教师账号 <span>30</span>个，<span>300</span>使用中，<span>100</span>个到期</p>
 				    		<div class="tea_table">
 				    	   	 <div class="tea_table_top">
-				    	   	       <el-table
-											    :data="gridData_student"
-											    style="width: 100%">
-											    <el-table-column
-											      prop="id"
-											      label="序号"
-											      >
-											    </el-table-column>
-											    <el-table-column
-											      prop="college"
-											      label="全部院系"
-											      sortable
-											       width="180"
-											      :filters="college"
-											      :filter-method="filterHandler"
-											    >
-											    </el-table-column>
-											    <el-table-column
-											      prop="classs"
-											      label="全部年级"
-											      sortable
-											      width="180"
-											      :filters="classs"
-											      :filter-method="filterHandler"
-											    >
-											    </el-table-column>
-											    <el-table-column
-											      prop="tea_class"
-											      label="班级"
-											      >
-											    </el-table-column>
-											     <el-table-column
-											      prop="name"
-											      label="姓名"
-											      
-											      >
-											    </el-table-column>
-											    <el-table-column
-											      prop="when"
-											      label="学号"
-											      width="100">
-											    </el-table-column>
-											    <el-table-column
-											      prop="kaitime"
-											      label="开始时间"
-											       width="180" >
-											    </el-table-column>
-											    <el-table-column
-											      prop="endtime"
-											      label="结束时间"
-											      width="180">
-											    </el-table-column>
-											    <el-table-column
-											      prop="degree"
-											      label="状态"
-											      width="120"
-											      :filters="[{ text: '使用中', value: '使用中' }, { text: '已到期', value: '已到期' }]"
-											      :filter-method="filterTag"
-											      filter-placement="bottom-end">
-											      <template slot-scope="scope">
-											        <el-tag
-											          :type="scope.row.degree === '使用中' ? 'primary' : 'success'"
-											          close-transition>{{scope.row.degree}}</el-tag>
-											      </template>
-											    </el-table-column>
-											  </el-table>
+				    	   	  <el-table
+							    :data="gridData_student"
+							    style="width: 100%">
+							    <el-table-column
+							      prop="id"
+							      label="序号"
+							      >
+							    </el-table-column>
+							    <el-table-column
+							      prop="college"
+							      label="全部院系"
+							      sortable
+							       width="180"
+							      :filters="college"
+							      :filter-method="filterHandler"
+							    >
+							    </el-table-column>
+							    <el-table-column
+							      prop="classs"
+							      label="全部年级"
+							      sortable
+							      width="180"
+							      :filters="classs"
+							      :filter-method="filterHandler"
+							    >
+							    </el-table-column>
+							    <el-table-column
+							      prop="tea_class"
+							      label="班级"
+							      >
+							    </el-table-column>
+							     <el-table-column
+							      prop="name"
+							      label="姓名"
+							      
+							      >
+							    </el-table-column>
+							    <el-table-column
+							      prop="when"
+							      label="学号"
+							      width="100">
+							    </el-table-column>
+							    <el-table-column
+							      prop="kaitime"
+							      label="开始时间"
+							       width="180" >
+							    </el-table-column>
+							    <el-table-column
+							      prop="endtime"
+							      label="结束时间"
+							      width="180">
+							    </el-table-column>
+							    <el-table-column
+							      prop="degree"
+							      label="状态"
+							      width="120"
+							      :filters="[{ text: '使用中', value: '使用中' }, { text: '已到期', value: '已到期' }]"
+							      :filter-method="filterTag"
+							      filter-placement="bottom-end">
+							      <template slot-scope="scope">
+							        <el-tag
+							          :type="scope.row.degree === '使用中' ? 'primary' : 'success'"
+							          close-transition>{{scope.row.degree}}</el-tag>
+							      </template>
+							    </el-table-column>
+							  </el-table>
 				    	   	 </div>
 				    	</div>
 				    </el-tab-pane>

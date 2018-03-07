@@ -5,7 +5,7 @@
         <div class="user_tit">
           <b>设置头像</b>
         </div>
-        <div class="cot">
+        <div class="cots">
              <div class="imgs">
                 <img src="" alt="">
              </div>
@@ -289,13 +289,13 @@ export default {
   top: 9px;
   left: 111px;
 }
-.cot{
+.cots{
   height: 126px;
   display: flex;
   margin-bottom: 26px;
   background-color: #fff;
 }
-.cot>.imgs{
+.cots>.imgs{
   display: inline-block;
   width:126px;
   height:126px; 
@@ -307,7 +307,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.cot>.imgs>img{
+.cots>.imgs>img{
   display: inline-block;
   width: 60px;
   height: 60px;
