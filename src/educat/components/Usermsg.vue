@@ -31,15 +31,15 @@
           <span class="contys">
             <i></i>
             <el-upload
-  class="avatar-uploader"
-  action="https://jsonplaceholder.typicode.com/posts/"
-  :show-file-list="false"
-  :on-success="handleAvatarSuccess"
-  :before-upload="beforeAvatarUpload">
-  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-  <i v-else class="sc">上传头像</i>
-  <div slot="tip" class="el-upload__tip">支持格式：png、jpg</div>
-</el-upload>
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="sc">上传头像</i>
+              <div slot="tip" class="el-upload__tip">支持格式：png、jpg</div>
+            </el-upload>
           </span>
           <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
@@ -293,6 +293,7 @@ export default {
   height: 126px;
   display: flex;
   margin-bottom: 26px;
+  background-color: #fff;
 }
 .cot>.imgs{
   display: inline-block;

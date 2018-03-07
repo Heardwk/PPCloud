@@ -30,7 +30,7 @@
     <template v-for="item in sides"> 
           <h3>{{ item.title}}</h3>
           <ul class="index-block">
-            <li v-for="(items,index) in item.list" :style="items.node" class="data-course" :key="index">
+            <li v-for="(items,index) in item.list"class="data-course" :key="index">
             	<a :href="item.url">
             	 <router-link  
                :to="{path:'trainingCenter/Basic_Accounting'}"
