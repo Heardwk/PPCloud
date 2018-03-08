@@ -197,6 +197,8 @@ export default {
     line-height: 38px;
     text-align: center;
     float: left;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
   }
   .el-select {
     width: 120px;

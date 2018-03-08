@@ -117,6 +117,9 @@ export default {
 .el-dropdown {
   margin: 0 5px;
 }
+.el-dropdown-link {
+  cursor: pointer;
+}
 .dropdownList li {
   padding: 0;
 }
