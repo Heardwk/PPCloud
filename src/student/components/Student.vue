@@ -83,6 +83,9 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.link:hover{
+   color: #157cf0;
+}
 .classactivses{
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
 }
@@ -95,11 +98,14 @@ export default {
 .white {
 	color: white!important;
 }
+.classactive:hover {
+  color: #157cf0!important;
+}
+.white:hover{
+  color: #157cf0!important;
+}
 .el-tabs--border-card {
      background: #ddd; 
-    /* border: 1px solid #dcdfe6; */
-    /* -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04); */
-    /* box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04); */
 }
 .active{
   background: url('../../share/img/logo_Light.png') no-repeat !important;
@@ -108,7 +114,7 @@ export default {
 		display: block;
 	}
 .el-dropdown-menu__item{
-		padding: 10px;
+		padding: 10px 20px;
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -204,7 +210,7 @@ body,html{
   position: relative;
   text-decoration: none;
 }
-.link::after {
+/*.link::after {
   content: attr(data-content);
   position: absolute;
   font-size:18px;
@@ -224,7 +230,7 @@ body,html{
 .link:hover::after, .router-link-active::after {
   -webkit-clip-path: inset(0% 0% 0% 0%);
           clip-path: inset(0% 0% 0% 0%);
-}
+}*/
 .fixed {
   position: fixed;
   top: -61px;
@@ -272,7 +278,7 @@ body,html{
     background: inherit;
     background-color: rgba(255, 255, 255, 0.458823529411765);
     border: none;
-    border-radius: 15px;
+    border-radius: 50%;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -351,7 +357,10 @@ body,html{
 }
 .el-main—ss{
 	width: 100%;
-	background-color: white;
+	/*background-color: white;*/
+}
+.el-dropdown-link{
+  cursor: pointer;
 }
 
 </style>
