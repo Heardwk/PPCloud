@@ -1,6 +1,8 @@
 <template>
 	 <div>
         <div class="content">
+           <div class="topMenu"></div>
+
             <h3>资料共享</h3>
         </div>
    </div>
@@ -15,9 +17,7 @@
 
 <style scoped>
 .content{
-    width: 960px;
     min-height: 700px;
     margin: 0 auto;
-    padding-top: 100px;
 }
 </style>

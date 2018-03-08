@@ -108,7 +108,7 @@ export default {
 		display: block;
 	}
 .el-dropdown-menu__item{
-		padding: 10px;
+		padding: 10px 20px;
 }
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -272,7 +272,7 @@ body,html{
     background: inherit;
     background-color: rgba(255, 255, 255, 0.458823529411765);
     border: none;
-    border-radius: 15px;
+    border-radius: 50%;
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -351,7 +351,10 @@ body,html{
 }
 .el-main—ss{
 	width: 100%;
-	background-color: white;
+	/*background-color: white;*/
+}
+.el-dropdown-link{
+  cursor: pointer;
 }
 
 </style>

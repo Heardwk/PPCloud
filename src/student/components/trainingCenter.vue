@@ -1,49 +1,56 @@
 <template>
 <div>
   <div class="content" v-if='showst.student'>
- 	  <template v-for="(productitem,index) in course" > 
+  <div class="topMenu"></div>
+      <div style="width:960px;margin: 0 auto;padding-bottom:20px;">
+        <template v-for="(productitem,index) in course" > 
           <h3>{{ productitem.title}}</h3>
-          <ul class="index-left-block">
-            <li v-for="(item,index) in productitem.list" :key="index" class="data-course" :style="item.node">
-		          <router-link 
-              @click.native = "goDetail(item.name)"
-		          	:to="{path:'trainingCenter/Basic_Accounting'}">
-		        		  <div class="productimg"><a :href="item.url"><img :src="item.imgs"/>
-		        		  </a></div>
-		          </router-link>
-            	<div class="intro">
-            	    <span>{{ item.name }}</span>
-            	    <p>{{ item.description }}</p>
-            	</div>
-            	<router-link 
-		          	v-for="(items,index) in productitem.list"
-		          	:to="{path:'trainingCenter/Basic_Accounting'}"
-		          	:key="index"
-                @click.native = "goDetail(item.name)"
-		          	>
-                 <a class="descend">{{ item.name }}</a>
-		          </router-link>                                  
-            </li>
-          </ul>
-          <div class="hr"></div>
-    </template>
-    <template v-for="item in sides"> 
-          <h3>{{ item.title}}</h3>
-          <ul class="index-block">
-            <li v-for="(items,index) in item.list"class="data-course" :key="index">
-            	<a :href="item.url">
-            	 <router-link  
-               :to="{path:'trainingCenter/Basic_Accounting'}"
-               @click.native="goDetail(item.name)">
-	            	<div class="productimgs"><img :src="items.imgs"/></div>
-	            	</router-link>
-	            	<div class="intros">
-	            	    <span>{{ items.name }}</span>    	   
-	            	</div>
-            	</a>
-            </li>
-          </ul>
-    </template>
+              <ul class="index-left-block">
+                <li v-for="(item,index) in productitem.list" :key="index" class="data-course" :style="item.node">
+                  <router-link 
+                  @click.native = "goDetail(item.name)"
+                    :to="{path:'trainingCenter/Basic_Accounting'}">
+                      <div class="productimg"><a :href="item.url"><img :src="item.imgs"/>
+                      </a></div>
+                  </router-link>
+                  <div class="intro">
+                      <span>{{ item.name }}</span>
+                      <p>{{ item.description }}</p>
+                  </div>
+                  <router-link 
+                    v-for="(items,index) in productitem.list"
+                    :to="{path:'trainingCenter/Basic_Accounting'}"
+                    :key="index"
+                    @click.native = "goDetail(item.name)"
+                    >
+                     <a class="descend">{{ item.name }}</a>
+                  </router-link>                                  
+                </li>
+              </ul>
+              <div class="hr"></div>
+        </template>
+      </div> 
+      <div style="width:100%;background-color:#fff;">
+      <div style="width:960px;margin: 0 auto;">
+        <template v-for="item in sides"> 
+              <h3>{{ item.title}}</h3>
+              <ul class="index-block">
+                <li v-for="(items,index) in item.list"class="data-course" :key="index">
+                  <a :href="item.url">
+                   <router-link  
+                   :to="{path:'trainingCenter/Basic_Accounting'}"
+                   @click.native="goDetail(item.name)">
+                    <div class="productimgs"><img :src="items.imgs"/></div>
+                    </router-link>
+                    <div class="intros">
+                        <span>{{ items.name }}</span>        
+                    </div>
+                  </a>
+                </li>
+              </ul>
+        </template>
+      </div>  
+      </div>
   </div>
          <router-view></router-view>
 	</div>
@@ -179,12 +186,10 @@ export default {
 	left: 0px;
 }
 .content{
-	width: 960px;
 	min-height: 700px;
 	margin: 0 auto;
-	padding-top: 50px;
 }
-.content>h3{
+.content h3{
 	display: inline-block;
 	width:72px;
 	height:24px; 

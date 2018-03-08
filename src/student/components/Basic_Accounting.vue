@@ -1,6 +1,7 @@
 <template>
    <div>
 	   <div class="Basic">
+           <div class="topMenu"></div>
            <div class="Basic_content">
             <div style="width:960px;margin:0 auto;">
               <div class="nav">
@@ -135,7 +136,7 @@ export default{
 .Basic{
 	min-height: 700px;
 	margin: auto;
-	padding-top: 80px;
+	background-color: white;
 }
 .Basic_index_top{
 	width: 1000px;

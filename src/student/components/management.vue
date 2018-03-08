@@ -1,6 +1,7 @@
 <template>
 	 <div>
         <div class="content">
+           <div class="topMenu"></div>
            <div class="Intermediate">
               <div class="tit"></div>
               <div class="man_nav">
@@ -151,7 +152,6 @@
 .content{
     height: 100%;
     margin: 0 auto;
-    padding-top: 100px;
 }
 .Intermediate{
   background-color: rgb(250,250,250);
@@ -163,6 +163,7 @@
   background:rgba(255,255,255,1);
   border:1px solid #FAFAFA;
   margin-bottom: 12px;
+      margin-top: 20px;
 }
 .blocks{
   text-align: right;
