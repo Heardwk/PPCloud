@@ -29,81 +29,103 @@
 							  </table>
 							 </div>
 				    	</div>
+				    <div class="block">
+					    <el-pagination
+					      @size-change="handleSizeChange"
+					      @current-change="handleCurrentChange"
+					      :current-page="currentPage4"
+					      :page-sizes="[100, 200, 300, 400]"
+					      :page-size="100"
+					      layout="total, sizes, prev, pager, next, jumper"
+					      :total="400">
+					    </el-pagination>
+					</div>
 				    </el-tab-pane>
 				    <el-tab-pane label="学生账号">
-				    	 	 <p class="title_t">教师账号 <span>30</span>个，<span>300</span>使用中，<span>100</span>个到期</p>
-				    		<div class="tea_table">
-				    	   	 <div class="tea_table_top">
-				    	   	       <el-table
-											    :data="gridData_student"
-											    style="width: 100%">
-											    <el-table-column
-											      prop="id"
-											      label="序号"
-											      >
-											    </el-table-column>
-											    <el-table-column
-											      prop="college"
-											      label="全部院系"
-											      sortable
-											       width="180"
-											      :filters="college"
-											      :filter-method="filterHandler"
-											    >
-											    </el-table-column>
-											    <el-table-column
-											      prop="classs"
-											      label="全部年级"
-											      sortable
-											      width="180"
-											      :filters="classs"
-											      :filter-method="filterHandler"
-											    >
-											    </el-table-column>
-											    <el-table-column
-											      prop="tea_class"
-											      label="班级"
-											      >
-											    </el-table-column>
-											     <el-table-column
-											      prop="name"
-											      label="姓名"
-											      
-											      >
-											    </el-table-column>
-											    <el-table-column
-											      prop="when"
-											      label="学号"
-											      width="100">
-											    </el-table-column>
-											    <el-table-column
-											      prop="kaitime"
-											      label="开始时间"
-											       width="180" >
-											    </el-table-column>
-											    <el-table-column
-											      prop="endtime"
-											      label="结束时间"
-											      width="180">
-											    </el-table-column>
-											    <el-table-column
-											      prop="degree"
-											      label="状态"
-											      width="120"
-											      :filters="[{ text: '使用中', value: '使用中' }, { text: '已到期', value: '已到期' }]"
-											      :filter-method="filterTag"
-											      filter-placement="bottom-end">
-											      <template slot-scope="scope">
-											        <el-tag
-											          :type="scope.row.degree === '使用中' ? 'primary' : 'success'"
-											          close-transition>{{scope.row.degree}}</el-tag>
-											      </template>
-											    </el-table-column>
-											  </el-table>
-				    	   	 </div>
-				    	</div>
-				    </el-tab-pane>
-				  </el-tabs>
+			    	 	 <p class="title_t">教师账号 <span>30</span>个，<span>300</span>使用中，<span>100</span>个到期</p>
+			    		<div class="tea_table">
+			    	   	 <div class="tea_table_top">
+			    	   	  <el-table
+						    :data="gridData_student"
+						    style="width: 100%">
+						    <el-table-column
+						      prop="id"
+						      label="序号"
+						      >
+						    </el-table-column>
+						    <el-table-column
+						      prop="college"
+						      label="全部院系"
+						      sortable
+						       width="180"
+						      :filters="college"
+						      :filter-method="filterHandler"
+						    >
+						    </el-table-column>
+						    <el-table-column
+						      prop="classs"
+						      label="全部年级"
+						      sortable
+						      width="180"
+						      :filters="classs"
+						      :filter-method="filterHandler"
+						    >
+						    </el-table-column>
+						    <el-table-column
+						      prop="tea_class"
+						      label="班级"
+						      >
+						    </el-table-column>
+						     <el-table-column
+						      prop="name"
+						      label="姓名"
+						      
+						      >
+						    </el-table-column>
+						    <el-table-column
+						      prop="when"
+						      label="学号"
+						      width="100">
+						    </el-table-column>
+						    <el-table-column
+						      prop="kaitime"
+						      label="开始时间"
+						       width="180" >
+						    </el-table-column>
+						    <el-table-column
+						      prop="endtime"
+						      label="结束时间"
+						      width="180">
+						    </el-table-column>
+						    <el-table-column
+						      prop="degree"
+						      label="状态"
+						      width="120"
+						      :filters="[{ text: '使用中', value: '使用中' }, { text: '已到期', value: '已到期' }]"
+						      :filter-method="filterTag"
+						      filter-placement="bottom-end">
+						      <template slot-scope="scope">
+						        <el-tag
+						          :type="scope.row.degree === '使用中' ? 'primary' : 'success'"
+						          close-transition>{{scope.row.degree}}</el-tag>
+						      </template>
+						    </el-table-column>
+						  </el-table>
+			    	   	 </div>
+			    	</div>
+			    	<div class="block"style="margin-top:20px;">
+					    <el-pagination
+					      @size-change="handleSizeChange"
+					      @current-change="handleCurrentChange"
+					      :current-page="currentPage4"
+					      :page-sizes="[100, 200, 300, 400]"
+					      :page-size="100"
+					      layout="total, sizes, prev, pager, next, jumper"
+					      :total="400">
+					    </el-pagination>
+					</div>
+			    </el-tab-pane>
+			  </el-tabs>
     </div>
   </div>
 </template>
@@ -128,17 +150,18 @@ export default {
 	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
 	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
 	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
+	    
       ],
 			gridData_student: [
 		      { id:'01',college: '会计系',classs:'2015级',tea_class:'1701', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'使用中'},
 		      { id:'02',college: '金融系',classs:'2016级',tea_class:'1702', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'使用中'},
 		      { id:'03',college: '纳税',classs:'2017级',tea_class:'1703', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'已到期'},
 	      ],
-        value: ''
+        value: '',
+        currentPage1: 5,
+        currentPage2: 5,
+        currentPage3: 5,
+        currentPage4: 4
       }
    },
    methods: {
@@ -151,13 +174,24 @@ export default {
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
-      }
+      },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+	    },
+	  handleCurrentChange(val) {
+	        console.log(`当前页: ${val}`);
+	    }
     }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.block{
+	margin: 0px 25px;
+	text-align: center;
+	margin-bottom: 20px;
+}
 .Account_top{
 	min-height: 500px;
 	background-color: white;
@@ -172,7 +206,7 @@ export default {
 	line-height:20px;
 }
 .title_t>span{
-  display: inline-block;
+    display: inline-block;
 	color:#1890FF;
 	padding: 0px 5px;
 }
@@ -204,8 +238,8 @@ ul{
 	width: 100%;
 }
 .tea_tables{
-	height: 500px;
-	overflow-y: scroll;
+	min-height: 500px;
+	overflow: hidden;
 }
 .tabod>tr>td:nth-child(4){
 	width: 17%;

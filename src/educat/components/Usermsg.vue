@@ -5,7 +5,7 @@
         <div class="user_tit">
           <b>设置头像</b>
         </div>
-        <div class="cot">
+        <div class="cots">
              <div class="imgs">
                 <img src="" alt="">
              </div>
@@ -31,15 +31,15 @@
           <span class="contys">
             <i></i>
             <el-upload
-  class="avatar-uploader"
-  action="https://jsonplaceholder.typicode.com/posts/"
-  :show-file-list="false"
-  :on-success="handleAvatarSuccess"
-  :before-upload="beforeAvatarUpload">
-  <img v-if="imageUrl" :src="imageUrl" class="avatar">
-  <i v-else class="sc">上传头像</i>
-  <div slot="tip" class="el-upload__tip">支持格式：png、jpg</div>
-</el-upload>
+              class="avatar-uploader"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              :show-file-list="false"
+              :on-success="handleAvatarSuccess"
+              :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="sc">上传头像</i>
+              <div slot="tip" class="el-upload__tip">支持格式：png、jpg</div>
+            </el-upload>
           </span>
           <span slot="footer" class="dialog-footer">
             <el-button @click="dialogVisible = false">取 消</el-button>
@@ -289,12 +289,13 @@ export default {
   top: 9px;
   left: 111px;
 }
-.cot{
+.cots{
   height: 126px;
   display: flex;
   margin-bottom: 26px;
+  background-color: #fff;
 }
-.cot>.imgs{
+.cots>.imgs{
   display: inline-block;
   width:126px;
   height:126px; 
@@ -306,7 +307,7 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.cot>.imgs>img{
+.cots>.imgs>img{
   display: inline-block;
   width: 60px;
   height: 60px;

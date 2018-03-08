@@ -14,11 +14,11 @@
 		        <router-link to="/" class="anli">全真案例</router-link>
 		        <div class="book">
 		          <h3>{{Eattr.listName}}</h3>
-		          <span class="upload">17年8月更新</span>
+		          <span class="upload">{{bookAttr.turnover}}</span>
 		          <p>{{bookAttr.text}}</p>
 		          <p class="ico">
 		            <span class="one" @click="setDailog=true">
-		              张中全老师
+		              {{bookAttr.teacher}}老师
 		            </span>
 		            <span class="three">{{bookAttr.topic}}题</span>
 		          </p>
@@ -53,6 +53,8 @@ export default{
 			},
 		    bookAttr: {
 	        name: '没有',
+	        turnover:'17年8月更新',
+	        teacher:'张中全',
 	        src: require('../../share/img/image_class_cover.png'),
 	        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
 	        topic: 1234
@@ -61,7 +63,7 @@ export default{
 	        classone: ["暂无"],
 	        classtwo: "暂无",
 	      },
-		}
+	  }
 	},
  mounted () {
        this.$store.commit("studentshow",false);
