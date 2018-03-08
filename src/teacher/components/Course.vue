@@ -34,7 +34,7 @@
                     <router-link tag="span" to="/Teacher/Shixun/Course/editProblem">编辑题组</router-link>
                   </p>
                   <p><span>发布任务</span></p>
-                  <div><span>删除</span><span>下载</span></div>
+                  <div><span @click="deletList(item)">删除</span><span>下载</span></div>
                 </div>
                 <div class="borR">
                   <h3>{{item.title}}<span>{{item.time}}</span></h3>
@@ -347,6 +347,14 @@ export default {
       }
       this.teac.classone = arr;
       this.teac.classtwo = this.setTime;
+    },
+    deletList(item) {
+      this.$confirm('确认删除？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+      console.log(item)
     }
   },
   computed: {

@@ -44,7 +44,14 @@
               <span class="point">{{item.point}}</span>
               <span class="type">{{item.type}}</span>
               <span class="count">{{item.count}}</span>
-              <span class="oper" @click="delet(index)"><i class="el-icon-delete"></i>删除</span>
+              <el-popover placement="top" width="160">
+                <p>删除案例？</p>
+                <div style="text-align: right; margin: 0">
+                  <el-button size="mini" type="text" @click="delet(false,item)">取消</el-button>
+                  <el-button type="primary" size="mini" @click="delet(true,item)">确定</el-button>
+                </div>
+                <span class="oper" slot="reference"><i class="el-icon-delete"></i>删除</span>
+              </el-popover>
             </li>
           </ul>
           <div style="text-align: right;">
@@ -124,6 +131,9 @@
         </div>
       </el-tab-pane>
     </el-tabs>
+
+
+
   </div>
 </template>
 
@@ -265,8 +275,9 @@ export default {
     handleClick(tab, event) {
       
     },
-    delet(num) {
-      this.topicData.splice(num,1);
+    delet(bool,item) {
+      bool? console.log(`删除${item.name}`): ''
+      document.body.click()
     },
     changePage() {
 
@@ -460,18 +471,20 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  height: 40px;
-  line-height: 40px;
 }
 .titleUlBox .num {
   display: inline-block;
   width: 80px;
   text-align: center;
+    height: 40px;
+  line-height: 40px;
 }
 .titleUlBox .name {
   display: inline-block;
   width: 410px;
   text-align: center;
+    height: 40px;
+  line-height: 40px;
 }
 .titltLi .name {
   text-align: left;
@@ -480,22 +493,30 @@ export default {
   display: inline-block;
   width: 100px;
   text-align: center;
+    height: 40px;
+  line-height: 40px;
 }
 .titleUlBox .type {
   display: inline-block;
   width: 100px;
   text-align: center;
+    height: 40px;
+  line-height: 40px;
 }
 .titleUlBox .count {
   display: inline-block;
   width: 100px;
   text-align: center;
+    height: 40px;
+  line-height: 40px;
 }
 .titleUlBox .oper {
   display: inline-block;
   width: 100px;
   text-align: center;
   position: relative;
+    height: 40px;
+  line-height: 40px;
 }
 .titltLi .oper {
   cursor: pointer;

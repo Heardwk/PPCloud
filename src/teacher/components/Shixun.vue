@@ -152,7 +152,7 @@ export default {
   text-indent: 20px;
   color: #243847;
   font-size: 18px;
-  margin-top: 35px;
+  margin-top: 25px;
 }
 .recentlyListTop {
   width:306px;
@@ -180,10 +180,13 @@ export default {
   box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.09);
 }
 .recentlyList img {
+  display: block;
+  border: 0;
+  border: none;
   border-radius: 2px 2px 0 0;
 }
 .recentlyList div {
-  padding: 10px 20px;
+  padding: 10px 20px 15px 20px;
 }
 .recentlyList h4 {
   font-size: 16px;
@@ -199,6 +202,13 @@ export default {
   font-size: 14px;
   margin-bottom: 10px;
   position: relative;
+}
+.recentlyList p:last-child {
+  font-size: 12px;
+  margin: 0;
+}
+.el-icon-document {
+  margin-right: 5px;
 }
 .recentlyList p span {
   position: absolute;

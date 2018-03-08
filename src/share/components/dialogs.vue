@@ -44,6 +44,12 @@
         </div>
       </transition>
     </div>
+    <div v-if="loading"
+    v-loading="loading"
+    element-loading-text="登陆中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.45)"
+    style="position: fixed;left:0;top:0;right:0;bottom:0;font-size:18px;"></div>
   </div>
 </template>
 
@@ -60,6 +66,8 @@ export default {
 	     passwordModel: '',
 	     checked:false,
 	     loadData: {},
+	     sessionData: {},
+	     loading: false,
      }
    },
    computed:{
@@ -67,6 +75,14 @@ export default {
 	  },
 	  methods: {
 	    onLogin () {
+	    	if(this.usernameModel=="") {
+	    		this.$message.error({message:'请输入账号！',duration: 500});
+	    		return false;
+	    	}else if(this.passwordModel=="") {
+	    		this.$message.error({message:'请输入密码！',duration: 500});
+	    		return false;
+	    	}
+	    	this.loading = true;
     	this.$http.post(`${this.$store.state.location}TokenAuth/Authenticate`, 
 	    	{
 				  "userNameOrEmailAddress": this.usernameModel,
@@ -79,13 +95,40 @@ export default {
 					this.loadData = response.body.result;
 					localStorage.token = `Bearer ${this.loadData.accessToken}`;
 					localStorage.userId = this.loadData.userId;
-					this.$emit("dialog",true)
+					this.getsession();
 				},response => {
+			    this.loading = false;
 			    this.$message.error({message:'账号或密码错误！',duration: 1000});
 			  });
 		  },
 	    closeMy(){
-	    	this.$emit("dialog",false)
+	    	this.$emit("dialog");
+	    },
+	    getsession() {
+	    	this.$http.post(`${this.$store.state.location}services/app/Session/GetCurrentLoginInformations`, 
+        {}, 
+        {headers: {
+          "Content-Type": "application/json",
+          "Athena-TenantId": this.$store.state.TenantId,
+          'Authorization': localStorage.token
+        }}).then(response => {
+        	this.loading = false;
+          this.sessionData = response.body.result;
+          if(this.sessionData.user.roles[0]=="Teacher") {
+            window.location.href = '#/Teacher'
+          }else if(this.sessionData.user.roles[0]=="Student") {
+            window.location.href = '#/Student'
+          }else if(this.sessionData.user.roles[0]=="Admin") {
+            window.location.href = '#/Load'
+          }else {
+            window.location.href = '#/Educat'
+          }     
+          this.$message({message: '登录成功',type: 'success',duration: 1000});
+          this.$emit("dialog");
+        },response => {
+        	this.loading = false;
+          this.$message.error({message:'登录超时！',duration: 1000});
+        });
 	    }
    }
   }
