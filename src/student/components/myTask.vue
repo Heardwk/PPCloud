@@ -1,5 +1,5 @@
 <template>
-  <div class="" style="background: white">
+  <div class="" style="background: white;height: 100%;">
     <div class="topMenu"></div>
     <div style="background: white; padding: 20px 0;min-height:740px;" v-if='showst.task'>
       <div class="ctrlTop">

@@ -22,7 +22,7 @@
                 @click.native = "goDetail(item.name)"
 		          	>
                  <a class="descend">{{ item.name }}</a>
-		          </router-link>
+		          </router-link>                                  
             </li>
           </ul>
           <div class="hr"></div>
@@ -43,7 +43,7 @@
             	</a>
             </li>
           </ul>
-    </template> 
+    </template>
   </div>
          <router-view></router-view>
 	</div>

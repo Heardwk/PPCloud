@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="Account_top">
-    	    <p style="color: #687178;font-size: 12px;padding-top:20px;padding-bottom:10px;">账号管理</p>
+    	    <p style="color: #687178;font-size: 12px;padding-top:20px;padding-bottom:10px;">   </p>
     	    <el-tabs :tab-position="tabPosition">
 				    <el-tab-pane label="教师账号">
 				    	 <p class="title_t">教师账号 <span>30</span>个，30使用中</p>
@@ -85,7 +85,7 @@
 						    <el-table-column
 						      prop="when"
 						      label="学号"
-						      width="100">
+						      width="150">
 						    </el-table-column>
 						    <el-table-column
 						      prop="kaitime"
