@@ -277,7 +277,7 @@ export default {
     },
     delet(bool,item) {
       bool? console.log(`删除${item.name}`): ''
-      document.body.click()
+      document.body.click();
     },
     changePage() {
 

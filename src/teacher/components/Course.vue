@@ -79,7 +79,7 @@
                   <span>{{item.clas}}</span>
                   <div class="planCtrl">
                     <i class="el-icon-delete"></i>
-                    <span>删除</span>
+                    <span @click="deletPlan(item)">删除</span>
                     <span class="shu">|</span>
                     <i class="el-icon-download"></i>
                     <span>下载({{item.downloadCount}})</span>
@@ -349,6 +349,14 @@ export default {
       this.teac.classtwo = this.setTime;
     },
     deletList(item) {
+      this.$confirm('确认删除？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+      console.log(item)
+    },
+    deletPlan(item) {
       this.$confirm('确认删除？')
         .then(_ => {
           done();
