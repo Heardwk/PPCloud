@@ -52,7 +52,7 @@ export default {
   data () {
     return {
       personalInfo: {
-        name: '张三',
+        name: '张兮兮',
         id: 123456789,
         src: require('../../share/img/corgi.jpg'),
         phone: '18354869658',

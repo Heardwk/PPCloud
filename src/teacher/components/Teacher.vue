@@ -12,7 +12,7 @@
             {{item.name}}
           </router-link>
           <el-dropdown placement="bottom" @command="gerenlink" class="user colo">
-            <span class="el-dropdown-link">狗剩<i class="el-icon-caret-bottom" style="margin-left: 8px"></i></span>
+            <span class="el-dropdown-link"><img :src="user.img" width="38">{{user.name}}<i class="el-icon-caret-bottom" style="margin-left: 8px"></i></span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
               <el-dropdown-item command="first"><router-link class="droplink" to="/Teacher/Geren">基本信息</router-link></el-dropdown-item>
 <!--               <el-dropdown-item command="second"><router-link class="droplink" to="/Teacher/Geren">我的消息</router-link></el-dropdown-item>
@@ -47,6 +47,10 @@ export default {
   name: 'Teacher',
   data () {
     return {
+      user: {
+        name: '张兮兮',
+        img: require('../../share/img/corgi.jpg')
+      },
       urlData:[
         {
           name: '实训中心',
@@ -98,7 +102,7 @@ export default {
   position: relative;
 }
 .head .link {
-  margin: 0 15px;
+  margin: 0 12px;
   font-size: 18px;
 }
 .head .logo {
@@ -112,7 +116,7 @@ export default {
   background: url('../../share/img/logo_Light.png') no-repeat;
 }
 .head .link:nth-child(2) {
-  margin-left: 325px;
+  margin-left: 275px;
 }
 .head .link:hover,.head .router-link-active {
   color: #00B0FF;
@@ -122,6 +126,14 @@ export default {
   right: 0;
   top: -1px;
   cursor: pointer;
+}
+.user img {
+  position: absolute;
+  left: -50%;
+  top: 50%;
+  margin-top: -20px;
+  margin-left: -10px;
+  border-radius: 50%;
 }
 .user .el-dropdown-link {
   font-size: 16px;

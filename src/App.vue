@@ -36,7 +36,7 @@ url-prefix(file:///), url-prefix(http://), url-prefix(https://){
     z-index: 999999999 !important; /* 把滚动条提到Z轴最上层 */
   }
   scrollbar[orient="vertical"] {   
-    width: 0 !important;   
+    width: 0 !important;
   } 
 }
 html,

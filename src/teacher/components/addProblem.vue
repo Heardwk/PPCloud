@@ -124,7 +124,7 @@
               <span class="name">案例名称</span>
               <span class="point">课程名称</span>
               <span class="type">题型</span>
-              <span class="count">练习次数</span>
+              <span class="count">分值</span>
               <span class="oper">操作</span>
             </li>
             <li v-for="(item,index) in topicData" class="titltLi">
@@ -268,70 +268,70 @@ export default {
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
       ],
       tixing: [
