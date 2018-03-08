@@ -3,28 +3,28 @@
   	<div class="topMenu"></div>
     <div v-if="shixun.firstrouter" class="componentBox">
       <p class="boxTitle">最近使用</p>
-      <div class="recently">
-        <router-link class="recentlyList" tag="div" v-for="(item,index) in recentlyData" 
-        :key="index" :to="{path:item.url}" @click.native="goto(item.name)">
-          <img :src="item.src" height="180" width="120">
-          <h4>{{item.name}}</h4>
-          <p>案例数量：{{item.number}}题</p>
-          <p>更新时间：{{item.time}}</p>
+      <div style="margin-bottom:20px">
+        <router-link class="recentlyList recentlyListTop" tag="div" v-for="(item,index) in recentlyData" 
+        :key="index" to="/Teacher/Shixun/Course" @click.native="goto(item.name)">
+          <img :src="item.src" width="100%">
+          <div>
+            <h4>{{item.name}}</h4>
+            <p>{{item.text}}</p>
+            <p><i class="el-icon-document"></i>{{item.number}}题<span>{{item.time}}日更新</span></p>
+          </div>
         </router-link>
       </div>
     </div>
-    <div v-if="shixun.firstrouter" style="background: white; padding-top: 1px;">
-      <div class="componentBox">
-        <p class="boxTitle">课程实训</p>
-        <div class="boxList">
-          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url}" @click.native="goto(item.name)">
-            <div><img :src="item.src" height="180" width="120"></div><h5>{{item.name}}</h5>
-          </router-link>
-        </div>
-        <p class="boxTitle">综合实训</p>
-        <div class="boxList">
-          <router-link v-for="(item,index) in bookList" :key="index" :to="{path:item.url}" @click.native="goto(item.name)">
-            <div><img :src="item.src" height="180" width="120"></div><h5>{{item.name}}</h5>
+    <div v-if="shixun.firstrouter" style="background: white; padding-bottom: 20px;">
+      <div class="componentBox" v-for="(item,index) in classType" :key="index">
+        <p class="boxTitle">{{item.type}}</p>
+        <div>
+          <router-link class="recentlyList recentlyListBot" tag="div" v-for="(item,index) in item.bookList" :key="index" to="/Teacher/Shixun/Course" @click.native="goto(item.name)">
+            <img :src="item.src" width="100%">
+            <div>
+              <h4>{{item.name}}</h4>
+              <p><i class="el-icon-document"></i>{{item.number}}题<span>{{item.time}}日更新</span></p>
+            </div>
           </router-link>
         </div>
       </div>
@@ -44,41 +44,87 @@ export default {
           name: '基础会计',
           number: '3281',
           time: '2017/8/22',
-          src: require('../../share/img/image_class_cover.png'),
-          url: '/Teacher/Shixun/Course'
+          src: require('../../share/img/class_big.png'),
+          text: '一套专注于会计基础的课程。'
         },{
           name: '财务管理',
           number: '3281',
           time: '2017/8/22',
-          src: require('../../share/img/image_class_cover.png'),
-          url: '/Teacher/Shixun/Course'
+          src: require('../../share/img/class_big.png'),
+          text: '一套专注于会计基础的课程。'
         },{
           name: '初级会计电算化',
           number: '3281',
           time: '2017/8/22',
-          src: require('../../share/img/image_class_cover.png'),
-          url: '/Teacher/Shixun/Course'
+          src: require('../../share/img/class_big.png'),
+          text: '一套专注于会计基础的课程。'
         },
       ],
-      bookList: [
+      classType: [
         {
-          url: '/Teacher/Shixun/Course',
-          src: require('../../share/img/image_class_cover.png'),
-          name: '基础会计'
-        },{
-          url: '/Teacher/Shixun/Course',
-          src: require('../../share/img/image_class_cover.png'),
-          name: '财务管理'
-        },{
-          url: '/Teacher/Shixun/Course',
-          src: require('../../share/img/image_class_cover.png'),
-          name: '初级会计电算化'
-        },{
-          url: '/Teacher/Shixun/Course',
-          src: require('../../share/img/image_class_cover.png'),
-          name: '财务管理'
+          type: '课程实训',
+          bookList: [
+            {
+              name: '基础会计',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },{
+              name: '财务管理',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },{
+              name: '初级会计电算化',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },{
+              name: '财务管理',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },
+          ] 
         },
-      ]
+        {
+          type: '综合实训',
+          bookList: [
+            {
+              name: '基础会计',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },{
+              name: '财务管理',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },{
+              name: '初级会计电算化',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },{
+              name: '财务管理',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },
+            {
+              name: '初级会计电算化',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },{
+              name: '财务管理',
+              number: '3281',
+              time: '2017/8/22',
+              src: require('../../share/img/calss_small.png'),
+            },
+          ] 
+        },
+      ],
     }
   },
   mounted() {
@@ -106,80 +152,56 @@ export default {
   text-indent: 20px;
   color: #243847;
   font-size: 18px;
-  margin-top: 50px;
+  margin-top: 35px;
 }
-.recently {
-  display: flex;
-  display: -webkit-flex;
-  justify-content: space-between;
-  margin-top: 25px;
+.recentlyListTop {
+  width:306px;
+  margin-bottom: 50px;
+}
+.recentlyListTop:nth-child(3n) {
+  margin-right: 0;
+}
+.recentlyListBot {
+  width: 224px;
+}
+.recentlyListBot:nth-child(4n) {
+  margin-right: 0;
 }
 .recentlyList {
-  width:300px;
-  height:220px;
+  display: inline-block;
   position: relative;
-  border-radius: 8px;
-  padding-left: 160px;
-  margin-bottom: 50px;
+  border-radius: 2px 2px 0 0;
   cursor: pointer;
-  color: #FFFFFF;
-  box-shadow: 0 6px 16px 0px rgba(0, 0, 0, 0.15);
-  background: -webkit-linear-gradient(#D8D1FF, #BAADFF);
-  background:    -moz-linear-gradient(#D8D1FF, #BAADFF);
-  background:      -o-linear-gradient(#D8D1FF, #BAADFF);
-  background:         linear-gradient(#D8D1FF, #BAADFF);
+  background: #FFFFFF;
+  border: 1px solid #E9E9E9;
+  margin: 25px 20px 5px 0;
 }
-.recentlyList:first-child {
-  background: -webkit-linear-gradient(#C8EAFC, #96D6FF);
-  background:    -moz-linear-gradient(#C8EAFC, #96D6FF);
-  background:      -o-linear-gradient(#C8EAFC, #96D6FF);
-  background:         linear-gradient(#C8EAFC, #96D6FF);
-}
-.recentlyList:last-child {
-  background: -webkit-linear-gradient(#FFD0D4, #FAA1AD);
-  background:    -moz-linear-gradient(#FFD0D4, #FAA1AD);
-  background:      -o-linear-gradient(#FFD0D4, #FAA1AD);
-  background:         linear-gradient(#FFD0D4, #FAA1AD);
-}
-.recentlyList a {
-  color: white;
+.recentlyList:hover {
+  box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.09);
 }
 .recentlyList img {
-  position: absolute;
-  top: 20px;
-  left: 20px;
+  border-radius: 2px 2px 0 0;
+}
+.recentlyList div {
+  padding: 10px 20px;
 }
 .recentlyList h4 {
   font-size: 16px;
-  margin-top: 70px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+  color: rgba(0, 0, 0, .85);
 }
 .recentlyList p {
-  font-size: 12px;
-  margin-bottom: 5px;
-}
-.boxList {
   width: 100%;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(0, 0, 0, .45);
+  font-size: 14px;
+  margin-bottom: 10px;
+  position: relative;
 }
-.boxList>a {
-  display: inline-block;
-  margin: 25px 26px 0 26px;
-}
-.boxList:last-child {
-  padding-bottom: 50px;
-}
-.boxList a div {
-  padding: 10px;
-  box-shadow: 0px 6px 21px 0px rgba(0, 0, 0, 0.14);
-}
-.boxList a div:hover {
-  box-shadow: 0px 9px 15px 0px rgba(0, 0, 0, 0.4);
-}
-.boxList h5 {
-  text-align: center;
-  margin-top: 20px;
-  color: #687178;
-  font-size: 16px;
+.recentlyList p span {
+  position: absolute;
+  right: 0;
 }
 </style>
