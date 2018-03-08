@@ -25,16 +25,6 @@ export default {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-/*::-webkit-scrollbar{
-  width: 8px;
-  opacity: 0;
-  -webkit-overflow-scrolling: touch;
-}
-::-moz-scrollbar{
-  width: 8px;
-  opacity: 0;
-  -moz-overflow-scrolling: touch;
-}*/
 @-moz-document url-prefix(chrome://), url-prefix(about:), 
 url-prefix(file:///), url-prefix(http://), url-prefix(https://){
   scrollbar{
@@ -365,7 +355,6 @@ header {
 }
 #input_s{
    width: 130px;
-   margin-left: 18px; 
 }
 /*任教管理*/
 .tea_cot>.el-select>.el-input--suffix .el-input__inner{

@@ -50,7 +50,7 @@ export default {
     return {
       showss: false,
     	shows: false,
-      studentimgs:require('../../share/img/img_head_top.png'),
+      studentimgs:require('../../share/img/corgi.jpg'),
     }
   },
     methods:{
@@ -210,27 +210,9 @@ body,html{
   position: relative;
   text-decoration: none;
 }
-/*.link::after {
-  content: attr(data-content);
-  position: absolute;
-  font-size:18px;
-  color:rgba(104,113,120,1);
-  line-height:80px;
-  display: block;
-  color: #157cf0;
-  font-family: MicrosoftYaHei;
-  top: 0;
-  left: 0;
-  -webkit-transition: all .3s linear;
-     -moz-transition: all .3s linear;
-          transition: all .3s linear;
-  -webkit-clip-path: inset(0% 100% 0% 0%);
-          clip-path: inset(0% 100% 0% 0%);
+.router-link-active{
+  color: #157cf0!important;
 }
-.link:hover::after, .router-link-active::after {
-  -webkit-clip-path: inset(0% 0% 0% 0%);
-          clip-path: inset(0% 0% 0% 0%);
-}*/
 .fixed {
   position: fixed;
   top: -61px;
