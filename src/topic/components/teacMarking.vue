@@ -267,13 +267,13 @@ export default {
     line-height: 28px;
     box-shadow: 2px 2px 2px #EEEEEE, 2px -2px 2px #EEEEEE;
   }
-  .hamburger,.cross{
+  .hamburger,.cross {
     position:absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
   }
-  .hamburger span{
+  .hamburger span {
     display: block;
     width: 18px;
     height: 2px;
@@ -281,10 +281,10 @@ export default {
     overflow: hidden;
     position: relative;
   }
-  .hamburger span:last-child{
+  .hamburger span:last-child {
     margin: 0;
   }
-  .hamburger span::before,.hamburger span::after{
+  .hamburger span::before,.hamburger span::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -293,28 +293,28 @@ export default {
     transform: translateX(-200%);
     transition: transform ease 300ms;
   }
-  .hamburger span::after{
+  .hamburger span::after {
     transform: translateX(0);
   }
-  .hamburger span:nth-child(2)::before,.hamburger span:nth-child(2)::after{
+  .hamburger span:nth-child(2)::before,.hamburger span:nth-child(2)::after {
     transition-delay: 75ms;
   }
-  .hamburger span:last-child::before,.hamburger span:last-child::after{
+  .hamburger span:last-child::before,.hamburger span:last-child::after {
     transition-delay: 150ms;
   }
-  .tizuLMenuCtrl:hover .hamburger span::before{
+  .tizuLMenuCtrl:hover .hamburger span::before {
     transform: translateX(0);
   }
-  .tizuLMenuCtrl:hover .hamburger span::after{
+  .tizuLMenuCtrl:hover .hamburger span::after {
     transform: translateX(200%);
   }
-  .tizuLMenuCtrl.active .hamburger span::before{
+  .tizuLMenuCtrl.active .hamburger span::before {
     transform: translateX(100%);
   }
-  .tizuLMenuCtrl.active .hamburger span::after{
+  .tizuLMenuCtrl.active .hamburger span::after {
     transform: translateX(200%);
   }
-  .cross span{
+  .cross span {
     display: block;
     width: 18px;
     height: 2px;
@@ -325,11 +325,11 @@ export default {
   .cross span:last-child{
     transform: translateY(-50%) rotate(-45deg) scaleX(0);
   }
-  .tizuLMenuCtrl.active .cross span{
+  .tizuLMenuCtrl.active .cross span {
     transition-delay: 450ms;
     transform: translateY(50%) rotate(45deg) scaleX(1);
   }
-  .tizuLMenuCtrl.active .cross span:last-child{
+  .tizuLMenuCtrl.active .cross span:last-child {
     transform: translateY(-50%) rotate(-45deg) scaleX(1);
   }
   .tooltipBox {

@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="absoBox">
-              <span class="light" @click="disab">禁用</span>&nbsp;|&nbsp;<span class="light" @click="delet(index)">删除</span>
+              <span class="light" @click="disab">{{item.state?'禁用':'解禁'}}</span>&nbsp;|&nbsp;<span class="light" @click="delet(index)">删除</span>
             </div>
           </div>
           <el-pagination
