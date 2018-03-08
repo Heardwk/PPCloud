@@ -1,6 +1,7 @@
 <template>
   <div>
-        <ul class="navigation">
+    <el-container style="position:relative;min-height:100%;padding-bottom:65px;">
+      <ul class="navigation">
 				 <div class="heads">
 	        <el-header class="mainMenu classactivses" :class="{'shade':shows}">
 	        	<div class="logo-left">
@@ -38,6 +39,7 @@
        	     <span>copyright&nbsp;©&nbsp;2018&nbsp;中德安普大数据网络科技有限公司</span>
        	     <b>湘ICP备15000989号-1</b>
        	</div>
+    </el-container>
   </div>
 </template>
 
@@ -309,6 +311,8 @@ body,html{
 	 align-items: center;
 	 height: 65px;
 	 line-height: 65px;
+   position: absolute;
+  bottom: 0;
 }
 .footer>ul{
 	display: flex;	

@@ -109,6 +109,7 @@ ul{
 	-webkit-padding-start: 0px;
 }
 .task{
+/*    width: 1240px;*/
 	border: 1px solid #E8E8E8;
 	min-height: 705px;
 	background-color: rgb(255,255,255);
