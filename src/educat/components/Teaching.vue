@@ -85,16 +85,11 @@ export default {
   name: 'Teaching',
   data () {
     return {
+    	getall: {},
     	values_select: '',
     	values_index: '',
     	z:'0',
-		options: [{
-	      value: '选项1',
-          label: '基础会计2'
-        }, {
-          value: '选项2',
-          label: '基础会计'
-        }],
+		options: [],
         options_index: [{
 		    value: '2017-2018年第二学期1',
 		    label: '2017-2018年第二学期1'
@@ -125,12 +120,38 @@ export default {
         currentPage4: 4
      }
 	},
+	mounted() {
+		this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
+		{
+			"published": true,
+			"isActive": true,
+			"filter": ""
+		},{
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": localStorage.token
+			}
+		}).then(response=>{
+			this.getall = response.body.result;
+			this.init();
+		}).then(response=>{
+			console.log("error")
+		})	
+	},
 	computed: {
-    showst() {
-      return this.$store.state
-     }
+	    showst() {
+	    	return this.$store.state
+	    }
     },
 	methods: {
+		init() {
+			for(let i in this.getall.items) {
+				this.options.push({
+					'label': this.getall.items[i].title,
+					'value': this.getall.items[i].title 
+				})
+			}
+		},
 	myfilter(arr){
         if(arr.indexOf(this.values_index)>-1){
             return arr

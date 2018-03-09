@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="topMenu"></div>
-    <div style="background: white;border-bottom: 1px solid #EEEEEE;padding: 20px 0;">
+    <div style="background: white;padding: 20px 0;">
       <div class="topBox">
         <div>
           <span>课程实训</span>

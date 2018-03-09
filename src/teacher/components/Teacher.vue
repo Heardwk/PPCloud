@@ -1,6 +1,6 @@
 <template>
   <div class="teac">
-    <el-container style="min-height: 100%;position:relative; padding-bottom: 20px;">
+    <el-container style="min-height: 100%;position:relative; padding-bottom: 20px;background:white">
       <!-- 头部 -->
       <el-header>
         <div class="head">
@@ -143,5 +143,6 @@ footer {
   position: absolute;
   bottom: 0;
   width: 100%;
+  background-color: #F8F8F8;
 }
 </style>

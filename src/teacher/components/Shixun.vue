@@ -1,18 +1,20 @@
 <template>
   <div class="">
   	<div class="topMenu"></div>
-    <div v-if="shixun.firstrouter" class="componentBox">
-      <p class="boxTitle">最近使用</p>
-      <div style="margin-bottom:20px">
-        <router-link class="recentlyList recentlyListTop" tag="div" v-for="(item,index) in recentlyData" 
-        :key="index" to="/Teacher/Shixun/Course" @click.native="goto(item.name)">
-          <img :src="item.src" width="100%">
-          <div>
-            <h4>{{item.name}}</h4>
-            <p>{{item.text}}</p>
-            <p><i class="el-icon-document"></i>{{item.number}}题<span>{{item.time}}日更新</span></p>
-          </div>
-        </router-link>
+    <div v-if="shixun.firstrouter" class="feight">
+      <div v-if="recentlyData.length>0" class="componentBox">
+        <p class="boxTitle">最近使用</p>
+        <div style="margin-bottom:20px">
+          <router-link class="recentlyList recentlyListTop" tag="div" v-for="(item,index) in recentlyData" 
+          :key="index" to="/Teacher/Shixun/Course" @click.native="goto(item.name)">
+            <img :src="item.src" width="100%">
+            <div>
+              <h4>{{item.name}}</h4>
+              <p>{{item.text}}</p>
+              <p><i class="el-icon-document"></i>{{item.number}}题<span>{{item.time}}日更新</span></p>
+            </div>
+          </router-link>
+        </div>
       </div>
     </div>
     <div v-if="shixun.firstrouter" style="background: white; padding-bottom: 20px;">
@@ -29,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="componentBox"><router-view /></div>
+    <router-view />
     
   </div>
 </template>

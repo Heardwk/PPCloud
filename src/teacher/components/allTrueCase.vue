@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div v-if="allcase.thirdrouter">
+  <div class="feight">
+    <div v-if="allcase.thirdrouter" class="componentBox">
       <p class="path">
         <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
         <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;

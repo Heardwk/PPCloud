@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="" style="position: relative; padding-bottom: 65px; min-height:100%">
+    <div class="" style="position: relative; padding-bottom: 65px; min-height:100%;background-color:white">
       <div class="loadBox" v-if="show"><dialogs @dialog="dialog"></dialogs></div>
       <el-header>
         <div class="head">
@@ -70,5 +70,6 @@ footer {
   bottom: 0;
   width: 100%;
   text-align: center;
+  background: #F8F8F8;
 }
 </style>
