@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="feight">
     <div class="topMenu"></div>
     <div class="contentBox">
       <div class="contentLeft">
