@@ -6,13 +6,13 @@
               <div class="nav">
 	   	    	 <el-breadcrumb separator="/">
 				  <el-breadcrumb-item :to="{ path: '/Student/trainingCenter'}">实训中心</el-breadcrumb-item>
-				  <el-breadcrumb-item>{{Eattr.listName}}</el-breadcrumb-item>
+				  <el-breadcrumb-item>{{eattr.listName}}</el-breadcrumb-item>
 				</el-breadcrumb>
 	   	    </div>
 			 <div class="whiteBox booktop">
 		        <img :src="bookAttr.src" height="180" width="224" class="bookimg">
 		        <div class="book">
-		          <h3>{{Eattr.listName}}</h3>
+		          <h3>{{eattr.listName}}</h3>
 		          <span class="upload">{{bookAttr.turnover}}</span>
 		          <p>{{bookAttr.text}}</p>
 		          <p class="ico">
@@ -43,7 +43,7 @@ export default{
   name:'Basic_Accounting',
 	data(){
 		return {
-		    Eattr:{
+		    eattr:{
 				listImg:'获取数据失败',
 				listId:'获取数据失败',
 				listName:'获取数据失败',
@@ -53,7 +53,7 @@ export default{
 		        turnover:'17年8月更新',
 		        teacher:'张中全',
 		        src: require('../../share/img/image_class_cover.png'),
-		        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
+		        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描描述描述描述描述描述描述描述描述描述描述',
 		        topic: 1234
 	        },
 	         teac: {
@@ -62,9 +62,9 @@ export default{
 	        },
 	    }
 	},
-	 mounted () {
+	mounted () {
 	    this.$store.commit("firstrouterCtrl",false);
-	    this.Eattr.listName = localStorage.getItem("kcname")
+	    this.eattr.listName = localStorage.getItem("kcname")
  	},
 	computed: {
 	      Basic(){
@@ -73,14 +73,14 @@ export default{
 	},
 	watch: {
         '$route': function () {
-	        this.Eattr.listId = this.$route.query.id,
-		    this.Eattr.listName = this.$route.query.name,
-		    this.Eattr.listImg = this.$route.query.imgs
+	        this.eattr.listId = this.$route.query.id,
+		    this.eattr.listName = this.$route.query.name,
+		    this.eattr.listImg = this.$route.query.imgs
         }
 	},
 	components: {
-		  detailscon,
-	    },
+		detailscon,
+	},
 	destroyed() {
 	    this.$store.commit("firstrouterCtrl",true)
 	},
@@ -96,9 +96,9 @@ export default{
 	padding: 21px 0px;
 }
 .Basic_content{
-  border-bottom: 2px solid #FAFAFA;
-  background:rgba(255,255,255,1);
-  margin-bottom: 50px;
+    border-bottom: 2px solid #FAFAFA;
+    background:rgba(255,255,255,1);
+    margin-bottom: 50px;
 }
 .nav .el-breadcrumb__inner, .el-breadcrumb__inner a{
 	display: inline-block; 

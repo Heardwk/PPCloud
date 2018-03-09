@@ -139,64 +139,63 @@
       }
     },
     watch: {
-    	msgtochild(){
-    		this.dataA = this.msgtochild.child
+    msgtochild(){
+    	this.dataA = this.msgtochild.child
     	},
     },
      computed: {
-	  showst() {
+	    showst() {
 	      return this.$store.state
 	  },
 	 },
-      methods: {
+     methods: {
       qiehuan(index,event){
-        var el = event.target;
-        if(this.dynamicTags.indexOf(this.dataA[index])>0){
-		}else{
-			this.dynamicTags.push(this.dataA[index]);
-		}
-		let arr = [];
-		this.dynamicTags[this.dynamicTags.length-1].child? arr = this.dynamicTags[this.dynamicTags.length-1].child : arr = [];
+	        var el = event.target;
+	        if(this.dynamicTags.indexOf(this.dataA[index])>0){
+			}else{
+				this.dynamicTags.push(this.dataA[index]);
+			}
+			let arr = [];
+			this.dynamicTags[this.dynamicTags.length-1].child? arr = this.dynamicTags[this.dynamicTags.length-1].child : arr = [];
 
-		this.dataA = arr;
+			this.dataA = arr;
       }, 
       handleClose(tag) {
-        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-        this.dynamicTags.length>0? this.dataA = this.dynamicTags[this.dynamicTags.length-1].child : this.dataA = this.msgtochild.child
+	        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+	        this.dynamicTags.length>0? this.dataA = this.dynamicTags[this.dynamicTags.length-1].child : this.dataA = this.msgtochild.child
       },
       handleInputConfirm() {
 
       },
-       tableRowClassName({row, rowIndex}) {
-        if (rowIndex %2 !==0 ) {
-          return 'warning-row';
-        } else if (rowIndex %2 ==0) {
-          return 'success-row';
-        }
-        return '';
+	  tableRowClassName({row, rowIndex}) {
+	        if (rowIndex %2 !==0 ) {
+	          return 'warning-row';
+	        } else if (rowIndex %2 ==0) {
+	          return 'success-row';
+	        }
+	        return '';
       },
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+        	console.log(`每页 ${val} 条`);
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+      	 	console.log(`当前页: ${val}`);
       },
       formatter(row, column) {
-        return row.address;
+      	  	return row.address;
       },
       filterTag(value, row) {
-        return row.tag === value;
+        	return row.tag === value;
       },
       filterHandler(value, row, column) {
-        const property = column['property'];
-        return row[property] === value;
+        	const property = column['property'];
+       		return row[property] === value;
       }
     },
 	mounted() {
-	  this.dataA = this.msgtochild.child
-      // this.$store.commit("studentshow",false);
+	 		this.dataA = this.msgtochild.child
     },
-     destroyed() {
+    destroyed() {
      // this.$store.commit("studentshow",true)
   },
   }

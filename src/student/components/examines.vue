@@ -247,10 +247,10 @@ import cases  from '@/student/components/courseTraining/cases'
         }],
       }
     },
-   mounted () {
+    mounted () {
        this.$store.commit("firstrouterCtrl",false);
-   },
-   destroyed() {
+    },
+    destroyed() {
       this.$store.commit("firstrouterCtrl",true)
     },
     components:{
