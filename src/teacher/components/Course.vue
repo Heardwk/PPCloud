@@ -1,108 +1,114 @@
 <template>
   <div class="">
     <div v-if="course.secondrouter">
-      <p class="path"><router-link to="/Teacher/Shixun">实训中心</router-link> &gt; {{bookAttr.name}}</p>
-      <div class="whiteBox booktop">
-        <img :src="bookAttr.src" height="180" width="120" class="bookimg">
-        <router-link to="/Teacher/Shixun/Course/allTrueCase" class="anli">全真案例</router-link>
-        <div class="book">
-          <h3>{{bookAttr.name}}</h3>
-          <p>{{bookAttr.text}}</p>
-          <p class="ico">
-            <span class="one" @click="setDailog=true">
-              任教班级: 
-              <span v-for="(item,index) in teac.classone" :key="index">{{item}} </span>
-            </span>
-            <span class="two" @click="setDailog=true">任教期间: {{teac.classtwo}}</span>
-            <span class="three">{{bookAttr.topic}}题</span>
-          </p>
+      <div class="componentBox">
+        <p class="path"><router-link to="/Teacher/Shixun">实训中心</router-link> &gt; {{bookAttr.name}}</p>
+        <div class="whiteBox booktop">
+          <img :src="bookAttr.src" height="180" width="120" class="bookimg">
+          <router-link to="/Teacher/Shixun/Course/allTrueCase" class="anli">全真案例</router-link>
+          <div class="book">
+            <h3>{{bookAttr.name}}</h3>
+            <p>{{bookAttr.text}}</p>
+            <p class="ico">
+              <span class="one" @click="setDailog=true">
+                任教班级: 
+                <span v-for="(item,index) in teac.classone" :key="index">{{item}} </span>
+              </span>
+              <span class="two" @click="setDailog=true">任教期间: {{teac.classtwo}}</span>
+              <span class="three">{{bookAttr.topic}}题</span>
+            </p>
+          </div>
         </div>
       </div>
-      <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="kechengTab">
-        <el-tab-pane label="我的题组" name="first">
-          <span slot="label" class="icon1">我的题组</span>
-          <div class="tabCard" :class="{ topicLass: this.topicList.length==0 }">
-            <div class="cardTitle">
-              <span class="careName">我的题组 <span> (共{{topicList.length}}个)</span></span>
-              <!-- <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn el-icon-circle-plus"></span> -->
-              <router-link rel="span" class="addName" to='/Teacher/Shixun/Course/addProblem'>新建题组</router-link rel="span"><span class="addBtn el-icon-circle-plus"></span>
-            </div>
-            <div v-if="this.topicList.length>0">
-              <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
-                <div class="ctrlBox">
-                  <p><span>逐题预览</span></p>
-                  <p>
-                    <router-link tag="span" to="/Teacher/Shixun/Course/editProblem">编辑题组</router-link>
-                  </p>
-                  <p><span>发布任务</span></p>
-                  <div><span @click="deletList(item)">删除</span><span>下载</span></div>
+      <div class="feight">
+        <div class="componentBox">
+          <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="kechengTab">
+            <el-tab-pane label="我的题组" name="first">
+              <span slot="label" class="icon1">我的题组</span>
+              <div class="tabCard" :class="{ topicLass: this.topicList.length==0 }">
+                <div class="cardTitle">
+                  <span class="careName">我的题组 <span> (共{{topicList.length}}个)</span></span>
+                  <!-- <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn el-icon-circle-plus"></span> -->
+                  <router-link rel="span" class="addName" to='/Teacher/Shixun/Course/addProblem'>新建题组</router-link rel="span"><span class="addBtn el-icon-circle-plus"></span>
                 </div>
-                <div class="borR">
-                  <h3>{{item.title}}<span>{{item.time}}</span></h3>
-                  <p>基本信息： 已选择<span>{{item.point}}</span>个知识点，共<span>{{item.case}}</span>个案例，总分值<span>{{item.count}}</span>分</p>
-                  <div class="list">
-                    <span class="line"></span>
-                    <span class="line"></span>
-                    <div v-for="(i,index) in item.classification" :key="index">
-                      <div class="abso" v-if="index==0"><span>题型</span><span>数量</span><span>计分</span></div>
-                      <div class="abso" v-else-if="index==4"><span>题型</span><span>数量</span><span>计分</span></div>
-                      <div class="abso" v-else-if="index==8"><span>题型</span><span>数量</span><span>计分</span></div>
-                      <div class="border">
-                        <span>{{i.clas}}</span>
-                        <span class="light">{{i.quantity}}</span>
-                        <span>{{i.score}}</span>
+                <div v-if="this.topicList.length>0">
+                  <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
+                    <div class="ctrlBox">
+                      <p><span>逐题预览</span></p>
+                      <p>
+                        <router-link tag="span" to="/Teacher/Shixun/Course/editProblem">编辑题组</router-link>
+                      </p>
+                      <p><span>发布任务</span></p>
+                      <div><span @click="deletList(item)">删除</span><span>下载</span></div>
+                    </div>
+                    <div class="borR">
+                      <h3>{{item.title}}<span>{{item.time}}</span></h3>
+                      <p>基本信息： 已选择<span>{{item.point}}</span>个知识点，共<span>{{item.case}}</span>个案例，总分值<span>{{item.count}}</span>分</p>
+                      <div class="list">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <div v-for="(i,index) in item.classification" :key="index">
+                          <div class="abso" v-if="index==0"><span>题型</span><span>数量</span><span>计分</span></div>
+                          <div class="abso" v-else-if="index==4"><span>题型</span><span>数量</span><span>计分</span></div>
+                          <div class="abso" v-else-if="index==8"><span>题型</span><span>数量</span><span>计分</span></div>
+                          <div class="border">
+                            <span>{{i.clas}}</span>
+                            <span class="light">{{i.quantity}}</span>
+                            <span>{{i.score}}</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="实训计划" name="second">
-          <span slot="label" class="icon2">实训计划</span>
-          <div class="tabCard" :class="{ topicLass: this.planList.length==0 }">
-            <div class="cardTitle">
-              <span class="careName">实训计划</span>
-              <span class="addName">新建计划</span><span class="addBtn el-icon-circle-plus"></span>
-            </div>
-            <div v-if="this.planList.length>0">
-              <div v-for="(item,index) in planList" :key="index" class="tizuBox planBox">
-                <div class="planTop">
-                  <img :src="item.img" width="80" height="80">
-                  <h3>{{item.name}}</h3>
-                  <p>{{item.text}}</p>
+            </el-tab-pane>
+            <el-tab-pane label="实训计划" name="second">
+              <span slot="label" class="icon2">实训计划</span>
+              <div class="tabCard" :class="{ topicLass: this.planList.length==0 }">
+                <div class="cardTitle">
+                  <span class="careName">实训计划</span>
+                  <span class="addName">新建计划</span><span class="addBtn el-icon-circle-plus"></span>
                 </div>
-                <div class="planBot">
-                  <i class="el-icon-time"></i>
-                  <span>{{item.time}}</span>
-                  <i class="el-icon-tickets"></i>
-                  <span>{{item.clas}}</span>
-                  <div class="planCtrl">
-                    <i class="el-icon-delete"></i>
-                    <span @click="deletPlan(item)">删除</span>
-                    <span class="shu">|</span>
-                    <i class="el-icon-download"></i>
-                    <span>下载({{item.downloadCount}})</span>
+                <div v-if="this.planList.length>0">
+                  <div v-for="(item,index) in planList" :key="index" class="tizuBox planBox">
+                    <div class="planTop">
+                      <img :src="item.img" width="80" height="80">
+                      <h3>{{item.name}}</h3>
+                      <p>{{item.text}}</p>
+                    </div>
+                    <div class="planBot">
+                      <i class="el-icon-time"></i>
+                      <span>{{item.time}}</span>
+                      <i class="el-icon-tickets"></i>
+                      <span>{{item.clas}}</span>
+                      <div class="planCtrl">
+                        <i class="el-icon-delete"></i>
+                        <span @click="deletPlan(item)">删除</span>
+                        <span class="shu">|</span>
+                        <i class="el-icon-download"></i>
+                        <span>下载({{item.downloadCount}})</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </el-tab-pane>
-<!--         <el-tab-pane label="实训总结" name="third">
-          <span slot="label" class="icon3">实训总结</span>
-          <div class="tabCard">
-            <div class="cardTitle">实训总结</div>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="课程资料" name="fourth">
-          <span slot="label" class="icon4">课程资料</span>
-          <div class="tabCard">
-            <div class="cardTitle">课程资料</div>
-          </div>
-        </el-tab-pane> -->
-      </el-tabs>
+            </el-tab-pane>
+    <!--         <el-tab-pane label="实训总结" name="third">
+              <span slot="label" class="icon3">实训总结</span>
+              <div class="tabCard">
+                <div class="cardTitle">实训总结</div>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="课程资料" name="fourth">
+              <span slot="label" class="icon4">课程资料</span>
+              <div class="tabCard">
+                <div class="cardTitle">课程资料</div>
+              </div>
+            </el-tab-pane> -->
+          </el-tabs>
+        </div>
+      </div>
     </div>
     <!-- 教师设置弹窗 -->
     <el-dialog :visible.sync="setDailog" width="600px">

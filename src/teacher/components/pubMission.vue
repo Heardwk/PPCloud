@@ -1,234 +1,236 @@
 <template>
-  <div class="">
-    <p class="path">
-      <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
-      <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
-      <router-link to="/Teacher/Shixun/Course/allTrueCase">全真案例</router-link> &gt;
-      发布任务
-    </p>
-    <div class="headBox">
-      <el-steps :active="active" finish-status="success" simple>
-        <el-step title="选择知识点"></el-step>
-        <el-step title="调整题型"></el-step>
-        <el-step title="案例甄选"></el-step>
-        <el-step title="任务信息"></el-step>
-        <el-step title="完成"></el-step>
-      </el-steps>
-      <p v-if="showBox[0]"><span class="el-icon-info"></span>请在左边的树形列表中勾选题组所涉及的知识点。</p>
-      <p v-if="showBox[1]"><span class="el-icon-info"></span>可在下表中调整题组所涉题型的数量及每个题型的单题分值。</p>
-      <p v-if="showBox[2]"><span class="el-icon-info"></span>勾选您需要收纳在题组内的案例。</p>
-      <p v-if="showBox[3]"><span class="el-icon-info"></span>可在下表中调整题组所涉题型的数量及每个题型的单题分值。</p>
-      <p v-if="showBox[4]"><span class="el-icon-info"></span>收获创建成功的喜悦！</p>
-    </div>
-    <div v-if="showBox[0]" class="pointBox">
-      <div class="leftContent">
-        <p>
-          <span class="hasLine">知识点</span>
-          <el-input
-            class="serch"
-            placeholder="关键字搜索"
-            v-model="filterText">
-          </el-input>
-        </p>
-        <el-tree
-          class="tree"
-          :props="defaultProps"
-          :data="dataList"
-          node-key="id"
-          show-checkbox
-          :default-checked-keys = "isChecArr"
-          ref="tree"
-          :filter-node-method="filterNode"
-          :accordion = "isAccordion"
-          @check-change="handleCheckChange">
-        </el-tree>
+  <div class="feight">
+    <div class="componentBox">
+      <p class="path">
+        <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
+        <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
+        <router-link to="/Teacher/Shixun/Course/allTrueCase">全真案例</router-link> &gt;
+        发布任务
+      </p>
+      <div class="headBox">
+        <el-steps :active="active" finish-status="success" simple>
+          <el-step title="选择知识点"></el-step>
+          <el-step title="调整题型"></el-step>
+          <el-step title="案例甄选"></el-step>
+          <el-step title="任务信息"></el-step>
+          <el-step title="完成"></el-step>
+        </el-steps>
+        <p v-if="showBox[0]"><span class="el-icon-info"></span>请在左边的树形列表中勾选题组所涉及的知识点。</p>
+        <p v-if="showBox[1]"><span class="el-icon-info"></span>可在下表中调整题组所涉题型的数量及每个题型的单题分值。</p>
+        <p v-if="showBox[2]"><span class="el-icon-info"></span>勾选您需要收纳在题组内的案例。</p>
+        <p v-if="showBox[3]"><span class="el-icon-info"></span>可在下表中调整题组所涉题型的数量及每个题型的单题分值。</p>
+        <p v-if="showBox[4]"><span class="el-icon-info"></span>收获创建成功的喜悦！</p>
       </div>
-      <div class="rightContent">
-        <p><span class="hasLine">已选知识点</span></p>
-        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
-          <div v-if="checkTree.length>0">
-            <el-tag
-              v-for="item in checkTree"
-              :key="item.id"
-              @close="handleClose(item.id)"
-              closable>
-              {{item.label}}
-            </el-tag>
+      <div v-if="showBox[0]" class="pointBox">
+        <div class="leftContent">
+          <p>
+            <span class="hasLine">知识点</span>
+            <el-input
+              class="serch"
+              placeholder="关键字搜索"
+              v-model="filterText">
+            </el-input>
+          </p>
+          <el-tree
+            class="tree"
+            :props="defaultProps"
+            :data="dataList"
+            node-key="id"
+            show-checkbox
+            :default-checked-keys = "isChecArr"
+            ref="tree"
+            :filter-node-method="filterNode"
+            :accordion = "isAccordion"
+            @check-change="handleCheckChange">
+          </el-tree>
+        </div>
+        <div class="rightContent">
+          <p><span class="hasLine">已选知识点</span></p>
+          <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+            <div v-if="checkTree.length>0">
+              <el-tag
+                v-for="item in checkTree"
+                :key="item.id"
+                @close="handleClose(item.id)"
+                closable>
+                {{item.label}}
+              </el-tag>
+            </div>
           </div>
+          <p class="all">
+            <span class="el-icon-info"></span>
+            已选择<span class="light">{{title.point}}</span>个知识点，
+            共计<span class="light">{{title.count}}</span>个案例，您可以在下一个步骤调整具体的题型及数量
+          </p>
+          <div class="btnBox">
+            <router-link to="/Teacher/Shixun/Course">返回课程</router-link>
+            <el-button @click="next" type="primary">下一步</el-button>
+          </div>
+        </div>
+      </div>
+      <div v-if="showBox[1]" class="contentBox">
+        <p><span class="hasLine">已选题型及数量</span></p>
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+          <ul class="titleUl">
+            <li class="titleHead">
+              <span class="titleOne">题型</span>
+              <span class="titleTwo">数量</span>
+              <span class="titleThr">分值</span>
+            </li>
+            <li v-for="(item,index) in tixing" :key="index" class="titleList">
+              <span class="titleOne">{{item.type}}</span>
+              <span class="titleTwo">
+                <el-input-number v-model="item.count" @change="handleChangeCount" :min="0"></el-input-number>
+              </span>
+              <span class="titleThr">
+                <el-input-number v-model="item.point" @change="handleChangePoint" :min="0"></el-input-number>
+              </span>
+            </li>
+          </ul>
         </div>
         <p class="all">
           <span class="el-icon-info"></span>
           已选择<span class="light">{{title.point}}</span>个知识点，
-          共计<span class="light">{{title.count}}</span>个案例，您可以在下一个步骤调整具体的题型及数量
-        </p>
-        <div class="btnBox">
-          <router-link to="/Teacher/Shixun/Course">返回课程</router-link>
-          <el-button @click="next" type="primary">下一步</el-button>
-        </div>
-      </div>
-    </div>
-    <div v-if="showBox[1]" class="contentBox">
-      <p><span class="hasLine">已选题型及数量</span></p>
-      <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
-        <ul class="titleUl">
-          <li class="titleHead">
-            <span class="titleOne">题型</span>
-            <span class="titleTwo">数量</span>
-            <span class="titleThr">分值</span>
-          </li>
-          <li v-for="(item,index) in tixing" :key="index" class="titleList">
-            <span class="titleOne">{{item.type}}</span>
-            <span class="titleTwo">
-              <el-input-number v-model="item.count" @change="handleChangeCount" :min="0"></el-input-number>
-            </span>
-            <span class="titleThr">
-              <el-input-number v-model="item.point" @change="handleChangePoint" :min="0"></el-input-number>
-            </span>
-          </li>
-        </ul>
-      </div>
-      <p class="all">
-        <span class="el-icon-info"></span>
-        已选择<span class="light">{{title.point}}</span>个知识点，
-        共计<span class="light">{{title.count}}</span>个案例，
-        累计总分<span class="light">{{allPoint}}</span>分，创建完成后，您可以随时调整这些参数。
-      </p>
-      <div class="btnBox">
-        <el-button @click="active--">上一步</el-button>
-        <el-button @click="next" type="primary">下一步</el-button>
-      </div>
-    </div>
-    <div v-if="showBox[2]" class="pointBox">
-      <div class="leftContent">
-        <p>
-          <span class="hasLine">知识点</span>
-          <el-input
-            class="serch"
-            placeholder="关键字搜索"
-            clearable
-            v-model="choooseText">
-          </el-input>
-        </p>
-        <div class="chooseBox">
-          <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
-            <span class="el-icon-tickets"></span>
-            {{item.label}}
-          </div>
-        </div>
-      </div>
-      <div class="rightContent">
-        <p><span class="hasLine">设置题组基本信息</span></p>
-        <div class="choooseContent">
-          <ul class="titleUlBox">
-            <li>
-              <span class="num">序号</span>
-              <span class="name">案例名称</span>
-              <span class="point">课程名称</span>
-              <span class="type">题型</span>
-        <!--       <span class="count">练习次数</span> -->
-              <span class="oper">操作</span>
-            </li>
-            <li v-for="(item,index) in topicData" class="titltLi">
-              <span class="num">{{index+1}}</span>
-              <span class="name">{{item.name}}</span>
-              <span class="point">{{item.point}}</span>
-              <span class="type">{{item.type}}</span>
-              <!-- <span class="count">{{item.count}}</span> -->
-              <span class="oper"><el-checkbox v-model="item.chec"></el-checkbox></span>
-            </li>
-          </ul>
-          <div style="text-align: right; margin-bottom:20px;">
-            <el-pagination
-              background
-              layout="prev, pager, next"
-              @current-change="changePage"
-              :total="50">
-            </el-pagination>
-          </div>
-        </div>
-        <p class="all"><span class="el-icon-info"></span>
-          已选择<span class="light">{{title.point}}</span>个知识点，
           共计<span class="light">{{title.count}}</span>个案例，
+          累计总分<span class="light">{{allPoint}}</span>分，创建完成后，您可以随时调整这些参数。
         </p>
         <div class="btnBox">
           <el-button @click="active--">上一步</el-button>
           <el-button @click="next" type="primary">下一步</el-button>
         </div>
       </div>
-    </div>
-    <div v-if="showBox[3]" class="contentBox">
-      <p><span class="hasLine">设置任务基本信息</span></p>
-      <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
-        <div class="titleMsgBox">
-          <p style="position: relative">
-            <span class="leftSpan">任务名称</span>
-            <el-input v-model="missName" placeholder="请输入内容" clearable></el-input>
-          </p>
-          <div class="rela">
-            <span class="leftSpan">开始时间</span>
-            <el-date-picker
-              v-model="begintime"
-              type="datetime"
-              @change = "changeBegintime"
-              placeholder="选择日期时间">
-            </el-date-picker>
-          </div>
-          <div class="rela" style="padding-top: 10px">
-            <span class="leftSpan" style="margin-top: -2px">结束时间</span>
-            <div class="slide">
-              <span v-for="(item,index) in slideVal" :key="item" @click="getT(index)">
-                <input type="radio" name="chec" :id="item" v-model="pick" :value="slideVal[index]">
-                <label :for="item">{{item}}</label>
-              </span>
-            </div>
-            <el-date-picker
-              v-model="endtime"
-              type="datetime"
-              @change = "changeEndtime"
-              placeholder="选择日期时间">
-            </el-date-picker>
-          </div>
-          <div class="rela">
-            <span class="leftSpan">参与班级</span>
-            <div class="checkClas">
-              <span v-for="(item,index) in hasClass" :key="index">
-                <input :id="index" type="checkbox" name="cls" :value="item.class" v-model="classNum">
-                <label :for="index">{{item.class}}</label>
-              </span>
-            </div>
-            <p class="all">
-              <span class="el-icon-info" style="margin-left: 0"></span>
-              已选中<span class="light">{{classNum.length}}</span>个班级，
-              共<span class="light">120</span>人
-              </p>
-          </div>
-          <div class="rela">
-            <span class="leftSpan">备&nbsp;注</span>
+      <div v-if="showBox[2]" class="pointBox">
+        <div class="leftContent">
+          <p>
+            <span class="hasLine">知识点</span>
             <el-input
-              type="textarea"
-              placeholder="请输入内容"
-              resize="none"
-              :autosize="{ minRows: 6, maxRows: 8}"
-              v-model="textarea">
+              class="serch"
+              placeholder="关键字搜索"
+              clearable
+              v-model="choooseText">
             </el-input>
+          </p>
+          <div class="chooseBox">
+            <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
+              <span class="el-icon-tickets"></span>
+              {{item.label}}
+            </div>
+          </div>
+        </div>
+        <div class="rightContent">
+          <p><span class="hasLine">设置题组基本信息</span></p>
+          <div class="choooseContent">
+            <ul class="titleUlBox">
+              <li>
+                <span class="num">序号</span>
+                <span class="name">案例名称</span>
+                <span class="point">课程名称</span>
+                <span class="type">题型</span>
+          <!--       <span class="count">练习次数</span> -->
+                <span class="oper">操作</span>
+              </li>
+              <li v-for="(item,index) in topicData" class="titltLi">
+                <span class="num">{{index+1}}</span>
+                <span class="name">{{item.name}}</span>
+                <span class="point">{{item.point}}</span>
+                <span class="type">{{item.type}}</span>
+                <!-- <span class="count">{{item.count}}</span> -->
+                <span class="oper"><el-checkbox v-model="item.chec"></el-checkbox></span>
+              </li>
+            </ul>
+            <div style="text-align: right; margin-bottom:20px;">
+              <el-pagination
+                background
+                layout="prev, pager, next"
+                @current-change="changePage"
+                :total="50">
+              </el-pagination>
+            </div>
+          </div>
+          <p class="all"><span class="el-icon-info"></span>
+            已选择<span class="light">{{title.point}}</span>个知识点，
+            共计<span class="light">{{title.count}}</span>个案例，
+          </p>
+          <div class="btnBox">
+            <el-button @click="active--">上一步</el-button>
+            <el-button @click="next" type="primary">下一步</el-button>
           </div>
         </div>
       </div>
-      <p class="all"><span class="el-icon-info"></span>设置个性的名称和备注，以便更快速的找到目标题组。</p>
-      <div class="btnBox">
-        <el-button @click="active--">上一步</el-button>
-        <el-button @click="next" type="primary">下一步</el-button>
-      </div>
-    </div>
-    <div v-if="showBox[4]" class="contentBox">
-      <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
-        <div class="succBox">
-          <h3>发布任务成功</h3>
-          <p ref="times">5秒后跳转至全真案例</p>
-          <div><router-link to="/Teacher/Shixun/Course/allTrueCase">返回案例</router-link></div>
+      <div v-if="showBox[3]" class="contentBox">
+        <p><span class="hasLine">设置任务基本信息</span></p>
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+          <div class="titleMsgBox">
+            <p style="position: relative">
+              <span class="leftSpan">任务名称</span>
+              <el-input v-model="missName" placeholder="请输入内容" clearable></el-input>
+            </p>
+            <div class="rela">
+              <span class="leftSpan">开始时间</span>
+              <el-date-picker
+                v-model="begintime"
+                type="datetime"
+                @change = "changeBegintime"
+                placeholder="选择日期时间">
+              </el-date-picker>
+            </div>
+            <div class="rela" style="padding-top: 10px">
+              <span class="leftSpan" style="margin-top: -2px">结束时间</span>
+              <div class="slide">
+                <span v-for="(item,index) in slideVal" :key="item" @click="getT(index)">
+                  <input type="radio" name="chec" :id="item" v-model="pick" :value="slideVal[index]">
+                  <label :for="item">{{item}}</label>
+                </span>
+              </div>
+              <el-date-picker
+                v-model="endtime"
+                type="datetime"
+                @change = "changeEndtime"
+                placeholder="选择日期时间">
+              </el-date-picker>
+            </div>
+            <div class="rela">
+              <span class="leftSpan">参与班级</span>
+              <div class="checkClas">
+                <span v-for="(item,index) in hasClass" :key="index">
+                  <input :id="index" type="checkbox" name="cls" :value="item.class" v-model="classNum">
+                  <label :for="index">{{item.class}}</label>
+                </span>
+              </div>
+              <p class="all">
+                <span class="el-icon-info" style="margin-left: 0"></span>
+                已选中<span class="light">{{classNum.length}}</span>个班级，
+                共<span class="light">120</span>人
+                </p>
+            </div>
+            <div class="rela">
+              <span class="leftSpan">备&nbsp;注</span>
+              <el-input
+                type="textarea"
+                placeholder="请输入内容"
+                resize="none"
+                :autosize="{ minRows: 6, maxRows: 8}"
+                v-model="textarea">
+              </el-input>
+            </div>
+          </div>
+        </div>
+        <p class="all"><span class="el-icon-info"></span>设置个性的名称和备注，以便更快速的找到目标题组。</p>
+        <div class="btnBox">
+          <el-button @click="active--">上一步</el-button>
+          <el-button @click="next" type="primary">下一步</el-button>
         </div>
       </div>
-      <p class="all"><span class="el-icon-info"></span>请关注已发布任务的状态了解任务进度</p>
+      <div v-if="showBox[4]" class="contentBox">
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
+          <div class="succBox">
+            <h3>发布任务成功</h3>
+            <p ref="times">5秒后跳转至全真案例</p>
+            <div><router-link to="/Teacher/Shixun/Course/allTrueCase">返回案例</router-link></div>
+          </div>
+        </div>
+        <p class="all"><span class="el-icon-info"></span>请关注已发布任务的状态了解任务进度</p>
+      </div>
     </div>
   </div>
 </template>

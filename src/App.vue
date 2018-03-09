@@ -76,6 +76,9 @@ button {
      -moz-appearance: none;
           appearance: none;
 }
+.feight {
+  background-color: #F8F8F8;
+}
 /* 院校首页 */
 .tabNav .el-tabs__item {
   font-size: 18px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="feight">
     <div class="topMenu"></div>
     <div class="componentBox">
 <!--       <el-tabs v-model="activeName.activeName" @tab-click="handleClick" tab-position="left">

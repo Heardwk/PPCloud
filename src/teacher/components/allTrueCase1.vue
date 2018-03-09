@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="feight">
     <div v-if="allcase.allcase">
       <p class="path">
         <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
