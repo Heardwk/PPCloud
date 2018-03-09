@@ -24,7 +24,8 @@
           <div class="tabCard" :class="{ topicLass: this.topicList.length==0 }">
             <div class="cardTitle">
               <span class="careName">我的题组 <span> (共{{topicList.length}}个)</span></span>
-              <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn el-icon-circle-plus"></span>
+              <!-- <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn el-icon-circle-plus"></span> -->
+              <router-link rel="span" class="addName" to='/Teacher/Shixun/Course/addProblem'>新建题组</router-link rel="span"><span class="addBtn el-icon-circle-plus"></span>
             </div>
             <div v-if="this.topicList.length>0">
               <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
@@ -89,7 +90,7 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="实训总结" name="third">
+<!--         <el-tab-pane label="实训总结" name="third">
           <span slot="label" class="icon3">实训总结</span>
           <div class="tabCard">
             <div class="cardTitle">实训总结</div>
@@ -100,7 +101,7 @@
           <div class="tabCard">
             <div class="cardTitle">课程资料</div>
           </div>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
     <!-- 教师设置弹窗 -->

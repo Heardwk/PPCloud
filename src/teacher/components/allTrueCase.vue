@@ -20,12 +20,9 @@
               :props="defaultProps"
               :data="dataList"
               node-key="id"
-              show-checkbox
-              :default-checked-keys = "isChecArr"
               ref="tree"
               :filter-node-method="filterNode"
-              :accordion = "isAccordion"
-              @check-change="handleCheckChange">
+              accordion>
             </el-tree>
           </p>
         </div>
@@ -71,8 +68,6 @@ export default {
   data () {
     return {
       bookName: '',
-      isChecArr: [],
-      isAccordion: true,
       defaultProps: {
         label: 'label',
         children: 'children'
@@ -216,10 +211,6 @@ export default {
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
-    },
-    handleCheckChange(data, checked, indeterminate) {
-      // 所有被选中的
-      
     },
     changePage(){
 

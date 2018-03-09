@@ -307,70 +307,70 @@ export default {
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
           point: '基础会计',
           type: '单选题',
           count: 2,
-          chec: false
+          chec: true
         },
       ],
       tixing: [

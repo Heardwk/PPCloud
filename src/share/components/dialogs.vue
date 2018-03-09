@@ -59,16 +59,16 @@ export default {
   name: 'dialogs',                                
   data () {
     return {
-       imgs:require('../img/img_minibanner_login@2x.png'),
-       yunimgs:require('../img/img_logo_top@2x.png'),
-       bot:require('../img/img_aplogo_login@2x.png'),
-       usernameModel: '',
-	     passwordModel: '',
-	     checked:false,
-	     loadData: {},
-	     sessionData: {},
-	     loading: false,
-     }
+      imgs:require('../img/img_minibanner_login@2x.png'),
+      yunimgs:require('../img/img_logo_top@2x.png'),
+      bot:require('../img/img_aplogo_login@2x.png'),
+      usernameModel: '',
+      passwordModel: '',
+      checked:false,
+      loadData: {},
+      sessionData: {},
+     	loading: false,
+    }
    },
    computed:{
 
@@ -83,7 +83,7 @@ export default {
 	    		return false;
 	    	}
 	    	this.loading = true;
-    	this.$http.post(`${this.$store.state.location}TokenAuth/Authenticate`, 
+    		this.$http.post(`${this.$store.state.location}TokenAuth/Authenticate`, 
 	    	{
 				  "userNameOrEmailAddress": this.usernameModel,
 				  "password": this.passwordModel
@@ -112,16 +112,16 @@ export default {
           "Athena-TenantId": this.$store.state.TenantId,
           'Authorization': localStorage.token
         }}).then(response => {
-        	this.loading = false;
+    			this.loading = false;
           this.sessionData = response.body.result;
           if(this.sessionData.user.roles[0]=="Teacher") {
             window.location.href = '#/Teacher'
           }else if(this.sessionData.user.roles[0]=="Student") {
             window.location.href = '#/Student'
-          }else if(this.sessionData.user.roles[0]=="Admin") {
-            window.location.href = '#/Load'
-          }else {
+          }else if(this.sessionData.user.roles[0]=="Dean") {
             window.location.href = '#/Educat'
+          }else {
+            window.location.href = '#/Load'
           }     
           this.$message({message: '登录成功',type: 'success',duration: 1000});
           this.$emit("dialog");
