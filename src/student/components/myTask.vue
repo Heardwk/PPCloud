@@ -61,7 +61,7 @@
               <i class="el-icon-document" @click="chakan(item.title)"></i><span @click="chakan(item.title)">答题记录</span>
             </span>
             <span v-else>
-              <i class="el-icon-delete" @click="feiqi(item.title)"></i><span @click="feiqi(item.title)">立即做题</span>
+              <i class="el-icon-delete" @click="zuoti(item.title)"></i><span @click="zuoti(item.title)">立即做题</span>
             </span>
           </div>
         </div>
@@ -139,6 +139,9 @@ export default {
     yulan(name) {
       console.log(`预览${name}`);
     },
+    zuoti(){
+      console.log(`做题${name}`);
+    }
   }
 }
 </script>

@@ -259,7 +259,7 @@ import cases  from '@/student/components/courseTraining/cases'
      methods: {
       deleteRow(index, rows) {
         // rows.splice(index, 1);
-         console.log("a")
+         console.log("马上纠正")
          
       },
        handleSizeChange(val) {
@@ -267,6 +267,9 @@ import cases  from '@/student/components/courseTraining/cases'
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+      },
+      chakan(){
+        console.log("答题记录")
       }
     },
   };

@@ -121,15 +121,15 @@ ul{
 	font-family:PingFangSC-Regular;
 	color:rgba(0,0,0,0.45);
 	line-height:22px;
-  color:#157CF0 ;
-  cursor: pointer;
+   color:#157CF0 ;
+   cursor: pointer;
 }
 .man_cot>ul>li>img{
 	display: inline-block;
 	width:100px;
 	height:48px; 
 	border-radius: 2px ;
-	border: 1px solid red; 
+	border: 1px solid #ddd; 
 }
 .man_bo>p{
 	height:20px; 

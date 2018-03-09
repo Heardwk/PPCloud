@@ -27,7 +27,7 @@
           title="上传头像"
           :visible.sync="dialogVisible"
           width="30%"
-          :before-close="handleClose">
+          >
           <span class="contys">
             <i></i>
             <el-upload
@@ -149,13 +149,6 @@ export default {
 
   },
    methods: {
-      handleClose(done) {
-        this.$confirm('确认关闭？')
-          .then(_ => {
-            done();
-          })
-          .catch(_ => {});
-      },
       handleRemove(file, fileList) {
         console.log(file, fileList);
       },
@@ -311,7 +304,8 @@ export default {
   display: inline-block;
   width: 60px;
   height: 60px;
-  background-image: url('../../share/img/School.png');
+  background-image: url('../../share/img/class_big.png');
+  border-radius: 50%;
   background-repeat: no-repeat;
 }
 .uplode{
