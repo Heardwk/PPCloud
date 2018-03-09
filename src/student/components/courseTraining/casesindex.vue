@@ -194,10 +194,10 @@
     },
 	mounted() {
 	  this.dataA = this.msgtochild.child
-      this.$store.commit("studentshow",false);
+      // this.$store.commit("studentshow",false);
     },
      destroyed() {
-     this.$store.commit("studentshow",true)
+     // this.$store.commit("studentshow",true)
   },
   }
 

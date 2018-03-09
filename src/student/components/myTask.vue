@@ -1,7 +1,7 @@
 <template>
   <div class="" style="background: white;height: 100%;">
     <div class="topMenu"></div>
-    <div style="background: white; padding: 20px 0;min-height:740px;" v-if='showst.task'>
+    <div style="background: white; padding: 20px 0;min-height:740px;" v-if='myTask.firstrouter'>
       <div class="ctrlTop">
         <span>实训课程:</span>
         <el-select v-model="course" size="medium">
@@ -122,7 +122,7 @@ export default {
 
   },
   computed: {
-    showst() {
+    myTask() {
       return this.$store.state
     }
   },
@@ -145,7 +145,6 @@ export default {
   }
 }
 </script>
-
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .ctrlTop {

@@ -25,9 +25,7 @@
 			</ul>
 			<transition name="page">
           <div class="el-main—ss">
-	          <keep-alive> 
 	            <router-view />
-	          </keep-alive>
           </div>
       </transition>
        	<div class="footer">

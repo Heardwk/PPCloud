@@ -248,10 +248,10 @@ import cases  from '@/student/components/courseTraining/cases'
       }
     },
    mounted () {
-       this.$store.commit("taskshow",false);
+       this.$store.commit("firstrouterCtrl",false);
    },
    destroyed() {
-      this.$store.commit("taskshow",true)
+      this.$store.commit("firstrouterCtrl",true)
     },
     components:{
       cases,

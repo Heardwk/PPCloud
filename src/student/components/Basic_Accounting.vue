@@ -30,9 +30,7 @@
 	     	 <div class="Basic_index_bot">
 	       		<detailscon></detailscon>
 	        </div>
-			   <keep-alive> 
 			      <router-view />
-			   </keep-alive>
 	         </div>
 		   </div>
 	     </div>
@@ -57,35 +55,35 @@ export default{
 		        src: require('../../share/img/image_class_cover.png'),
 		        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
 		        topic: 1234
-	      },
+	        },
 	         teac: {
-	        classone: ["暂无"],
-	        classtwo: "暂无",
-	      },
-	  }
+		        classone: ["暂无"],
+		        classtwo: "暂无",
+	        },
+	    }
 	},
-	  computed: {
-	      Basic(){
-	      return this.$store.state
-			    },
-			},
-	  mounted () {
+	 mounted () {
 	    this.$store.commit("firstrouterCtrl",false);
 	    this.Eattr.listName = localStorage.getItem("kcname")
- 		},
-	  watch: {
+ 	},
+	computed: {
+	      Basic(){
+	      return this.$store.state
+		},
+	},
+	watch: {
         '$route': function () {
 	        this.Eattr.listId = this.$route.query.id,
 		    this.Eattr.listName = this.$route.query.name,
 		    this.Eattr.listImg = this.$route.query.imgs
         }
-	   },
-	  components: {
+	},
+	components: {
 		  detailscon,
-	  },
-	  destroyed() {
+	    },
+	destroyed() {
 	    this.$store.commit("firstrouterCtrl",true)
-	  },
+	},
 }
 </script>
 
