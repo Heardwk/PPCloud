@@ -54,31 +54,31 @@ export default {
     return {
       schoolName: "湖南外贸职业学院",
       linkList: [
-        {
-          link: '/Educat/Monitor',
-          icon: 'el-icon-view',
-          name: '实训监控',
-        },
+        // {
+        //   link: '/Educat/Monitor',
+        //   icon: 'el-icon-view',
+        //   name: '实训监控',
+        // },
         {
           link: '/Educat/Teaching',
           icon: 'el-icon-date',
           name: '任教管理',
         },
-        {
-          link: '/Educat/Plan',
-          icon: 'el-icon-edit-outline',
-          name: '教学计划',
-        },
+        // {
+        //   link: '/Educat/Plan',
+        //   icon: 'el-icon-edit-outline',
+        //   name: '教学计划',
+        // },
         {
           link: '/Educat/Account',
           icon: 'el-icon-tickets',
           name: '账号管理',
         },
-        {
-          link: '/Educat/EAbility',
-          icon: 'el-icon-message',
-          name: '能力档案',
-        },
+        // {
+        //   link: '/Educat/EAbility',
+        //   icon: 'el-icon-message',
+        //   name: '能力档案',
+        // },
         {
           link: '/Educat/Manaportal',
           icon: 'el-icon-bell',
