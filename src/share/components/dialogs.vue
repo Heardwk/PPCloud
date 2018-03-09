@@ -114,6 +114,7 @@ export default {
         }}).then(response => {
     			this.loading = false;
           this.sessionData = response.body.result;
+          localStorage.name = response.body.result.user.name
           if(this.sessionData.user.roles[0]=="Teacher") {
             window.location.href = '#/Teacher'
           }else if(this.sessionData.user.roles[0]=="Student") {

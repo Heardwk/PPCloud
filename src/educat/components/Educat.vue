@@ -15,7 +15,7 @@
           </el-dropdown>
           |
           <el-dropdown placement="bottom">
-            <span class="el-dropdown-link">狗剩</span>
+            <span class="el-dropdown-link">王小二</span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
               <el-dropdown-item><router-link class="droplink" to="/Educat/Usermsg"  @click.native="active='/Educat/Usermsg'">基本信息</router-link></el-dropdown-item>
               <el-dropdown-item><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>

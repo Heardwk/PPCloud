@@ -222,7 +222,7 @@ export default new Router({
       component: Educat,
       children: [
         {
-          path: '', redirect: 'Monitor'
+          path: '', redirect: 'Teaching'
         },
         {
           path: 'Monitor',
