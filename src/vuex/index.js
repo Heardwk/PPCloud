@@ -14,8 +14,6 @@ export default new Vuex.Store({
     location: 'http://192.168.1.152:12331/api/',
     TenantId: '1',
     activeName: 'first',
-    student:true,
-    task:true,
     firstrouter: true,
     secondrouter: true,
     thirdrouter: true,
@@ -23,12 +21,6 @@ export default new Vuex.Store({
   mutations: {
     add(state,command) {
       state.activeName = command;
-    },
-    studentshow (state,val) {
-    	state.student = val
-    },
-    taskshow (state,val) {
-      state.task = val
     },
     firstrouterCtrl(state,val) {
       state.firstrouter = val;

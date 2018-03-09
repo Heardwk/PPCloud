@@ -35,7 +35,7 @@
 	    	             <div class="t_task_index">
 	    	                 <i></i>{{item.endtime}}
 	    	             </div>
-	    	             <div class="details">
+	    	             <div class="details"@click="goto(index)">
 	    	                  <div class="details_top">
 	    	                  	  <p>{{item.name}}</p>
 	    	                  	  <span @click="goto(index)" >查看详情</span>

@@ -1,6 +1,6 @@
 <template>
 	<div>
-	  <div class="mission">
+	  <div class="mission" v-if='examine.thirdrouter'>
 	        <div class="tea_t">
     	        <el-breadcrumb separator-class="el-icon-arrow-right">
 				  <el-breadcrumb-item :to="{ path: '/Educat/Teaching' }">任教管理</el-breadcrumb-item>
@@ -46,6 +46,17 @@
 			    </tbody>
 			  </table>
 			 </div>
+			 <div class="block"style="padding:20px 0px;">
+			    <el-pagination
+			      @size-change="handleSizeChange"
+			      @current-change="handleCurrentChange"
+			      :current-page="currentPage4"
+			      :page-sizes="[100, 200, 300, 400]"
+			      :page-size="100"
+			      layout="total, sizes, prev, pager, next, jumper"
+			      :total="400">
+			    </el-pagination>
+			</div>
     	   </div>
 	  </div>
 	</div>
@@ -77,15 +88,32 @@ export default{
 	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
 	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
 	      { id:'06',name: '基础会计5', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-       ]
+       ],
+        currentPage1: 5,
+        currentPage2: 5,
+        currentPage3: 5,
+        currentPage4: 4
      }
 	},
+	computed:{
+		examine(){
+			return this.$store.state
+		}
+	},
 	mounted(){
-      this.$store.commit("allcaseshow",false);
+      this.$store.commit("secondrouterCtrl",false);
 	},
     destroyed() {
-      this.$store.commit("allcaseshow",true)
-  },
+      this.$store.commit("secondrouterCtrl",true)
+    },
+    methods:{
+    handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+	    },
+    handleCurrentChange(val) {
+	        console.log(`当前页: ${val}`);
+	    }
+    }
 }
 </script>
 
