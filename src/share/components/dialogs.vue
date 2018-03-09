@@ -11,22 +11,22 @@
 		      		  	 <span>
 		      		  	 	   开放、互动、共享生态的云平台
 		      		  	 </span>
-  		  	          <div class="input_g">
-  		  	          	  <div class="g-form-line">
-									        <div class="g-form-input">
-									          <input type="text" class="chile" v-model="usernameModel" placeholder="用户名    Admin">
-									        </div>
-									      </div>
-									      <div class="g-form-line">
-									        <div class="g-form-input">
-									          <input type="password" v-model="passwordModel" placeholder="密码">
-									        </div>
-									      </div>
-  		  	          </div>
-  		  	          <div class="g_pwd">
-  		  	              <el-checkbox class="ckd" v-model="checked">记住密码</el-checkbox>
-  		  	              <a>忘记密码</a>
-  		  	          </div>
+			  		  	          <div class="input_g">
+			  		  	          	  <div class="g-form-line">
+												        <div class="g-form-input">
+												          <input type="text" class="chile" v-model="usernameModel" placeholder="用户名    Admin">
+												        </div>
+												      </div>
+												      <div class="g-form-line">
+												        <div class="g-form-input">
+												          <input type="password" v-model="passwordModel" placeholder="密码">
+												        </div>
+												      </div>
+			  		  	          </div>
+			  		  	          <div class="g_pwd">
+			  		  	              <el-checkbox class="ckd" v-model="checked">记住密码</el-checkbox>
+			  		  	              <a>忘记密码</a>
+			  		  	          </div>
 							        <div class="g-form-btn">
 							          <a class="button"  @click.stop="onLogin" >登&nbsp;&nbsp;录</a>
 							        </div>
@@ -67,7 +67,7 @@ export default {
       checked:false,
       loadData: {},
       sessionData: {},
-     	loading: false,
+      loading: false,
     }
    },
    computed:{

@@ -5,7 +5,6 @@
            <div style="width:960px;margin:0 auto;">
             <div class="nav">
     	   	   <el-breadcrumb separator="/">
-    				  <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
     				  <el-breadcrumb-item :to=" { path:'/Student/myTask'}">我的任务</el-breadcrumb-item>
     				  <el-breadcrumb-item>基本会计</el-breadcrumb-item>
     				</el-breadcrumb>
