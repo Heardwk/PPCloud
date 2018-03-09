@@ -217,6 +217,7 @@ ul{
 	border: 1px solid #D8D8D8; 
 	margin-left: 15px;
 	margin-right: 100px;
+	cursor: pointer;
 }
 .details:hover{
 	margin-top: 10px;

@@ -1,18 +1,16 @@
 <template>
    <div>
 	   <div class="Basic">
-           <div class="topMenu"></div>
            <div class="Basic_content">
             <div style="width:960px;margin:0 auto;">
               <div class="nav">
 	   	    	 <el-breadcrumb separator="/">
 				  <el-breadcrumb-item :to="{ path: '/Student/trainingCenter'}">实训中心</el-breadcrumb-item>
-				  <el-breadcrumb-item>基本会计</el-breadcrumb-item>
+				  <el-breadcrumb-item>{{Eattr.listName}}</el-breadcrumb-item>
 				</el-breadcrumb>
 	   	    </div>
 			 <div class="whiteBox booktop">
 		        <img :src="bookAttr.src" height="180" width="224" class="bookimg">
-		        <router-link to="/" class="anli">全真案例</router-link>
 		        <div class="book">
 		          <h3>{{Eattr.listName}}</h3>
 		          <span class="upload">{{bookAttr.turnover}}</span>
@@ -53,12 +51,12 @@ export default{
 				listName:'获取数据失败',
 			},
 		    bookAttr: {
-	        name: '没有',
-	        turnover:'17年8月更新',
-	        teacher:'张中全',
-	        src: require('../../share/img/image_class_cover.png'),
-	        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
-	        topic: 1234
+	        	name: '没有',
+		        turnover:'17年8月更新',
+		        teacher:'张中全',
+		        src: require('../../share/img/image_class_cover.png'),
+		        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
+		        topic: 1234
 	      },
 	         teac: {
 	        classone: ["暂无"],
@@ -66,28 +64,28 @@ export default{
 	      },
 	  }
 	},
- mounted () {
-       this.$store.commit("studentshow",false);
-	   // if(this.$route.query.id&&this.$route.query.name&&this.$route.query.imgs){
-	    this.Eattr.listId = this.$route.query.id,
+	  computed: {
+	      Basic(){
+	      return this.$store.state
+			    },
+			},
+	  mounted () {
+	    this.$store.commit("firstrouterCtrl",false);
 	    this.Eattr.listName = localStorage.getItem("kcname")
-	    this.Eattr.listImg = this.$route.query.imgs
-	 // }
- },
-  watch: {
+ 		},
+	  watch: {
         '$route': function () {
 	        this.Eattr.listId = this.$route.query.id,
 		    this.Eattr.listName = this.$route.query.name,
 		    this.Eattr.listImg = this.$route.query.imgs
         }
-   },
-  components: {
-	  detailscon,
-  },
-
-  destroyed() {
-    this.$store.commit("studentshow",true)
-  },
+	   },
+	  components: {
+		  detailscon,
+	  },
+	  destroyed() {
+	    this.$store.commit("firstrouterCtrl",true)
+	  },
 }
 </script>
 
@@ -97,7 +95,7 @@ export default{
 	font-family:PingFangSC-Regular;
 	color:rgba(0,0,0,0.45);
 	line-height:22px;
-	margin: 30px 0px;
+	padding: 21px 0px;
 }
 .Basic_content{
   border-bottom: 2px solid #FAFAFA;
@@ -155,20 +153,16 @@ export default{
   display: flex;
 }
 .booktop {
-  background-image: url('../../share/img/img_class_goto.png');
-  background-repeat: no-repeat;
-  background-position: 780px 20px;
+
 }
 
 .book {
   height: 180px;
   margin-left: 20px;
-  width: 504px;
   position: relative;
   padding-right: 20px;
   padding: 0px 20px 0 0;
-  border-right: 1px solid #EEEEEE;
-      margin-bottom: 50px;
+  margin-bottom: 50px;
 }
 .book h3 {
   font-size: 16px;
