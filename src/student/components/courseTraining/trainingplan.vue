@@ -7,8 +7,8 @@
           <div class="cot_img">
               <img class="show_img" v-if="act_show" :src="imgs"/>
           <div class="ax_default" v-if="act">
-              <ul v-for="item in plan ">
-              	<li>
+              <ul>
+              	<li v-for="item in plan ">
               		  <img :src="item.url"/>
               		   <div class="ax_default_tit">
               		   	 <p>{{item.title}}</p>
@@ -82,6 +82,10 @@ ul{
 	text-align: left;
 	line-height: 50px;
 }
+.ax_default>ul{
+  width: 95%;
+  margin:auto; 
+}
 .ax_default>ul>li{
 	height: 80px;
 	width: 100%;
@@ -90,6 +94,7 @@ ul{
 	vertical-align: middle;
 	align-items: center;
 	position: relative;
+  margin: 20px 0px;
 }
 .ax_default>ul>li>img{
 	display: inline-block;

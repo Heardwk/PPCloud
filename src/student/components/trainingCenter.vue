@@ -5,7 +5,7 @@
       <p class="boxTitle">最近使用</p>
       <div style="margin-bottom:20px;width: 960px;margin: auto;">
         <router-link class="recentlyList recentlyListTop" tag="div" v-for="(item,index) in recentlyData" 
-        :key="index" to="trainingCenter/Basic_Accounting" @click.native="goto(item.name)">
+        :key="index" to="/Student/trainingCenter/Basic_Accounting" @click.native="goto(item.name)">
           <img :src="item.src" width="100%">
           <div>
             <h4>{{item.name}}</h4>
@@ -20,7 +20,7 @@
       <div class="componentBox" v-for="(item,index) in classType" :key="index">
         <p class="boxTitle">{{item.type}}</p>
         <div>
-          <router-link class="recentlyList recentlyListBot" tag="div" v-for="(item,index) in item.bookList" :key="index" to="trainingCenter/Basic_Accounting" @click.native="goto(item.name)">
+          <router-link class="recentlyList recentlyListBot" tag="div" v-for="(item,index) in item.bookList" :key="index" to="/Student/trainingCenter/Basic_Accounting" @click.native="goto(item.name)">
             <img :src="item.src" width="100%">
             <div>
               <h4>{{item.name}}</h4>
@@ -32,7 +32,6 @@
       </div>
     </div>
     <div><router-view /></div>
-    
   </div>
 </template>
 

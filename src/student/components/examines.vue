@@ -247,11 +247,11 @@ import cases  from '@/student/components/courseTraining/cases'
         }],
       }
     },
-   mounted () {
-       this.$store.commit("taskshow",false);
-   },
-   destroyed() {
-      this.$store.commit("taskshow",true)
+    mounted () {
+       this.$store.commit("firstrouterCtrl",false);
+    },
+    destroyed() {
+      this.$store.commit("firstrouterCtrl",true)
     },
     components:{
       cases,
