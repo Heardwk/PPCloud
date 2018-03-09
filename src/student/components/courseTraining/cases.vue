@@ -6,37 +6,21 @@
 	                    <div class="cases_cot_left_tit">
 	                        <span>知识点</span>
 							  <div id="input_s">   
-							   <el-row class="demo-autocomplete">
-							  <el-col>
-							      <el-autocomplete
-							      class="inline-input"
-							      v-model="state"
-							      :fetch-suggestions="querySearch"
-							      placeholder="搜索"
-							      @select="handleSelect"
-							    ></el-autocomplete>
-							  </el-col>
-							</el-row>
-							</div>
+                                 <el-input
+									  placeholder="请输入"
+									  v-model="filterText">
+								  </el-input>
+							  </div>
 	                    </div>
 						<div class="cases_cot_left_content">
-<!-- 						    <ul v-for="(item,index) in knowledge">
-						    		<li @click="aa(index)"  v-if="myfilter(item.name)":class="{'classactive':ind === index}">
-						    		 <i></i>
-						    		 <span>
-						    		 {{myfilter(item.name)}}
-						    		 </span>
-						    		 <b></b>
-						    	</li>
-						    </ul>-->
-                          	 <el-tree
+						    <el-tree
+							  class="filter-tree"
 							  :data="data2"
-							  show-checkbox
-							  node-key="id"
-							  :default-expanded-keys="[2, 3]"
-							  :default-checked-keys="[5]"
-							  :props="defaultProps">
-							</el-tree> 
+							  :props="defaultProps"
+							  default-expand-all
+							  :filter-node-method="filterNode"
+							  ref="tree2">
+							</el-tree>
 						</div> 
 	              </div>
 	         </div>
@@ -177,15 +161,9 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 		      },
          ],
         restaurants: [],
-        state: '',
         bb:'0',
         ind:0,
-        sidess: [
-          { "value": "错账更正"},
-          { "value": "会计账务处理程序"},
-          { "value": "会计报表在财务中的应用"},
-          { "value": "三年会计二年实战模拟"},
-        ],
+        filterText: '',
         data2: [{
           id: 1,
           label: '一级 1',
@@ -227,30 +205,27 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
         }
       };
     },
-    
+    watch: {
+      filterText(val) {
+        this.$refs.tree2.filter(val);
+      }
+    },
     methods: {
       querySearch(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         cb(results);
       },
-      myfilter(arr){
-                if(arr.indexOf(this.state)>-1){
-                    return arr
-                }else{
-                	
-                }
-            },
       createFilter(queryString) {
         return (restaurant) => {
           return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
         };
       },
+      handleNodeClick(data) {
+        console.log(data);
+      },
       loadAll() {
         return this.sidess
-      },
-      handleSelect(item) {
-//      console.log(item);
       },
       list_s(id,name,imgs){
         this.$router.push({ name:'casesindex',query: {id:id,name:name,imgs:imgs}});
@@ -259,7 +234,11 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
       aa(index,event) {
 	     this.bb = index
 	     this.ind = index
-	  }
+	  },
+	   filterNode(value, data) {
+        if (!value) return true;
+        return data.label.indexOf(value) !== -1;
+      }
 	},
     components:{
     	casesindex,

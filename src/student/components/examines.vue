@@ -258,7 +258,9 @@ import cases  from '@/student/components/courseTraining/cases'
     },
      methods: {
       deleteRow(index, rows) {
-        rows.splice(index, 1);
+        // rows.splice(index, 1);
+         console.log("a")
+         
       },
        handleSizeChange(val) {
         console.log(`每页 ${val} 条`);

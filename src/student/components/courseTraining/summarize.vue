@@ -105,6 +105,7 @@ ul{
 	border: 1px solid #EEEEEE;
 	border-radius: 6px;
 	margin: 10px auto;
+	cursor: pointer;
 }
 .summ_default>ul>li:hover{
 	background-color:rgb(255,245,245);
