@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="" style="min-height:100%;background: white">
     <div v-if="shixun.firstrouter" class="feight">
       <div v-if="recentlyData.length>0" class="componentBox">
         <p class="boxTitle">最近使用</p>

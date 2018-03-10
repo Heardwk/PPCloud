@@ -105,7 +105,13 @@ header {
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
 }
 .speac {
-  background: #000000;
+  position: absolute;
+  top: 0;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);
+  background: #6d4388;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d4388', endColorstr='#5E4088',GradientType=0 );
+  background: -webkit-gradient(linear, left top, left bottom, from(#6D4388), to(#5E4088));
+  background: linear-gradient(#6D4388, #5E4088);
 }
 .foot {
   width: 960px;

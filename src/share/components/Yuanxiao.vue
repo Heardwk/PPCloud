@@ -1,5 +1,5 @@
 <template>
-  <div class="" style="background: white">
+  <div class="" style="min-height:100%;background: white">
   	<div class="bg">
      <div class="wifi">
        <div class="wifiContent">
