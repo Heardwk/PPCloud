@@ -51,8 +51,8 @@ export default {
       studentimgs:require('../../share/img/corgi.jpg'),
     }
   },
-    methods:{
-    goDetail(){
+  methods:{
+   goDetail(){
       this.$router.push({ name:'/Yuanxiao'});
    },
    increment(){

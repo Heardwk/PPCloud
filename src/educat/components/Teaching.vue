@@ -9,7 +9,7 @@
     	   <div class="tea_cot">
     	   	<b>任课课程</b>
     	       <template>
-				  <el-select v-model="values_select" clearable  placeholder="请选择">
+				  <el-select v-model="values_select" @change="changeselect" clearable  placeholder="请选择">
 				    <el-option
 				      v-for="item in options"
 				      :key="item.value"
@@ -22,7 +22,7 @@
 			 <div class="el-table-fil">
 				  <b>任教时间</b>
 				  <template>
-					  <el-select v-model="values_index" clearable placeholder="请选择">
+					  <el-select v-model="values_index" @change="changeClass" clearable placeholder="请选择">
 					    <el-option
 					      v-for="item in options_index"
 					      :key="item.value"
@@ -45,15 +45,15 @@
     	   	 </div>
     	   	 <div class="tea_tables">
     	       <table>
-			   <tbody class="tabod">
+			    <tbody class="tabod">
 			       <tr 
-			       	v-for="(itemgridData,index) in gridData"
+			       	v-for="(itemg,index) in menu"
 			       	:key="index"
-			       	v-if="myfilterindex(itemgridData.name)&&myfilter(itemgridData.when)"
 			       	@click="go(index)"
 			       	>
+			       	<td>{{ currentPage4<2? `0${index+1}`: index+1+(10*(currentPage4-1))}}</td>
 			        <td 
-			        v-for="(item,index) in itemgridData">
+			        v-for="(item,index) in itemg">
 			        {{item}}
 			        </td>
 			      </tr>
@@ -66,17 +66,16 @@
     	   </div>
     	    <div class="block">
 			    <el-pagination
-			      @size-change="handleSizeChange"
 			      @current-change="handleCurrentChange"
 			      :current-page="currentPage4"
-			      :page-sizes="[100, 200, 300, 400]"
-			      :page-size="100"
-			      layout="total, sizes, prev, pager, next, jumper"
-			      :total="400">
+			      :page-size="2"
+			      layout="total, prev, pager, next, jumper"
+			      :total="tot">
 			    </el-pagination>
 			</div>
     	</div>
          <router-view :gridData = "gridData[z]"></router-view>
+        {{coursenumber}}
 	</div>
 </template>
 
@@ -87,93 +86,175 @@ export default {
     return {
     	getall: {},
     	values_select: '',
+    	couese: -1,
     	values_index: '',
+    	time: '',
     	z:'0',
 		options: [],
-        options_index: [{
-		    value: '2017-2018年第二学期1',
-		    label: '2017-2018年第二学期1'
-        }, {
-            value: '2017-2018年第二学期2',
-            label: '2017-2018年第二学期2'
-        }, {
-            value: '2017',
-            label: '2017-2018年第二学期3'
-        }
-        ],
+		grade:{},
+		gridData:{},
+		tot:10,
+		course:true,
+        options_index: [],
         data:["序号","任教课程","任教教师","任教时间","任教院校","任教年级","任教班级","实训次数"],
-        gridData: [
-	      { id:'01',name: '基础会计', teacher: '张三',when:'2017-2018年第二学期1', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'02',name: '基础会计', teacher: '张三1',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'03',name: '基础会计', teacher: '张三2',when:'2017-2018年第二学期2', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'04',name: '基础会计2', teacher: '张三3',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'05',name: '基础会计2', teacher: '张三4',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计2', teacher: '张三5',when:'2017-2018年第二学期3', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'07',name: '基础会计3', teacher: '张三6',when:'2017-2018年第二学期4', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'08',name: '基础会计3', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'09',name: '基础会计3', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'10',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-      ],
-        currentPage1: 5,
-        currentPage2: 5,
-        currentPage3: 5,
-        currentPage4: 4
+        gridDataitemindex: [],
+        currentPage4: 1
      }
 	},
 	mounted() {
-		this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
-		{
-			"published": true,
-			"isActive": true,
-			"filter": ""
-		},{
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": localStorage.token
-			}
-		}).then(response=>{
-			this.getall = response.body.result;
-			this.init();
-		}).then(response=>{
-			console.log("error")
-		})	
+		this.classindex();
+		this.selecttime();
+		this.getUserInfo();
 	},
 	computed: {
 	    showst() {
 	    	return this.$store.state
-	    }
+	    },
+	    menu(){
+	    	this.gridDataitemindex = [];
+            for(let i in this.gridData){
+            this.gridDataitemindex.push({
+            	 'name':'', 
+            	 'teacher': this.gridData[i].teacherName,
+            	 'when':this.gridData[i].termName, 
+            	 'college':this.gridData[i].departmentName,
+            	 'classs':this.gridData[i].gradeName,
+            	 'tea_class':this.gridData[i].classIds,
+            	 'degree':this.gridData[i].missionCount
+            })
+          }
+          return  this.gridDataitemindex
+	    },
+	    coursenumber(){
+            for(let i in this.gridData){
+                for(let j in this.getall.items){
+		            if(this.gridData[i].courseId == this.getall.items[j].id){
+		             this.gridDataitemindex[i].name = this.getall.items[j].title
+                }
+             }
+          }
+	    },
+
     },
 	methods: {
-		init() {
+		changeselect(){
+			if(this.values_select=="") {
+				this.couese = -1;
+				return
+			}
+			for(let i in this.options) {
+				if(this.options[i].label == this.values_select) {
+					this.couese = this.options[i].value;
+				}
+			}
+			this.getUserInfo()
+			console.log("这是任教课程的change事件")
+		},
+		// 时间
+		changeClass() {
+			if(this.values_index=="") {
+				this.time = '';
+				return
+			}
+			for(let i in this.options_index) {
+				if(this.options_index[i].label == this.values_index) {
+					this.time = this.options_index[i].value;
+				}
+			}
+			this.getUserInfo()
+			console.log("这是任教时间的change事件")
+		},
+		// 任教课程
+		initoptions() {
+			this.options =[];
 			for(let i in this.getall.items) {
 				this.options.push({
 					'label': this.getall.items[i].title,
-					'value': this.getall.items[i].title 
+					'value': this.getall.items[i].id
 				})
 			}
 		},
-	myfilter(arr){
-        if(arr.indexOf(this.values_index)>-1){
-            return arr
-        }else{
-        }
-    },
-	myfilterindex(arr){
-        if(arr.indexOf(this.values_select)>-1){
-            return arr
-        }else{
-       }
-    },
-    go(index){
-    	this.$router.push({ path:'/Educat/Teaching/taskdetail'});
-    	this.z = index
-    },
-    handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-    },
-    handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
-    }
+		// 任教时间
+		gradetime() {
+			this.options_index = [];
+			for(let i in this.grade.items) {
+				this.options_index.push({
+					'label': this.grade.items[i].termName,
+					'value': this.grade.items[i].termName 
+				})
+			}
+		},
+		gridDatas(){
+			this.gridData=this.gridDataitem.items
+		},
+	    go(index){
+	    	this.$router.push({ path:'/Educat/Teaching/taskdetail'});
+	    	this.z = index
+	    },
+	    handleCurrentChange(val) {
+	    	this.currentPage4 = val;
+	    	this.getUserInfo();
+	    },
+	    // 表单
+		getUserInfo(){
+			this.$http.post(`${this.$store.state.location}/services/app/Course/GetCourseTeacherAssociate`,
+		       {
+		       	"maxResultCount": 3,
+		  		"skipCount": (this.currentPage4-1)*3
+		       },{
+	        	headers: {
+					"Content-Type": "application/json",
+					"Authorization": localStorage.token
+				}
+		      }).then(response=>{
+		      	this.gridDataitem = response.body.result;
+		      	console.log(this.gridDataitem)
+				this.tot =  response.body.result.totalCount
+				this.gridDatas();
+				 console.log('this.$http 的成功') 
+			},response=>{
+				 console.log('this.$http 的失败') 
+		});
+	  },
+	  // 任教课程
+	  classindex(){
+		this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
+			{
+				"courseId": this.course,
+				"termId": this.time,
+				"published": true,
+				"isActive": true,
+				"filter": ""
+			},{
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": localStorage.token
+				}
+			}).then(response=>{
+				this.getall = response.body.result;
+				this.initoptions();
+			},response=>{
+				console.log("error")
+		});
+	  },
+	   // 任教时间
+      selecttime(){
+	    this.$http.post(`${this.$store.state.location}/services/app/Term/GetAll`,
+	        {
+			 	"skipCount": 0,
+			    "maxResultCount": 10
+	        },{
+	        	headers: {
+					"Content-Type": "application/json",
+					"Authorization": localStorage.token
+				}
+	        }).then(response=>{
+				this.grade = response.body.result;
+				this.gradetime();
+			},response=>{
+				console.log("error")
+		});
+      }
   }
 }
 </script>
@@ -238,7 +319,7 @@ export default {
 }
 .tabod>tr>td{
 	text-align: center;
-    width: 10%;
+    width: 12%;
 }
 .tabod>tr{
 	height: 48px;
@@ -324,17 +405,17 @@ table>tr{
 	cursor: pointer;
 }
 .tabod>tr>td:nth-child(3){
-	padding-left: 1.5%;
+	padding-left: 0.5%;
 }
-.tabod>tr>td:nth-child(5){
-	padding-left: 1.5%;
+/*.tabod>tr>td:nth-child(5){
+	padding-left: 0%;
 }
 .tabod>tr>td:nth-child(6){
 	padding-left: 1.5%;
 }
 .tabod>tr>td:nth-child(7){
 	padding-left: 2.5%;
-}
+}*/
 .block{
 	margin: 0px 25px;
 	text-align: center;
