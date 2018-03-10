@@ -1,6 +1,5 @@
 <template>
   <div >
-    <div class="topMenu"></div>
     <div class="componentBox" v-if='showst.firstrouter'>
       <p class="boxTitle">最近使用</p>
       <div style="margin-bottom:20px;width: 960px;margin: auto;">

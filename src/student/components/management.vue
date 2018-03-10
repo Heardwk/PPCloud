@@ -1,7 +1,6 @@
 <template>
 	 <div>
         <div class="content">
-           <div class="topMenu"></div>
            <div class="Intermediate">
               <div class="tit"></div>
               <div class="man_nav">

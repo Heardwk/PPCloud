@@ -1,6 +1,5 @@
 <template>
   <div class="feight">
-    <div class="topMenu"></div>
     <div class="componentBox">
 <!--       <el-tabs v-model="activeName.activeName" @tab-click="handleClick" tab-position="left">
   	    <el-tab-pane label="基本信息" name="first">基本信息</el-tab-pane>

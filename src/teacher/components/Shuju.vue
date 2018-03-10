@@ -1,6 +1,5 @@
 <template>
   <div class="">
-    <div class="topMenu"></div>
     <div style="background: white;padding: 20px 0;">
       <div class="topBox">
         <div>

@@ -1,29 +1,27 @@
 <template>
   <div class="teac">
-    <el-container style="min-height: 100%;position:relative; padding-bottom: 20px;background:white">
+    <el-container style="min-height: 100%;position:relative; padding-bottom: 70px;">
       <!-- 头部 -->
-      <el-header>
+      <el-header height="80" :class="propaganda.propaganda?'speac':''">
         <div class="head">
-          <router-link to='/Teacher/Yuanxiao' class="logo colo"></router-link>
+          <router-link to='/Teacher/Yuanxiao' class="logo"></router-link>
           <router-link 
-            v-for="(item,index) in urlData" class="link colo" 
+            v-for="(item,index) in urlData" class="link" 
             :key="index" :to="item.url"
             :data-content="item.name">
             {{item.name}}
           </router-link>
-          <el-dropdown placement="bottom" @command="gerenlink" class="user colo">
+          <el-dropdown placement="bottom" @command="gerenlink" class="user">
             <span class="el-dropdown-link"><img :src="user.img" width="38">{{user.name}}<i class="el-icon-caret-bottom" style="margin-left: 8px"></i></span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
               <el-dropdown-item command="first"><router-link class="droplink" to="/Teacher/Geren">基本信息</router-link></el-dropdown-item>
-<!--               <el-dropdown-item command="second"><router-link class="droplink" to="/Teacher/Geren">我的消息</router-link></el-dropdown-item>
-              <el-dropdown-item command="third"><router-link class="droplink" to="/Teacher/Geren">资料管理</router-link></el-dropdown-item> -->
               <el-dropdown-item command=""><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
       </el-header>
       <!-- 内容 -->
-      <el-main style="min-height: 100%; padding-bottom: 50px;">
+      <el-main style="height: 100%;">
         <transition name="" mode="out-in">
           <router-view />
         </transition>
@@ -82,6 +80,11 @@ export default {
         }
       }
     }
+  },
+  computed: {
+    propaganda() {
+      return this.$store.state
+    },
   }
 }
 </script>
@@ -104,6 +107,7 @@ export default {
 .head .link {
   margin: 0 12px;
   font-size: 18px;
+  color: #687178;
 }
 .head .logo {
   position: absolute;
@@ -112,8 +116,11 @@ export default {
   top: 20px;
   background: url('../../share/img/logo_Dark.png') no-repeat;
 }
-.head .logoW {
+.speac .head .logo {
   background: url('../../share/img/logo_Light.png') no-repeat;
+}
+.speac .head .link,.speac .head .user {
+  color: white;
 }
 .head .link:nth-child(2) {
   margin-left: 275px;

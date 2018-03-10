@@ -97,22 +97,15 @@ button {
   overflow-y: auto;
 }
 header {
-  background-color: transparent;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
+  height: 80px;
   z-index: 100;
   line-height: 79px;
-}
-.topMenu {
-  height: 80px;
   background: white;
-  position: relative;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
 }
-.head .white {
-  color: white;
+.speac {
+  background: #000000;
 }
 .foot {
   width: 960px;

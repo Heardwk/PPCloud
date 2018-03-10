@@ -1,7 +1,6 @@
  <template>
 	 <div style="height: 100%;">
       <div class="content">
-              <div class="topMenu"></div>
           <div class="componentBox" style="background-color:#f8f8f8;padding-top:20px;">
             <div class="container">
               <div class="left">
