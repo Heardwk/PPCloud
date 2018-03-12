@@ -1,6 +1,5 @@
 <template>
-  <div class="">
-  	<div class="topMenu"></div>
+  <div class="" style="min-height:100%;background: white">
     <div v-if="shixun.firstrouter" class="feight">
       <div v-if="recentlyData.length>0" class="componentBox">
         <p class="boxTitle">最近使用</p>
@@ -127,10 +126,11 @@ export default {
           ] 
         },
       ],
+      getall: {}
     }
   },
   mounted() {
-
+    this.getAllCourse()
   },
   computed: {
     shixun() {
@@ -140,6 +140,22 @@ export default {
   methods: {
     goto(name) {
       localStorage.setItem("bookName",name);
+    },
+    getAllCourse() {
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
+        {
+          "published": true,
+          "isActive": true,
+          "filter": ""
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.getall = response.body.result;
+        },response=>{
+          console.log('error')
+        })      
     }
   },
   components: {

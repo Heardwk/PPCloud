@@ -1,6 +1,5 @@
 <template>
   <div class="" style="background: white;height: 100%;">
-    <div class="topMenu"></div>
     <div style="background: white; padding: 20px 0;min-height:740px;" v-if='myTask.firstrouter'>
       <div class="ctrlTop">
         <span>实训课程:</span>

@@ -90,7 +90,6 @@ export default {
 				}, 
 				{headers: {
 					"Content-Type": "application/json",
-					"Athena-TenantId": this.$store.state.TenantId
 				}}).then(response => {
 					this.loadData = response.body.result;
 					localStorage.token = `Bearer ${this.loadData.accessToken}`;
@@ -109,8 +108,6 @@ export default {
         {}, 
         {headers: {
           "Content-Type": "application/json",
-          "Athena-TenantId": this.$store.state.TenantId,
-          'Authorization': localStorage.token
         }}).then(response => {
     			this.loading = false;
           this.sessionData = response.body.result;

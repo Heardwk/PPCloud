@@ -3,21 +3,21 @@
     <el-container style="position:relative;min-height:100%;padding-bottom:65px;">
       <ul class="navigation">
 				 <div class="heads">
-	        <el-header class="mainMenu classactivses" :class="{'shade':shows}">
+	        <el-header class="mainMenu classactivses" :class="propaganda.propaganda?'speac':''">
 	        	<div class="logo-left">
-	        		  <router-link to='/Student/Yuanxiao' @click.native='increment' active-class="active" class="logo-left_img colo ">
+	        		  <router-link to='/Student/Yuanxiao'class="logo-left_img colo ">
 			     		  </router-link>
 			     	</div>
-	        	<router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="实训中心" to="/Student/trainingCenter">实训中心</router-link>
-	          <router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="我的任务" to="/Student/myTask">我的任务</router-link>
-	          <router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="成绩管理" to="/Student/management">成绩管理</router-link>
-	          <router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="能力档案" to="/Student/abilityfile">能力档案</router-link>
-	          <router-link class="link ls" @click.native='ins' :class="{'classactive':shows}" data-content="资料共享" to="/Student/datasharing">资料共享</router-link>
+	        	<router-link class="link ls" data-content="实训中心" to="/Student/trainingCenter">实训中心</router-link>
+	          <router-link class="link ls" data-content="我的任务" to="/Student/myTask">我的任务</router-link>
+	          <router-link class="link ls" data-content="成绩管理" to="/Student/management">成绩管理</router-link>
+	          <router-link class="link ls" data-content="能力档案" to="/Student/abilityfile">能力档案</router-link>
+	          <router-link class="link ls" data-content="资料共享" to="/Student/datasharing">资料共享</router-link>
 	          <el-dropdown>
-						  <span class="el-dropdown-link ls" :class="{'classactive':shows}"> <img class="logo-img" :src="studentimgs"/>学生</span>
+						  <span class="el-dropdown-link ls" > <img class="logo-img" :src="studentimgs"/>学生</span>
 						  <el-dropdown-menu slot="dropdown">
-						    <el-dropdown-item><router-link @click.native='ins' class="droplink" to="/Student/MyCenter">个人中心</router-link></el-dropdown-item>
-						    <el-dropdown-item><router-link @click.native='ins' class="droplink" to="/Load">退出</router-link></el-dropdown-item>
+						    <el-dropdown-item><router-link class="droplink" to="/Student/MyCenter">个人中心</router-link></el-dropdown-item>
+						    <el-dropdown-item><router-link class="droplink" to="/Load" @click.native="back">退出</router-link></el-dropdown-item>
 						  </el-dropdown-menu>
 						</el-dropdown>
 	        </el-header>
@@ -51,31 +51,21 @@ export default {
       studentimgs:require('../../share/img/corgi.jpg'),
     }
   },
-  methods:{
-   goDetail(){
+  computed: {
+    propaganda() {
+      return this.$store.state
+    },
+  },
+    methods:{
+    goDetail(){
+
       this.$router.push({ name:'/Yuanxiao'});
    },
-   increment(){
-   	  this.shows = true
-   },
-   ins(){
-   	var classactive = document.getElementsByClassName("classactive");
-    if(classactive.length > 0){
-        this.shows = false
-        this.showss = false
-    }
-    var ls = document.getElementsByClassName("ls");
-    if(ls.length > 0){
-          for(let i=0; i<ls.length; i++) {
-          ls[i].classList.remove("white");
-          this.showss = true
-        }
-    }
-    var shade = document.getElementsByClassName("shade");
-    if(shade.length > 0){
-        this.showss = false
-    }
-   }
+  back() {
+      delete localStorage.token;
+      delete localStorage.userId
+      delete localStorage.name
+    },
   }
 }
 </script>
@@ -84,30 +74,12 @@ export default {
 .link:hover{
    color: #157cf0;
 }
-.classactivses{
-  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
-}
 .shade{
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);  
-}
-.classactive {
-	color: white!important;
-}
-.white {
-	color: white!important;
-}
-.classactive:hover {
-  color: #157cf0!important;
-}
-.white:hover{
-  color: #157cf0!important;
 }
 .el-tabs--border-card {
      background: #ddd; 
 }
-.active{
-  background: url('../../share/img/logo_Light.png') no-repeat !important;
-	}
 .droplink{
 		display: block;
 	}
@@ -289,6 +261,12 @@ body,html{
   cursor: pointer;
   width: 165px;
   height: 40px;
+}
+.speac .logo-left>.logo-left_img {
+  background-image: url('../../share/img/logo_Light.png');
+}
+.speac .link,.speac .el-dropdown {
+  color: white;
 }
 .footer{
 	 width: 100%;

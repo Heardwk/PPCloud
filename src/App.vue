@@ -25,7 +25,7 @@ export default {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-@-moz-document url-prefix(chrome://), url-prefix(about:), 
+@-moz-document url-prefix(chrome://), url-prefix(about:),
 url-prefix(file:///), url-prefix(http://), url-prefix(https://){
   scrollbar{
     -moz-appearance: none !important;
@@ -35,7 +35,7 @@ url-prefix(file:///), url-prefix(http://), url-prefix(https://){
     overflow: hidden !important;
     z-index: 999999999 !important; /* 把滚动条提到Z轴最上层 */
   }
-  scrollbar[orient="vertical"] {   
+  scrollbar[orient="vertical"] {
     width: 0 !important;
   } 
 }
@@ -97,22 +97,21 @@ button {
   overflow-y: auto;
 }
 header {
-  background-color: transparent;
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
+  height: 80px;
   z-index: 100;
   line-height: 79px;
-}
-.topMenu {
-  height: 80px;
   background: white;
-  position: relative;
   box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
 }
-.head .white {
-  color: white;
+.speac {
+  position: absolute;
+  top: 0;
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2);
+  background: #6d4388;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d4388', endColorstr='#5E4088',GradientType=0 );
+  background: -webkit-gradient(linear, left top, left bottom, from(#6D4388), to(#5E4088));
+  background: linear-gradient(#6D4388, #5E4088);
 }
 .foot {
   width: 960px;
@@ -173,7 +172,7 @@ header {
 .fuzhuziliao .el-carousel__indicators {
   display: none;
 }
-.fuzhuziliao .el-carousel__container {  
+.fuzhuziliao .el-carousel__container {
   transition: height linear .5s;
   -webkit-transition: height linear .5s;
 }

@@ -1,6 +1,5 @@
 <template>
-  <div class="">
-    <div class="topMenu"></div>
+  <div class="" style="min-height:100%">
     <div class="componentBox">能力档案</div>
   </div>
 </template>

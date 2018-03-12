@@ -107,6 +107,20 @@ export default {
 		this.classindex();
 		this.selecttime();
 		this.getUserInfo();
+		this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
+		{
+			"published": true,
+			"isActive": true,
+			"filter": ""
+		},{
+			headers: {
+				"Content-Type": "application/json"
+			}
+		}).then(response=>{
+			this.getall = response.body.result;
+		},response=>{
+			console.log("error")
+		})	
 	},
 	computed: {
 	    showst() {
@@ -211,8 +225,7 @@ export default {
 		  		"skipCount": (this.currentPage4-1)*this.page
 		       },{
 	        	headers: {
-					"Content-Type": "application/json",
-					"Authorization": localStorage.token
+					"Content-Type": "application/json"
 				}
 		      }).then(response=>{
 		      	this.gridDataitem = response.body.result;
@@ -234,8 +247,7 @@ export default {
 				"filter": ""
 			},{
 				headers: {
-					"Content-Type": "application/json",
-					"Authorization": localStorage.token
+					"Content-Type": "application/json"
 				}
 			}).then(response=>{
 				this.getall = response.body.result;
@@ -252,8 +264,7 @@ export default {
 			    "maxResultCount": 10
 	        },{
 	        	headers: {
-					"Content-Type": "application/json",
-					"Authorization": localStorage.token
+					"Content-Type": "application/json"
 				}
 	        }).then(response=>{
 				this.grade = response.body.result;

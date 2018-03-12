@@ -1,6 +1,5 @@
 <template>
-  <div class="feight">
-    <div class="topMenu"></div>
+  <div class="feight" style="min-height:100%;">
     <div class="contentBox">
       <div class="contentLeft">
         <p><span class="hasLine">知识点</span></p>

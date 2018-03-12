@@ -102,8 +102,7 @@ export default {
 				"courseId":1
 	        },{
 	         	headers: {
-					"Content-Type": "application/json",
-					"Authorization": localStorage.token
+					"Content-Type": "application/json"
 					}
 	        }).then(res=>{
 	        	    this.taskdata = res.body.result;

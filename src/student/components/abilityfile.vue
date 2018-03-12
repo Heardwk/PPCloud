@@ -1,7 +1,6 @@
 <template>
 	 <div>
         <div class="content">
-           <div class="topMenu"></div>
             <h3>能力档案</h3>
       </div>
    </div>

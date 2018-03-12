@@ -1,5 +1,5 @@
 <template>
-  <div class="" style="background: white">
+  <div class="" style="min-height:100%;background: white">
   	<div class="bg">
      <div class="wifi">
        <div class="wifiContent">
@@ -65,23 +65,7 @@ export default {
     }
   },
   mounted() {
-    try {
-      var colo = document.getElementsByClassName("colo");
-      if(colo[0]){
-        for(let i=0; i<colo.length; i++) {
-          colo[i].classList.add("white");
-        }
-        colo[0].classList.add("logoW");
-      } 
-      var ls = document.getElementsByClassName("ls");
-      if(ls.length>0){
-          for(let i=0; i<ls.length; i++) {
-          ls[i].classList.add("white");
-        }
-      }
-    }catch(error){
-      console.log(error)
-    }
+    this.$store.commit('propagandaCtrl',true)
   },
   methods: {
   	handleClick(tab,events){
@@ -89,17 +73,7 @@ export default {
   	}
   },
   destroyed() {
-    try{
-      var colo = document.getElementsByClassName("colo");
-      if(colo[0]){  
-        for(let i=0; i<colo.length; i++) {
-          colo[i].classList.remove("white");
-        }
-        colo[0].classList.remove("logoW");
-      }
-    }catch(error){
-      console.log(error)
-    }
+    this.$store.commit('propagandaCtrl',false)
   }
 }
 </script>
