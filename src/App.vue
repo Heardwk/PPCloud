@@ -25,7 +25,7 @@ export default {
      -moz-box-sizing: border-box;
           box-sizing: border-box;
 }
-@-moz-document url-prefix(chrome://), url-prefix(about:), 
+@-moz-document url-prefix(chrome://), url-prefix(about:),
 url-prefix(file:///), url-prefix(http://), url-prefix(https://){
   scrollbar{
     -moz-appearance: none !important;
@@ -35,7 +35,7 @@ url-prefix(file:///), url-prefix(http://), url-prefix(https://){
     overflow: hidden !important;
     z-index: 999999999 !important; /* 把滚动条提到Z轴最上层 */
   }
-  scrollbar[orient="vertical"] {   
+  scrollbar[orient="vertical"] {
     width: 0 !important;
   } 
 }
@@ -172,7 +172,7 @@ header {
 .fuzhuziliao .el-carousel__indicators {
   display: none;
 }
-.fuzhuziliao .el-carousel__container {  
+.fuzhuziliao .el-carousel__container {
   transition: height linear .5s;
   -webkit-transition: height linear .5s;
 }

@@ -134,7 +134,7 @@ export default {
 		}).then(response=>{
 			this.getall = response.body.result;
 			this.init();
-		}).then(response=>{
+		},response=>{
 			console.log("error")
 		})	
 	},

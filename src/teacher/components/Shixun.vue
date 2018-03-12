@@ -126,10 +126,25 @@ export default {
           ] 
         },
       ],
+      getall: {}
     }
   },
   mounted() {
-
+    this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
+      {
+        "published": true,
+        "isActive": true,
+        "filter": ""
+      },{
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": localStorage.token
+        }
+      }).then(response=>{
+        this.getall = response.body.result;
+      },response=>{
+        console.log('error')
+      })
   },
   computed: {
     shixun() {
