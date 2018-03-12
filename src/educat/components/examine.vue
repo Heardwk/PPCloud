@@ -5,7 +5,7 @@
     	        <el-breadcrumb separator-class="el-icon-arrow-right">
 				  <el-breadcrumb-item :to="{ path: '/Educat/Teaching' }">任教管理</el-breadcrumb-item>
 				  <el-breadcrumb-item :to="{ path: '/Educat/Teaching/taskdetail' }">任教详情</el-breadcrumb-item>
-				  <el-breadcrumb-item>任务详情</el-breadcrumb-item>
+				  <el-breadcrumb-item>实训详情</el-breadcrumb-item>
 			    </el-breadcrumb>
     	   </div>
     	    <div class="task_top">

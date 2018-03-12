@@ -47,7 +47,7 @@
     	       <table>
 			    <tbody class="tabod">
 			       <tr 
-			       	v-for="(itemg,index) in menu"
+			       	v-for="(itemg,index) in gridDataitemindex"
 			       	:key="index"
 			       	@click="go(index)"
 			       	>
@@ -56,7 +56,7 @@
 			        v-for="(item,index) in itemg">
 			        {{item}}
 			        </td>
-			      </tr>
+			      </tr> 
 			    </tbody>
 			  </table>
 			 </div>
@@ -68,13 +68,13 @@
 			    <el-pagination
 			      @current-change="handleCurrentChange"
 			      :current-page="currentPage4"
-			      :page-size="2"
+			      :page-size="page"
 			      layout="total, prev, pager, next, jumper"
 			      :total="tot">
 			    </el-pagination>
 			</div>
     	</div>
-         <router-view :gridData = "gridData[z]"></router-view>
+         <router-view :gridData = "gridData[g]"></router-view>
         {{coursenumber}}
 	</div>
 </template>
@@ -86,10 +86,10 @@ export default {
     return {
     	getall: {},
     	values_select: '',
-    	couese: -1,
+    	couese: 0,
     	values_index: '',
-    	time: '',
-    	z:'0',
+    	time: 0,
+    	g:'0',
 		options: [],
 		grade:{},
 		gridData:{},
@@ -98,7 +98,9 @@ export default {
         options_index: [],
         data:["序号","任教课程","任教教师","任教时间","任教院校","任教年级","任教班级","实训次数"],
         gridDataitemindex: [],
-        currentPage4: 1
+        gridDataitem: [],
+        currentPage4: 1,
+        page: 2,
      }
 	},
 	mounted() {
@@ -110,33 +112,32 @@ export default {
 	    showst() {
 	    	return this.$store.state
 	    },
-	    menu(){
-	    	this.gridDataitemindex = [];
-            for(let i in this.gridData){
-            this.gridDataitemindex.push({
-            	 'name':'', 
-            	 'teacher': this.gridData[i].teacherName,
-            	 'when':this.gridData[i].termName, 
-            	 'college':this.gridData[i].departmentName,
-            	 'classs':this.gridData[i].gradeName,
-            	 'tea_class':this.gridData[i].classIds,
-            	 'degree':this.gridData[i].missionCount
-            })
-          }
-          return  this.gridDataitemindex
-	    },
 	    coursenumber(){
             for(let i in this.gridData){
                 for(let j in this.getall.items){
 		            if(this.gridData[i].courseId == this.getall.items[j].id){
 		             this.gridDataitemindex[i].name = this.getall.items[j].title
                 }
-             }
+            }
           }
 	    },
 
     },
 	methods: {
+		pipeiData() {
+			this.gridDataitemindex = [];
+            for(let i in this.gridData){
+	            this.gridDataitemindex.push({
+	            	 'name':'', 
+	            	 'teacher': this.gridData[i].teacherName,
+	            	 'when':this.gridData[i].termName, 
+	            	 'college':this.gridData[i].departmentName,
+	            	 'classs':this.gridData[i].gradeName,
+	            	 'tea_class':this.gridData[i].classIds,
+	            	 'degree':this.gridData[i].missionCount
+	            })
+          }
+		},
 		changeselect(){
 			if(this.values_select=="") {
 				this.couese = -1;
@@ -158,7 +159,8 @@ export default {
 			}
 			for(let i in this.options_index) {
 				if(this.options_index[i].label == this.values_index) {
-					this.time = this.options_index[i].value;
+					this.time = this.options_index[i].id;
+					console.log(this.time)
 				}
 			}
 			this.getUserInfo()
@@ -180,27 +182,33 @@ export default {
 			for(let i in this.grade.items) {
 				this.options_index.push({
 					'label': this.grade.items[i].termName,
-					'value': this.grade.items[i].termName 
+					'value': this.grade.items[i].id 
 				})
 			}
 		},
-		gridDatas(){
-			this.gridData=this.gridDataitem.items
-		},
 	    go(index){
 	    	this.$router.push({ path:'/Educat/Teaching/taskdetail'});
-	    	this.z = index
+	    	this.g= index;
+	    	localStorage.setItem('setname',this.gridDataitemindex[index].name);
+	    	localStorage.setItem('teacher',this.gridDataitemindex[index].teacher);
+	    	localStorage.setItem('when',this.gridDataitemindex[index].when);
+            localStorage.setItem('college',this.gridDataitemindex[index].college);
+            localStorage.setItem('classs',this.gridDataitemindex[index].classs);
+            localStorage.setItem('tea_class',this.gridDataitemindex[index].tea_class);
+            localStorage.setItem('degree',this.gridDataitemindex[index].degree);
 	    },
 	    handleCurrentChange(val) {
 	    	this.currentPage4 = val;
 	    	this.getUserInfo();
 	    },
-	    // 表单
+	    // 分页表格
 		getUserInfo(){
 			this.$http.post(`${this.$store.state.location}/services/app/Course/GetCourseTeacherAssociate`,
 		       {
-		       	"maxResultCount": 3,
-		  		"skipCount": (this.currentPage4-1)*3
+		       	"courseId": this.couese,
+				"termName": this.time,
+		       	"maxResultCount": this.page,
+		  		"skipCount": (this.currentPage4-1)*this.page
 		       },{
 	        	headers: {
 					"Content-Type": "application/json",
@@ -209,8 +217,9 @@ export default {
 		      }).then(response=>{
 		      	this.gridDataitem = response.body.result;
 		      	console.log(this.gridDataitem)
-				this.tot =  response.body.result.totalCount
-				this.gridDatas();
+				this.tot =  response.body.result.totalCount;
+				this.gridData=this.gridDataitem.items;
+				this.pipeiData()
 				 console.log('this.$http 的成功') 
 			},response=>{
 				 console.log('this.$http 的失败') 
@@ -220,8 +229,6 @@ export default {
 	  classindex(){
 		this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
 			{
-				"courseId": this.course,
-				"termId": this.time,
 				"published": true,
 				"isActive": true,
 				"filter": ""
@@ -255,7 +262,18 @@ export default {
 				console.log("error")
 		});
       }
-  }
+  },
+  // 删除localstorage里面的值
+	destroyed: function () {
+			localStorage.removeItem('setname');
+			localStorage.removeItem('teacher');
+			localStorage.removeItem('when');
+			localStorage.removeItem('college');
+			localStorage.removeItem('classs');
+			localStorage.removeItem('tea_class');
+			localStorage.removeItem('degree');
+
+        }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

@@ -11,14 +11,14 @@
     	       <p>任教详情</p>
     	      <div calss="t_task">
     	       	  <ul class="t_task_t">
-    	       	  	<li><b>教师名称:</b>:<span>{{gridData.teacher}}</span></li>
-    	       	  	<li><b>任教课程:</b><span>{{gridData.name}}</span></li>
-    	       	  	<li><b>任教期间:</b><span>{{gridData.when}}</span></li>
+    	       	  	<li><b>教师名称:</b>:<span>{{termName}}</span></li>
+    	       	  	<li><b>任教课程:</b><span>{{side}}</span></li>
+    	       	  	<li><b>任教期间:</b><span>{{when}}</span></li>
     	       	  </ul>
     	       	  <ul class="t_task_t">
-    	       	  	<li><b>任教学院:</b><span>{{gridData.college}}</span></li>
-    	       	  	<li><b>任教年级:</b><span>{{gridData.classs}}</span></li>
-    	       	  	<li><b>任叫班级:</b><span>{{gridData.tea_class}}</span></li>
+    	       	  	<li><b>任教学院:</b><span>{{collega}}</span></li>
+    	       	  	<li><b>任教年级:</b><span>{{classs}}</span></li>
+    	       	  	<li><b>任叫班级:</b><span>{{tea}}</span></li>
     	       	  </ul>
     	      </div>
     	   </div>
@@ -69,36 +69,64 @@ export default {
   },
   data () {
     return {
+    taskdata:[],
+    side:'',
+    termName:'',
+    when:'',
+    collega:'',
+    classs:'',
+    tea:'',
+    degree:'',
     dix:'0',
     data_list:[
        {
        	name:'这是任务名称',fitime:'2018-02-03 08:00:00',endtime:'2018-02-03 08:00:00',endtime:'2018-02-03 08:00:00',tea_class:'1701、1702、1703',tea_class:'1701、1702、1703',grade:'90',comments:'无' 
-       },
-        {
-       	name:'这是任务名称1',fitime:'2018-02-03 08:00:00',endtime:'2018-02-03 08:00:00',endtime:'2018-02-03 08:00:00',tea_class:'1701、1702、1703',tea_class:'1701、1702、1703',grade:'90',comments:'这里是备注' 
-       },
-       {
-       	name:'这是任务名称2',fitime:'2018-02-03 08:00:00',endtime:'2018-02-03 08:00:00',endtime:'2018-02-03 08:00:00',tea_class:'1701、1702、1703',tea_class:'1701、1702、1703',grade:'90',comments:'无' 
-       },
+       }
      ]
 	}
   },
-  computed: {
-    showst() {
-      return this.$store.state
-     }
-    },
-  methods:{
-  	goto(index){
-  		this.dix = index
-		this.$router.push({path:'/Educat/Teaching/taskdetail/examine'})
-  	}
+    computed: {
+        showst() {
+		    return this.$store.state
+		}
+    }, 
+ 	methods:{
+	  	goto(index){
+	  		this.dix = index
+			this.$router.push({path:'/Educat/Teaching/taskdetail/examine'})
+	  	},
+	  	task(){
+	        this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
+	        {
+				"teacherId":1,
+				"courseId":1
+	        },{
+	         	headers: {
+					"Content-Type": "application/json",
+					"Authorization": localStorage.token
+					}
+	        }).then(res=>{
+	        	    this.taskdata = res.body.result;
+					console.log('this.$http 的成功') 
+	        },res=>{
+			    	console.log('this.$http 的失败') 
+	        })
+	  	},
   },
   mounted () {
+  	this.side = localStorage.getItem("setname")   
     this.$store.commit("firstrouterCtrl",false);
+	this.termName = localStorage.getItem('teacher');
+	this.when = localStorage.getItem('when');
+    this.collega = localStorage.getItem('college');
+    this.classs = localStorage.getItem('classs');
+    this.tea = localStorage.getItem('tea_class');
+    this.degree = localStorage.getItem('degree');
+    this.task();
+    console.log(this.taskdata)
   },
   destroyed() {
-    this.$store.commit("firstrouterCtrl",true)
+     this.$store.commit("firstrouterCtrl",true)
   },
  }
 
