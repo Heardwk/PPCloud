@@ -18,7 +18,7 @@
             <span class="el-dropdown-link">王小二</span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
               <el-dropdown-item><router-link class="droplink" to="/Educat/Usermsg"  @click.native="active='/Educat/Usermsg'">基本信息</router-link></el-dropdown-item>
-              <el-dropdown-item><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
+              <el-dropdown-item><router-link class="droplink" to="/Load" @click.native="back">退出</router-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -100,6 +100,11 @@ export default {
   methods: {
     checkMenu(indexPath) {
       this.active = indexPath;
+    },
+    back() {
+      delete localStorage.token;
+      delete localStorage.userId
+      delete localStorage.name
     }
   },
 }

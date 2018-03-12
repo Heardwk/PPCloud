@@ -15,7 +15,7 @@
             <span class="el-dropdown-link"><img :src="user.img" width="38">{{user.name}}<i class="el-icon-caret-bottom" style="margin-left: 8px"></i></span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
               <el-dropdown-item command="first"><router-link class="droplink" to="/Teacher/Geren">基本信息</router-link></el-dropdown-item>
-              <el-dropdown-item command=""><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
+              <el-dropdown-item command=""><router-link class="droplink" to="/Load" @click.native="back">退出</router-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -79,6 +79,11 @@ export default {
           this.$store.commit("add",command)
         }
       }
+    },
+    back() {
+      delete localStorage.token;
+      delete localStorage.userId
+      delete localStorage.name
     }
   },
   computed: {

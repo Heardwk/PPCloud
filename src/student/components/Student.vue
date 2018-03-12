@@ -17,7 +17,7 @@
 						  <span class="el-dropdown-link ls" > <img class="logo-img" :src="studentimgs"/>学生</span>
 						  <el-dropdown-menu slot="dropdown">
 						    <el-dropdown-item><router-link class="droplink" to="/Student/MyCenter">个人中心</router-link></el-dropdown-item>
-						    <el-dropdown-item><router-link class="droplink" to="/Load">退出</router-link></el-dropdown-item>
+						    <el-dropdown-item><router-link class="droplink" to="/Load" @click.native="back">退出</router-link></el-dropdown-item>
 						  </el-dropdown-menu>
 						</el-dropdown>
 	        </el-header>
@@ -60,6 +60,11 @@ export default {
     goDetail(){
       this.$router.push({ name:'/Yuanxiao'});
    },
+  back() {
+      delete localStorage.token;
+      delete localStorage.userId
+      delete localStorage.name
+    },
   }
 }
 </script>
