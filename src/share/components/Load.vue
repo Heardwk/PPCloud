@@ -4,11 +4,11 @@
       <div class="loadBox" v-if="show"><dialogs @dialog="dialog"></dialogs></div>
       <el-header height="80" :class="propaganda.propaganda?'speac':''">
         <div class="head">
-          <router-link to="/Teacher">教师登录</router-link>
+<!--           <router-link to="/Teacher">教师登录</router-link>
           <router-link to="/Student">学生登录</router-link>
-          <router-link to="/Educat">教务登录</router-link>
+          <router-link to="/Educat">教务登录</router-link> -->
           <router-link to="/tizu" target="_blank">题组</router-link>
-          <button @click="loading">登录</button>
+          <el-button type="success" @click="loading">登录</el-button>
         </div>
       </el-header>
       <yuanxiao></yuanxiao>

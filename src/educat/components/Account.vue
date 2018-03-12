@@ -31,13 +31,11 @@
 				    	</div>
 				    <div class="block">
 					    <el-pagination
-					      @size-change="handleSizeChange"
-					      @current-change="handleCurrentChange"
-					      :current-page="currentPage4"
-					      :page-sizes="[100, 200, 300, 400]"
-					      :page-size="100"
-					      layout="total, sizes, prev, pager, next, jumper"
-					      :total="400">
+					      @current-change="handleCurrentChange1"
+					      :current-page="currentPage1"
+					      :page-size="pageSize1"
+					      layout="total, prev, pager, next, jumper"
+					      :total="allData1">
 					    </el-pagination>
 					</div>
 				    </el-tab-pane>
@@ -115,12 +113,10 @@
 			    	</div>
 			    	<div class="block"style="margin-top:20px;">
 					    <el-pagination
-					      @size-change="handleSizeChange"
-					      @current-change="handleCurrentChange"
-					      :current-page="currentPage4"
-					      :page-sizes="[100, 200, 300, 400]"
+					      @current-change="handleCurrentChange2"
+					      :current-page="currentPage2"
 					      :page-size="100"
-					      layout="total, sizes, prev, pager, next, jumper"
+					      layout="total, prev, pager, next, jumper"
 					      :total="400">
 					    </el-pagination>
 					</div>
@@ -140,16 +136,16 @@ export default {
         tabPosition: 'top',
         data:["序号","用户名","姓名","任教时间","院系","手机号","有效期","状态"],
         gridData: [
-	      { id:'01',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期1', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'02',name: '18524550255', teacher: '李四1',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'03',name: '18524550255', teacher: '李四2',when:'2017-2018年第二学期2', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'04',name: '18524550255', teacher: '李四3',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'05',name: '18524550255', teacher: '李四4',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期3', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期4', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',degree:'使用中'},
+	      { id:'01',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期1', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'02',name: '18524550255', teacher: '李四1',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'03',name: '18524550255', teacher: '李四2',when:'2017-2018年第二学期2', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'04',name: '18524550255', teacher: '李四3',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'05',name: '18524550255', teacher: '李四4',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期3', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期4', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
+	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
 	    
       ],
 			gridData_student: [
@@ -158,12 +154,31 @@ export default {
 		      { id:'03',college: '纳税',classs:'2017级',tea_class:'1703', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'已到期'},
 	      ],
         value: '',
-        currentPage1: 5,
-        currentPage2: 5,
-        currentPage3: 5,
-        currentPage4: 4
+        currentPage1: 1,
+        pageSize1: 1,
+        allData1: 3,
+        currentPage2: 1,
+        pageSize2: 2,
+        allData2: 3,
+        teacherData: []
       }
    },
+  mounted() {
+		this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionGroupList`,
+      {
+        "courseId": 1,
+  			"maxResultCount": 10,
+  			"skipCount": 0
+      },{
+        headers: {
+          "Content-Type": "application/json",
+        }
+      }).then(response=>{
+        this.teacherData = response.body.result.items;
+      },response=>{
+        console.log('error')
+      })
+  },
    methods: {
       formatter(row, column) {
         return row.address;
@@ -175,12 +190,12 @@ export default {
         const property = column['property'];
         return row[property] === value;
       },
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-	    },
-	  handleCurrentChange(val) {
+	  handleCurrentChange1(val) {
 	        console.log(`当前页: ${val}`);
-	    }
+	    },
+	    handleCurrentChange2(val) {
+
+	    },
     }
 }
 </script>

@@ -33,15 +33,9 @@ Vue.http.interceptors.push((request, next) => {
     if (!response.body.__abp) {
       console.log('不是ABP框架');
       window.location.href = '#/Load';
-      // request.respondWith(response.body, {
-      //   "errorText": '不是ABP框架'
-      // })
     } else if(response.body.unAuthorizedRequest) {
       console.log('登录超时');
       window.location.href = '#/Load';
-      // request.respondWith(response.body, {
-      //   "errorText": '未登录'
-      // })
     }
   })
 

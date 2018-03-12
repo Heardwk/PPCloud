@@ -328,12 +328,14 @@ export default {
           time: '2017-07-01',
           clas: '1701班 1703班'
         }
-      ]
+      ],
+      questionList: []
     }
   },
   mounted() {
     this.$store.commit("firstrouterCtrl",false);
     this.bookAttr.name = localStorage.getItem("bookName");
+    this.getQuestionList();
   },
   methods: {
     handleClick(tab, event) {
@@ -370,6 +372,22 @@ export default {
         })
         .catch(_ => {});
       console.log(item)
+    },
+    getQuestionList() {
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionGroupList`,
+        {
+          "courseId": 1,
+          "maxResultCount": 10,
+          "skipCount": 0
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.questionList = response.body.result.items;
+        },response=>{
+          console.log('error')
+        }) 
     }
   },
   computed: {

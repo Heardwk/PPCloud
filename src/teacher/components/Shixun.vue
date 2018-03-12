@@ -130,21 +130,7 @@ export default {
     }
   },
   mounted() {
-    this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
-      {
-        "published": true,
-        "isActive": true,
-        "filter": ""
-      },{
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": localStorage.token
-        }
-      }).then(response=>{
-        this.getall = response.body.result;
-      },response=>{
-        console.log('error')
-      })
+    this.getAllCourse()
   },
   computed: {
     shixun() {
@@ -154,6 +140,22 @@ export default {
   methods: {
     goto(name) {
       localStorage.setItem("bookName",name);
+    },
+    getAllCourse() {
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
+        {
+          "published": true,
+          "isActive": true,
+          "filter": ""
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.getall = response.body.result;
+        },response=>{
+          console.log('error')
+        })      
     }
   },
   components: {
