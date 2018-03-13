@@ -91,8 +91,8 @@ export default {
 		}
     }, 
     mounted () {
+    	this.$store.commit("firstrouterCtrl",false);
 	  	this.side = localStorage.getItem("setname")   
-	    this.$store.commit("firstrouterCtrl",false);
 		this.termName = localStorage.getItem('teacher');
 		this.when = localStorage.getItem('when');
 	    this.collega = localStorage.getItem('college');
@@ -103,8 +103,14 @@ export default {
     },
  	methods:{
 	  	goto(index){
-	  		this.dix = index
-			this.$router.push({path:'/Educat/Teaching/taskdetail/examine'})
+	  		this.dix = index;
+			this.$router.push({path:'/Educat/Teaching/taskdetail/examine'});
+			localStorage.setItem('name',this.data_list[index].name);
+	    	localStorage.setItem('fitime',this.data_list[index].fitime);
+	    	localStorage.setItem('endtime',this.data_list[index].endtime);
+            localStorage.setItem('tea_class',this.data_list[index].tea_class);
+            localStorage.setItem('grade',this.data_list[index].grade);
+            localStorage.setItem('comments',this.data_list[index].comments);
 	  	},
 	  	task(){
 	        this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
@@ -117,7 +123,7 @@ export default {
 					"Content-Type": "application/json"
 					}
 	        }).then(res=>{
-	        	    this.taskdata = res.body.result;
+	        	    this.taskdata = res.body.result.items;
 	        	    this.result();
 	        },res=>{
 			    	console.log('this.$http 的失败') 
@@ -127,64 +133,46 @@ export default {
 	  		for (let i in this.taskdata) {
 	  		 	this.data_list.push({
 	  		 		"name":this.taskdata[i].tittle,
-	  		 		"fitime":'',
-	  		 		"endtime":'',
+	  		 		"fitime":this.time(this.taskdata[i].startTime),
+	  		 		"endtime":this.time(this.taskdata[i].endTime),
 	  		 		"tea_class":'',
 	  		 		"grade":0,
 	  		 		"comments":this.taskdata[i].remark,
 	  		 	}) 
 	  		};
-	  		this.time();
-	        this.endtime();
 	        this.grade();
-	        this.score();
 	        this.tot = this.taskdata.length;
 	  	},
-	  //时间下次封装
-	  	time(){
+	  //时间
+	  	time(time){
 	  		for(let i in this.taskdata){
-		       this.num = this.taskdata[i].startTime.slice(0,10);
-		       this.point = this.taskdata[i].startTime.slice(11,-7);
-		       this.str = this.num.concat(' '+this.point)
-               for (let i in this.data_list) {
-               	   this.data_list[i].fitime =  this.str
-               }
+	  			if(time){
+			        this.num = time.slice(0,10);
+			        this.point = time.slice(11,-7);
+			        this.str = this.num.concat(' '+this.point)
+	                return  this.str
+                }
 	  		}
 	  	},
-	  	endtime(){
-	  		this.num = '';
-	  		this.point = '';
-	  		this.str = '';
-	  		for(let i in this.taskdata){
-		       this.num = this.taskdata[i].endTime.slice(0,10);
-		       this.point = this.taskdata[i].endTime.slice(11,-7);
-		       this.str = this.num.concat(' '+this.point)
-               for (let i in this.data_list) {
-               	   this.data_list[i].endtime =  this.str
-               }
-	  		}
-	  	},
-	  	// 班级
+	  	// 班级和总分值
 	  	grade(){
 	  		for (let i in this.taskdata) {
 	  			for (let j in this.taskdata[i].classes) {
-	  			    this.data_list[i].tea_class = this.data_list[i].tea_class +  this.taskdata[i].classes[j].serialNumber+'、' 
+	  			    this.data_list[i].tea_class +=  this.taskdata[i].classes[j].serialNumber+'、';
+	  			    this.data_list[i].grade += this.taskdata[i].questions[j].questionWeighting
 	  			}
 	  		}
 	  	},
-	  	// 总分值
-	  	score(){
-	  		for (let i in this.taskdata) {
-	  			for (let j in this.taskdata[i].questions) {
-	  				 this.data_list[i].grade += this.taskdata[i].questions[i].questionWeighting
-	  			}
-	  		}
-	  	}
-	  	
   },
-  destroyed() {
-     this.$store.commit("firstrouterCtrl",true)
-  },
+	destroyed() {
+		this.$store.commit("firstrouterCtrl",true);
+		localStorage.removeItem('name');
+		localStorage.removeItem('fitime');
+		localStorage.removeItem('endtime');
+		localStorage.removeItem('tea_class');
+		localStorage.removeItem('grade');
+		localStorage.removeItem('comments');
+	},
  }
 
 </script>
