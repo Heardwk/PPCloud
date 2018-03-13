@@ -23,7 +23,6 @@
           </el-dropdown>
         </div>
       </el-header>
-      <div style="height: 80px;"></div>
       <el-container class="ww con">
         <el-aside style="background: #001529; min-height: 100%;" :width="menuToggle?'64px':'200px'">
           <span v-model="menuToggle" @click="menuToggle=!menuToggle" 
