@@ -9,16 +9,16 @@
 			    </el-breadcrumb>
     	   </div>
     	    <div class="task_top">
-    	       <p>{{data_list.name}}</p>
+    	       <p>{{name}}</p>
     	      <div calss="t_task">
     	       	  <ul class="t_task_t">
-    	       	  	<li><b>开始时间:</b>:<span>{{data_list.fitime}}</span></li>
-    	       	  	<li><b>结束时间:</b><span>{{data_list.endtime}}</span></li>
-    	       	  	<li><b>参与班级:</b><span>{{data_list.tea_class}}</span></li>
+    	       	  	<li><b>开始时间:</b>:<span>{{fitime}}</span></li>
+    	       	  	<li><b>结束时间:</b><span>{{endtime}}</span></li>
+    	       	  	<li><b>参与班级:</b><span>{{tea_class}}</span></li>
     	       	  </ul>
     	       	  <ul class="t_task_t">
-    	       	  	<li><b>分值:</b><span>{{data_list.grade}}</span></li>
-    	       	  	<li><b>备注:</b><span>{{data_list.comments}}</span></li>
+    	       	  	<li><b>分值:</b><span>{{grade}}分</span></li>
+    	       	  	<li><b>备注:</b><span>{{comments}}</span></li>
     	       	  </ul>
     	      </div>
     	   </div>
@@ -65,34 +65,24 @@
 <script>
 export default{
 	name :'examine',
-	props:{
-      data_list:{
-			type:Object
-		}
-	},
+	// props:{
+ //      data_list:{
+	// 		type:Object
+	// 	}
+	// },
 	data(){
 		return{ 
-		data:["序号","任教课程","任教教师","任教时间","任教院校","任教年级","任教班级","实训次数"],
+		data:["姓名","学号","班级","得分","排名","阅卷情况"],
 		gridData: [
-	      { id:'01',name: '基础会计', teacher: '张三',when:'2017-2018年第二学期1', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'02',name: '基础会计', teacher: '张三1',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'03',name: '基础会计', teacher: '张三2',when:'2017-2018年第二学期2', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'04',name: '基础会计2', teacher: '张三3',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'05',name: '基础会计2', teacher: '张三4',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计2', teacher: '张三5',when:'2017-2018年第二学期3', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计3', teacher: '张三6',when:'2017-2018年第二学期4', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计3', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计3', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计4', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
-	      { id:'06',name: '基础会计5', teacher: '张三',when:'2017-2018年第二学期', college: '会计学院',classs:'2015级',tea_class:'1701、1702、1703',degree:'3'},
+	      { id:'01',name: '基础会计', teacher: '张三',when:'2017-2018年第二学期1', college: '会计学院',classs:'2015级'}
        ],
-        currentPage1: 5,
-        currentPage2: 5,
-        currentPage3: 5,
-        currentPage4: 4
+        currentPage4: 4,
+        name:'',
+        fitime:'',
+        endtime:'',
+        tea_class:'',
+		grade:'',
+		comments:'',
      }
 	},
 	computed:{
@@ -101,18 +91,24 @@ export default{
 		}
 	},
 	mounted(){
-      this.$store.commit("secondrouterCtrl",false);
+        this.$store.commit("secondrouterCtrl",false);
+      	this.name = localStorage.getItem("name");
+		this.fitime = localStorage.getItem('fitime');
+		this.endtime = localStorage.getItem('endtime');
+	    this.tea_class = localStorage.getItem('tea_class');
+	    this.grade = localStorage.getItem('grade');
+	    this.comments = localStorage.getItem('comments');
 	},
     destroyed() {
-      this.$store.commit("secondrouterCtrl",true)
+      	this.$store.commit("secondrouterCtrl",true)
     },
     methods:{
-    handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
-	    },
-    handleCurrentChange(val) {
-	        console.log(`当前页: ${val}`);
-	    }
+	    handleSizeChange(val) {
+	        console.log(`每页 ${val} 条`);
+		},
+	    handleCurrentChange(val) {
+		        console.log(`当前页: ${val}`);
+		}
     }
 }
 </script>

@@ -25,7 +25,7 @@
     	   <div class="">
     	        <div class="task_tit">
     	           <b>实训详情</b>
-    	           <span>共实训3次</span>
+    	           <span>共实训{{tot}}次</span>
     	        </div>
     	       <div class="cont_b">
     	       <template 
@@ -78,11 +78,11 @@ export default {
     tea:'',
     degree:'',
     dix:'0',
-    data_list:[
-       {
-       	name:'这是任务名称',fitime:'2018-02-03 08:00:00',endtime:'2018-02-03 08:00:00',endtime:'2018-02-03 08:00:00',tea_class:'1701、1702、1703',tea_class:'1701、1702、1703',grade:'90',comments:'无' 
-       }
-     ]
+    num:'',
+	point:'',
+	str:'',
+    data_list:[],
+    tot:'',
 	}
   },
     computed: {
@@ -90,43 +90,89 @@ export default {
 		    return this.$store.state
 		}
     }, 
+    mounted () {
+    	this.$store.commit("firstrouterCtrl",false);
+	  	this.side = localStorage.getItem("setname")   
+		this.termName = localStorage.getItem('teacher');
+		this.when = localStorage.getItem('when');
+	    this.collega = localStorage.getItem('college');
+	    this.classs = localStorage.getItem('classs');
+	    this.tea = localStorage.getItem('tea_class');
+	    this.degree = localStorage.getItem('degree');
+	    this.task();
+    },
  	methods:{
 	  	goto(index){
-	  		this.dix = index
-			this.$router.push({path:'/Educat/Teaching/taskdetail/examine'})
+	  		this.dix = index;
+			this.$router.push({path:'/Educat/Teaching/taskdetail/examine'});
+			localStorage.setItem('name',this.data_list[index].name);
+	    	localStorage.setItem('fitime',this.data_list[index].fitime);
+	    	localStorage.setItem('endtime',this.data_list[index].endtime);
+            localStorage.setItem('tea_class',this.data_list[index].tea_class);
+            localStorage.setItem('grade',this.data_list[index].grade);
+            localStorage.setItem('comments',this.data_list[index].comments);
 	  	},
 	  	task(){
 	        this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
 	        {
-				"teacherId":1,
-				"courseId":1
+	        //测试数据
+				"teacherId":0,
+				"courseId":0
 	        },{
 	         	headers: {
 					"Content-Type": "application/json"
 					}
 	        }).then(res=>{
-	        	    this.taskdata = res.body.result;
-					console.log('this.$http 的成功') 
+	        	    this.taskdata = res.body.result.items;
+	        	    this.result();
 	        },res=>{
 			    	console.log('this.$http 的失败') 
 	        })
 	  	},
+	  	result(){
+	  		for (let i in this.taskdata) {
+	  		 	this.data_list.push({
+	  		 		"name":this.taskdata[i].tittle,
+	  		 		"fitime":this.time(this.taskdata[i].startTime),
+	  		 		"endtime":this.time(this.taskdata[i].endTime),
+	  		 		"tea_class":'',
+	  		 		"grade":0,
+	  		 		"comments":this.taskdata[i].remark,
+	  		 	}) 
+	  		};
+	        this.grade();
+	        this.tot = this.taskdata.length;
+	  	},
+	  //时间
+	  	time(time){
+	  		for(let i in this.taskdata){
+	  			if(time){
+			        this.num = time.slice(0,10);
+			        this.point = time.slice(11,-7);
+			        this.str = this.num.concat(' '+this.point)
+	                return  this.str
+                }
+	  		}
+	  	},
+	  	// 班级和总分值
+	  	grade(){
+	  		for (let i in this.taskdata) {
+	  			for (let j in this.taskdata[i].classes) {
+	  			    this.data_list[i].tea_class +=  this.taskdata[i].classes[j].serialNumber+'、';
+	  			    this.data_list[i].grade += this.taskdata[i].questions[j].questionWeighting
+	  			}
+	  		}
+	  	},
   },
-  mounted () {
-  	this.side = localStorage.getItem("setname")   
-    this.$store.commit("firstrouterCtrl",false);
-	this.termName = localStorage.getItem('teacher');
-	this.when = localStorage.getItem('when');
-    this.collega = localStorage.getItem('college');
-    this.classs = localStorage.getItem('classs');
-    this.tea = localStorage.getItem('tea_class');
-    this.degree = localStorage.getItem('degree');
-    this.task();
-    console.log(this.taskdata)
-  },
-  destroyed() {
-     this.$store.commit("firstrouterCtrl",true)
-  },
+	destroyed() {
+		this.$store.commit("firstrouterCtrl",true);
+		localStorage.removeItem('name');
+		localStorage.removeItem('fitime');
+		localStorage.removeItem('endtime');
+		localStorage.removeItem('tea_class');
+		localStorage.removeItem('grade');
+		localStorage.removeItem('comments');
+	},
  }
 
 </script>
@@ -229,7 +275,6 @@ ul{
     left: -6px;
 }
 .t_task_index{
-	width:121px;
 	height:24px; 
 	font-size:12px;
 	font-family:PingFangSC-Regular;
@@ -307,7 +352,7 @@ ul{
 }
 .details_list>li>span{
 	display: inline-block;
-	width:145px;
+	width:165px;
 	height:22px; 
 	font-size:14px;
 	font-family:PingFangSC-Regular;
