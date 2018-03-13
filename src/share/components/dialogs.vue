@@ -68,7 +68,11 @@ export default {
       loadData: {},
       sessionData: {},
       loading: false,
+      Ctrl: {},
     }
+   },
+   mounted() {
+   	this.loadCtrl()
    },
    computed:{
 
@@ -127,7 +131,24 @@ export default {
         	this.loading = false;
           this.$message.error({message:'登录超时！',duration: 1000});
         });
+	    },
+	    loadCtrl() {
+	    	let that = this;
+	    	this.Ctrl = {
+				begin: function(){
+					document.onkeyup = function(event) {
+						event.keyCode==13? that.onLogin(): ""
+		    		}				
+				},
+	    		end: function(){
+	    			document.onkeyup = ""
+	    		}
+	    	}
+	    	this.Ctrl.begin()
 	    }
+   },
+   destroyed() {
+   	this.Ctrl.end();
    }
   }
 </script>

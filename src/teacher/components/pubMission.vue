@@ -408,7 +408,8 @@ export default {
         }
       ],
       classNum: [],
-      textarea: ''
+      textarea: '',
+      timeCtrl: {},
     }
   },
   mounted() {
@@ -504,6 +505,27 @@ export default {
           this.endtime = this.begintime.getTime() +    30*60*1000; break;
       }
     },
+    timeOut() {
+      let that = this;
+      let $times = this.$refs.times;
+      let interval = "";
+      this.timeCtrl = {
+        begin: function() {
+          interval = window.setInterval(function() {
+            if ((that.time--) <= 1) {
+              $times.innerText = "正在跳转至任务页面...";
+              window.clearInterval(interval);
+              window.location.href = "#/Teacher/Renwu";
+            }else {
+              $times.innerText = that.time + "秒后跳转至任务页面"
+            }
+          }, 1000);
+        },
+        end: function() {
+          interval!=""? window.clearInterval(interval): ""
+        }        
+      }
+    },
     getT(val) {
       this.pick = this.slideVal[val];
       switch(val){
@@ -554,21 +576,14 @@ export default {
       }
     }
     if(this.active==4){
-      let that = this;
-      let $times = this.$refs.times;
-      let interval = window.setInterval(function() {
-        if ((that.time--) <= 1) {
-          $times.innerText = "正在跳转至课程页面...";
-          window.clearInterval(interval);
-          window.location.href = "#/Teacher/Shixun/Course/allTrueCase";
-        }else {
-          $times.innerText = that.time + "秒后跳转至课程页面"
-        }
-      }, 1000);
+      this.timeOut()
     }
   },
   destroyed() {
-    this.$store.commit("thirdrouterCtrl",true)
+    this.$store.commit("thirdrouterCtrl",true);
+    if(this.timeCtrl.hasOwnProperty("end")){
+      this.timeCtrl.end()
+    }
   },
 }
 </script>

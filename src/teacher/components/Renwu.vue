@@ -3,22 +3,22 @@
     <div style="background: white; padding: 20px 0">
       <div class="ctrlTop">
         <span>实训课程:</span>
-        <el-select v-model="course" size="medium">
+        <el-select v-model="course" size="medium" @change="changeCourse">
           <el-option
             v-for="item in allcourse"
-            :key="item"
-            :label="item"
-            :value="item">
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
           </el-option>
         </el-select>
         <div class="ctrlR">
-          <el-radio-group v-model="state" size="medium">
-            <el-radio-button label="全部" ></el-radio-button>
-            <el-radio-button label="未开始"></el-radio-button>
-            <el-radio-button label="进行中"></el-radio-button>
-            <el-radio-button label="已结束"></el-radio-button>
+          <el-radio-group v-model="state" size="medium" @change="changeState">
+            <el-radio-button label="0">全部</el-radio-button>
+            <el-radio-button label="1">未开始</el-radio-button>
+            <el-radio-button label="2">进行中</el-radio-button>
+            <el-radio-button label="3">已结束</el-radio-button>
           </el-radio-group>
-          <el-input placeholder="请输入任务名" suffix-icon="el-icon-search" clearable v-model="search"></el-input>
+          <el-input placeholder="请输入任务名" suffix-icon="el-icon-search" clearable v-model="search" @keyup.enter.native="changeSearch"></el-input>
         </div>
       </div>
       <div v-for="(item,index) in missionData" :key="index" class="missionBox">
@@ -66,7 +66,10 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="1000">
+          :current-page="page"
+          :page-size="pageSize"
+          :total="allData"
+          @current-change="changePage">
         </el-pagination>
       </div>
     </div>
@@ -78,41 +81,42 @@ export default {
   name: 'Renwu',
   data () {
     return {
-      state: '全部',
-      allcourse: ['全部','基础会计','财务会计'],
-      course: '全部',
+      allcourse: [],
+      course: 0,
+      state: 0,
       search: '',
-      missionData: [
-        {
-          src: '#',
-          title: '第二学期摸底测试',
-          text: '一些初级职高会计电算化案例合集。',
-          clas: '1816班 1818班 1823班1816班 1818班',
-          beginT: '06-16 14:03',
-          endT: '06-17 14:03',
-          program: 0,
-        },{
-          src: '#',
-          title: '第二学期摸底测试',
-          text: '一些初级职高会计电算化案例合集。一些初级职高会计电算化案例合集。',
-          clas: '1816班 1818班 1823班1816班 ',
-          beginT: '06-16 14:03',
-          endT: '06-17 14:03',
-          program: 50,
-        },{
-          src: '#',
-          title: '第二学期摸底测试',
-          text: '一些初级职高会计电算化案例合集。一些初级职高会计电算化案例合集。',
-          clas: '1816班 1818班 1823班1816班 ',
-          beginT: '06-16 14:03',
-          endT: '06-17 14:03',
-          program: 100,
-        },
-      ]
+      missionData: [],
+      getall: [],
+      missionList: [],
+      page: 1,
+      pageSize: 2,
+      allData: 0
     }
   },
   mounted() {
-
+    this.getAll();
+    this.getMissionList();
+  },
+  watch: {
+    missionList() {
+      this.missionData = [];
+      this.allData = this.missionList.length;
+      for(let i in this.missionList){
+        let classs = "";
+        for(let j in this.missionList[i].classes) {
+          classs += this.missionList[i].classes[j].serialNumber + " "
+        }
+        this.missionData.push({
+          src: '#',
+          title: this.missionList[i].tittle,
+          text: this.missionList[i].remark,
+          clas: classs,
+          beginT: this.getData(this.missionList[i].startTime),
+          endT: this.getData(this.missionList[i].startTime),
+          program: this.pregData(this.missionList[i].startTime,this.missionList[i].endTime)
+        })
+      }
+    }
   },
   methods: {
     feiqi(name) {
@@ -127,6 +131,88 @@ export default {
     yulan(name) {
       console.log(`预览${name}`);
     },
+    getAll() {
+      let arr = [
+        {
+          label: '全部',
+          value: 0,
+        }
+      ]
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
+        {
+          "published": true,
+          "isActive": true,
+          "filter": ''
+        },{
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(response=>{
+          this.getall = response.body.result.items;
+          for(let i in this.getall) {
+            arr.push({
+              label: this.getall[i].title,
+              value: this.getall[i].id,
+            })
+          }
+          this.allcourse = arr;
+        },response=>{
+          console.log('获取全部课程error')
+        });
+    },
+    changeCourse() {
+      this.page = 1;
+      this.getMissionList();
+    },
+    changeState() {
+      this.page = 1;
+      this.getMissionList();
+    },
+    changeSearch() {
+      this.page = 1;
+      this.getMissionList();
+    },
+    changePage(val) {
+      this.page = val;
+      this.getMissionList();
+    },
+    getMissionList() {
+      this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
+      {
+        "teacherId": 0,
+        "courseId": this.course,
+        "status": this.state,
+        "name": this.search,
+        "maxResultCount": this.pageSize,
+        "skipCount": (this.page-1) * this.pageSize,
+      },{
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then(response=>{
+        this.missionList = response.body.result.items;
+      },response=>{
+        console.log("获取任务列表失败")
+      })
+    },
+    getData(str) {
+      let reg=/[-T:\.]/;
+      let arr = str.split(reg)
+      str = arr[1] + "-" + arr[2] + " " + arr[3] + ":" + arr[4];
+      return str
+    },
+    pregData(strA,strB) {
+      let starT = new Date(strA),
+          endT  = new Date(strB),
+          nowT  = new Date();
+      if(nowT<=starT) {
+        return 0
+      }else if(nowT>=endT){
+        return 100
+      }else {
+        return ((nowT - starT)/(endT - starT)).toFixed(2) * 100
+      }
+    }
   }
 }
 </script>

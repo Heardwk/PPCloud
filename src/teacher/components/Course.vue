@@ -44,9 +44,9 @@
                     <div class="borR">
                       <h3>{{item.title}}<span>{{item.time}}</span></h3>
                       <p>基本信息： 已选择<span>{{item.point}}</span>个知识点，共<span>{{item.case}}</span>个案例，总分值<span>{{item.count}}</span>分</p>
+                      <span v-if="item.classification.length>3" class="line"></span>
+                      <span v-if="item.classification.length>6" class="line line2"></span>
                       <div class="list">
-                        <span class="line"></span>
-                        <span class="line"></span>
                         <div v-for="(i,index) in item.classification" :key="index">
                           <div class="abso" v-if="index==0"><span>题型</span><span>数量</span><span>计分</span></div>
                           <div class="abso" v-else-if="index==4"><span>题型</span><span>数量</span><span>计分</span></div>
@@ -267,58 +267,7 @@ export default {
         classtwo: "暂无",
       },
       activeName: 'first',
-      topicList: [
-        {
-          title: '第一学期摸底题',
-          time: '2018-2-13',
-          point: 10,
-          case: 40,
-          count: 100,
-          classification: [
-            {
-              clas: '选择题',
-              quantity: 10,
-              score: 20
-            },{
-              clas: '填空题',
-              quantity: 10,
-              score: 20
-            },{
-              clas: '计算题',
-              quantity: 10,
-              score: 20
-            },{
-              clas: '不限定',
-              quantity: 10,
-              score: 4
-            },{
-              clas: '选择题',
-              quantity: 10,
-              score: 20
-            },{
-              clas: '填空题',
-              quantity: 10,
-              score: 20
-            },{
-              clas: '计算题',
-              quantity: 10,
-              score: 20
-            },{
-              clas: '不限定',
-              quantity: 10,
-              score: 8
-            },{
-              clas: '选择题',
-              quantity: 10,
-              score: 20
-            },{
-              clas: '填空题',
-              quantity: 10,
-              score: 20
-            }
-          ]
-        }
-      ],
+      topicList: [],
       planList: [
         {
           name: '第一课笔记',
@@ -336,6 +285,35 @@ export default {
     this.$store.commit("firstrouterCtrl",false);
     this.bookAttr.name = localStorage.getItem("bookName");
     this.getQuestionList();
+  },
+  watch: {
+    questionList() {
+      this.topicList = [];
+      for(let i in this.questionList) {
+        let obj = {
+              count: 0,
+              case: 0
+            }, 
+            objArr = [];
+        for(let j in this.questionList[i].questionStyleWeights) {
+          obj.count += this.questionList[i].questionStyleWeights[j].count * this.questionList[i].questionStyleWeights[j].weight;
+          obj.case += this.questionList[i].questionStyleWeights[j].count;
+          objArr.push({
+            clas: this.questionList[i].questionStyleWeights[j].questionStyle,
+            quantity: this.questionList[i].questionStyleWeights[j].count,
+            score: this.questionList[i].questionStyleWeights[j].weight           
+          })
+        }
+        this.topicList.push({
+          case: obj.case,
+          classification: objArr,
+          count: obj.count,
+          point: this.questionList[i].knowledgeCount,
+          time: "2018-2-13",
+          title: this.questionList[i].title,
+        })
+      }
+    },
   },
   methods: {
     handleClick(tab, event) {
@@ -374,6 +352,7 @@ export default {
       console.log(item)
     },
     getQuestionList() {
+      // 获取题组列表
       this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionGroupList`,
         {
           "courseId": 1,
@@ -388,7 +367,7 @@ export default {
         },response=>{
           console.log('error')
         }) 
-    }
+    },
   },
   computed: {
     course() {
@@ -616,6 +595,8 @@ export default {
 .tizuBox .borR {
   margin-right: 160px;
   padding-right: 20px;
+  min-height: 185px;
+  max-height: 215px;
   position: relative;
   border-right: 1px solid #EEEEEE;
 }
@@ -690,12 +671,6 @@ export default {
   position: relative;
   font-weight: normal;
 }
-.borR h3 span {
-  position: absolute;
-  color: #989898;
-  font-size: 12px;
-  right: 0;
-}
 .borR p {
   line-height: 24px;
   background-color: rgba(247, 118, 118, 0.1);
@@ -707,6 +682,23 @@ export default {
 .borR p span {
   color: #00B0FF;
 }
+.borR h3 span {
+  position: absolute;
+  color: #989898;
+  font-size: 12px;
+  right: 0;
+}
+.borR .line {
+  position: absolute;
+  width: 1px;
+  background: #EEEEEE;
+  top: 70px;
+  bottom: 20px;
+  left: 212px;
+}
+.borR .line2 {
+  left: 441px;
+}
 .list {
   columns: 100px 3;
   -moz-columns: 100px 3;
@@ -714,17 +706,6 @@ export default {
   position: relative;
   padding-top: 45px;
   font-size: 12px;
-}
-.list .line {
-  position: absolute;
-  width: 1px;
-  height: 150px;
-  background: #EEEEEE;
-  top: 15px;
-  left: 441px;
-}
-.list .line:first-child {
-  left: 212px;
 }
 .abso {
   position: absolute;

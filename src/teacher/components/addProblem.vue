@@ -357,7 +357,8 @@ export default {
       ],
       tizuName: '',
       textarea: '',
-      isact: 0
+      isact: 0,
+      timeCtrl: {},
     }
   },
   mounted() {
@@ -434,7 +435,28 @@ export default {
     },
     hasact(val) {
       this.isact = val;
-    }
+    },
+    timeOut() {
+      let that = this;
+      let $times = this.$refs.times;
+      let interval = "";
+      this.timeCtrl = {
+        begin: function() {
+          interval = window.setInterval(function() {
+            if ((that.time--) <= 1) {
+              $times.innerText = "正在跳转至课程页面...";
+              window.clearInterval(interval);
+              window.location.href = "#/Teacher/Shixun/Course";
+            }else {
+              $times.innerText = that.time + "秒后跳转至课程页面"
+            }
+          }, 1000);
+        },
+        end: function() {
+          interval!=""? window.clearInterval(interval): ""
+        }        
+      }
+    },
   },
   computed: {
     showBox() {
@@ -464,21 +486,14 @@ export default {
       }
     }
     if(this.active==4){
-      let that = this;
-      let $times = this.$refs.times;
-      let interval = window.setInterval(function() {
-        if ((that.time--) <= 1) {
-          $times.innerText = "正在跳转至课程页面...";
-          window.clearInterval(interval);
-          window.location.href = "#/Teacher/Shixun/Course";
-        }else {
-          $times.innerText = that.time + "秒后跳转至课程页面"
-        }
-      }, 1000);
+      this.timeOut()
     }
   },
   destroyed() {
-    this.$store.commit("secondrouterCtrl",true) 
+    this.$store.commit("secondrouterCtrl",true);
+    if(this.timeCtrl.hasOwnProperty("end")){
+      this.timeCtrl.end()
+    }
   },
 }
 </script>

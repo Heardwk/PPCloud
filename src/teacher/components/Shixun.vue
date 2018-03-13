@@ -155,7 +155,7 @@ export default {
           this.getall = response.body.result;
         },response=>{
           console.log('error')
-        })      
+        });
     }
   },
   components: {
