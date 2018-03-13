@@ -83,6 +83,8 @@ export default {
 	str:'',
     data_list:[],
     tot:'',
+    teacherid:0,
+    courseid:0,
 	}
   },
     computed: {
@@ -116,8 +118,8 @@ export default {
 	        this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
 	        {
 	        //测试数据
-				"teacherId":0,
-				"courseId":0
+				"teacherId":this.teacherid,
+				"courseId":this.courseid
 	        },{
 	         	headers: {
 					"Content-Type": "application/json"
