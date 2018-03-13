@@ -30,7 +30,6 @@ Vue.http.interceptors.push((request, next) => {
   }
 
   next((response) => {
-    console.log(response.body)
     if (!response.body.__abp) {
       console.log('不是ABP框架');
       window.location.href = '#/Load';

@@ -75,7 +75,10 @@
 			</div>
     	</div>
          <router-view :gridData = "gridData[g]"></router-view>
+         <!-- input框关闭没有事件 -->
+         <!-- 计算属性问题 -->
         {{coursenumber}}
+        {{coursetrem}}
 	</div>
 </template>
 
@@ -135,6 +138,16 @@ export default {
             }
           }
 	    },
+	    coursetrem(){
+            for(let i in this.gridData){
+                for(let j in this.grade.items){
+		            if(this.gridData[i].termName ==  this.grade.items[j].termName ){
+		             this.gridDataitemindex[i].when = this.grade.items[j].termName
+		             console.log("这是任教时间"+this.gridDataitemindex[i].when)
+                }
+            }
+          }
+	    },
 
     },
 	methods: {
@@ -144,7 +157,7 @@ export default {
 	            this.gridDataitemindex.push({
 	            	 'name':'', 
 	            	 'teacher': this.gridData[i].teacherName,
-	            	 'when':this.gridData[i].termName, 
+	            	 'when':'', 
 	            	 'college':this.gridData[i].departmentName,
 	            	 'classs':this.gridData[i].gradeName,
 	            	 'tea_class':this.gridData[i].classIds,
@@ -173,8 +186,8 @@ export default {
 			}
 			for(let i in this.options_index) {
 				if(this.options_index[i].label == this.values_index) {
-					this.time = this.options_index[i].id;
-					console.log(this.time)
+					this.time = this.options_index[i].value;
+					console.log(this.time);
 				}
 			}
 			this.getUserInfo()
@@ -220,7 +233,7 @@ export default {
 			this.$http.post(`${this.$store.state.location}/services/app/Course/GetCourseTeacherAssociate`,
 		       {
 		       	"courseId": this.couese,
-				"termName": this.time,
+				"termId": this.time,
 		       	"maxResultCount": this.page,
 		  		"skipCount": (this.currentPage4-1)*this.page
 		       },{
