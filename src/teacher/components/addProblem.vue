@@ -30,18 +30,20 @@
               v-model="filterText">
             </el-input>
           </p>
-          <el-tree
-            class="tree"
-            :props="defaultProps"
-            :data="dataList"
-            node-key="id"
-            show-checkbox
-            :default-checked-keys = "isChecArr"
-            ref="tree"
-            :filter-node-method="filterNode"
-            :accordion = "isAccordion"
-            @check-change="handleCheckChange">
-          </el-tree>
+          <div class="treeBox">
+            <el-tree
+              class="tree"
+              :props="defaultProps"
+              :data="dataList"
+              node-key="id"
+              show-checkbox
+              :default-checked-keys = "isChecArr"
+              ref="tree"
+              :filter-node-method="filterNode"
+              :accordion = "isAccordion"
+              @check-change="handleCheckChange">
+            </el-tree>
+          </div>
         </div>
         <div class="rightContent">
           <p><span class="hasLine">已选知识点</span></p>
@@ -533,7 +535,6 @@ export default {
     top: 0;
     left: 0;
     width: 255px;
-    height: 600px;
     background-color: white;
     padding: 20px;
     border-radius: 4px;
@@ -545,13 +546,14 @@ export default {
     font-size: 12px;
     margin-left: 30px;
   }
-  .tree {
+  .treeBox {
     margin-top: 10px;
-    height: 530px;
-    overflow-y: auto;
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
+    height: 650px;
+    overflow: auto;
+    position: relative;
+  }
+  .el-tree {
+    width: 100%;
   }
   .rightContent {
     margin-left: 275px;

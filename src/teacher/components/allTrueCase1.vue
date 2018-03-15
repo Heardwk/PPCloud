@@ -15,12 +15,12 @@
               placeholder="关键字搜索"
               v-model="filterText">
             </el-input>
-            <div class="scrollL">
-              <div v-for="(item,index) in pointList" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
-                <span class="el-icon-tickets"></span>{{item.name}}
-              </div>
-            </div>
           </p>
+          <div class="scrollL">
+            <div v-for="(item,index) in pointList" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
+              <span class="el-icon-tickets"></span>{{item.name}}
+            </div>
+          </div>
         </div>
         <div class="contentRight">
           <p style="position: relative">

@@ -135,6 +135,10 @@ header {
   margin: 0 auto;
   overflow: hidden
 }
+/*树*/
+.treeBox .el-tree>.el-tree-node{
+  display: inline-block !important;
+}
 /*课程*/
 .kechengTab .el-tabs__header {
   border-bottom: 0;

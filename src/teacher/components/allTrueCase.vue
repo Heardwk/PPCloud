@@ -15,6 +15,8 @@
               placeholder="关键字搜索"
               v-model="filterText">
             </el-input>
+          </p>
+          <div class="treeBox">
             <el-tree
               class="tree"
               :props="defaultProps"
@@ -24,7 +26,7 @@
               :filter-node-method="filterNode"
               accordion>
             </el-tree>
-          </p>
+          </div>
         </div>
         <div class="contentRight">
           <p style="position: relative">
@@ -215,7 +217,6 @@ export default {
     top: 0;
     left: 0;
     width: 255px;
-    height: 720px;
     background-color: white;
     padding: 20px;
     border-radius: 4px;
@@ -227,13 +228,14 @@ export default {
     font-size: 12px;
     margin-left: 30px;
   }
-  .tree {
+  .treeBox {
     margin-top: 10px;
     height: 530px;
-    overflow-y: auto;
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
+    overflow: auto;
+    position: relative;
+  }
+  .el-tree {
+    width: 100%;
   }
   .hasLine {
     color: #243847;
