@@ -101,9 +101,9 @@ export default {
       this.active = indexPath;
     },
     back() {
-      delete localStorage.token;
-      delete localStorage.userId
-      delete localStorage.name
+      localStorage.removeItem("token")
+      localStorage.removeItem("userId")
+      localStorage.removeItem("name")
     }
   },
 }

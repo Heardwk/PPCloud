@@ -5,7 +5,7 @@
         <p class="boxTitle">最近使用</p>
         <div style="margin-bottom:20px">
           <router-link class="recentlyList recentlyListTop" tag="div" v-for="(item,index) in recentlyData" 
-          :key="index" to="/Teacher/Shixun/Course" @click.native="goto(item.name)">
+          :key="index" :to="{ name: 'Course', query: { bookid: item.id, bookname: item.name }}">
             <img :src="item.src" width="100%">
             <div>
               <h4>{{item.name}}</h4>
@@ -20,7 +20,7 @@
       <div class="componentBox" v-for="(item,index) in classType" :key="index">
         <p class="boxTitle">{{item.type}}</p>
         <div>
-          <router-link class="recentlyList recentlyListBot" tag="div" v-for="(item,index) in item.bookList" :key="index" to="/Teacher/Shixun/Course" @click.native="goto(item.name)">
+          <router-link class="recentlyList recentlyListBot" tag="div" v-for="(item,index) in item.bookList" :key="index" :to="{ name: 'Course', query: { bookid: item.id, bookname: item.name }}">
             <img :src="item.src" width="100%">
             <div>
               <h4>{{item.name}}</h4>
@@ -43,18 +43,21 @@ export default {
       recentlyData: [
         {
           name: '基础会计',
+          id: 1,
           number: '3281',
           time: '2017/8/22',
           src: require('../../share/img/class_big.png'),
           text: '一套专注于会计基础的课程。'
         },{
           name: '财务管理',
+          id: 2,
           number: '3281',
           time: '2017/8/22',
           src: require('../../share/img/class_big.png'),
           text: '一套专注于会计基础的课程。'
         },{
           name: '初级会计电算化',
+          id: 3,
           number: '3281',
           time: '2017/8/22',
           src: require('../../share/img/class_big.png'),
@@ -67,21 +70,25 @@ export default {
           bookList: [
             {
               name: '基础会计',
+              id: 1,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
             },{
               name: '财务管理',
+              id: 2,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
             },{
               name: '初级会计电算化',
+              id: 3,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
             },{
               name: '财务管理',
+              id: 2,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
@@ -93,32 +100,38 @@ export default {
           bookList: [
             {
               name: '基础会计',
+              id: 1,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
             },{
               name: '财务管理',
+              id: 2,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
             },{
               name: '初级会计电算化',
+              id: 3,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
             },{
               name: '财务管理',
+              id: 2,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
             },
             {
               name: '初级会计电算化',
+              id: 3,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
             },{
               name: '财务管理',
+              id: 2,
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
@@ -138,9 +151,6 @@ export default {
     }
   },
   methods: {
-    goto(name) {
-      localStorage.setItem("bookName",name);
-    },
     getAllCourse() {
       this.$http.post(`${this.$store.state.location}/services/app/Course/GetAll`,
         {

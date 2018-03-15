@@ -12,13 +12,12 @@ export default {
   data () {
     return {
       personalData: {
-        name: '',
+        name: '000',
       }
     }
   },
   mounted() {
-    this.$store.commit("firstrouterCtrl",false);
-    this.personalData.name = localStorage.getItem("eabilityName");
+    this.$store.commit("firstrouterCtrl",false);    
   },
   destroyed() {
     this.$store.commit("firstrouterCtrl",true)

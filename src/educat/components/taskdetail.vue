@@ -92,25 +92,25 @@ export default {
     }, 
     mounted () {
     	this.$store.commit("firstrouterCtrl",false);
-	  	this.side = localStorage.getItem("setname")   
-		this.termName = localStorage.getItem('teacher');
-		this.when = localStorage.getItem('when');
-	    this.collega = localStorage.getItem('college');
-	    this.classs = localStorage.getItem('classs');
-	    this.tea = localStorage.getItem('tea_class');
-	    this.degree = localStorage.getItem('degree');
+	  	this.side = sessionStorage.getItem("setname")   
+		this.termName = sessionStorage.getItem('teacher');
+		this.when = sessionStorage.getItem('when');
+	    this.collega = sessionStorage.getItem('college');
+	    this.classs = sessionStorage.getItem('classs');
+	    this.tea = sessionStorage.getItem('tea_class');
+	    this.degree = sessionStorage.getItem('degree');
 	    this.task();
     },
  	methods:{
 	  	goto(index){
 	  		this.dix = index;
 			this.$router.push({path:'/Educat/Teaching/taskdetail/examine'});
-			localStorage.setItem('name',this.data_list[index].name);
-	    	localStorage.setItem('fitime',this.data_list[index].fitime);
-	    	localStorage.setItem('endtime',this.data_list[index].endtime);
-            localStorage.setItem('tea_class',this.data_list[index].tea_class);
-            localStorage.setItem('grade',this.data_list[index].grade);
-            localStorage.setItem('comments',this.data_list[index].comments);
+			sessionStorage.setItem('name',this.data_list[index].name);
+	    	sessionStorage.setItem('fitime',this.data_list[index].fitime);
+	    	sessionStorage.setItem('endtime',this.data_list[index].endtime);
+            sessionStorage.setItem('tea_class',this.data_list[index].tea_class);
+            sessionStorage.setItem('grade',this.data_list[index].grade);
+            sessionStorage.setItem('comments',this.data_list[index].comments);
 	  	},
 	  	task(){
 	        this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
@@ -166,12 +166,12 @@ export default {
   },
 	destroyed() {
 		this.$store.commit("firstrouterCtrl",true);
-		localStorage.removeItem('name');
-		localStorage.removeItem('fitime');
-		localStorage.removeItem('endtime');
-		localStorage.removeItem('tea_class');
-		localStorage.removeItem('grade');
-		localStorage.removeItem('comments');
+		sessionStorage.removeItem('name');
+		sessionStorage.removeItem('fitime');
+		sessionStorage.removeItem('endtime');
+		sessionStorage.removeItem('tea_class');
+		sessionStorage.removeItem('grade');
+		sessionStorage.removeItem('comments');
 	},
  }
 

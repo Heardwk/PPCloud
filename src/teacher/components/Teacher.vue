@@ -4,18 +4,18 @@
       <!-- 头部 -->
       <el-header height="80" :class="propaganda.propaganda?'speac':''">
         <div class="head">
-          <router-link to='/Teacher/Yuanxiao' class="logo"></router-link>
+          <router-link :to="{ name: 'Yuanxiao'}" class="logo"></router-link>
           <router-link 
             v-for="(item,index) in urlData" class="link" 
-            :key="index" :to="item.url"
+            :key="index" :to="{ name: item.url}"
             :data-content="item.name">
             {{item.name}}
           </router-link>
           <el-dropdown placement="bottom" @command="gerenlink" class="user">
             <span class="el-dropdown-link"><img :src="user.img" width="38">{{user.name}}<i class="el-icon-caret-bottom" style="margin-left: 8px"></i></span>
             <el-dropdown-menu slot="dropdown" class="dropdownList">
-              <el-dropdown-item command="first"><router-link class="droplink" to="/Teacher/Geren">基本信息</router-link></el-dropdown-item>
-              <el-dropdown-item command=""><router-link class="droplink" to="/Load" @click.native="back">退出</router-link></el-dropdown-item>
+              <el-dropdown-item command="first"><router-link class="droplink" :to="{ name: 'Geren'}">基本信息</router-link></el-dropdown-item>
+              <el-dropdown-item command=""><router-link class="droplink" :to="{ name: 'Load'}" @click.native="back">退出</router-link></el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
@@ -52,19 +52,19 @@ export default {
       urlData:[
         {
           name: '实训中心',
-          url: '/Teacher/Shixun'
+          url: 'Shixun'
         },{
           name: '任务管理',
-          url: '/Teacher/Renwu'
+          url: 'Renwu'
         },{
           name: '数据分析',
-          url: '/Teacher/Shuju'
+          url: 'Shuju'
         },{
           name: '能力档案',
-          url: '/Teacher/Ability'
+          url: 'Ability'
         },{
           name: '资料共享',
-          url: '/Teacher/Ziliao'
+          url: 'Ziliao'
         }
       ]
     }
@@ -81,9 +81,9 @@ export default {
       }
     },
     back() {
-      delete localStorage.token;
-      delete localStorage.userId
-      delete localStorage.name
+      localStorage.removeItem("token");
+      localStorage.removeItem("userId")
+      localStorage.removeItem("name")
     }
   },
   computed: {

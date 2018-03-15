@@ -216,13 +216,13 @@ export default {
 	    go(index){
 	    	this.$router.push({ path:'/Educat/Teaching/taskdetail'});
 	    	this.g= index;
-	    	localStorage.setItem('setname',this.gridDataitemindex[index].name);
-	    	localStorage.setItem('teacher',this.gridDataitemindex[index].teacher);
-	    	localStorage.setItem('when',this.gridDataitemindex[index].when);
-            localStorage.setItem('college',this.gridDataitemindex[index].college);
-            localStorage.setItem('classs',this.gridDataitemindex[index].classs);
-            localStorage.setItem('tea_class',this.gridDataitemindex[index].tea_class);
-            localStorage.setItem('degree',this.gridDataitemindex[index].degree);
+	    	sessionStorage.setItem('setname',this.gridDataitemindex[index].name);
+	    	sessionStorage.setItem('teacher',this.gridDataitemindex[index].teacher);
+	    	sessionStorage.setItem('when',this.gridDataitemindex[index].when);
+            sessionStorage.setItem('college',this.gridDataitemindex[index].college);
+            sessionStorage.setItem('classs',this.gridDataitemindex[index].classs);
+            sessionStorage.setItem('tea_class',this.gridDataitemindex[index].tea_class);
+            sessionStorage.setItem('degree',this.gridDataitemindex[index].degree);
 	    },
 	    handleCurrentChange(val) {
 	    	this.currentPage4 = val;
@@ -287,15 +287,15 @@ export default {
 		});
       }
   },
-  // 删除localstorage里面的值
+  // 删除sessionStorage里面的值
 	destroyed: function () {
-			localStorage.removeItem('setname');
-			localStorage.removeItem('teacher');
-			localStorage.removeItem('when');
-			localStorage.removeItem('college');
-			localStorage.removeItem('classs');
-			localStorage.removeItem('tea_class');
-			localStorage.removeItem('degree');
+			sessionStorage.removeItem('setname');
+			sessionStorage.removeItem('teacher');
+			sessionStorage.removeItem('when');
+			sessionStorage.removeItem('college');
+			sessionStorage.removeItem('classs');
+			sessionStorage.removeItem('tea_class');
+			sessionStorage.removeItem('degree');
 
         }
 }

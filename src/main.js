@@ -23,7 +23,7 @@ Vue.http.interceptors.push((request, next) => {
   request.method = 'POST';
   request.headers.set('Athena-TenantId', '1');
   if(localStorage.hasOwnProperty("token")) {
-    request.headers.set('Authorization', localStorage.token);
+    request.headers.set('Authorization', localStorage.getItem("token"));
   }else {
     console.log('localStorage没登录token');
     window.location.href = '#/Load';

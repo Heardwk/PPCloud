@@ -2,8 +2,8 @@
   <div class="feight">
     <div v-if="allcase.thirdrouter" class="componentBox">
       <p class="path">
-        <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
-        <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
+        <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
+        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">{{bookName}}</router-link> &gt;
         全真案例
       </p>
       <div class="contentBox">
@@ -29,7 +29,7 @@
         <div class="contentRight">
           <p style="position: relative">
             <span class="hasLine">案例列表</span>
-            <router-link to="/Teacher/Shixun/Course/allTrueCase/pubMission" class="pubmis"><span class="el-icon-circle-plus"></span>发布任务</router-link>
+            <router-link :to="{ name: 'pubMission', query: { bookid: bookid, bookname: bookName }}" class="pubmis"><span class="el-icon-circle-plus"></span>发布任务</router-link>
           </p>
           <div class="choooseContent">
             <ul class="titleUlBox">
@@ -68,56 +68,12 @@ export default {
   data () {
     return {
       bookName: '',
+      bookid: 0,
       defaultProps: {
-        label: 'label',
+        label: 'name',
         children: 'children'
       },
-      dataList: [
-        {
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1三级'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1',
-          }, {
-            id: 6,
-            label: '二级 2-2',
-            children: [{
-              id: 11,
-              label: '三级 2-2-1'
-            }]
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1',
-            children: [{
-              id: 12,
-              label: '三级 3-1-1'
-            }]
-          }, {
-            id: 8,
-            label: '二级 3-2',
-            children: [{
-              id: 13,
-              label: '三级 3-2-1'
-            }]
-          }]
-        }
-      ],
+      dataList: [],
       filterText: '',
       topicData: [
         {
@@ -195,7 +151,13 @@ export default {
   },
   mounted() {
     this.$store.commit("secondrouterCtrl",false);
-    this.bookName = localStorage.getItem("bookName");
+    if(this.$route.query.hasOwnProperty("bookid")){
+      this.bookName = this.$route.query.bookname
+      this.bookid = this.$route.query.bookid
+    }else {
+      window.location.href = '#/Teacher/Shixun';
+    }
+    this.getTree()
   },
   computed: {
     allcase() {
@@ -208,9 +170,24 @@ export default {
     }
   },
   methods: {
+    getTree() {
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetKnowledgeTree`,
+        {
+          "courseId": this.bookid,
+          "onlyIncludeChild": false
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.dataList = response.body.result;
+        },response=>{
+          console.log('知识点树获取error')
+        })
+    },
     filterNode(value, data) {
       if (!value) return true;
-      return data.label.indexOf(value) !== -1;
+      return data.name.indexOf(value) !== -1;
     },
     changePage(){
 
