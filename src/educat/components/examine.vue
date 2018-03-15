@@ -7,7 +7,7 @@
 				  <el-breadcrumb-item :to="{ path: '/Educat/Teaching/taskdetail' }">任教详情</el-breadcrumb-item>
 				  <el-breadcrumb-item>实训详情</el-breadcrumb-item>
 			    </el-breadcrumb>
-    	   </div>
+    	    </div>
     	    <div class="task_top">
     	       <p>{{name}}</p>
     	      <div calss="t_task">
@@ -21,8 +21,12 @@
     	       	  	<li><b>备注:</b><span>{{comments}}</span></li>
     	       	  </ul>
     	      </div>
-    	   </div>
-    	  <div class="tea_table">
+    	    </div>
+    	    <div class="title">
+	    	   	<i class="el-icon-info"></i>
+	    	   	<span>已评阅：24 人、未评阅：30 人</span>
+    	    </div>
+    	    <div class="tea_table">
     	   	 <div class="tea_table_top">
     	   	     <ul>
     	   	     	<li
@@ -30,8 +34,8 @@
     	   	     	:key="index">
 			          {{itemdata}}</li>
     	   	     </ul>
-    	   	 </div>
-    	   	 <div class="tea_tables">
+    	   	</div>
+    	   	<div class="tea_tables">
     	       <table>
 			    <tbody class="tabod">
 			       <tr 
@@ -45,12 +49,15 @@
 			      </tr>
 			    </tbody>
 			  </table>
-			 </div>
+			</div>
+			 <div class="bot">
+    	       <span>下载表单</span>
+    	     </div>
 			 <div class="block"style="padding:20px 0px;">
 			    <el-pagination
 			      @size-change="handleSizeChange"
 			      @current-change="handleCurrentChange"
-			      :current-page="currentPage4"
+			      :current-page="Page"
 			      :page-sizes="[100, 200, 300, 400]"
 			      :page-size="100"
 			      layout="total, sizes, prev, pager, next, jumper"
@@ -65,18 +72,13 @@
 <script>
 export default{
 	name :'examine',
-	// props:{
- //      data_list:{
-	// 		type:Object
-	// 	}
-	// },
 	data(){
 		return{ 
 		data:["姓名","学号","班级","得分","排名","阅卷情况"],
 		gridData: [
 	      { id:'01',name: '基础会计', teacher: '张三',when:'2017-2018年第二学期1', college: '会计学院',classs:'2015级'}
        ],
-        currentPage4: 4,
+        Page: 4,
         name:'',
         fitime:'',
         endtime:'',
@@ -99,17 +101,32 @@ export default{
 	    this.grade = sessionStorage.getItem('grade');
 	    this.comments = sessionStorage.getItem('comments');
 	},
-    destroyed() {
-      	this.$store.commit("secondrouterCtrl",true)
-    },
     methods:{
+    // 	httpexam(){
+    //         this.$http.post({
+	   //      //测试数据
+				// "teacherId":this.teacherid,
+				// "courseId":this.courseid
+	   //      },{
+	   //       	headers: {
+				// 	"Content-Type": "application/json"
+				// 	}
+	   //      }).then(res=>{
+	   //      	console.log(`登录成功`)
+	   //      },res=>{
+	   //      	console.log(`登录失败`)
+	   //      })
+    // 	},
 	    handleSizeChange(val) {
 	        console.log(`每页 ${val} 条`);
 		},
 	    handleCurrentChange(val) {
-		        console.log(`当前页: ${val}`);
+		    console.log(`当前页: ${val}`);
 		}
-    }
+    },
+    destroyed() {
+      	this.$store.commit("secondrouterCtrl",true)
+    },
 }
 </script>
 
@@ -179,6 +196,24 @@ export default{
 	border-radius: 2px 2px 0px 0px ; 
 	margin-bottom: 0px;
 }
+.title{
+	height: 36px;
+	line-height: 36px;
+	background-color: rgb(230,247,255);
+	margin: 25px;
+	border:1px solid rgb(145,213,255);
+	border-radius: 4px; 
+}
+.title>i{
+	display: inline-block;
+	margin: 0px 10px 0px 20px;
+    color: #157cf0;
+}
+.title>span{
+   font-size: 12px;
+   font-family:PingFangSC-Regular;
+   color: rgba(0,0,0,0.6);
+}
 ul{
 	-webkit-padding-start: 0px;
 }
@@ -190,7 +225,6 @@ ul{
 }
 .tea_tables{
 	height: 500px;
-	overflow-y: scroll;
 }
 .tabod>tr>td{
 	text-align: center;
@@ -205,6 +239,38 @@ ul{
 	cursor: pointer;
 	background-color: rgba(21,124,240,0.4);
 	color: white;
+}
+.bot{
+	width: 100%;
+	text-align: right;
+}
+.bot>span{
+    margin-bottom: 20px;
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular;
+    color: #157cf0;
+    line-height: 24px;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 30px;
+    cursor: pointer;
+    border: 1px solid #157CF0;
+}
+.bot>span:hover {
+    background: rgba(24,144,255,1);
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular;
+    color: rgba(255,255,255,1);
+    line-height: 24px;
+    text-align: center;
+    line-height: 40px;
+    margin-right: 30px;
+    cursor: pointer;
 }
 table{ 
     border-collapse:collapse;

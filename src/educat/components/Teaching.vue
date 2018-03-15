@@ -143,7 +143,6 @@ export default {
                 for(let j in this.grade.items){
 		            if(this.gridData[i].termName ==  this.grade.items[j].termName ){
 		             this.gridDataitemindex[i].when = this.grade.items[j].termName
-		             console.log("这是任教时间"+this.gridDataitemindex[i].when)
                 }
             }
           }
@@ -176,7 +175,6 @@ export default {
 				}
 			}
 			this.getUserInfo()
-			console.log("这是任教课程的change事件")
 		},
 		// 时间
 		changeClass() {
@@ -187,11 +185,9 @@ export default {
 			for(let i in this.options_index) {
 				if(this.options_index[i].label == this.values_index) {
 					this.time = this.options_index[i].value;
-					console.log(this.time);
 				}
 			}
 			this.getUserInfo()
-			console.log("这是任教时间的change事件")
 		},
 		// 任教课程
 		initoptions() {
@@ -242,11 +238,9 @@ export default {
 				}
 		      }).then(response=>{
 		      	this.gridDataitem = response.body.result;
-		      	console.log(this.gridDataitem)
 				this.tot =  response.body.result.totalCount;
 				this.gridData=this.gridDataitem.items;
 				this.pipeiData()
-				 console.log('this.$http 的成功') 
 			},response=>{
 				 console.log('this.$http 的失败') 
 		});
