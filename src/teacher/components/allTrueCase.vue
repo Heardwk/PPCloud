@@ -24,7 +24,8 @@
               node-key="id"
               ref="tree"
               :filter-node-method="filterNode"
-              accordion>
+              accordion
+              @node-click="handleClick">
             </el-tree>
           </div>
         </div>
@@ -52,8 +53,10 @@
               <el-pagination
                 background
                 layout="prev, pager, next"
-                @current-change="changePage"
-                :total="50">
+                :current-page="page"
+                :page-size="pageSize"
+                :total="allData"                
+                @current-change="changePage">
               </el-pagination>
             </div>
           </div>
@@ -77,6 +80,10 @@ export default {
       },
       dataList: [],
       filterText: '',
+      checkPointId: 0,
+      page: 1,
+      pageSize: 2,
+      allData: 50,
       topicData: [
         {
           name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
@@ -84,70 +91,7 @@ export default {
           type: '单选题',
           count: 2,
           chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
+        }
       ],
     }
   },
@@ -169,6 +113,10 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.tree.filter(val);
+    },
+    checkPointId() {
+      this.page = 1;
+      this.getQuestionsByKnowledge()
     }
   },
   methods: {
@@ -183,6 +131,24 @@ export default {
           }
         }).then(response=>{
           this.dataList = response.body.result;
+          this.checkPointId = this.dataList[0].id;
+        },response=>{
+          console.log('知识点树获取error')
+        })
+    },
+    getQuestionsByKnowledge() {
+      console.log(this.checkPointId)
+      this.$http.post(`${this.$store.state.location}/services/app/Question/GetQuestionsByKnowledge`,
+        {
+            "knowledgeId": this.checkPointId,
+            "maxResultCount": this.pageSize,
+            "skipCount": (this.page-1) * this.pageSize,
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          console.log(response.body)
         },response=>{
           console.log('知识点树获取error')
         })
@@ -194,6 +160,9 @@ export default {
     changePage(){
 
     },
+    handleClick(obj) {
+      this.checkPointId = obj.id
+    }
   },
   destroyed() {
     this.$store.commit("secondrouterCtrl",true)
@@ -230,7 +199,7 @@ export default {
   }
   .treeBox {
     margin-top: 10px;
-    height: 530px;
+    height: 650px;
     overflow: auto;
     position: relative;
   }

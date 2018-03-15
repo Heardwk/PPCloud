@@ -548,7 +548,7 @@ export default {
   }
   .treeBox {
     margin-top: 10px;
-    height: 650px;
+    height: 530px;
     overflow: auto;
     position: relative;
   }
