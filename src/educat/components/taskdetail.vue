@@ -33,7 +33,7 @@
     	        >
 	    	        <div class="t_task_con">
 	    	             <div class="t_task_index">
-	    	                 <i></i>{{item.endtime}}
+	    	                 <i></i>{{item.creationTime}}
 	    	             </div>
 	    	             <div class="details"@click="goto(index)">
 	    	                  <div class="details_top">
@@ -140,6 +140,7 @@ export default {
 	  		 		"tea_class":'',
 	  		 		"grade":0,
 	  		 		"comments":this.taskdata[i].remark,
+	  		 		"creationTime":this.time(this.taskdata[i].creationTime),
 	  		 	}) 
 	  		};
 	        this.grade();

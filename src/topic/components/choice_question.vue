@@ -32,10 +32,14 @@
                  <div style="padding-left: 20px;padding-top: 20px;">
                    <exercises :id="1" ></exercises> 
                     <div class="g_bu" >
-                        <el-button  size="medium" plain icon="el-icon-success">A</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">B</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">C</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">D</el-button>
+                      <!-- 单选按钮图标需要更改 -->
+                        <div style="margin-top: 60px">
+                            <el-radio v-model="radio8" label="A" border size="medium">A</el-radio>
+                            <el-radio v-model="radio8" label="B" border size="medium">B</el-radio>
+                            <el-radio v-model="radio8" label="C" border size="medium">C</el-radio>
+                            <el-radio v-model="radio8" label="D" border size="medium">D</el-radio>
+                            {{radio8}}
+                        </div>
                     </div>
                  </div>
               </div>
@@ -66,6 +70,7 @@ export default{
         activeId: 1,
         ins:0,
         number:0,
+        radio8:'1',
         active: 0,
         dialogVisible:false,
         arr: [{caseType: 'danxuan',id:1},{caseType: 'danxuan',id:1}],
