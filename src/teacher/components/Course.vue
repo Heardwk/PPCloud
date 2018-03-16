@@ -315,7 +315,7 @@ export default {
           classification: objArr,
           count: obj.count,
           point: this.questionList[i].knowledgeCount,
-          time: "2018-2-13",
+          time: this.questionList[i].creationTime.split("T")[0],
           title: this.questionList[i].title,
         })
       }
@@ -361,7 +361,7 @@ export default {
       // 获取题组列表
       this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionGroupList`,
         {
-          "courseId": 1,
+          "courseId": this.bookAttr.id ,
           "maxResultCount": 10,
           "skipCount": 0
         },{

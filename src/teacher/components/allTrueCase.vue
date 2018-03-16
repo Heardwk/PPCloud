@@ -43,7 +43,7 @@
                 <span class="count">练习次数</span>
               </li>
               <li v-for="(item,index) in topicData" class="titltLi">
-                <span class="num">{{index+1}}</span>
+                <span class="num">{{(page-1)*10 +index+ 1}}</span>
                 <span class="name">{{item.name}}</span>
                 <span class="type">{{item.type}}</span>
                 <span class="count">{{item.count}}</span>
@@ -83,16 +83,9 @@ export default {
       checkPointId: 0,
       page: 1,
       pageSize: 2,
-      allData: 50,
-      topicData: [
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        }
-      ],
+      allData: 0,
+      topicData: [],
+      alltopicData: []
     }
   },
   mounted() {
@@ -117,6 +110,17 @@ export default {
     checkPointId() {
       this.page = 1;
       this.getQuestionsByKnowledge()
+    },
+    alltopicData() {
+      this.topicData = [];
+      for(let i in this.alltopicData) {
+        this.topicData.push({
+          "name": this.alltopicData[i].title,
+          "point": this.bookName,
+          "type": this.alltopicData[i].style,
+          "count": 2
+        })
+      }
     }
   },
   methods: {
@@ -137,7 +141,6 @@ export default {
         })
     },
     getQuestionsByKnowledge() {
-      console.log(this.checkPointId)
       this.$http.post(`${this.$store.state.location}/services/app/Question/GetQuestionsByKnowledge`,
         {
             "knowledgeId": this.checkPointId,
@@ -148,7 +151,8 @@ export default {
             "Content-Type": "application/json",
           }
         }).then(response=>{
-          console.log(response.body)
+          this.allData = response.body.result.totalCount;
+          this.alltopicData = response.body.result.items
         },response=>{
           console.log('知识点树获取error')
         })
@@ -157,8 +161,9 @@ export default {
       if (!value) return true;
       return data.name.indexOf(value) !== -1;
     },
-    changePage(){
-
+    changePage(val){
+      this.page = val;
+      this.getQuestionsByKnowledge()
     },
     handleClick(obj) {
       this.checkPointId = obj.id

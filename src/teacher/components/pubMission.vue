@@ -86,7 +86,7 @@
                 共{{item.max}}个
               </span>
               <span class="titleThr">
-                <el-input-number v-model="item.point" @change="handleChangePoint" :min="0"></el-input-number>
+                <el-input-number v-model="item.weight" @change="handleChangePoint" :min="0"></el-input-number>
               </span>
             </li>
           </ul>
@@ -114,7 +114,7 @@
             </el-input>
           </p>
           <div class="chooseBox">
-            <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
+            <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index,item)" :class="{'act': isact === index}">
               <span class="el-icon-tickets"></span>
               {{item.name}}
             </div>
@@ -129,7 +129,7 @@
                 <span class="name">案例名称</span>
                 <span class="point">课程名称</span>
                 <span class="type">题型</span>
-          <!--       <span class="count">练习次数</span> -->
+                <span class="count">分值</span>
                 <span class="oper">操作</span>
               </li>
               <li v-for="(item,index) in topicData" class="titltLi">
@@ -137,7 +137,7 @@
                 <span class="name">{{item.name}}</span>
                 <span class="point">{{item.point}}</span>
                 <span class="type">{{item.type}}</span>
-                <!-- <span class="count">{{item.count}}</span> -->
+                <span class="count">{{item.count}}</span>
                 <span class="oper"><el-checkbox v-model="item.chec"></el-checkbox></span>
               </li>
             </ul>
@@ -334,14 +334,7 @@ export default {
           chec: true
         },
       ],
-      tixing: [
-        {
-          type: '选择题',
-          count: 0,
-          point: 0,
-          max: 10
-        }
-      ],
+      tixing: [],
       missName: '',
       isact: 0,
       pick: "24小时",
@@ -358,6 +351,7 @@ export default {
       classNum: [],
       textarea: '',
       timeCtrl: {},
+      allChooseQuestion: []
     }
   },
   mounted() {
@@ -408,6 +402,52 @@ export default {
           console.log('知识点树获取error')
         })
     },
+    getTypeCount() {
+      let arr = [],str='';
+      for(let i in this.checkTree) {
+        arr.push(this.checkTree[i].id)
+      };
+      str = arr.join(',');
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionStyle`,
+        arr,{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.tixing = [];
+          for(let i in response.body.result) {
+            this.tixing.push({
+              "questionStyle": response.body.result[i].questionStyle,
+              "type": response.body.result[i].styleName,
+              "count": 0,
+              "weight": response.body.result[i].weight,
+              "max": response.body.result[i].count              
+            })
+          }
+        },response=>{
+          console.log('题型数量分值获取error')
+        })
+    },
+    getChooseQuestion() {
+      let arr = [];
+      for(let i in this.checkTree) {
+        arr.push(this.checkTree[i].id)
+      }
+      // this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GenerateRandomQuestionForKnowledge`,
+      //   {
+      //     "courseId": this.bookid,
+      //     "styles": this.tixing,
+      //     "knowledges": arr
+      //   },{
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     }
+      //   }).then(response=>{
+      //     console.log(response.body)
+      //   },response=>{
+      //     console.log('随机生成题目error')
+      //   })
+    },
     handleCheckChange(data, checked, indeterminate) {
       // 所有被选中的
       this.checkTree = this.$refs.tree.getCheckedNodes();
@@ -434,6 +474,8 @@ export default {
         if(this.checkTree.length==0){
           this.$message.error('请选择知识点');
           return
+        }else {
+          this.getTypeCount();
         }
       }else if(this.active==1) {
         if(this.allCount==0){
@@ -442,6 +484,8 @@ export default {
         }else if(this.allPoint==0){
           this.$message.error('请选择分数');
           return
+        }else {
+          this.getChooseQuestion()
         }
       }else if(this.active==3) {
         if(this.missName==""){
@@ -454,8 +498,9 @@ export default {
     changePage() {
 
     },
-    hasact(val) {
-      this.isact = val;
+    hasact(index,item) {
+      this.isact = index;
+      console.log(item)
     },
     changeBegintime() {
       let index = this.slideVal.indexOf(this.pick);
@@ -527,7 +572,7 @@ export default {
     allPoint() {
       let point = 0;
       for(let i=0; i<this.tixing.length; i++){
-        point+=(this.tixing[i].point*this.tixing[i].count)
+        point+=(this.tixing[i].weight*this.tixing[i].count)
       }
       return point
     },
@@ -848,6 +893,7 @@ export default {
     height: 530px;
     overflow-x: hidden;
     overflow-y: auto;
+    margin-top: 10px;
   }
   .titleUlBox {
     font-size: 12px;
