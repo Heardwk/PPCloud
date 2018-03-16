@@ -52,6 +52,8 @@ import choice_question from '@/topic/components/choice_question'
 import correct from '@/topic/components/correct'
 import practice from '@/topic/components/practice'
 import achieve from '@/topic/components/achieve'
+import multiple_choice from '@/topic/components/multiple_choice'
+
 
 Vue.use(Router)
 
@@ -327,6 +329,11 @@ export default new Router({
           path: 'achieve',
           name: 'achieve',
           component: achieve,
+        },
+        {
+          path: 'multiple_choice',
+          name: 'multiple_choice',
+          component: multiple_choice,
         }
       ]
     }

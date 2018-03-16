@@ -74,7 +74,7 @@
 			    </el-pagination>
 			</div>
     	</div>
-         <router-view :gridData = "gridData[g]"></router-view>
+         <router-view></router-view>
          <!-- input框关闭没有事件 -->
          <!-- 计算属性问题 -->
         {{coursenumber}}
@@ -210,15 +210,14 @@ export default {
 			}
 		},
 	    go(index){
-	    	this.$router.push({ path:'/Educat/Teaching/taskdetail'});
-	    	this.g= index;
-	    	sessionStorage.setItem('setname',this.gridDataitemindex[index].name);
-	    	sessionStorage.setItem('teacher',this.gridDataitemindex[index].teacher);
-	    	sessionStorage.setItem('when',this.gridDataitemindex[index].when);
-            sessionStorage.setItem('college',this.gridDataitemindex[index].college);
-            sessionStorage.setItem('classs',this.gridDataitemindex[index].classs);
-            sessionStorage.setItem('tea_class',this.gridDataitemindex[index].tea_class);
-            sessionStorage.setItem('degree',this.gridDataitemindex[index].degree);
+	    	this.$router.push({ path:'/Educat/Teaching/taskdetail',query: { id:this.gridData[index].id}});
+	    	// sessionStorage.setItem('setname',this.gridDataitemindex[index].name);
+	    	// sessionStorage.setItem('teacher',this.gridDataitemindex[index].teacher);
+	    	// sessionStorage.setItem('when',this.gridDataitemindex[index].when);
+      //       sessionStorage.setItem('college',this.gridDataitemindex[index].college);  
+      //       sessionStorage.setItem('classs',this.gridDataitemindex[index].classs);
+      //       sessionStorage.setItem('tea_class',this.gridDataitemindex[index].tea_class);
+      //       sessionStorage.setItem('degree',this.gridDataitemindex[index].degree);
 	    },
 	    handleCurrentChange(val) {
 	    	this.currentPage4 = val;
@@ -280,18 +279,7 @@ export default {
 				console.log("error")
 		});
       }
-  },
-  // 删除sessionStorage里面的值
-	destroyed: function () {
-			sessionStorage.removeItem('setname');
-			sessionStorage.removeItem('teacher');
-			sessionStorage.removeItem('when');
-			sessionStorage.removeItem('college');
-			sessionStorage.removeItem('classs');
-			sessionStorage.removeItem('tea_class');
-			sessionStorage.removeItem('degree');
-
-        }
+   }
 }
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->

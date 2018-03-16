@@ -18,7 +18,7 @@
     	       	  <ul class="t_task_t">
     	       	  	<li><b>任教学院:</b><span>{{collega}}</span></li>
     	       	  	<li><b>任教年级:</b><span>{{classs}}</span></li>
-    	       	  	<li><b>任叫班级:</b><span>{{tea}}</span></li>
+    	       	  	<li><b>任教班级:</b><span>{{tea}}</span></li>
     	       	  </ul>
     	      </div>
     	   </div>
@@ -64,9 +64,9 @@
 <script>
 export default {
   name: 'taskdetail',
-  props:{
-  	gridData:{}
-  },
+  // props:{
+  // 	gridData:{}
+  // },
   data () {
     return {
     taskdata:[],
@@ -94,14 +94,8 @@ export default {
     }, 
     mounted () {
     	this.$store.commit("firstrouterCtrl",false);
-	  	this.side = sessionStorage.getItem("setname")   
-		this.termName = sessionStorage.getItem('teacher');
-		this.when = sessionStorage.getItem('when');
-	    this.collega = sessionStorage.getItem('college');
-	    this.classs = sessionStorage.getItem('classs');
-	    this.tea = sessionStorage.getItem('tea_class');
-	    this.degree = sessionStorage.getItem('degree');
 	    this.task();
+	    this.curtea();
     },
  	methods:{
 	  	goto(index){
@@ -114,10 +108,30 @@ export default {
             sessionStorage.setItem('grade',this.data_list[index].grade);
             sessionStorage.setItem('comments',this.data_list[index].comments);
 	  	},
+	  	curtea(){
+		    this.$http.post(`${this.$store.state.location}services/app/Course/GetCourseTeacherAssociateById`,
+		        {
+					"id":this.$route.query.id
+		        },{
+		         	headers: {
+						"Content-Type": "application/json"
+						}
+		        }).then(res=>{
+		        	    this.curdata = res.body.result;
+					  	this.side = this.curdata.teacherName ;
+						this.termName = this.curdata.teacherName ;
+						this.when = this.curdata.termName;
+					    this.collega = this.curdata.departmentName;
+					    this.classs = this.curdata.gradeName;
+					    this.tea = this.curdata.classIds;
+		        	    
+		        },res=>{
+				    	console.log('this.$http 的失败') 
+		        })
+	  	},
 	  	task(){
 	        this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
 	        {
-	        //测试数据
 				"teacherId":this.teacherid,
 				"courseId":this.courseid
 	        },{

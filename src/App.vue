@@ -494,4 +494,52 @@ header {
     border-radius: 50px;
     background: #fff;
 }
+  /*多选题*/
+.g_bu .el-checkbox.is-bordered.el-checkbox--small {
+    padding: 5px 32px 5px 30px;
+    border-radius: 4px;
+    height: 32px;
+    background-color: #fff;
+    margin-right: 25px;
+}
+.g_bu .el-checkbox.is-bordered.is-checked {
+    border-color: #7ED321;
+    background-color: #7ED321;
+    margin-right: 25px;
+}
+.g_bu .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background-color: #fff;
+    border-color: #fff;
+    border-radius: 7px;
+}
+.g_bu .el-checkbox.is-bordered.el-checkbox--small .el-checkbox__inner {
+    height: 12px;
+    width: 12px;
+    border-radius: 7px;
+}
+.g_bu .el-checkbox__input.is-checked+.el-checkbox__label {
+    color: #fff;
+}
+.g_bu .el-checkbox__inner::after {
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+    content: "";
+    border: 1px solid #7ED321;
+    border-left: 0;
+    border-top: 0;
+    height: 7px;
+    left: 4px;
+    position: absolute;
+    top: 1px;
+    -webkit-transform: rotate(45deg) scaleY(0);
+    transform: rotate(45deg) scaleY(0);
+    width: 3px;
+    -webkit-transition: -webkit-transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms;
+    transition: -webkit-transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms;
+    transition: transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms;
+    transition: transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms, -webkit-transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms;
+    transition: transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms,-webkit-transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms;
+    -webkit-transform-origin: center;
+    transform-origin: center;
+}
 </style>
