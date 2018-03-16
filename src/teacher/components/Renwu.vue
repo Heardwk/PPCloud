@@ -210,7 +210,7 @@ export default {
       }else if(nowT>=endT){
         return 100
       }else {
-        return ((nowT - starT)/(endT - starT)).toFixed(2) * 100
+        return Number(((nowT - starT)/(endT - starT) * 100).toFixed(0))
       }
     }
   }

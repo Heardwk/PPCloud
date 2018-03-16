@@ -2,8 +2,8 @@
   <div class="feight">
     <div v-if="allcase.allcase">
       <p class="path">
-        <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
-        <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
+        <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
+        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">{{bookName}}</router-link> &gt;
         全真案例
       </p>
       <div class="contentBox">
@@ -15,17 +15,17 @@
               placeholder="关键字搜索"
               v-model="filterText">
             </el-input>
-            <div class="scrollL">
-              <div v-for="(item,index) in pointList" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
-                <span class="el-icon-tickets"></span>{{item.name}}
-              </div>
-            </div>
           </p>
+          <div class="scrollL">
+            <div v-for="(item,index) in pointList" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
+              <span class="el-icon-tickets"></span>{{item.name}}
+            </div>
+          </div>
         </div>
         <div class="contentRight">
           <p style="position: relative">
             <span class="hasLine">《{{bookName}}》全真案例</span>
-            <router-link to="/Teacher/Shixun/Course/allTrueCase/pubMission" class="pubmis"><span class="el-icon-circle-plus"></span>发布任务</router-link>
+            <router-link :to="{ name: 'pubMission', query: { bookid: bookid, bookname: bookName }}" class="pubmis"><span class="el-icon-circle-plus"></span>发布任务</router-link>
           </p>
           <div class="err">
             <span>错账更正 &gt;</span>
@@ -89,6 +89,7 @@ export default {
   data () {
     return {
       bookName: '',
+      bookid: 0,
       filterText: '',
       isact: 0,
       topicData: [
@@ -189,7 +190,12 @@ export default {
   },
   mounted() {
     this.$store.commit("courseshow",false);
-    this.bookName = localStorage.getItem("bookName");
+    if(this.$route.query.hasOwnProperty("bookid")){
+      this.bookName = this.$route.query.bookname;
+      this.bookid = this.$route.query.bookid
+    }else {
+      window.location.href = '#/Teacher/Shixun';
+    }
   },
   computed: {
     allcase() {

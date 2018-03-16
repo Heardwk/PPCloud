@@ -43,7 +43,7 @@
         </div>
       </div>
       <div class="abilityContainer">
-        <router-link v-for="(item,index) in abilityData" tag="div" class="abilityBox" :key="index" :to="{path:item.url}" @click.native="goto(item.name)">
+        <router-link v-for="(item,index) in abilityData" tag="div" class="abilityBox" :key="index" :to="{path:item.url,query:item.name}">
           <div>
             <img :src="item.src" height="" width="">
             <h5>{{item.name}}</h5>
@@ -157,9 +157,6 @@ export default {
     change3(val) {
       console.log(val)
     },
-    goto(name) {
-      localStorage.setItem("eabilityName",name);
-    }
   }
 }
 </script>

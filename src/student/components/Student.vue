@@ -62,9 +62,9 @@ export default {
       this.$router.push({ name:'/Yuanxiao'});
    },
   back() {
-      delete localStorage.token;
-      delete localStorage.userId
-      delete localStorage.name
+     sessionStorage.removeItem("token");
+     sessionStorage.removeItem("userId")
+     sessionStorage.removeItem("name")
     },
   }
 }

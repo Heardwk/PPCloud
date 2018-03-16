@@ -64,7 +64,11 @@ export default{
 	},
 	mounted () {
 	    this.$store.commit("firstrouterCtrl",false);
-	    this.eattr.listName = localStorage.getItem("kcname")
+	    if(sessionStorage.hasOwnProperty("kcname")) {
+	    	this.eattr.listName = sessionStorage.getItem("kcname")
+	    }else {
+	    	window.location.href = '#/Student/trainingCenter';
+	    }
  	},
 	computed: {
 	      Basic(){

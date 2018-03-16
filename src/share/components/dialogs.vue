@@ -14,7 +14,7 @@
 			  		  	          <div class="input_g">
 			  		  	          	  <div class="g-form-line">
 												        <div class="g-form-input">
-												          <input type="text" class="chile" v-model="usernameModel" placeholder="用户名    Admin">
+												          <input type="text" class="chile" v-model="usernameModel" ref="inputL" placeholder="用户名    Admin">
 												        </div>
 												      </div>
 												      <div class="g-form-line">
@@ -72,7 +72,8 @@ export default {
     }
    },
    mounted() {
-   	this.loadCtrl()
+   	this.loadCtrl();
+   	this.$refs.inputL.focus();
    },
    computed:{
 
@@ -96,8 +97,8 @@ export default {
 					"Content-Type": "application/json",
 				}}).then(response => {
 					this.loadData = response.body.result;
-					localStorage.token = `Bearer ${this.loadData.accessToken}`;
-					localStorage.userId = this.loadData.userId;
+					localStorage.setItem("token",`Bearer ${this.loadData.accessToken}`);
+					localStorage.setItem("userId",this.loadData.userId);
 					this.getsession();
 				},response => {
 			    this.loading = false;
@@ -115,7 +116,7 @@ export default {
         }}).then(response => {
     			this.loading = false;
           this.sessionData = response.body.result;
-          localStorage.name = response.body.result.user.name
+          localStorage.setItem("name",response.body.result.user.name)
           if(this.sessionData.user.roles[0]=="Teacher") {
             window.location.href = '#/Teacher'
           }else if(this.sessionData.user.roles[0]=="Student") {

@@ -2,8 +2,8 @@
   <div class="feight">
     <div class="componentBox">
       <p class="path">
-        <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
-        <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
+        <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
+        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">{{bookName}}</router-link> &gt;
         修改题组
       </p>
       <div class="topContentBox">
@@ -142,6 +142,7 @@ export default {
   data () {
     return {
       bookName: '',
+      bookid: 0,
       activeName: 'first',
       tizuName: '',
       textarea: '',
@@ -266,7 +267,12 @@ export default {
   },
   mounted() {
     this.$store.commit("secondrouterCtrl",false);
-    this.bookName = localStorage.getItem("bookName");
+    if(this.$route.query.hasOwnProperty("bookid")){
+      this.bookName = this.$route.query.bookname
+      this.bookid = this.$route.query.bookid
+    }else {
+      window.location.href = '#/Teacher/Shixun';
+    } 
     this.tizuName = this.topicList.title;
     this.textarea = this.topicList.text;
   },

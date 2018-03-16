@@ -2,10 +2,10 @@
   <div class="">
     <div v-if="course.secondrouter">
       <div class="componentBox">
-        <p class="path"><router-link to="/Teacher/Shixun">实训中心</router-link> &gt; {{bookAttr.name}}</p>
+        <p class="path"><router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt; {{bookAttr.name}}</p>
         <div class="whiteBox booktop">
           <img :src="bookAttr.src" height="180" width="120" class="bookimg">
-          <router-link to="/Teacher/Shixun/Course/allTrueCase" class="anli">全真案例</router-link>
+          <router-link :to="{ name: 'allTrueCase', query: { bookid: bookAttr.id, bookname: bookAttr.name }}" class="anli">全真案例</router-link>
           <div class="book">
             <h3>{{bookAttr.name}}</h3>
             <p>{{bookAttr.text}}</p>
@@ -29,14 +29,14 @@
                 <div class="cardTitle">
                   <span class="careName">我的题组 <span> (共{{topicList.length}}个)</span></span>
                   <!-- <span class="addName" @click="newDailog=true">新建题组</span><span class="addBtn el-icon-circle-plus"></span> -->
-                  <router-link rel="span" class="addName" to='/Teacher/Shixun/Course/addProblem'>新建题组</router-link rel="span"><span class="addBtn el-icon-circle-plus"></span>
+                  <router-link rel="span" class="addName" :to="{ name: 'addProblem', query: { bookid: bookAttr.id, bookname: bookAttr.name }}">新建题组</router-link rel="span"><span class="addBtn el-icon-circle-plus"></span>
                 </div>
                 <div v-if="this.topicList.length>0">
                   <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
                     <div class="ctrlBox">
                       <p><span>逐题预览</span></p>
                       <p>
-                        <router-link tag="span" to="/Teacher/Shixun/Course/editProblem">编辑题组</router-link>
+                        <router-link tag="span" :to="{ name: 'editProblem', query: { bookid: bookAttr.id, bookname: bookAttr.name }}">编辑题组</router-link>
                       </p>
                       <p><span>发布任务</span></p>
                       <div><span @click="deletList(item)">删除</span><span>下载</span></div>
@@ -156,14 +156,14 @@
       <span class="setTitle">新建题组</span>
       <div class="newBox">
         <div class="newOne">
-          <router-link to='/Teacher/Shixun/Course/addProblemSet'>
+          <router-link :to='{ name: 'addProblemSet', query: { bookid: bookAttr.name }}'>
             <el-button type="primary" @click="newDailog=false">快速选择案例</el-button>
           </router-link>
           <p>通过对知识点的选择，随机生成一定数量的案例保存为题组，给学生发布练习任务</p>
         </div>
         <span class="line"></span>
         <div class="newTwo">
-          <router-link to='/Teacher/Shixun/Course/addProblem'>
+          <router-link :to='{ name: 'addProblem', query: { bookid: bookAttr.name }}'>
             <el-button type="primary" @click="newDailog=false">快速选择案例</el-button>
           </router-link>
           <p>手动挑选每一个具体的案例，交将其保存为题组，给学生发布练习任务</p>
@@ -199,21 +199,21 @@ export default {
           teac: '',
           kechen: '基础会计'
         },{
-          class: '18财会',
+          class: '18财经',
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
           teac: '',
           kechen: '基础会计'
         },{
-          class: '18会计',
+          class: '18会计1',
           xibie: "会计系",
           nianji: '2018级',
           chec: true,
           teac: '张三',
           kechen: '基础会计'
         },{
-          class: '18财会',
+          class: '18经管',
           xibie: "会计系",
           nianji: '2018级',
           chec: false,
@@ -258,6 +258,7 @@ export default {
       newDailog: false,
       bookAttr: {
         name: '没有',
+        id: 0,
         src: require('../../share/img/image_class_cover.png'),
         text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
         topic: 1234
@@ -283,7 +284,12 @@ export default {
   },
   mounted() {
     this.$store.commit("firstrouterCtrl",false);
-    this.bookAttr.name = localStorage.getItem("bookName");
+    if(this.$route.query.hasOwnProperty("bookid")){
+      this.bookAttr.name = this.$route.query.bookname;
+      this.bookAttr.id = this.$route.query.bookid;
+    }else {
+      window.location.href = '#/Teacher/Shixun';
+    }    
     this.getQuestionList();
   },
   watch: {
@@ -299,7 +305,7 @@ export default {
           obj.count += this.questionList[i].questionStyleWeights[j].count * this.questionList[i].questionStyleWeights[j].weight;
           obj.case += this.questionList[i].questionStyleWeights[j].count;
           objArr.push({
-            clas: this.questionList[i].questionStyleWeights[j].questionStyle,
+            clas: this.questionList[i].questionStyleWeights[j].styleName,
             quantity: this.questionList[i].questionStyleWeights[j].count,
             score: this.questionList[i].questionStyleWeights[j].weight           
           })
@@ -384,7 +390,7 @@ export default {
     }
   },
   destroyed() {
-    this.$store.commit("firstrouterCtrl",true)
+    this.$store.commit("firstrouterCtrl",true);
   },
 }
 </script>

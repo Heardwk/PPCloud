@@ -2,9 +2,9 @@
   <div class="feight">
     <div class="componentBox">
       <p class="path">
-        <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
-        <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
-        <router-link to="/Teacher/Shixun/Course/allTrueCase">全真案例</router-link> &gt;
+        <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
+        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">{{bookName}}</router-link> &gt;
+        <router-link :to="{ name: 'allTrueCase', query: { bookid: bookid, bookname: bookName }}">全真案例</router-link> &gt;
         发布任务
       </p>
       <div class="headBox">
@@ -63,7 +63,7 @@
             共计<span class="light">{{title.count}}</span>个案例，您可以在下一个步骤调整具体的题型及数量
           </p>
           <div class="btnBox">
-            <router-link to="/Teacher/Shixun/Course">返回课程</router-link>
+            <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">返回课程</router-link>
             <el-button @click="next" type="primary">下一步</el-button>
           </div>
         </div>
@@ -226,7 +226,7 @@
           <div class="succBox">
             <h3>发布任务成功</h3>
             <p ref="times">5秒后跳转至全真案例</p>
-            <div><router-link to="/Teacher/Shixun/Course/allTrueCase">返回案例</router-link></div>
+            <div><router-link :to="{ name: 'allTrueCase', query: { bookid: bookid, bookname: bookName }}">返回案例</router-link></div>
           </div>
         </div>
         <p class="all"><span class="el-icon-info"></span>请关注已发布任务的状态了解任务进度</p>
@@ -242,6 +242,7 @@ export default {
     return {
       isChecArr: [],
       bookName: '',
+      bookid: 0,
       time: 5,
       active: 0,
       isAccordion: true,
@@ -414,7 +415,12 @@ export default {
   },
   mounted() {
     this.$store.commit("thirdrouterCtrl",false);
-    this.bookName = localStorage.getItem("bookName");
+    if(this.$route.query.hasOwnProperty("bookid")){
+      this.bookName = this.$route.query.bookname;
+      this.bookid = this.$route.query.bookid;
+    }else {
+      window.location.href = '#/Teacher/Shixun';
+    } 
   },
   watch: {
     filterText(val) {
@@ -576,7 +582,8 @@ export default {
       }
     }
     if(this.active==4){
-      this.timeOut()
+      this.timeOut();
+      this.timeCtrl.begin();
     }
   },
   destroyed() {

@@ -73,42 +73,42 @@ export default new Router({
           path: '', redirect: 'Shixun'
         },
         {
-          path: 'Yuanxiao',
+          path: '/Teacher/Yuanxiao',
           name: 'Yuanxiao',
           component: Yuanxiao
         },
         {
-          path: 'Shixun',
+          path: '/Teacher/Shixun',
           name: 'Shixun',
           component: Shixun,
           children: [
             {
-              path: 'Course',
+              path: '/Teacher/Shixun/Course',
               name: 'Course',
               component: Course,
               children: [
                 {
-                  path: 'addProblemSet',
+                  path: '/Teacher/Shixun/Course/addProblemSet',
                   name: 'addProblemSet',
                   component: addProblemSet
                 },
                 {
-                  path: 'addProblem',
+                  path: '/Teacher/Shixun/Course/addProblem',
                   name: 'addProblem',
                   component: addProblem
                 },
                 {
-                  path: 'editProblem',
+                  path: '/Teacher/Shixun/Course/editProblem',
                   name: 'editProblem',
                   component: editProblem
                 },
                 {
-                  path: 'allTrueCase',
+                  path: '/Teacher/Shixun/Course/allTrueCase',
                   name: 'allTrueCase',
                   component: allTrueCase,
                   children: [
                     {
-                      path: 'pubMission',
+                      path: '/Teacher/Shixun/Course/allTrueCase/pubMission',
                       name: 'pubMission',
                       component: pubMission
                     }
@@ -119,27 +119,27 @@ export default new Router({
           ]
         },
         {
-          path: 'Renwu',
+          path: '/Teacher/Renwu',
           name: 'Renwu',
           component: Renwu
         },
         {
-          path: 'Shuju',
+          path: '/Teacher/Shuju',
           name: 'Shuju',
           component: Shuju
         },
         {
-          path: 'Ability',
+          path: '/Teacher/Ability',
           name: 'Ability',
           component: Ability
         },
         {
-          path: 'Ziliao',
+          path: '/Teacher/Ziliao',
           name: 'Ziliao',
           component: Ziliao
         },
         {
-          path: 'Geren',
+          path: '/Teacher/Geren',
           name: 'Geren',
           component: Geren
         }

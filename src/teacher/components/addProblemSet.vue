@@ -2,8 +2,8 @@
   <div class="feight">
     <div class="componentBox">
       <p class="path">
-        <router-link to="/Teacher/Shixun">实训中心</router-link> &gt;
-        <router-link to="/Teacher/Shixun/Course">{{bookName}}</router-link> &gt;
+        <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
+        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">{{bookName}}</router-link> &gt;
         快速创建题组
       </p>
       <div class="headBox">
@@ -29,18 +29,20 @@
               v-model="filterText">
             </el-input>
           </p>
-          <el-tree
-            class="tree"
-            :props="defaultProps"
-            :data="dataList"
-            node-key="id"
-            show-checkbox
-            :default-checked-keys = "isChecArr"
-            ref="tree"
-            :filter-node-method="filterNode"
-            :accordion = "isAccordion"
-            @check-change="handleCheckChange">
-          </el-tree>
+          <div class="treeBox">
+            <el-tree
+              class="tree"
+              :props="defaultProps"
+              :data="dataList"
+              node-key="id"
+              show-checkbox
+              :default-checked-keys = "isChecArr"
+              ref="tree"
+              :filter-node-method="filterNode"
+              :accordion = "isAccordion"
+              @check-change="handleCheckChange">
+            </el-tree>
+          </div>
         </div>
         <div class="rightContent">
           <p><span class="hasLine">已选知识点</span></p>
@@ -61,7 +63,7 @@
             共计<span class="light">{{title.count}}</span>个案例，您可以在下一个步骤调整具体的题型及数量
           </p>
           <div class="btnBox">
-            <router-link to="/Teacher/Shixun/Course">返回课程</router-link>
+            <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">返回课程</router-link>
             <el-button @click="next" type="primary">下一步</el-button>
           </div>
         </div>
@@ -128,7 +130,7 @@
           <div class="succBox">
             <h3>创建成功</h3>
             <p ref="times">5秒后跳转至课程页面</p>
-            <div><router-link to="/Teacher/Shixun/Course">返回课程</router-link></div>
+            <div><router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">返回课程</router-link></div>
           </div>
         </div>
         <p class="all"><span class="el-icon-info"></span>完成后可以将立即将题组中的题目作为任务推送给学习进行练习。</p>
@@ -144,6 +146,7 @@ export default {
     return {
       isChecArr: [],
       bookName: '',
+      bookid: 0,
       time: 5,
       active: 0,
       isAccordion: true,
@@ -229,7 +232,12 @@ export default {
   },
   mounted() {
     this.$store.commit("secondrouterCtrl",false);
-    this.bookName = localStorage.getItem("bookName");
+    if(this.$route.query.hasOwnProperty("bookid")){
+      this.bookName = this.$route.query.bookname
+      this.bookid = this.$route.query.bookid
+    }else {
+      window.location.href = '#/Teacher/Shixun';
+    }
   },
   watch: {
     filterText(val) {
@@ -287,7 +295,7 @@ export default {
             if ((that.time--) <= 1) {
               $times.innerText = "正在跳转至课程页面...";
               window.clearInterval(interval);
-              window.location.href = "#/Teacher/Shixun/Course";
+              window.location.href = `#/Teacher/Shixun/Course?bookid=${that.bookid}&bookname=${that.bookName}`;
             }else {
               $times.innerText = that.time + "秒后跳转至课程页面"
             }
@@ -327,13 +335,14 @@ export default {
       }
     }
     if(this.active==3){
-      this.timeOut()
+      this.timeOut();
+      this.timeCtrl.begin()
     }
   },
   destroyed() {
     this.$store.commit("secondrouterCtrl",true);
     if(this.timeCtrl.hasOwnProperty("end")){
-      this.timeCtrl.end()
+      this.timeCtrl.end();
     }
   },
 }
@@ -386,7 +395,6 @@ export default {
   top: 0;
   left: 0;
   width: 255px;
-  height: 600px;
   background-color: white;
   padding: 20px;
   border-radius: 4px;
@@ -398,13 +406,14 @@ export default {
   font-size: 12px;
   margin-left: 30px;
 }
-.tree {
+.treeBox {
   margin-top: 10px;
   height: 530px;
-  overflow-y: auto;
-  white-space: nowrap;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
+  overflow: auto;
+  position: relative;
+}
+.el-tree {
+  width: 100%;
 }
 .rightContent {
   margin-left: 275px;

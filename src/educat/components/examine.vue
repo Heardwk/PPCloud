@@ -94,12 +94,12 @@ export default{
 	},
 	mounted(){
         this.$store.commit("secondrouterCtrl",false);
-      	this.name = localStorage.getItem("name");
-		this.fitime = localStorage.getItem('fitime');
-		this.endtime = localStorage.getItem('endtime');
-	    this.tea_class = localStorage.getItem('tea_class');
-	    this.grade = localStorage.getItem('grade');
-	    this.comments = localStorage.getItem('comments');
+      	this.name = sessionStorage.getItem("name");
+		this.fitime = sessionStorage.getItem('fitime');
+		this.endtime = sessionStorage.getItem('endtime');
+	    this.tea_class = sessionStorage.getItem('tea_class');
+	    this.grade = sessionStorage.getItem('grade');
+	    this.comments = sessionStorage.getItem('comments');
 	},
     methods:{
     // 	httpexam(){
