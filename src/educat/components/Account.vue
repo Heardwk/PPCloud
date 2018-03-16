@@ -2,9 +2,9 @@
   <div class="">
     <div class="Account_top">
     	    <p style="color: #687178;font-size: 12px;padding-top:20px;padding-bottom:10px;">   </p>
-    	    <el-tabs :tab-position="tabPosition">
+    	    <el-tabs :tab-position="tabPosition" @tab-click="">
 				    <el-tab-pane label="教师账号">
-				    	 <p class="title_t">教师账号 <span>30</span>个，30使用中</p>
+				    	 <p class="title_t">教师账号 <span>{{this.allData1}}</span>个，<span>{{this.allData1}}</span>使用中</p>
 				    	   <div class="tea_table">
 				    	   	 <div class="tea_table_top">
 				    	   	     <ul>
@@ -20,6 +20,7 @@
 							       <tr 
 							       	v-for="(itemgridData,index) in gridData"
 							       	:key="index">
+							       	<td>{{ currentPage<2? `0${index+1}`: index+1+(10*(currentPage-1))}}</td>
 							        <td  v-for="(item,index) in itemgridData">
 							        	<i v-if="index == 'degree'" class="el-icon"></i>
 							        	{{item}}
@@ -31,20 +32,20 @@
 				    	</div>
 				    <div class="block">
 					    <el-pagination
-					      @current-change="handleCurrentChange1"
-					      :current-page="currentPage1"
-					      :page-size="pageSize1"
+					      @current-change="handleCurrentChange"
+					      :page-size="page"
 					      layout="total, prev, pager, next, jumper"
 					      :total="allData1">
 					    </el-pagination>
 					</div>
 				    </el-tab-pane>
 				    <el-tab-pane label="学生账号">
-			    	 	 <p class="title_t">教师账号 <span>30</span>个，<span>300</span>使用中，<span>100</span>个到期</p>
+			    	 	 <p class="title_t">教师账号 <span>{{this.allData}}</span>个，<span>{{this.allData}}</span>使用中，<span>{{this.allData}}</span>个到期</p>
 			    		<div class="tea_table">
 			    	   	 <div class="tea_table_top">
 			    	   	  <el-table
 						    :data="gridData_student"
+						    @filter-change= "filterchange"
 						    style="width: 100%">
 						    <el-table-column
 						      prop="id"
@@ -54,8 +55,6 @@
 						    <el-table-column
 						      prop="college"
 						      label="全部院系"
-						      sortable
-						       width="180"
 						      :filters="college"
 						      :filter-method="filterHandler"
 						    >
@@ -63,10 +62,8 @@
 						    <el-table-column
 						      prop="classs"
 						      label="全部年级"
-						      sortable
-						      width="180"
 						      :filters="classs"
-						      :filter-method="filterHandler"
+						      :filter-method="filterHandlerx"
 						    >
 						    </el-table-column>
 						    <el-table-column
@@ -77,47 +74,29 @@
 						     <el-table-column
 						      prop="name"
 						      label="姓名"
-						      
 						      >
 						    </el-table-column>
 						    <el-table-column
 						      prop="when"
-						      label="学号"
-						      width="150">
+						      label="学号">
 						    </el-table-column>
 						    <el-table-column
 						      prop="kaitime"
-						      label="开始时间"
-						       width="180" >
+						      label="开启时间">
 						    </el-table-column>
 						    <el-table-column
 						      prop="endtime"
-						      label="结束时间"
-						      width="180">
-						    </el-table-column>
-						    <el-table-column
-						      prop="degree"
-						      label="状态"
-						      width="120"
-						      :filters="[{ text: '使用中', value: '使用中' }, { text: '已到期', value: '已到期' }]"
-						      :filter-method="filterTag"
-						      filter-placement="bottom-end">
-						      <template slot-scope="scope">
-						        <el-tag
-						          :type="scope.row.degree === '使用中' ? 'primary' : 'success'"
-						          close-transition>{{scope.row.degree}}</el-tag>
-						      </template>
+						      label="到期时间">
 						    </el-table-column>
 						  </el-table>
 			    	   	 </div>
 			    	</div>
 			    	<div class="block"style="margin-top:20px;">
 					    <el-pagination
-					      @current-change="handleCurrentChange2"
-					      :current-page="currentPage2"
-					      :page-size="100"
+					      @current-change="handleCurrentChange"
+					      :page-size="page"
 					      layout="total, prev, pager, next, jumper"
-					      :total="400">
+					      :total="allData1">
 					    </el-pagination>
 					</div>
 			    </el-tab-pane>
@@ -133,68 +112,138 @@ export default {
       return {
         college:[{text: '会计系', value: '会计系'}, {text: '金融系', value: '金融系'}, {text: '纳税', value: '纳税'}],
         classs:[{text: '2015级', value: '2015级'}, {text: '2016级', value: '2016级'}, {text: '2017级', value: '2017级'}, {text: '2018级', value: '2018级'}],
+        accomplish:[{text: '使用中', value: '使用中'}, {text: '已到期', value: '已到期'}],
         tabPosition: 'top',
-        data:["序号","用户名","姓名","任教时间","院系","手机号","有效期","状态"],
-        gridData: [
-	      { id:'01',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期1', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'02',name: '18524550255', teacher: '李四1',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'03',name: '18524550255', teacher: '李四2',when:'2017-2018年第二学期2', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'04',name: '18524550255', teacher: '李四3',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'05',name: '18524550255', teacher: '李四4',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期3', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期4', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	      { id:'06',name: '18524550255', teacher: '李四',when:'2017-2018年第二学期', college: '会计系',classs:'10101010',tea_class:'永久有效',isActive:'使用中'},
-	    
-      ],
-			gridData_student: [
-		      { id:'01',college: '会计系',classs:'2015级',tea_class:'1701', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'使用中'},
-		      { id:'02',college: '金融系',classs:'2016级',tea_class:'1702', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'使用中'},
-		      { id:'03',college: '纳税',classs:'2017级',tea_class:'1703', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'已到期'},
+        data:["序号","用户名","姓名","院系","手机号","有效期"],
+        gridData: [],
+		gridData_student: [
+		      // { id:'01',college: '会计系',classs:'2015级',tea_class:'1701', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'使用中'},
 	      ],
         value: '',
         currentPage1: 1,
-        pageSize1: 1,
-        allData1: 3,
-        currentPage2: 1,
+        allData1: 1,
+        allData: 1,
+        currentPage: 1,
         pageSize2: 2,
         allData2: 3,
-        teacherData: []
+        page:2,
+        page1:2,
+        teacherData: [],
+        studentData: [],
       }
    },
-  mounted() {
-		this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionGroupList`,
-      {
-        "courseId": 1,
-  			"maxResultCount": 10,
-  			"skipCount": 0
-      },{
-        headers: {
-          "Content-Type": "application/json",
-        }
-      }).then(response=>{
-        this.teacherData = response.body.result.items;
-      },response=>{
-        console.log('error')
-      })
-  },
-   methods: {
-      formatter(row, column) {
-        return row.address;
-      },
-      filterTag(value, row) {
-        return row.degree === value;
-      },
-      filterHandler(value, row, column) {
-        const property = column['property'];
-        return row[property] === value;
-      },
-	  handleCurrentChange1(val) {
-	        console.log(`当前页: ${val}`);
+    mounted() {
+        this.acc();
+        this.student();
+    },
+    methods: {
+        acc(){
+        	this.$http.post(`${this.$store.state.location}/services/app/Teacher/GetTeacherList`,
+		        {
+					"isTeacher": true,
+					"maxResultCount": this.page,
+		  		    "skipCount": (this.currentPage-1)*this.page
+		        },{
+		            headers: {
+		                "Content-Type": "application/json",
+		        }
+		        }).then(response=>{
+			        this.teacherData = response.body.result.items;
+			        this.allData1 =  response.body.result.totalCount;
+			        this.acc_list();
+		        },response=>{
+		       		console.log('error')
+		       })
+        },
+        // 学生账号
+         student(){
+        	this.$http.post(`${this.$store.state.location}/services/app/Student/GetStudentList`,
+		        {
+					"isTeacher": true,
+					"maxResultCount": this.page,
+		  		    "skipCount": (this.currentPage-1)*this.page
+		        },{
+		            headers: {
+		                "Content-Type": "application/json",
+		        }
+		        }).then(response=>{
+			        this.studentData = response.body.result.items;
+			        this.allData =  response.body.result.totalCount;
+			        this.acc_list_student();
+		        },response=>{
+		       		console.log('error')
+		       })
+        },
+        acc_list(){
+        	this.gridData = [];
+            for (let i in this.teacherData) {
+                	this.gridData.push({
+                		"name":this.teacherData[i].name,
+                		"teacher":this.teacherData[i].user.userName,
+                		"college":this.teacherData[i].department.name,
+                		"classs":this.teacherData[i].user.phoneNumber,
+                		"tea_class":'永久有效',
+                	})
+            }
+        },
+        acc_list_student(){
+        	this.gridData_student = [];
+            for (let i in this.studentData) {
+                	this.gridData_student.push({
+                		"id":this.index_id(),
+                		"college":this.studentData[i].department.name,
+                		"classs":'',
+                		"tea_class":this.studentData[i].classesId,
+                		"name":this.studentData[i].user.name,
+                		"when":'',
+                		"kaitime":this.studentData[i].lastLoginTime,
+                		"endtime":this.studentData[i].creationTime,
+                	})
+            }
+        },
+        // 这是点击切换的事件
+        // handleClick(tab, event) {
+        // 	console.log(tab);
+        // },
+     //    formatter(row, column) {
+     //    	console.log(row.address)
+	    //     return row.address;
+	    // },
+        filterTag(value, row) {
+            return row.degree === value;
+        },
+        index_id(){
+        	// for (let i = 0;i < this.allData1;i++) {
+        	// 	console.log(this.allData1)
+	        //     if(this.currentPage < 2){
+	        //     	return  '0'+(i+1)
+	        //     }else{
+	        //     	return i+1
+	        //     }
+        	// }
+        },
+        filterHandler(value, row, column) {
+	        // const property = column['property'];
+	        // return row[property] === value;
+	        console.log(value);
+	        console.log(row)
+	        console.log(column)
+        },
+        filterHandlerx(value, row, column) {
+	        const property = column['property'];
+	        return row[property] === value;
+        },
+        filterchange(filters){
+	       // console.log("筛选条件" +filters)
+	       this.filterHandler()
+        },
+	    handleCurrentChange(val) {
+			this.currentPage = val;
+			this.acc();
 	    },
-	    handleCurrentChange2(val) {
-
+	     handleCurrentChange1(val) {
+			this.currentPage1 = val;
+			this.acc();
 	    },
     }
 }
@@ -255,21 +304,6 @@ ul{
 .tea_tables{
 	min-height: 500px;
 	overflow: hidden;
-}
-.tabod>tr>td:nth-child(4){
-	width: 17%;
-}
-.tea_table_top ul>li:nth-child(4){
-	width: 153%;
-}
-.tabod>tr>td:nth-child(3){
-	padding-left: 0.5%;
-}
-.tabod>tr>td:nth-child(5){
-	padding-left: 0.5%;
-}
-.tea_table_top ul>li:nth-child(5){
-	width: 100%;
 }
 .tabod>tr>td{
 	text-align: left;
