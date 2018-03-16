@@ -31,18 +31,20 @@
               v-model="filterText">
             </el-input>
           </p>
-          <el-tree
-            class="tree"
-            :props="defaultProps"
-            :data="dataList"
-            node-key="id"
-            show-checkbox
-            :default-checked-keys = "isChecArr"
-            ref="tree"
-            :filter-node-method="filterNode"
-            :accordion = "isAccordion"
-            @check-change="handleCheckChange">
-          </el-tree>
+          <div class="treeBox">
+            <el-tree
+              class="tree"
+              :props="defaultProps"
+              :data="dataList"
+              node-key="id"
+              show-checkbox
+              :default-checked-keys = "isChecArr"
+              ref="tree"
+              :filter-node-method="filterNode"
+              :accordion = "isAccordion"
+              @check-change="handleCheckChange">
+            </el-tree>
+          </div>
         </div>
         <div class="rightContent">
           <p><span class="hasLine">已选知识点</span></p>
@@ -53,14 +55,14 @@
                 :key="item.id"
                 @close="handleClose(item.id)"
                 closable>
-                {{item.label}}
+                {{item.name}}
               </el-tag>
             </div>
           </div>
           <p class="all">
             <span class="el-icon-info"></span>
             已选择<span class="light">{{title.point}}</span>个知识点，
-            共计<span class="light">{{title.count}}</span>个案例，您可以在下一个步骤调整具体的题型及数量
+            您可以在下一个步骤调整具体的题型及数量
           </p>
           <div class="btnBox">
             <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">返回课程</router-link>
@@ -80,10 +82,11 @@
             <li v-for="(item,index) in tixing" :key="index" class="titleList">
               <span class="titleOne">{{item.type}}</span>
               <span class="titleTwo">
-                <el-input-number v-model="item.count" @change="handleChangeCount" :min="0"></el-input-number>
+                <el-input-number v-model="item.count" @change="handleChangeCount" :min="0" :max="item.max"></el-input-number>
+                共{{item.max}}个
               </span>
               <span class="titleThr">
-                <el-input-number v-model="item.point" @change="handleChangePoint" :min="0"></el-input-number>
+                <el-input-number v-model="item.weight" @change="handleChangePoint" :min="0"></el-input-number>
               </span>
             </li>
           </ul>
@@ -91,7 +94,7 @@
         <p class="all">
           <span class="el-icon-info"></span>
           已选择<span class="light">{{title.point}}</span>个知识点，
-          共计<span class="light">{{title.count}}</span>个案例，
+          共计<span class="light">{{allCount}}</span>个案例，
           累计总分<span class="light">{{allPoint}}</span>分，创建完成后，您可以随时调整这些参数。
         </p>
         <div class="btnBox">
@@ -111,9 +114,9 @@
             </el-input>
           </p>
           <div class="chooseBox">
-            <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index)" :class="{'act': isact === index}">
+            <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index,item)" :class="{'act': isact === index}">
               <span class="el-icon-tickets"></span>
-              {{item.label}}
+              {{item.name}}
             </div>
           </div>
         </div>
@@ -126,7 +129,7 @@
                 <span class="name">案例名称</span>
                 <span class="point">课程名称</span>
                 <span class="type">题型</span>
-          <!--       <span class="count">练习次数</span> -->
+                <span class="count">分值</span>
                 <span class="oper">操作</span>
               </li>
               <li v-for="(item,index) in topicData" class="titltLi">
@@ -134,7 +137,7 @@
                 <span class="name">{{item.name}}</span>
                 <span class="point">{{item.point}}</span>
                 <span class="type">{{item.type}}</span>
-                <!-- <span class="count">{{item.count}}</span> -->
+                <span class="count">{{item.count}}</span>
                 <span class="oper"><el-checkbox v-model="item.chec"></el-checkbox></span>
               </li>
             </ul>
@@ -149,7 +152,7 @@
           </div>
           <p class="all"><span class="el-icon-info"></span>
             已选择<span class="light">{{title.point}}</span>个知识点，
-            共计<span class="light">{{title.count}}</span>个案例，
+            共计<span class="light">{{allCount}}</span>个案例，
           </p>
           <div class="btnBox">
             <el-button @click="active--">上一步</el-button>
@@ -247,59 +250,14 @@ export default {
       active: 0,
       isAccordion: true,
       defaultProps: {
-        label: 'label',
+        label: 'name',
         children: 'children'
       },
       checkTree: [],
       choooseTree: [],
       filterText: '',
       choooseText: '',
-      dataList: [
-        {
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1三级'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1',
-          }, {
-            id: 6,
-            label: '二级 2-2',
-            children: [{
-              id: 11,
-              label: '三级 2-2-1'
-            }]
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1',
-            children: [{
-              id: 12,
-              label: '三级 3-1-1'
-            }]
-          }, {
-            id: 8,
-            label: '二级 3-2',
-            children: [{
-              id: 13,
-              label: '三级 3-2-1'
-            }]
-          }]
-        }
-      ],
+      dataList: [],
       title: {
         point: 5,
         count: 150
@@ -376,25 +334,7 @@ export default {
           chec: true
         },
       ],
-      tixing: [
-        {
-          type: '选择题',
-          count: 0,
-          point: 0,
-        },{
-          type: "多选题",
-          count: 0,
-          point: 0,
-        },{
-          type: "判断题",
-          count: 0,
-          point: 0,
-        },{
-          type: "综合题",
-          count: 0,
-          point: 0,
-        },
-      ],
+      tixing: [],
       missName: '',
       isact: 0,
       pick: "24小时",
@@ -411,6 +351,7 @@ export default {
       classNum: [],
       textarea: '',
       timeCtrl: {},
+      allChooseQuestion: []
     }
   },
   mounted() {
@@ -420,7 +361,8 @@ export default {
       this.bookid = this.$route.query.bookid;
     }else {
       window.location.href = '#/Teacher/Shixun';
-    } 
+    }
+    this.getTree();
   },
   watch: {
     filterText(val) {
@@ -445,14 +387,76 @@ export default {
     }
   },
   methods: {
+    getTree() {
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetKnowledgeTree`,
+        {
+          "courseId": this.bookid,
+          "onlyIncludeChild": false
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.dataList = response.body.result;
+        },response=>{
+          console.log('知识点树获取error')
+        })
+    },
+    getTypeCount() {
+      let arr = [],str='';
+      for(let i in this.checkTree) {
+        arr.push(this.checkTree[i].id)
+      };
+      str = arr.join(',');
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionStyle`,
+        arr,{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.tixing = [];
+          for(let i in response.body.result) {
+            this.tixing.push({
+              "questionStyle": response.body.result[i].questionStyle,
+              "type": response.body.result[i].styleName,
+              "count": 0,
+              "weight": response.body.result[i].weight,
+              "max": response.body.result[i].count              
+            })
+          }
+        },response=>{
+          console.log('题型数量分值获取error')
+        })
+    },
+    getChooseQuestion() {
+      let arr = [];
+      for(let i in this.checkTree) {
+        arr.push(this.checkTree[i].id)
+      }
+      // this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GenerateRandomQuestionForKnowledge`,
+      //   {
+      //     "courseId": this.bookid,
+      //     "styles": this.tixing,
+      //     "knowledges": arr
+      //   },{
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     }
+      //   }).then(response=>{
+      //     console.log(response.body)
+      //   },response=>{
+      //     console.log('随机生成题目error')
+      //   })
+    },
     handleCheckChange(data, checked, indeterminate) {
       // 所有被选中的
       this.checkTree = this.$refs.tree.getCheckedNodes();
+      this.title.point = this.checkTree.length
       this.choooseTree = this.checkTree;
     },
     filterNode(value, data) {
       if (!value) return true;
-      return data.label.indexOf(value) !== -1;
+      return data.name.indexOf(value) !== -1;
     },
     handleClose(item) {
       this.$refs.tree.setChecked(item,false,true);
@@ -470,6 +474,8 @@ export default {
         if(this.checkTree.length==0){
           this.$message.error('请选择知识点');
           return
+        }else {
+          this.getTypeCount();
         }
       }else if(this.active==1) {
         if(this.allCount==0){
@@ -478,6 +484,8 @@ export default {
         }else if(this.allPoint==0){
           this.$message.error('请选择分数');
           return
+        }else {
+          this.getChooseQuestion()
         }
       }else if(this.active==3) {
         if(this.missName==""){
@@ -490,8 +498,9 @@ export default {
     changePage() {
 
     },
-    hasact(val) {
-      this.isact = val;
+    hasact(index,item) {
+      this.isact = index;
+      console.log(item)
     },
     changeBegintime() {
       let index = this.slideVal.indexOf(this.pick);
@@ -563,7 +572,7 @@ export default {
     allPoint() {
       let point = 0;
       for(let i=0; i<this.tixing.length; i++){
-        point+=(this.tixing[i].point*this.tixing[i].count)
+        point+=(this.tixing[i].weight*this.tixing[i].count)
       }
       return point
     },
@@ -642,7 +651,6 @@ export default {
     top: 0;
     left: 0;
     width: 255px;
-    height: 600px;
     background-color: white;
     padding: 20px;
     border-radius: 4px;
@@ -654,13 +662,14 @@ export default {
     font-size: 12px;
     margin-left: 30px;
   }
-  .tree {
+  .treeBox {
     margin-top: 10px;
     height: 530px;
-    overflow-y: auto;
-    white-space: nowrap;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
+    overflow: auto;
+    position: relative;
+  }
+  .el-tree {
+    width: 100%;
   }
   .rightContent {
     margin-left: 275px;
@@ -734,7 +743,7 @@ export default {
     display: inline-block;
   }
   .titleUl .titleTwo{
-    width: 155px;
+    width: 220px;
     text-align: center;
     margin-left: 120px;
     display: inline-block;
@@ -884,6 +893,7 @@ export default {
     height: 530px;
     overflow-x: hidden;
     overflow-y: auto;
+    margin-top: 10px;
   }
   .titleUlBox {
     font-size: 12px;
@@ -946,40 +956,6 @@ export default {
   }
   .titltLi .oper {
     cursor: pointer;
-  }
-  .titleUl {
-    padding: 0;
-  }
-  .titleHead {
-    line-height: 54px;
-    color: #000000;
-    border-radius: 4px 4px 0px 0px;
-    background-color: #FAFAFA;
-  }
-  .titleList {
-    line-height: 54px;
-    border-top: 1px solid #E8E8E8;
-  }
-  .titleUl .titleOne{
-    width: 110px;
-    text-align: center;
-    margin-left: 85px;
-    display: inline-block;
-  }
-  .titleUl .titleTwo{
-    width: 155px;
-    text-align: center;
-    margin-left: 120px;
-    display: inline-block;
-  }
-  .titleUl .titleThr{
-    width: 155px;
-    text-align: center;
-    margin-left: 150px;
-    display: inline-block;
-  }
-  .titleList .el-input-number {
-    width: 155px;
   }
   .chooseList {
     padding: 15px;

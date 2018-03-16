@@ -24,7 +24,8 @@
               node-key="id"
               ref="tree"
               :filter-node-method="filterNode"
-              accordion>
+              accordion
+              @node-click="handleClick">
             </el-tree>
           </div>
         </div>
@@ -42,7 +43,7 @@
                 <span class="count">练习次数</span>
               </li>
               <li v-for="(item,index) in topicData" class="titltLi">
-                <span class="num">{{index+1}}</span>
+                <span class="num">{{(page-1)*10 +index+ 1}}</span>
                 <span class="name">{{item.name}}</span>
                 <span class="type">{{item.type}}</span>
                 <span class="count">{{item.count}}</span>
@@ -52,8 +53,10 @@
               <el-pagination
                 background
                 layout="prev, pager, next"
-                @current-change="changePage"
-                :total="50">
+                :current-page="page"
+                :page-size="pageSize"
+                :total="allData"                
+                @current-change="changePage">
               </el-pagination>
             </div>
           </div>
@@ -77,78 +80,12 @@ export default {
       },
       dataList: [],
       filterText: '',
-      topicData: [
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: false
-        },
-      ],
+      checkPointId: 0,
+      page: 1,
+      pageSize: 2,
+      allData: 0,
+      topicData: [],
+      alltopicData: []
     }
   },
   mounted() {
@@ -169,6 +106,21 @@ export default {
   watch: {
     filterText(val) {
       this.$refs.tree.filter(val);
+    },
+    checkPointId() {
+      this.page = 1;
+      this.getQuestionsByKnowledge()
+    },
+    alltopicData() {
+      this.topicData = [];
+      for(let i in this.alltopicData) {
+        this.topicData.push({
+          "name": this.alltopicData[i].title,
+          "point": this.bookName,
+          "type": this.alltopicData[i].style,
+          "count": 2
+        })
+      }
     }
   },
   methods: {
@@ -183,6 +135,24 @@ export default {
           }
         }).then(response=>{
           this.dataList = response.body.result;
+          this.checkPointId = this.dataList[0].id;
+        },response=>{
+          console.log('知识点树获取error')
+        })
+    },
+    getQuestionsByKnowledge() {
+      this.$http.post(`${this.$store.state.location}/services/app/Question/GetQuestionsByKnowledge`,
+        {
+            "knowledgeId": this.checkPointId,
+            "maxResultCount": this.pageSize,
+            "skipCount": (this.page-1) * this.pageSize,
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.allData = response.body.result.totalCount;
+          this.alltopicData = response.body.result.items
         },response=>{
           console.log('知识点树获取error')
         })
@@ -191,9 +161,13 @@ export default {
       if (!value) return true;
       return data.name.indexOf(value) !== -1;
     },
-    changePage(){
-
+    changePage(val){
+      this.page = val;
+      this.getQuestionsByKnowledge()
     },
+    handleClick(obj) {
+      this.checkPointId = obj.id
+    }
   },
   destroyed() {
     this.$store.commit("secondrouterCtrl",true)
@@ -230,7 +204,7 @@ export default {
   }
   .treeBox {
     margin-top: 10px;
-    height: 530px;
+    height: 650px;
     overflow: auto;
     position: relative;
   }

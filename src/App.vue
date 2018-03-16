@@ -138,6 +138,7 @@ header {
 /*树*/
 .treeBox .el-tree>.el-tree-node{
   display: inline-block !important;
+  min-width: 100%;
 }
 /*课程*/
 .kechengTab .el-tabs__header {
