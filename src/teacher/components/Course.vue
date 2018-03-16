@@ -36,10 +36,10 @@
                     <div class="ctrlBox">
                       <p><span>逐题预览</span></p>
                       <p>
-                        <router-link tag="span" :to="{ name: 'editProblem', query: { bookid: bookAttr.id, bookname: bookAttr.name }}">编辑题组</router-link>
+                        <router-link tag="span" :to="{ name: 'editProblem', query: { bookid: bookAttr.id, bookname: bookAttr.name, questionid: item.questionId }}">编辑题组</router-link>
                       </p>
                       <p><span>发布任务</span></p>
-                      <div><span @click="deletList(item)">删除</span><span>下载</span></div>
+                      <div><span @click="deletList(item.questionId)">删除</span><span>下载</span></div>
                     </div>
                     <div class="borR">
                       <h3>{{item.title}}<span>{{item.time}}</span></h3>
@@ -311,6 +311,7 @@ export default {
           })
         }
         this.topicList.push({
+          questionId: this.questionList[i].id,
           case: obj.case,
           classification: objArr,
           count: obj.count,
