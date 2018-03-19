@@ -166,6 +166,7 @@ export default {
 			        this.allData =  response.body.result.totalCount;
 			        this.acc_list_student();
 			        this.screen();
+			        this.collegelist();
 
 		        },response=>{
 		       		console.log('error')
@@ -183,12 +184,21 @@ export default {
                 	})
             }
         },
-         screen(){
+        screen(){
            this.classs = [];
 			for(let i in this.studentData) {
 				this.classs.push({
 					'text': this.studentData[i].termName,
 					'value': this.studentData[i].id 
+				})
+			}
+        },
+        collegelist(){
+           this.college = [];
+			for(let i in this.studentData) {
+				this.college.push({
+					'text': this.teacherData[i].department.name,
+					'value': this.teacherData[i].department.name
 				})
 			}
         },
@@ -231,9 +241,6 @@ export default {
 	  		}
 	  	},
         filterHandler(value, row, column) {
-	        console.log(value);
-	        console.log(row)
-	        console.log(column)
         },
         filterHandlerx(value, row, column) {
 	        const property = column['property'];
