@@ -11,8 +11,8 @@
           <h3>{{topicList.title}}<span>{{topicList.time}}</span></h3>
           <p>基本信息： 已选择<span>{{topicList.point}}</span>个知识点，共<span>{{topicList.case}}</span>个案例，总分值<span>{{topicList.count}}</span>分</p>
           <div class="list">
-            <span class="line"></span>
-            <span class="line"></span>
+            <span class="line" v-if="topicList.classification.length>4"></span>
+            <span class="line" v-if="topicList.classification.length>8"></span>
             <div v-for="(i,index) in topicList.classification" :key="index">
               <div class="abso" v-if="index==0"><span>题型</span><span>数量</span><span>计分</span></div>
               <div class="abso" v-else-if="index==4"><span>题型</span><span>数量</span><span>计分</span></div>
@@ -151,55 +151,7 @@ export default {
         count: 150
       },
       topicList: {
-        title: '第一学期摸底题',
-        time: '2018-2-13',
-        text: '描述',
-        point: 10,
-        case: 40,
-        count: 100,
-        classification: [
-          {
-            clas: '选择题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '填空题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '计算题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '不限定',
-            quantity: 10,
-            score: 4
-          },{
-            clas: '选择题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '填空题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '计算题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '不限定',
-            quantity: 10,
-            score: 8
-          },{
-            clas: '选择题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '填空题',
-            quantity: 10,
-            score: 20
-          }
-        ]
+        classification: []
       },
       topicData: [
         {
@@ -263,6 +215,7 @@ export default {
           count: 2,
         },
       ],
+      datalist: {},
     }
   },
   mounted() {
@@ -273,10 +226,52 @@ export default {
     }else {
       window.location.href = '#/Teacher/Shixun';
     } 
-    this.tizuName = this.topicList.title;
-    this.textarea = this.topicList.text;
+    this.getQuertionMsg()
   },
   methods: {
+    getQuertionMsg() {
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Get`,
+        {
+          "id": this.$route.query.questionid,
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.datalist = response.body.result;
+          this.showData()
+        },response=>{
+          console.log('error')
+        })
+    },
+    showData() {
+      this.topicList = {};
+      let obj = {
+            count: 0,
+            case: 0
+          }, 
+          objArr = [];
+      for(let i in this.datalist.questionStyleWeights) {
+        obj.count += this.datalist.questionStyleWeights[i].count * this.datalist.questionStyleWeights[i].weight;
+        obj.case += this.datalist.questionStyleWeights[i].count;
+        objArr.push({
+          clas: this.datalist.questionStyleWeights[i].styleName,
+          quantity: this.datalist.questionStyleWeights[i].count,
+          score: this.datalist.questionStyleWeights[i].weight
+        })
+      }
+      this.topicList = {
+        title: this.datalist.title,
+        time: this.datalist.creationTime.split("T")[0],
+        text: this.datalist.remark,
+        point: this.datalist.knowledgeCount,
+        case: obj.case,
+        count: obj.count,
+        classification: objArr
+      }
+      this.tizuName = this.datalist.title;
+      this.textarea = this.datalist.remark;
+    },
     handleClick(tab, event) {
       
     },
@@ -297,7 +292,7 @@ export default {
   computed: {
     allPoint() {
       let point = 0;
-      for(let i=0; i<this.topicList.classification.length; i++){
+      for(let i in this.topicList.classification) {
         point+=this.topicList.classification[i].score;
       }
       return point
@@ -357,6 +352,7 @@ export default {
   padding-top: 45px;
   font-size: 12px;
   padding-right: 160px;
+  min-height: 160px;
 }
 .list .line {
   position: absolute;
