@@ -76,7 +76,7 @@ export default{
 		return{ 
 		data:["姓名","学号","班级","得分","排名","阅卷情况"],
 		gridData: [
-	      { id:'01',name: '基础会计', teacher: '张三',when:'2017-2018年第二学期1', college: '会计学院',classs:'2015级'}
+	      { id:'01',name: '基础会计', teacher: '张三',when:'2017-2018年第二学期1', college: '会计学院',classs:'2016级'}
        ],
         Page: 4,
         name:'',

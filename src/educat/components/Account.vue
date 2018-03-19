@@ -82,21 +82,18 @@
 						    </el-table-column>
 						    <el-table-column
 						      prop="kaitime"
-						      label="开启时间">
-						    </el-table-column>
-						    <el-table-column
-						      prop="endtime"
-						      label="到期时间">
+						      label="开启时间"
+						      width="250">
 						    </el-table-column>
 						  </el-table>
 			    	   	 </div>
 			    	</div>
 			    	<div class="block"style="margin-top:20px;">
 					    <el-pagination
-					      @current-change="handleCurrentChange"
-					      :page-size="page"
+					      @current-change="handleCurrentChange1"
+					      :page-size="page1"
 					      layout="total, prev, pager, next, jumper"
-					      :total="allData1">
+					      :total="allData">
 					    </el-pagination>
 					</div>
 			    </el-tab-pane>
@@ -104,7 +101,7 @@
     </div>
   </div>
 </template>
-
+<!-- 筛选条件的不是请求后期需要更改 -->
 <script>
 export default {
   name: 'Account',
@@ -116,9 +113,7 @@ export default {
         tabPosition: 'top',
         data:["序号","用户名","姓名","院系","手机号","有效期"],
         gridData: [],
-		gridData_student: [
-		      // { id:'01',college: '会计系',classs:'2015级',tea_class:'1701', name:'王五',when:'20142014',kaitime:'2015-01-02 00:00:00',endtime:'2015-01-02 00:00:00',degree:'使用中'},
-	      ],
+		gridData_student: [],
         value: '',
         currentPage1: 1,
         allData1: 1,
@@ -160,8 +155,8 @@ export default {
         	this.$http.post(`${this.$store.state.location}/services/app/Student/GetStudentList`,
 		        {
 					"isTeacher": true,
-					"maxResultCount": this.page,
-		  		    "skipCount": (this.currentPage-1)*this.page
+					"maxResultCount": this.page1,
+		  		    "skipCount": (this.currentPage-1)*this.page1
 		        },{
 		            headers: {
 		                "Content-Type": "application/json",
@@ -170,6 +165,9 @@ export default {
 			        this.studentData = response.body.result.items;
 			        this.allData =  response.body.result.totalCount;
 			        this.acc_list_student();
+			        this.screen();
+			        this.collegelist();
+
 		        },response=>{
 		       		console.log('error')
 		       })
@@ -186,6 +184,24 @@ export default {
                 	})
             }
         },
+        screen(){
+           this.classs = [];
+			for(let i in this.studentData) {
+				this.classs.push({
+					'text': this.studentData[i].termName,
+					'value': this.studentData[i].id 
+				})
+			}
+        },
+        collegelist(){
+           this.college = [];
+			for(let i in this.studentData) {
+				this.college.push({
+					'text': this.teacherData[i].department.name,
+					'value': this.teacherData[i].department.name
+				})
+			}
+        },
         acc_list_student(){
         	this.gridData_student = [];
             for (let i in this.studentData) {
@@ -195,46 +211,42 @@ export default {
                 		"classs":'',
                 		"tea_class":this.studentData[i].classesId,
                 		"name":this.studentData[i].user.name,
-                		"when":'',
-                		"kaitime":this.studentData[i].lastLoginTime,
-                		"endtime":this.studentData[i].creationTime,
+                		"when":this.studentData[i].user.userName,
+                		"kaitime":this.time(this.studentData[i].creationTime),
                 	})
             }
         },
-        // 这是点击切换的事件
-        // handleClick(tab, event) {
-        // 	console.log(tab);
-        // },
-     //    formatter(row, column) {
-     //    	console.log(row.address)
-	    //     return row.address;
-	    // },
         filterTag(value, row) {
             return row.degree === value;
         },
+        // 序号的生成可能会产生问题
         index_id(){
-        	// for (let i = 0;i < this.allData1;i++) {
-        	// 	console.log(this.allData1)
-	        //     if(this.currentPage < 2){
-	        //     	return  '0'+(i+1)
-	        //     }else{
-	        //     	return i+1
-	        //     }
-        	// }
+        	for (let i = 0;i < this.allData;i++) {
+	            if(this.currentPage1 < 2){
+	            	return  '0'+(i+1)
+	            }else{
+	            	return i+1
+	            }
+        	}
         },
+         //时间不严谨时间判断
+	  	time(time){
+	  		for(let i in this.studentData){
+	  			if(time){
+			        this.num = time.slice(0,10);
+			        this.point = time.slice(11,-7);
+			        this.str = this.num.concat(' '+this.point)
+	                return  this.str
+                }
+	  		}
+	  	},
         filterHandler(value, row, column) {
-	        // const property = column['property'];
-	        // return row[property] === value;
-	        console.log(value);
-	        console.log(row)
-	        console.log(column)
         },
         filterHandlerx(value, row, column) {
 	        const property = column['property'];
 	        return row[property] === value;
         },
         filterchange(filters){
-	       // console.log("筛选条件" +filters)
 	       this.filterHandler()
         },
 	    handleCurrentChange(val) {
@@ -243,7 +255,7 @@ export default {
 	    },
 	     handleCurrentChange1(val) {
 			this.currentPage1 = val;
-			this.acc();
+			this.student();
 	    },
     }
 }
