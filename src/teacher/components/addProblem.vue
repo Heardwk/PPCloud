@@ -520,6 +520,7 @@ export default {
     if(this.timeCtrl.hasOwnProperty("end")){
       this.timeCtrl.end()
     }
+    location.reload()
   },
 }
 </script>
