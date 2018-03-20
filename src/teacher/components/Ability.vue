@@ -1,5 +1,5 @@
 <template>
-  <div class="" style="min-height:100%">
+  <div class="" style="min-height:calc(100% - 80px);">
     <div class="componentBox">能力档案</div>
   </div>
 </template>

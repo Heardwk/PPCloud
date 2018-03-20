@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="" style="min-height:100%;background:#F8F8F8;">
     <div v-if="course.secondrouter">
       <div class="componentBox">
         <p class="path"><router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt; {{bookAttr.name}}</p>
@@ -543,7 +543,7 @@ export default {
 .tabCard {
   background-color: white;
   padding: 25px 40px 25px 20px;
-  min-height: 415px;
+  min-height: 420px;
   background-repeat: no-repeat;
   background-position: center;
 }

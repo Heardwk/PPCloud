@@ -432,6 +432,7 @@ export default {
   background-color: white;
   position: relative;
   border-radius: 6px;
+  min-height: 390px;
 }
 .tabContent .line {
   height: 1px;

@@ -1,5 +1,5 @@
 <template>
-  <div class="" style="min-height:100%;background: white">
+  <div class="" style="background: white;min-height:calc(100% - 80px);">
     <div v-if="shixun.firstrouter" class="feight">
       <div v-if="recentlyData.length>0" class="componentBox">
         <p class="boxTitle">最近使用</p>
@@ -86,58 +86,9 @@ export default {
               number: '3281',
               time: '2017/8/22',
               src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              id: 2,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },
+            }
           ] 
-        },
-        {
-          type: '综合实训',
-          bookList: [
-            {
-              name: '基础会计',
-              id: 1,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              id: 2,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '初级会计电算化',
-              id: 3,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              id: 2,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },
-            {
-              name: '初级会计电算化',
-              id: 3,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              id: 2,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },
-          ] 
-        },
+        }
       ],
       getall: {}
     }

@@ -117,7 +117,7 @@ export default {
         this.topicData.push({
           "name": this.alltopicData[i].title,
           "point": this.bookName,
-          "type": this.alltopicData[i].style,
+          "type": this.alltopicData[i].styleName,
           "count": 2
         })
       }

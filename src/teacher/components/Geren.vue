@@ -1,5 +1,5 @@
 <template>
-  <div class="feight" style="min-height:100%">
+  <div class="feight" style="min-height:calc(100% - 80px);">
     <div class="componentBox">
 <!--       <el-tabs v-model="activeName.activeName" @tab-click="handleClick" tab-position="left">
   	    <el-tab-pane label="基本信息" name="first">基本信息</el-tab-pane>

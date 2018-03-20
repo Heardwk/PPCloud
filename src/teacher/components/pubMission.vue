@@ -389,7 +389,7 @@ export default {
                 name: response.body.result[i].questions[j].title,
                 point: this.bookName,
                 style: response.body.result[i].questions[j].style,
-                type: response.body.result[i].questions[j].style,
+                type: response.body.result[i].questions[j].styleName,
                 count: weight,
                 chec: true
               })
