@@ -47,15 +47,13 @@
                       <span v-if="item.classification.length>3" class="line"></span>
                       <span v-if="item.classification.length>6" class="line line2"></span>
                       <div class="list">
-                        <div v-for="(i,index) in item.classification" :key="index">
-                          <div class="abso" v-if="index==0"><span>题型</span><span>数量</span><span>计分</span></div>
-                          <div class="abso" v-else-if="index==4"><span>题型</span><span>数量</span><span>计分</span></div>
-                          <div class="abso" v-else-if="index==8"><span>题型</span><span>数量</span><span>计分</span></div>
-                          <div class="border">
-                            <span>{{i.clas}}</span>
-                            <span class="light">{{i.quantity}}</span>
-                            <span>{{i.score}}</span>
-                          </div>
+                        <div class="abso abso1" v-if="item.classification.length>0"><span>题型</span><span>数量</span><span>计分</span></div>
+                        <div class="abso abso2" v-if="item.classification.length>1"><span>题型</span><span>数量</span><span>计分</span></div>
+                        <div class="abso abso3" v-if="item.classification.length>2"><span>题型</span><span>数量</span><span>计分</span></div>
+                        <div class="border" v-for="(i,index) in item.classification" :key="index">
+                          <span>{{i.clas}}</span>
+                          <span class="light">{{i.quantity}}</span>
+                          <span>{{i.score}}</span>
                         </div>
                       </div>
                     </div>
@@ -345,10 +343,20 @@ export default {
     deletList(item) {
       this.$confirm('确认删除？')
         .then(_ => {
-          done();
+          this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Delete`,
+            {
+              "id": item
+            },{
+              headers: {
+                "Content-Type": "application/json",
+              }
+            }).then(response=>{
+              location.reload()
+            },response=>{
+              console.log('删除题组error')
+            })
         })
         .catch(_ => {});
-      console.log(item)
     },
     deletPlan(item) {
       this.$confirm('确认删除？')
@@ -718,6 +726,12 @@ export default {
   position: absolute;
   line-height: 25px;
   top: 16px;
+}
+.abso1 {
+  left: 0
+}
+.abso3 {
+  right: 25px
 }
 .abso span {
   color: rgba(165,183,197,1);

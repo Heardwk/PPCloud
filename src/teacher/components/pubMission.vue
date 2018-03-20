@@ -450,7 +450,6 @@ export default {
           return
         }else {
           this.created();
-          this.active--
         }
       }
       this.active++
