@@ -30,17 +30,17 @@
                      </div>
                   </div>
                  <div style="padding-left: 20px;padding-top: 20px;">
-                   <exercises :id="1" ></exercises> 
-                    <div class="g_bu" >
-                      <!-- 单选按钮图标需要更改 -->
-                        <div style="margin-top: 60px">
-                            <el-radio v-model="radio8" label="A" border size="medium">A</el-radio>
-                            <el-radio v-model="radio8" label="B" border size="medium">B</el-radio>
-                            <el-radio v-model="radio8" label="C" border size="medium">C</el-radio>
-                            <el-radio v-model="radio8" label="D" border size="medium">D</el-radio>
-                            {{radio8}}
-                        </div>
-                    </div>
+                   <exercises :id="1" >
+<!--                         <div class="g_bu" >
+                          <div style="margin-top: 60px">
+                              <el-radio v-model="radio8" label="A" border size="medium">A</el-radio>
+                              <el-radio v-model="radio8" label="B" border size="medium">B</el-radio>
+                              <el-radio v-model="radio8" label="C" border size="medium">C</el-radio>
+                              <el-radio v-model="radio8" label="D" border size="medium">D</el-radio>
+                              {{radio8}}
+                          </div>
+                        </div> -->
+                   </exercises> 
                  </div>
               </div>
               <!-- 交卷的弹出框 -->
@@ -116,6 +116,25 @@ export default{
       exercises,
     },
     methods:{
+    httpchoice(){
+      // this.$http.post(){
+      //   this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
+      //       {
+      //         "version": 1,
+      //         "uniqueId": "47bc282b-0b64-48ee-afc6-5d9d6759c843"
+      //       },{
+      //         headers: {
+      //           "Content-Type": "application/json"
+      //         }
+      //       }).then(response=>{
+      //         this.Single = response.body.result;
+      //         this.topic.question = this.Single.content;
+      //         this.topic.answer = this.Single.options;
+      //       },response=>{
+      //         console.log("error")
+      //       })  
+      // }
+    },
     aa(index) {
       this.number = index  
       this.ins = index

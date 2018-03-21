@@ -40,30 +40,30 @@
 					</div>
 				    </el-tab-pane>
 				    <el-tab-pane label="学生账号">
-			    	 	 <p class="title_t">教师账号 <span>{{this.allData}}</span>个，<span>{{this.allData}}</span>使用中，<span>{{this.allData}}</span>个到期</p>
+			    	 	 <p class="title_t">教师账号 <span>{{this.allData}}</span>个，<span>{{this.allData}}</span>使用中</p>
 			    		<div class="tea_table">
 			    	   	 <div class="tea_table_top">
 			    	   	  <el-table
 						    :data="gridData_student"
-						    @filter-change= "filterchange"
-						    style="width: 100%">
+						    style="width: 100%"
+						    @filter-change="changeFun">
 						    <el-table-column
-						      prop="id"
-						      label="序号"
+						    type="index"
+				            :index="typeIndex"
+				            label="序号"
+				            width="150"
 						      >
 						    </el-table-column>
 						    <el-table-column
 						      prop="college"
 						      label="全部院系"
-						      :filters="college"
-						      :filter-method="filterHandler"
+						      :filters="colleges_list"  
 						    >
 						    </el-table-column>
 						    <el-table-column
 						      prop="classs"
 						      label="全部年级"
-						      :filters="classs"
-						      :filter-method="filterHandlerx"
+						      :filters="class_list"
 						    >
 						    </el-table-column>
 						    <el-table-column
@@ -101,17 +101,15 @@
     </div>
   </div>
 </template>
-<!-- 筛选条件的不是请求后期需要更改 -->
 <script>
 export default {
   name: 'Account',
   data() {
       return {
-        college:[{text: '会计系', value: '会计系'}, {text: '金融系', value: '金融系'}, {text: '纳税', value: '纳税'}],
-        classs:[{text: '2015级', value: '2015级'}, {text: '2016级', value: '2016级'}, {text: '2017级', value: '2017级'}, {text: '2018级', value: '2018级'}],
-        accomplish:[{text: '使用中', value: '使用中'}, {text: '已到期', value: '已到期'}],
+        colleges_list:[],
+        class_list:[],
         tabPosition: 'top',
-        data:["序号","用户名","姓名","院系","手机号","有效期"],
+        data:["序号","姓名","院系","手机号","有效期"],
         gridData: [],
 		gridData_student: [],
         value: '',
@@ -122,9 +120,12 @@ export default {
         pageSize2: 2,
         allData2: 3,
         page:2,
-        page1:2,
+        page1:1,
         teacherData: [],
         studentData: [],
+        id:'',
+        academy:0,
+        class:0,
       }
    },
     mounted() {
@@ -135,7 +136,6 @@ export default {
         acc(){
         	this.$http.post(`${this.$store.state.location}/services/app/Teacher/GetTeacherList`,
 		        {
-					"isTeacher": true,
 					"maxResultCount": this.page,
 		  		    "skipCount": (this.currentPage-1)*this.page
 		        },{
@@ -150,13 +150,40 @@ export default {
 		       		console.log('error')
 		       })
         },
+        changeFun(payload) {
+        	let obj = [];
+			 for(let i in payload){
+				 obj.push({
+                     "academy":payload[i][0]
+				 }); 
+				 for(let i in obj ){
+				 	 if(obj[i].academy == undefined) {
+						this.class = 0;
+						this.academy= 0;
+			
+					}else{
+						if(obj[i].academy == this.class_list[i].value) {
+							this.class = this.class_list[i].value;
+						}else if(this.academy = this.colleges_list[i].value) {
+                            this.academy = this.colleges_list[i].value;
+						 }   
+					};
+				 }
+			 }
+			console.log(obj)
+			console.log(this.academy)
+			console.log(this.class)
+		    this.student();
+		},
         // 学生账号
-         student(){
+        student(){
         	this.$http.post(`${this.$store.state.location}/services/app/Student/GetStudentList`,
 		        {
-					"isTeacher": true,
+
+					"departmentId":this.academy,
+				  	"enrollmentYear": this.class,
 					"maxResultCount": this.page1,
-		  		    "skipCount": (this.currentPage-1)*this.page1
+		  		    "skipCount": (this.currentPage1-1)*this.page1
 		        },{
 		            headers: {
 		                "Content-Type": "application/json",
@@ -167,7 +194,6 @@ export default {
 			        this.acc_list_student();
 			        this.screen();
 			        this.collegelist();
-
 		        },response=>{
 		       		console.log('error')
 		       })
@@ -175,61 +201,69 @@ export default {
         acc_list(){
         	this.gridData = [];
             for (let i in this.teacherData) {
-                	this.gridData.push({
-                		"name":this.teacherData[i].name,
-                		"teacher":this.teacherData[i].user.userName,
-                		"college":this.teacherData[i].department.name,
-                		"classs":this.teacherData[i].user.phoneNumber,
-                		"tea_class":'永久有效',
-                	})
+            	this.gridData.push({
+            		"name":this.teacherData[i].name,
+            		// "teacher":this.teacherData[i].name,
+            		"college":this.teacherData[i].department.name,
+            		"classs":this.teacherData[i].mobile,
+            		"tea_class":'永久有效',
+            	})
             }
         },
         screen(){
-           this.classs = [];
+           this.class_list = [];
 			for(let i in this.studentData) {
-				this.classs.push({
-					'text': this.studentData[i].termName,
-					'value': this.studentData[i].id 
+				this.class_list.push({
+				'text': this.studentData[i].enrollmentYear,
+				'value': this.studentData[i].enrollmentYear 
 				})
 			}
+		 this.unique(this.class_list);
         },
         collegelist(){
-           this.college = [];
+            this.colleges_list = [];
 			for(let i in this.studentData) {
-				this.college.push({
-					'text': this.teacherData[i].department.name,
-					'value': this.teacherData[i].department.name
+				this.colleges_list.push({
+					'text': this.studentData[i].department.name,
+					'value': this.studentData[i].departmentId,
 				})
 			}
+			this.unique(this.colleges_list);
+			// console.log(this.colleges_list)
         },
+        unique(arr) { 
+			   for (var i = 0; i < arr.length - 1; i++) {
+			    for (var j = 1; j < arr.length; j++) {
+			        if (i != j) {
+			            if (arr[i].x == arr[j].x && arr[i].y == arr[j].y) {
+			                arr.splice(j, 1)
+			            }
+			        }
+
+			    }
+			}
+		},
         acc_list_student(){
         	this.gridData_student = [];
             for (let i in this.studentData) {
-                	this.gridData_student.push({
-                		"id":this.index_id(),
-                		"college":this.studentData[i].department.name,
-                		"classs":'',
-                		"tea_class":this.studentData[i].classesId,
-                		"name":this.studentData[i].user.name,
-                		"when":this.studentData[i].user.userName,
-                		"kaitime":this.time(this.studentData[i].creationTime),
-                	})
+            	this.gridData_student.push({
+            		"id":'',
+            		"college":this.studentData[i].department.name,
+            		"classs":this.studentData[i].enrollmentYear +' '+'级',
+            		"tea_class":this.studentData[i].classes.serialNumber,
+            		"name":this.studentData[i].name,
+            		"when":this.studentData[i].stuNo,
+            		"kaitime":this.time(this.studentData[i].creationTime),
+            	})
             }
         },
         filterTag(value, row) {
             return row.degree === value;
         },
-        // 序号的生成可能会产生问题
-        index_id(){
-        	for (let i = 0;i < this.allData;i++) {
-	            if(this.currentPage1 < 2){
-	            	return  '0'+(i+1)
-	            }else{
-	            	return i+1
-	            }
-        	}
+        typeIndex(index) {
+       		return  this.currentPage1<2? `0${index+1}`: index+1+(10*(this.currentPage1-1))
         },
-         //时间不严谨时间判断
+         //时间判断
 	  	time(time){
 	  		for(let i in this.studentData){
 	  			if(time){
@@ -240,20 +274,15 @@ export default {
                 }
 	  		}
 	  	},
-        filterHandler(value, row, column) {
-        },
-        filterHandlerx(value, row, column) {
-	        const property = column['property'];
-	        return row[property] === value;
-        },
         filterchange(filters){
-	       this.filterHandler()
+	         // this.student();
+	         console.log(filters)
         },
 	    handleCurrentChange(val) {
 			this.currentPage = val;
 			this.acc();
 	    },
-	     handleCurrentChange1(val) {
+	    handleCurrentChange1(val) {
 			this.currentPage1 = val;
 			this.student();
 	    },

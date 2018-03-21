@@ -67,7 +67,7 @@ export default{
 	    if(sessionStorage.hasOwnProperty("kcname")) {
 	    	this.eattr.listName = sessionStorage.getItem("kcname")
 	    }else {
-	    	window.location.href = '#/Student/trainingCenter';
+	    	// window.location.href = '#/Student/trainingCenter';
 	    }
  	},
 	computed: {

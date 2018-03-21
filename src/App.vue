@@ -314,7 +314,6 @@ header {
     box-sizing: border-box;
     white-space: normal;
     word-break: break-all;
-    /*text-align: center;*/
 }
 .tables  .el-table th.is-leaf{
     background:rgba(248,248,248,1);
@@ -412,17 +411,11 @@ header {
     padding: 10px 39px 0 36px;
     border-radius: 4px;
     height: 36px;
+    margin: 0px 10px;
 }
-/*.g_bu .el-radio__inner::before {
-    width: 4px;
-    height: 4px;
-    border-radius: 100%;
-    background-color: #7ED321;
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-}*/
+.g_bu .el-radio__inner:hover {
+    border-color: transparent;
+}
 .g_bu .el-radio--medium.is-bordered .el-radio__inner{
     height:14px; 
     width:14px; 
@@ -542,5 +535,14 @@ header {
     transition: transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms,-webkit-transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms;
     -webkit-transform-origin: center;
     transform-origin: center;
+}
+.g_bu .el-checkbox__inner {
+    border-radius: 50%;
+}
+.g_bu .el-checkbox.is-bordered+.el-checkbox.is-bordered {
+    margin-right: 25px;
+}
+.g_bu .el-checkbox.is-bordered.el-checkbox--medium {
+    margin-right: 25px;
 }
 </style>

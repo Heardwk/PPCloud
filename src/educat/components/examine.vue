@@ -94,35 +94,56 @@ export default{
 	},
 	mounted(){
         this.$store.commit("secondrouterCtrl",false);
-      	this.name = sessionStorage.getItem("name");
-		this.fitime = sessionStorage.getItem('fitime');
-		this.endtime = sessionStorage.getItem('endtime');
-	    this.tea_class = sessionStorage.getItem('tea_class');
-	    this.grade = sessionStorage.getItem('grade');
-	    this.comments = sessionStorage.getItem('comments');
+        this.httpexam();
 	},
     methods:{
-    // 	httpexam(){
-    //         this.$http.post({
-	   //      //测试数据
-				// "teacherId":this.teacherid,
-				// "courseId":this.courseid
-	   //      },{
-	   //       	headers: {
-				// 	"Content-Type": "application/json"
-				// 	}
-	   //      }).then(res=>{
-	   //      	console.log(`登录成功`)
-	   //      },res=>{
-	   //      	console.log(`登录失败`)
-	   //      })
-    // 	},
-	    handleSizeChange(val) {
-	        console.log(`每页 ${val} 条`);
-		},
-	    handleCurrentChange(val) {
-		    console.log(`当前页: ${val}`);
-		}
+    httpexam(){
+	   this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
+	    {
+			  "teacherId":0,
+			  "courseId": 0,
+			  "courseTeacherAssociateId":this.$route.query.id,
+			  "maxResultCount":10,
+			  "skipCount":0,
+	    },{
+	     	headers: {
+				"Content-Type": "application/json"
+				}
+	    }).then(res=>{
+	    	this.taskdata = res.body.result.items;
+	    	for (let i in this.taskdata) {
+			  	this.fitime = this.getData(this.taskdata[i].startTime);
+				this.endtime =  this.getData(this.taskdata[i].endTime) ;
+				this.tea_class = '';
+			    this.grade = 0;
+			    this.comments = this.taskdata[i].remark;
+			    this.grades();
+			};
+	    },res=>{
+		    	console.log('this.$http 的失败') 
+	    })
+	},
+    	// 班级和总分值
+  	grades(){
+  		for (let i in this.taskdata) {
+  			for (let j in this.taskdata[i].classes) {
+  			    this.tea_class +=  this.taskdata[i].classes[j].serialNumber+'、';
+  			    this.grade += this.taskdata[i].questions[i].questionWeighting
+  			}
+  		}
+  	},
+    handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+	},
+    handleCurrentChange(val) {
+	    console.log(`当前页: ${val}`);
+	},
+	getData(str) {
+	      	let reg=/[-T:\.]/;
+	        let arr = str.split(reg)
+	        str = arr[1] + "-" + arr[2] + " " + arr[3] + ":" + arr[4];
+	        return str
+        },
     },
     destroyed() {
       	this.$store.commit("secondrouterCtrl",true)

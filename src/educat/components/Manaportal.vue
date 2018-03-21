@@ -13,7 +13,7 @@
     	   </div>
     	   <div class="man_cot">
     	       <ul v-for="(item,index) in data">
-    	       	<li><img src="" alt="" /></li>
+    	       	<li><img :src="item.img" alt="" /></li>
     	       	<li><span>{{item.genre}}</span></li>
     	       	<li><span>{{item.size}}</span></li>
     	       	<li><span>{{item.endtime}}</span></li>
@@ -41,10 +41,10 @@ export default {
     return {
     data:[
        {
-       	img:'',genre:'banner',size:'1920*482',endtime:'2018-02-02',comments:'更换照片' 
+       	img: require('../../share/img/img_minibanner_login@2x.png'),genre:'banner',size:'1920*482',endtime:'2018-02-02',comments:'更换照片' 
        },
        {
-       	img:'',genre:'logo',size:'480*80',endtime:'2018-02-02',comments:'更换照片' 
+       	img: require('../../share/img/logo_Dark.png'),genre:'logo',size:'480*80',endtime:'2018-02-02',comments:'更换照片' 
        },
      ]
     }
@@ -127,9 +127,8 @@ ul{
 .man_cot>ul>li>img{
 	display: inline-block;
 	width:100px;
-	height:48px; 
+	max-height: 48px;
 	border-radius: 2px ;
-	border: 1px solid #ddd; 
 }
 .man_bo>p{
 	height:20px; 
@@ -160,5 +159,11 @@ ul{
 	line-height: 40px;
 	text-align: center;
 	margin-bottom: 50px;
+}
+.man_bo_index>a:hover{
+	display: inline-block;
+	background:#157cf0;
+	color:#fff;
+	border:1px solid #157cf0;
 }
 </style>
