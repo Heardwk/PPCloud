@@ -1,6 +1,6 @@
 <template>
-  <div class="" style="min-height:100%;background: white">
-    <div style="background: white; padding: 20px 0">
+  <div class="" style="background: white;min-height:calc(100% - 80px)">
+    <div style="background: white; padding: 20px 0;min-height:600px;">
       <div class="ctrlTop">
         <span>实训课程:</span>
         <el-select v-model="course" size="medium" @change="changeCourse">
@@ -62,16 +62,16 @@
           </div>
         </div>
       </div>
-      <div class="pagein">
-        <el-pagination
-          background
-          layout="prev, pager, next"
-          :current-page="page"
-          :page-size="pageSize"
-          :total="allData"
-          @current-change="changePage">
-        </el-pagination>
-      </div>
+    </div>
+    <div class="pagein">
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :current-page="page"
+        :page-size="pageSize"
+        :total="allData"
+        @current-change="changePage">
+      </el-pagination>
     </div>
   </div>
 </template>
@@ -322,6 +322,9 @@ export default {
   .pagein {
     width: 960px;
     margin: 25px auto 20px auto;
+    text-align: right;
+  }
+  .pagein>.el-pagination {
     text-align: right;
   }
 </style>

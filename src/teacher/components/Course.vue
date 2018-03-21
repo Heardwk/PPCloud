@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="" style="min-height:100%;background:#F8F8F8;">
     <div v-if="course.secondrouter">
       <div class="componentBox">
         <p class="path"><router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt; {{bookAttr.name}}</p>
@@ -47,15 +47,13 @@
                       <span v-if="item.classification.length>3" class="line"></span>
                       <span v-if="item.classification.length>6" class="line line2"></span>
                       <div class="list">
-                        <div v-for="(i,index) in item.classification" :key="index">
-                          <div class="abso" v-if="index==0"><span>题型</span><span>数量</span><span>计分</span></div>
-                          <div class="abso" v-else-if="index==4"><span>题型</span><span>数量</span><span>计分</span></div>
-                          <div class="abso" v-else-if="index==8"><span>题型</span><span>数量</span><span>计分</span></div>
-                          <div class="border">
-                            <span>{{i.clas}}</span>
-                            <span class="light">{{i.quantity}}</span>
-                            <span>{{i.score}}</span>
-                          </div>
+                        <div class="abso abso1" v-if="item.classification.length>0"><span>题型</span><span>数量</span><span>计分</span></div>
+                        <div class="abso abso2" v-if="item.classification.length>1"><span>题型</span><span>数量</span><span>计分</span></div>
+                        <div class="abso abso3" v-if="item.classification.length>2"><span>题型</span><span>数量</span><span>计分</span></div>
+                        <div class="border" v-for="(i,index) in item.classification" :key="index">
+                          <span>{{i.clas}}</span>
+                          <span class="light">{{i.quantity}}</span>
+                          <span>{{i.score}}</span>
                         </div>
                       </div>
                     </div>
@@ -176,6 +174,7 @@
 </template>
 
 <script>
+import Bus from '../../Bus/Bus'
 export default {
   name: 'Course',
   data () {
@@ -256,13 +255,8 @@ export default {
       setValue2: '',
       setDailog: false,
       newDailog: false,
-      bookAttr: {
-        name: '没有',
-        id: 0,
-        src: require('../../share/img/image_class_cover.png'),
-        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
-        topic: 1234
-      },
+      id: 0,
+      bookAttr: {},
       teac: {
         classone: ["暂无"],
         classtwo: "暂无",
@@ -283,13 +277,16 @@ export default {
     }
   },
   mounted() {
+    Bus.$on('render', () => {
+      this.getQuestionList();
+    });
     this.$store.commit("firstrouterCtrl",false);
     if(this.$route.query.hasOwnProperty("bookid")){
-      this.bookAttr.name = this.$route.query.bookname;
-      this.bookAttr.id = this.$route.query.bookid;
+      this.id = parseInt(this.$route.query.bookid);
     }else {
       window.location.href = '#/Teacher/Shixun';
-    }    
+    }
+    this.getBook()
     this.getQuestionList();
   },
   watch: {
@@ -323,6 +320,29 @@ export default {
     },
   },
   methods: {
+    getBook() {
+      this.$http.post(`${this.$store.state.location}/services/app/Course/Get`,
+        {
+          "includeKnowledgeTree": false,
+          "id": this.id
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          let obj = response.body.result;
+          this.bookAttr = {};
+          this.bookAttr = {
+            name: obj.title,
+            id: obj.id,
+            src: require('../../share/img/image_class_cover.png'),
+            text: obj.introduction,
+            topic: 1234
+          }
+        },response=>{
+          console.log('error')
+        });
+    },
     handleClick(tab, event) {
       
     },
@@ -345,10 +365,20 @@ export default {
     deletList(item) {
       this.$confirm('确认删除？')
         .then(_ => {
-          done();
+          this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Delete`,
+            {
+              "id": item
+            },{
+              headers: {
+                "Content-Type": "application/json",
+              }
+            }).then(response=>{
+              this.getQuestionList()
+            },response=>{
+              console.log('删除题组error')
+            })
         })
         .catch(_ => {});
-      console.log(item)
     },
     deletPlan(item) {
       this.$confirm('确认删除？')
@@ -362,7 +392,7 @@ export default {
       // 获取题组列表
       this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionGroupList`,
         {
-          "courseId": this.bookAttr.id ,
+          "courseId": this.id ,
           "maxResultCount": 10,
           "skipCount": 0
         },{
@@ -543,7 +573,7 @@ export default {
 .tabCard {
   background-color: white;
   padding: 25px 40px 25px 20px;
-  min-height: 415px;
+  min-height: 420px;
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -718,6 +748,12 @@ export default {
   position: absolute;
   line-height: 25px;
   top: 16px;
+}
+.abso1 {
+  left: 0
+}
+.abso3 {
+  right: 25px
 }
 .abso span {
   color: rgba(165,183,197,1);

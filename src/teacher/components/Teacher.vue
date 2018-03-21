@@ -1,6 +1,8 @@
 <template>
   <div class="teac">
-    <el-container style="min-height: 100%;position:relative; padding-bottom: 70px;">
+    <el-container style="height: 100%;">
+      <!-- 内容 -->
+      <el-main style="min-height: 100%;position:relative; padding-bottom: 70px;">
       <!-- 头部 -->
       <el-header height="80" :class="propaganda.propaganda?'speac':''">
         <div class="head">
@@ -20,12 +22,9 @@
           </el-dropdown>
         </div>
       </el-header>
-      <!-- 内容 -->
-      <el-main style="height: 100%;">
         <transition name="" mode="out-in">
           <router-view />
         </transition>
-      </el-main>
       <!-- 尾部 -->
       <footer>
         <div class="foot">
@@ -36,6 +35,7 @@
           <a href="http://www.miitbeian.gov.cn">湘ICP备15000989号-1</a>
         </div>
       </footer>
+      </el-main>
     </el-container>
   </div>
 </template>
@@ -103,6 +103,13 @@ export default {
   display: block;
   padding: 0 20px;
 }
+header {
+  position: relative;
+  z-index: 2;
+}
+.speac {
+  position: absolute;
+}
 .head {
   width: 960px;
   margin: 0 auto;
@@ -153,7 +160,7 @@ export default {
 footer {
   line-height: 65px;
   position: absolute;
-  bottom: 0;
+  /*bottom: 0;*/
   width: 100%;
   background-color: #F8F8F8;
 }

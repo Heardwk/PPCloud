@@ -1,5 +1,5 @@
 <template>
-  <div class="" style="min-height:100%;background: white">
+  <div class="" style="background: white;height: 100%;min-height:calc(100% - 80px);">
     <div style="background: white;padding: 20px 0;">
       <div class="topBox">
         <div>
@@ -146,7 +146,7 @@ export default {
     }
   },
   mounted() {
-
+    
   },
   methods: {
     handleClick() {

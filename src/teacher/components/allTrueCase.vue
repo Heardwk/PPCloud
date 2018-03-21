@@ -1,5 +1,5 @@
 <template>
-  <div class="feight">
+  <div class="feight" style="min-height:100%;background:#F8F8F8;">
     <div v-if="allcase.thirdrouter" class="componentBox">
       <p class="path">
         <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
@@ -49,16 +49,16 @@
                 <span class="count">{{item.count}}</span>
               </li>
             </ul>
-            <div style="text-align: right; margin-bottom:20px;">
-              <el-pagination
-                background
-                layout="prev, pager, next"
-                :current-page="page"
-                :page-size="pageSize"
-                :total="allData"                
-                @current-change="changePage">
-              </el-pagination>
-            </div>
+          </div>
+          <div style="text-align: right; margin-bottom:20px;position:absolute;bottom:0;width:100%;left:0">
+            <el-pagination
+              background
+              layout="prev, pager, next"
+              :current-page="page"
+              :page-size="pageSize"
+              :total="allData"                
+              @current-change="changePage">
+            </el-pagination>
           </div>
         </div>
       </div>
@@ -117,7 +117,7 @@ export default {
         this.topicData.push({
           "name": this.alltopicData[i].title,
           "point": this.bookName,
-          "type": this.alltopicData[i].style,
+          "type": this.alltopicData[i].styleName,
           "count": 2
         })
       }
@@ -253,7 +253,8 @@ export default {
     font-size: 14px;
     background-color: white;
     border-radius: 4px;
-    height: 770px; 
+    height: 770px;
+    position: relative;
   }
   .err {
     position: relative;

@@ -1,9 +1,9 @@
 <template>
-  <div class="feight">
+  <div class="feight" style="min-height:100%;background:#F8F8F8;">
     <div class="componentBox">
       <p class="path">
         <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
-        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">{{bookName}}</router-link> &gt;
+        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}" @click.native="save">{{bookName}}</router-link> &gt;
         修改题组
       </p>
       <div class="topContentBox">
@@ -11,23 +11,21 @@
           <h3>{{topicList.title}}<span>{{topicList.time}}</span></h3>
           <p>基本信息： 已选择<span>{{topicList.point}}</span>个知识点，共<span>{{topicList.case}}</span>个案例，总分值<span>{{topicList.count}}</span>分</p>
           <div class="list">
-            <span class="line"></span>
-            <span class="line"></span>
-            <div v-for="(i,index) in topicList.classification" :key="index">
-              <div class="abso" v-if="index==0"><span>题型</span><span>数量</span><span>计分</span></div>
-              <div class="abso" v-else-if="index==4"><span>题型</span><span>数量</span><span>计分</span></div>
-              <div class="abso" v-else-if="index==8"><span>题型</span><span>数量</span><span>计分</span></div>
-              <div class="border">
-                <span>{{i.clas}}</span>
-                <span class="light">{{i.quantity}}</span>
-                <span>{{i.score}}</span>
-              </div>
+            <span class="line" v-if="topicList.classification.length>4"></span>
+            <span class="line" v-if="topicList.classification.length>8"></span>
+            <div class="abso abso1" v-if="topicList.classification.length>0"><span>题型</span><span>数量</span><span>计分</span></div>
+            <div class="abso abso2" v-if="topicList.classification.length>1"><span>题型</span><span>数量</span><span>计分</span></div>
+            <div class="abso abso3" v-if="topicList.classification.length>2"><span>题型</span><span>数量</span><span>计分</span></div>
+            <div class="border" v-for="(i,index) in topicList.classification" :key="index">
+              <span>{{i.clas}}</span>
+              <span class="light">{{i.count}}</span>
+              <span>{{i.weight}}</span>
             </div>
           </div>
         </div>
       </div>
       <el-tabs v-model="activeName" type="card" @tab-click="handleClick" class="kechengTab">
-        <el-tab-pane label="案例列表" name="first">
+        <!-- <el-tab-pane label="案例列表" name="first">
           <span slot="label" class="icon1">案例列表</span>
           <div class="tabContent">
             <ul class="titleUlBox">
@@ -40,7 +38,7 @@
                 <span class="oper">操作</span>
               </li>
               <li v-for="(item,index) in topicData" class="titltLi">
-                <span class="num">{{index+1}}</span>
+                <span class="num">{{(page-1)*10 +index+ 1}}</span>
                 <span class="name">{{item.name}}</span>
                 <span class="point">{{item.point}}</span>
                 <span class="type">{{item.type}}</span>
@@ -59,18 +57,21 @@
               <el-pagination
                 background
                 layout="prev, pager, next"
+                :page-size = "2"
                 @current-change="changePage"
-                :total="50">
+                :total="allPage">
               </el-pagination>
             </div>
             <div class="line"></div>
-            <p><span class="el-icon-info"></span>您可以通过右上角的“继续添加”按钮来增加案例</p>
+            <p><span class="el-icon-info"></span>
+              您可以通过点击“删除”按钮来删除案例
+            </p>
             <div style="text-align: right">
-              <el-button type="primary">保存</el-button>
+              <el-button type="primary" @click="save">保存</el-button>
             </div>
           </div>
-        </el-tab-pane>
-        <el-tab-pane label="题型分值" name="second">
+        </el-tab-pane> -->
+        <!-- <el-tab-pane label="题型分值" name="second">
           <span slot="label" class="icon2">题型分值</span>
             <div class="tabContent">
               <div style="margin-top: 20px;">
@@ -80,13 +81,13 @@
                   <span class="titleTwo">数量</span>
                   <span class="titleThr">分值</span>
                 </li>
-                <li v-for="(item,index) in topicList.classification" :key="index" class="titleList">
+                <li v-for="(item,index) in tixing" :key="index" class="titleList">
                   <span class="titleOne">{{item.clas}}</span>
                   <span class="titleTwo">
-                    <el-input-number v-model="item.quantity" @change="handleChangeCount" :min="0"></el-input-number>
+                    <el-input-number v-model="item.count" @change="handleChangeCount" :min="0" :max="10"></el-input-number>
                   </span>
                   <span class="titleThr">
-                    <el-input-number v-model="item.score" @change="handleChangePoint" :min="0"></el-input-number>
+                    <el-input-number v-model="item.weight" @change="handleChangePoint" :min="0"></el-input-number>
                   </span>
                 </li>
               </ul>
@@ -94,15 +95,15 @@
             <div class="line"></div>
             <p>
               <span class="el-icon-info"></span>
-              已选择<span class="light">{{title.point}}</span>个知识点，
-              共计<span class="light">{{title.count}}</span>个案例，
+              已选择<span class="light">{{topicList.point}}</span>个知识点，
+              共计<span class="light">{{allCount}}</span>个案例，
               累计总分<span class="light">{{allPoint}}</span>分。
             </p>
             <div style="text-align: right">
-              <el-button type="primary">保存</el-button>
+              <el-button type="primary" @click="save">保存</el-button>
             </div>
           </div>
-        </el-tab-pane>
+        </el-tab-pane> -->
         <el-tab-pane label="基本信息" name="third">
           <span slot="label" class="icon3">基本信息</span>
           <div class="tabContent">
@@ -127,7 +128,9 @@
             <div class="line"></div>
             <p><span class="el-icon-info"></span>设置个性的名称和备注，以便更快速的找到目标题组。</p>
             <div style="text-align: right">
-              <el-button type="primary">保存</el-button>
+              <el-button type="primary" @click="save">
+                <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">保存</router-link>
+              </el-button>
             </div>
           </div>
         </el-tab-pane>
@@ -137,155 +140,152 @@
 </template>
 
 <script>
+import Bus from '../../Bus/Bus'
 export default {
   name: 'editProblem',
   data () {
     return {
       bookName: '',
       bookid: 0,
-      activeName: 'first',
+      activeName: 'third',
       tizuName: '',
       textarea: '',
-      title: {
-        point: 5,
-        count: 150
-      },
       topicList: {
-        title: '第一学期摸底题',
-        time: '2018-2-13',
-        text: '描述',
-        point: 10,
-        case: 40,
-        count: 100,
-        classification: [
-          {
-            clas: '选择题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '填空题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '计算题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '不限定',
-            quantity: 10,
-            score: 4
-          },{
-            clas: '选择题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '填空题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '计算题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '不限定',
-            quantity: 10,
-            score: 8
-          },{
-            clas: '选择题',
-            quantity: 10,
-            score: 20
-          },{
-            clas: '填空题',
-            quantity: 10,
-            score: 20
-          }
-        ]
+        classification: []
       },
-      topicData: [
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-        },
-      ],
+      tixing: [],
+      topicData: [],
+      datalist: {},
+      page: 1,
+      allPage: 0,
+      anliData: [],
+      id: 0,
     }
   },
   mounted() {
     this.$store.commit("secondrouterCtrl",false);
     if(this.$route.query.hasOwnProperty("bookid")){
       this.bookName = this.$route.query.bookname
-      this.bookid = this.$route.query.bookid
+      this.bookid = parseInt(this.$route.query.bookid)
+      this.id = parseInt(this.$route.query.questionid)
     }else {
       window.location.href = '#/Teacher/Shixun';
     } 
-    this.tizuName = this.topicList.title;
-    this.textarea = this.topicList.text;
+    this.getQuertionMsg()
   },
   methods: {
+    getQuertionMsg() {
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Get`,
+        {
+          "id": this.id,
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.datalist = response.body.result;
+          this.showData()
+        },response=>{
+          console.log('error')
+        })
+    },
+    showData() {
+      this.topicList = {};
+      this.tixing = [];
+      let obj = {
+            count: 0,
+            case: 0
+          },objArr = [];
+      for(let i in this.datalist.questionStyleWeights) {
+        obj.count += this.datalist.questionStyleWeights[i].count * this.datalist.questionStyleWeights[i].weight;
+        obj.case += this.datalist.questionStyleWeights[i].count;
+        objArr.push({
+          clas: this.datalist.questionStyleWeights[i].styleName,
+          count: this.datalist.questionStyleWeights[i].count,
+          weight: this.datalist.questionStyleWeights[i].weight,
+          style: this.datalist.questionStyleWeights[i].questionStyle
+        })
+        this.tixing.push({
+          clas: this.datalist.questionStyleWeights[i].styleName,
+          count: this.datalist.questionStyleWeights[i].count,
+          weight: this.datalist.questionStyleWeights[i].weight,
+          style: this.datalist.questionStyleWeights[i].questionStyle,
+          // max: response.body.result[i].count
+        })
+      }
+      this.topicList = {
+        title: this.datalist.title,
+        time: this.datalist.creationTime.split("T")[0],
+        text: this.datalist.remark,
+        point: this.datalist.knowledgeCount,
+        case: obj.case,
+        count: obj.count,
+        classification: objArr
+      }
+      this.anliData = this.datalist.questions;
+      this.tizuName = this.datalist.title;
+      this.textarea = this.datalist.remark;
+      this.anliShow()
+    },
+    anliShow() {
+      this.topicData = [];  
+      this.allPage = this.anliData.length;
+      for(let i=2*(this.page-1); i<2*this.page; i++) {
+        if(i==this.allPage){
+          break;
+        }else{
+          this.topicData.push({
+            version: this.anliData[i].questionVersion,
+            uniqueId: this.anliData[i].questionUniqueId,
+            name: this.anliData[i].questionName,
+            point: this.bookName,
+            style: this.anliData[i].questionStyle,
+            type: this.anliData[i].styleName,
+            count: this.anliData[i].questionWeighting,
+          })
+        }
+      }
+    },
+    save() {
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Update`,
+        {
+          "title": this.tizuName,
+          "knowledgeCount": this.topicList.point,
+          "courseId": this.bookid,
+          "remark": this.textarea,
+          "isActive": true,
+          "associates": this.datalist.questions,
+          "id": this.id
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          // console.log(response.body)
+          // location.reload()
+        },response=>{
+          console.log('error')
+        })
+    },
     handleClick(tab, event) {
       
     },
     delet(bool,item) {
-      bool? console.log(`删除${item.name}`): ''
+      if(bool){
+        for(let i in this.anliData){
+          if(item.uniqueId == this.anliData[i].questionUniqueId && item.version == this.anliData[i].questionVersion){
+            this.anliData.splice(i,1)
+          }
+        }
+        this.anliShow()
+      }else {
+
+      }
       document.body.click();
     },
-    changePage() {
-
+    changePage(val) {
+      this.page = val;
+      this.anliShow()
     },
     handleChangeCount() {
 
@@ -297,14 +297,22 @@ export default {
   computed: {
     allPoint() {
       let point = 0;
-      for(let i=0; i<this.topicList.classification.length; i++){
-        point+=this.topicList.classification[i].score;
+      for(let i=0; i<this.tixing.length; i++){
+        point+=(this.tixing[i].weight*this.tixing[i].count)
       }
       return point
+    },
+    allCount() {
+      let count = 0;
+      for(let i=0; i<this.tixing.length; i++){
+        count+=this.tixing[i].count;
+      }
+      return count
     },
   },
   destroyed() {
     this.$store.commit("secondrouterCtrl",true) 
+    Bus.$emit("render");
   },
 }
 </script>
@@ -357,6 +365,7 @@ export default {
   padding-top: 45px;
   font-size: 12px;
   padding-right: 160px;
+  min-height: 160px;
 }
 .list .line {
   position: absolute;
@@ -373,6 +382,12 @@ export default {
   position: absolute;
   line-height: 25px;
   top: 16px;
+}
+.abso1 {
+  left: 0
+}
+.abso3 {
+  right: 210px
 }
 .abso span {
   color: rgba(165,183,197,1);
@@ -436,6 +451,7 @@ export default {
   background-color: white;
   position: relative;
   border-radius: 6px;
+  min-height: 390px;
 }
 .tabContent .line {
   height: 1px;
@@ -586,5 +602,8 @@ export default {
   display: inline-block;
   width: 428px;
   vertical-align: top;
+}
+.el-button span a {
+  color: white;
 }
 </style>

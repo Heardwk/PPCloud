@@ -1,5 +1,5 @@
 <template>
-  <div class="feight">
+  <div class="feight" style="min-height:100%;background:#F8F8F8;">
     <div class="componentBox">
       <p class="path">
         <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
@@ -47,7 +47,7 @@
         </div>
         <div class="rightContent">
           <p><span class="hasLine">已选知识点</span></p>
-          <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+          <div style="border-bottom: 1px solid #EEEEEE;min-height:400px;margin-top: 20px;">
             <div v-if="checkTree.length>0">
               <el-tag
                 v-for="item in checkTree"
@@ -71,7 +71,7 @@
       </div>
       <div v-if="showBox[1]" class="contentBox">
         <p><span class="hasLine">已选题型及数量</span></p>
-        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:400px;margin-top: 20px;">
           <ul class="titleUl">
             <li class="titleHead">
               <span class="titleOne">题型</span>
@@ -113,7 +113,7 @@
             </el-input>
           </p>
           <div class="chooseBox">
-            <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index,item)" :class="{'act': isact === index}">
+            <div v-for="(item,index) in choooseTree" :key="index" class="chooseList" @click="hasact(index,item.id)" :class="{'act': isact === index}">
               <span class="el-icon-tickets"></span>
               {{item.name}}
             </div>
@@ -132,7 +132,7 @@
                 <span class="oper">操作</span>
               </li>
               <li v-for="(item,index) in topicData" class="titltLi">
-                <span class="num">{{index+1}}</span>
+                <span class="num">{{(page-1)*10 +index+ 1}}</span>
                 <span class="name">{{item.name}}</span>
                 <span class="point">{{item.point}}</span>
                 <span class="type">{{item.type}}</span>
@@ -140,18 +140,19 @@
                 <span class="oper"><el-checkbox v-model="item.chec"></el-checkbox></span>
               </li>
             </ul>
-            <div style="text-align: right; margin-bottom:20px;">
+            <div style="text-align: right; margin-bottom:20px;position:absolute;left:0;bottom:0;width:100%">
               <el-pagination
                 background
                 layout="prev, pager, next"
+                :page-size = "2"
                 @current-change="changePage"
-                :total="50">
+                :total="allPage">
               </el-pagination>
             </div>
           </div>
           <p class="all"><span class="el-icon-info"></span>
             已选择<span class="light">{{title.point}}</span>个知识点，
-            共计<span class="light">{{allCount}}</span>个案例，
+            共计<span class="light">{{allCount}}</span>个案例
           </p>
           <div class="btnBox">
             <el-button @click="active--">上一步</el-button>
@@ -161,7 +162,7 @@
       </div>
       <div v-if="showBox[3]" class="contentBox">
         <p><span class="hasLine">设置题组基本信息</span></p>
-        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:400px;margin-top: 20px;">
           <div class="titleMsgBox">
             <p>
               <span class="leftSpan">题组名称</span>
@@ -186,7 +187,7 @@
         </div>
       </div>
       <div v-if="showBox[4]" class="contentBox">
-        <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:500px;margin-top: 20px;">
           <div class="succBox">
             <h3>创建成功</h3>
             <p ref="times">5秒后跳转至课程页面</p>
@@ -200,6 +201,7 @@
 </template>
 
 <script>
+import Bus from '../../Bus/Bus'
 export default {
   name: 'addProblem',
   data () {
@@ -223,84 +225,16 @@ export default {
         point: 0,
         count: 0
       },
-      topicData: [
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-        {
-          name: '提供的原始单据、记账凭证、账薄资料等,要求选用正确的方法AAbb',
-          point: '基础会计',
-          type: '单选题',
-          count: 2,
-          chec: true
-        },
-      ],
+      topicData: [],
       tixing: [],
       tizuName: '',
       textarea: '',
       isact: 0,
       timeCtrl: {},
-      allChooseQuestion: []
+      allChooseQuestion: [],
+      pageChooseQuestion: [],
+      page: 1,
+      allPage: 0,
     }
   },
   mounted() {
@@ -333,7 +267,7 @@ export default {
       }else {
         this.choooseTree = arr;
       }
-    }
+    },
   },
   methods: {
     getTree() {
@@ -370,7 +304,7 @@ export default {
               "type": response.body.result[i].styleName,
               "count": 0,
               "weight": response.body.result[i].weight,
-              "max": response.body.result[i].count              
+              "max": response.body.result[i].count
             })
           }
         },response=>{
@@ -382,20 +316,47 @@ export default {
       for(let i in this.checkTree) {
         arr.push(this.checkTree[i].id)
       }
-      // this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GenerateRandomQuestionForKnowledge`,
-      //   {
-      //     "courseId": this.bookid,
-      //     "styles": this.tixing,
-      //     "knowledges": arr
-      //   },{
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     }
-      //   }).then(response=>{
-      //     console.log(response.body)
-      //   },response=>{
-      //     console.log('随机生成题目error')
-      //   })
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GenerateRandomQuestionForKnowledge`,
+        {
+          "courseId": this.bookid,
+          "styles": this.tixing,
+          "knowledgeIds": arr
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.allChooseQuestion = [];
+          for(let i in response.body.result) {
+            let arr = [];
+            for(let j in response.body.result[i].questions) {
+              let weight = 0;
+              for(let z in this.tixing) {
+                if(this.tixing[z].questionStyle==response.body.result[i].questions[j].style) {
+                  weight = this.tixing[z].weight
+                }
+              }
+              arr.push({
+                version: response.body.result[i].questions[j].version,
+                uniqueId: response.body.result[i].questions[j].uniqueId,
+                name: response.body.result[i].questions[j].title,
+                point: this.bookName,
+                style: response.body.result[i].questions[j].style,
+                type: response.body.result[i].questions[j].styleName,
+                count: weight,
+                chec: true
+              })
+            }
+            this.allChooseQuestion.push({
+              knowledgeId: response.body.result[i].knowledgeId,
+              questions: arr
+            });
+            this.page = 1;
+            this.hasact(0,this.allChooseQuestion[0].knowledgeId)
+          }
+        },response=>{
+          console.log('随机生成题目error')
+        })
     },
     handleCheckChange(data, checked, indeterminate) {
       // 所有被选中的
@@ -434,22 +395,72 @@ export default {
           this.$message.error('请选择分数');
           return
         }else {
-          this.getChooseQuestion()
+          this.getChooseQuestion();
         }
       }else if(this.active==3) {
         if(this.tizuName==""){
           this.$message.error('请填写题组名字');
           return
+        }else {
+          this.created();
         }
       }
       this.active++
     },
-    changePage() {
-
+    changePage(val) {
+      this.page = val;
+      this.showData()
     },
-    hasact(index,item) {
+    hasact(index,id) {
       this.isact = index;
-      console.log(item)
+      for(let i in this.allChooseQuestion) {
+        if(id == this.allChooseQuestion[i].knowledgeId) {
+          this.pageChooseQuestion = this.allChooseQuestion[i].questions;
+          this.page = 1;
+          this.showData()
+        }
+      }
+    },
+    showData() {
+      this.topicData = [];  
+      this.allPage = this.pageChooseQuestion.length;
+      for(let i=2*(this.page-1); i<2*this.page; i++) {
+        if(i==this.allPage) {
+          break;
+        }else {
+          this.topicData.push(this.pageChooseQuestion[i])
+        }
+      }
+    },
+    created() {
+      let arr = [];
+      for(let i in this.allChooseQuestion) {
+        for(let j in this.allChooseQuestion[i].questions){
+          arr.push({
+            "questionUniqueId": this.allChooseQuestion[i].questions[j].uniqueId,
+            "questionVersion": this.allChooseQuestion[i].questions[j].version,
+            "questionName": this.allChooseQuestion[i].questions[j].name,
+            "questionStyle": this.allChooseQuestion[i].questions[j].style,
+            "questionWeighting": this.allChooseQuestion[i].questions[j].count,
+          })
+        }
+      }
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Create`,
+        {
+          "title": this.tizuName,
+          "knowledgeCount": this.title.point,
+          "courseId": this.bookid,
+          "remark": this.textarea,
+          "associates": arr
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          console.log(response.body)
+        },response=>{
+          console.log('创建题组error')
+        })
     },
     timeOut() {
       let that = this;
@@ -510,6 +521,7 @@ export default {
     if(this.timeCtrl.hasOwnProperty("end")){
       this.timeCtrl.end()
     }
+    Bus.$emit("render");
   },
 }
 </script>
@@ -813,16 +825,16 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
   }
-  .chooseList:hover, .chooseList.act {
-    background-color: #00B0FF;
-    color: white;
-  }
-  .chooseList:hover span, .chooseList.act span {
-    color: white;
-  }
   .chooseList span {
     font-size: 18px;
     color: #4DA1FF;
     margin-right: 10px;
+  }
+  .chooseList:hover, .act {
+    background-color: #00B0FF;
+    color: white;
+  }
+  .chooseList:hover span, .act span {
+    color: white;
   }
 </style>
