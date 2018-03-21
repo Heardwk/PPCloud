@@ -255,13 +255,8 @@ export default {
       setValue2: '',
       setDailog: false,
       newDailog: false,
-      bookAttr: {
-        name: '没有',
-        id: 0,
-        src: require('../../share/img/image_class_cover.png'),
-        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述',
-        topic: 1234
-      },
+      id: 0,
+      bookAttr: {},
       teac: {
         classone: ["暂无"],
         classtwo: "暂无",
@@ -287,11 +282,11 @@ export default {
     });
     this.$store.commit("firstrouterCtrl",false);
     if(this.$route.query.hasOwnProperty("bookid")){
-      this.bookAttr.name = this.$route.query.bookname;
-      this.bookAttr.id = this.$route.query.bookid;
+      this.id = parseInt(this.$route.query.bookid);
     }else {
       window.location.href = '#/Teacher/Shixun';
-    }    
+    }
+    this.getBook()
     this.getQuestionList();
   },
   watch: {
@@ -325,6 +320,29 @@ export default {
     },
   },
   methods: {
+    getBook() {
+      this.$http.post(`${this.$store.state.location}/services/app/Course/Get`,
+        {
+          "includeKnowledgeTree": false,
+          "id": this.id
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          let obj = response.body.result;
+          this.bookAttr = {};
+          this.bookAttr = {
+            name: obj.title,
+            id: obj.id,
+            src: require('../../share/img/image_class_cover.png'),
+            text: obj.introduction,
+            topic: 1234
+          }
+        },response=>{
+          console.log('error')
+        });
+    },
     handleClick(tab, event) {
       
     },
@@ -374,7 +392,7 @@ export default {
       // 获取题组列表
       this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/GetQuestionGroupList`,
         {
-          "courseId": this.bookAttr.id ,
+          "courseId": this.id ,
           "maxResultCount": 10,
           "skipCount": 0
         },{

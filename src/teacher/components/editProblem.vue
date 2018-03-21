@@ -261,7 +261,7 @@ export default {
             "Content-Type": "application/json",
           }
         }).then(response=>{
-          console.log(response.body)
+          // console.log(response.body)
           // location.reload()
         },response=>{
           console.log('error')

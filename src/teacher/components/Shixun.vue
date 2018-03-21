@@ -40,54 +40,11 @@ export default {
   name: 'Shixun',
   data () {
     return {
-      recentlyData: [
-        {
-          name: '基础会计',
-          id: 1,
-          number: '3281',
-          time: '2017/8/22',
-          src: require('../../share/img/class_big.png'),
-          text: '一套专注于会计基础的课程。'
-        },{
-          name: '财务管理',
-          id: 2,
-          number: '3281',
-          time: '2017/8/22',
-          src: require('../../share/img/class_big.png'),
-          text: '一套专注于会计基础的课程。'
-        },{
-          name: '初级会计电算化',
-          id: 3,
-          number: '3281',
-          time: '2017/8/22',
-          src: require('../../share/img/class_big.png'),
-          text: '一套专注于会计基础的课程。'
-        },
-      ],
+      recentlyData: [],
       classType: [
         {
           type: '课程实训',
-          bookList: [
-            {
-              name: '基础会计',
-              id: 1,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              id: 2,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '初级会计电算化',
-              id: 3,
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            }
-          ] 
+          bookList: [] 
         }
       ],
       getall: {}
@@ -113,10 +70,33 @@ export default {
             "Content-Type": "application/json",
           }
         }).then(response=>{
-          this.getall = response.body.result;
+          this.getall = response.body.result.items;
+          this.showBook()
         },response=>{
           console.log('error')
         });
+    },
+    showBook() {
+      this.recentlyData  = [];
+      this.classType[0].bookList = [];
+      for(let i in this.getall) {
+        this.recentlyData.push({
+          name: this.getall[i].title,
+          id: this.getall[i].id,
+          number: '3281',
+          time: '2017/8/22',
+          src: require('../../share/img/class_big.png'),
+          text: this.getall[i].introduction
+        });
+        this.classType[0].bookList.push({
+          name: this.getall[i].title,
+          id: this.getall[i].id,
+          number: '3281',
+          time: '2017/8/22',
+          src: require('../../share/img/class_big.png'),
+          text: this.getall[i].introduction
+        })
+      }
     }
   },
   components: {

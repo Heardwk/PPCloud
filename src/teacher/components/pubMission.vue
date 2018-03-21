@@ -448,7 +448,11 @@ export default {
         if(this.missName==""){
           this.$message.error('请填写任务名字');
           return
+        }else if(this.classNum.length==0){
+          this.$message.error('请选择班级');
+          return
         }else {
+          this.active--
           this.created();
         }
       }
@@ -484,6 +488,7 @@ export default {
       // for(let i in this.allChooseQuestion) {
       //   for(let j in this.allChooseQuestion[i].questions){
       //     arr.push({
+      //       "missionId": 0,
       //       "questionUniqueId": this.allChooseQuestion[i].questions[j].uniqueId,
       //       "questionVersion": this.allChooseQuestion[i].questions[j].version,
       //       "questionName": this.allChooseQuestion[i].questions[j].name,
@@ -492,13 +497,15 @@ export default {
       //     })
       //   }
       // }
-      // this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Create`,
+      // this.$http.post(`${this.$store.state.location}/services/app/Mission/Create`,
       //   {
-      //     "title": this.tizuName,
-      //     "knowledgeCount": this.title.point,
-      //     "courseId": this.bookid,
+      //     "title": this.missName
+      //     "startTime": this.begintime,
+      //     "endTime": this.endtime,
       //     "remark": this.textarea,
-      //     "associates": arr
+      //     "classes": [],
+      //     "students": []
+      //     "questions": arr
       //   },{
       //     headers: {
       //       "Content-Type": "application/json",
