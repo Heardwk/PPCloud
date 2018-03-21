@@ -1,5 +1,5 @@
 <template>
-  <div class="feight">
+  <div class="feight" style="min-height:100%;background:#F8F8F8;">
     <div class="componentBox">
       <p class="path">
         <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
@@ -48,7 +48,7 @@
         </div>
         <div class="rightContent">
           <p><span class="hasLine">已选知识点</span></p>
-          <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+          <div style="border-bottom: 1px solid #EEEEEE;min-height:400px;margin-top: 20px;">
             <div v-if="checkTree.length>0">
               <el-tag
                 v-for="item in checkTree"
@@ -72,7 +72,7 @@
       </div>
       <div v-if="showBox[1]" class="contentBox">
         <p><span class="hasLine">已选题型及数量</span></p>
-        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:400px;margin-top: 20px;">
           <ul class="titleUl">
             <li class="titleHead">
               <span class="titleOne">题型</span>
@@ -141,7 +141,7 @@
                 <span class="oper"><el-checkbox v-model="item.chec"></el-checkbox></span>
               </li>
             </ul>
-            <div style="text-align: right; margin-bottom:20px;">
+            <div style="text-align: right; margin-bottom:20px;position:absolute;left:0;bottom:0;width:100%">
               <el-pagination
                 background
                 layout="prev, pager, next"
@@ -163,7 +163,7 @@
       </div>
       <div v-if="showBox[3]" class="contentBox">
         <p><span class="hasLine">设置任务基本信息</span></p>
-        <div style="border-bottom: 1px solid #EEEEEE;min-height:350px;margin-top: 20px;">
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:400px;margin-top: 20px;">
           <div class="titleMsgBox">
             <p style="position: relative">
               <span class="leftSpan">任务名称</span>
@@ -226,7 +226,7 @@
         </div>
       </div>
       <div v-if="showBox[4]" class="contentBox">
-        <div style="border-bottom: 1px solid #EEEEEE;min-height:369px;margin-top: 20px;">
+        <div style="border-bottom: 1px solid #EEEEEE;min-height:500px;margin-top: 20px;">
           <div class="succBox">
             <h3>发布任务成功</h3>
             <p ref="times">5秒后跳转至全真案例</p>

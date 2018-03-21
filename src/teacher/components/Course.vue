@@ -174,6 +174,7 @@
 </template>
 
 <script>
+import Bus from '../../Bus/Bus'
 export default {
   name: 'Course',
   data () {
@@ -281,6 +282,9 @@ export default {
     }
   },
   mounted() {
+    Bus.$on('render', () => {
+      this.getQuestionList();
+    });
     this.$store.commit("firstrouterCtrl",false);
     if(this.$route.query.hasOwnProperty("bookid")){
       this.bookAttr.name = this.$route.query.bookname;
@@ -351,7 +355,7 @@ export default {
                 "Content-Type": "application/json",
               }
             }).then(response=>{
-              location.reload()
+              this.getQuestionList()
             },response=>{
               console.log('删除题组error')
             })
