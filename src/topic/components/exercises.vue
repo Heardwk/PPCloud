@@ -35,7 +35,7 @@
       </div>  
     </div>
     <!-- 多选题 -->
-    <div v-if="topic.caseType=='单选题'" class="danxaun">
+<!--     <div v-if="topic.caseType=='单选题'" class="danxaun">
       <div class="dxcontainer">
         <p>{{topic.id}}.{{topic.question}}{{topic.caseType}}</p>
         <p v-for="(item,index) in topic.answer" :key="index">
@@ -51,7 +51,7 @@
           </template>
         </div> 
       </div>  
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -144,8 +144,8 @@ export default {
             }
           }).then(response=>{
             this.Single = response.body.result;
-            console.log(this.Single)
-            // this.topic.question = this.Single.content;
+            // console.log(this.Single)
+            // this.topic.question = this.Single.content;  
             // this.topic.answer = this.Single.options;
           },response=>{
             console.log("error")

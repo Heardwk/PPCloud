@@ -47,7 +47,7 @@
 				    	   	     	<li>序号</li>
 				    	   	     	<li>
                                         <template>
-										  <el-select v-model="values_index" @change="changeClass" clearable placeholder="全部院系">
+										  <el-select v-model="values_index" @clear = "classclear" @change="changeClass" clearable placeholder="全部院系">
 										    <el-option
 										      v-for="item in colleges_list"
 										      :key="item.value"
@@ -60,7 +60,7 @@
 				    	   	     	</li>
 				    	   	     	<li>
 				    	   	     	   <template>
-										  <el-select v-model="values_class" @change="changeClass1" clearable placeholder="全部年级">
+										  <el-select v-model="values_class" @clear = "cusclear" @change="changeClass1" clearable placeholder="全部年级">
 										    <el-option
 										      v-for="item in class_list"
 										      :key="item.value"
@@ -186,8 +186,7 @@ export default {
 			this.student()
 		},
         student(){
-        	this.$http.post(`${this.$store.state.location}/services/app/Student/GetStudentList`,
-		        {
+        	this.$http.post(`${this.$store.state.location}/services/app/Student/GetStudentList`,{
 
 					"departmentId":this.academy,
 				  	"enrollmentYear": this.class,
@@ -250,6 +249,17 @@ export default {
 
 			    }
 			}
+		},
+		// 清空之后触发的事件
+		// 全部院系
+		classclear(){
+			this.academy = 0;
+			this.student();
+		},
+		// 全部班级
+		cusclear(){
+		    this.class = 0;
+			this.student();
 		},
         acc_list_student(){
         	this.gridData_student = [];

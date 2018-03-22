@@ -153,9 +153,9 @@ export default {
 .menu-expanded {
   width: 50px;
 }
-.ww {
+/*.ww {
   min-width: 960px;
-}
+}*/
 .el-aside {
   transition: all .3s linear;
   -moz-transition: all .3s linear;
