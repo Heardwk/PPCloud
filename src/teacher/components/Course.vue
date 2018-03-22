@@ -180,77 +180,11 @@ export default {
   data () {
     return {
       str: "老师已经选择",
-      setTime: "2017-2018年第二学期",
+      setTime: "",
       classNum: [],
-      setClass: [
-        {
-          class: '18会计',
-          xibie: "会计系",
-          nianji: '2018级',
-          chec: false,
-          teac: '',
-          kechen: '基础会计'
-        },{
-          class: '18财会',
-          xibie: "会计系",
-          nianji: '2018级',
-          chec: false,
-          teac: '',
-          kechen: '基础会计'
-        },{
-          class: '18财经',
-          xibie: "会计系",
-          nianji: '2018级',
-          chec: false,
-          teac: '',
-          kechen: '基础会计'
-        },{
-          class: '18会计1',
-          xibie: "会计系",
-          nianji: '2018级',
-          chec: true,
-          teac: '张三',
-          kechen: '基础会计'
-        },{
-          class: '18经管',
-          xibie: "会计系",
-          nianji: '2018级',
-          chec: false,
-          teac: '',
-          kechen: '基础会计'
-        },{
-          class: '17经管',
-          xibie: "经管系",
-          nianji: '2017级',
-          chec: false,
-          teac: '',
-          kechen: '基础会计'
-        },
-      ],
-      setOptions: [
-        {
-          value: '会计系',
-          label: '会计系',
-        },{
-          value: '经管系',
-          label: '经管系',
-        },{
-          value: '信息系',
-          label: '信息系',
-        }
-      ],
-      setOptionsA: [
-        {
-          value: '2018级',
-          label: '2018级'
-        },{
-          value: '2017级',
-          label: '2017级'
-        },{
-          value: '2016级',
-          label: '2016级'
-        }
-      ],
+      setClass: [],
+      setOptions: [],
+      setOptionsA: [],
       setValue1: '',
       setValue2: '',
       setDailog: false,
@@ -288,6 +222,7 @@ export default {
     }
     this.getBook()
     this.getQuestionList();
+    this.getClassData();
   },
   watch: {
     questionList() {
@@ -341,6 +276,78 @@ export default {
           }
         },response=>{
           console.log('error')
+        });
+    },
+    getClassData() {
+      // 获得任教师间
+      this.$http.post(`${this.$store.state.location}/services/app/Term/GetCurrentTerm`,
+        {},{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.setTime = response.body.result.termName
+        },response=>{
+          console.log('获取任教时间error')
+        });
+      // 获得院系
+      this.$http.post(`${this.$store.state.location}/services/app/Teacher/GetDepartments`,
+        {},{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.setOptions = [];
+          for(let i in response.body.result){
+            this.setOptions.push({
+              value: response.body.result[i].id,
+              label: response.body.result[i].name
+            })
+          }
+        },response=>{
+          console.log('获得院系error')
+        });
+      // 获得年级
+      this.$http.post(`${this.$store.state.location}/services/app/Teacher/GetGrades`,
+        {},{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          console.log(response.body.result);
+          this.setOptionsA = [];
+          for(let i in response.body.result){
+            this.setOptionsA.push({
+              value: response.body.result[i],
+              label: response.body.result[i] + '级'
+            })
+          }
+        },response=>{
+          console.log('获得年级error')
+        });
+      // 获得班级
+      this.$http.post(`${this.$store.state.location}/services/app/Teacher/GetClasseses`,
+        {
+          "departmentId": 0,
+          "entryYear": ""
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          console.log(response.body.result);
+          this.setClass = [];
+          for(let i in response.body.result){
+            this.setClass.push({
+              class: response.body.result[i].serialNumber,
+              xibie: response.body.result[i].departmentId,
+              nianji: '2017',
+              chec: false,
+              teac: ''
+            })
+          }
+        },response=>{
+          console.log('获得班级error')
         });
     },
     handleClick(tab, event) {
