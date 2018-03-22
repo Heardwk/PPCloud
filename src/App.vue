@@ -545,4 +545,34 @@ header {
 .g_bu .el-checkbox.is-bordered.el-checkbox--medium {
     margin-right: 25px;
 }
+/*select账号管理的select框*/
+.tea_table_top ul>li>.el-select {
+    display: inline-block;
+    position: relative;
+    top: 0px;
+    left: -15px;
+    width: 120px;
+}
+.tea_table_top ul>li>.el-select .el-input__inner {
+    -webkit-appearance: none;
+    background-color: rgba(248,248,248,1);
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 1;
+    outline: 0;
+    padding: 0 15px;
+    -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+}
+.tea_table_top ul>li> .el-select .el-input.is-focus .el-input__inner {
+    border-color:rgba(248,248,248,1) ;
+}
 </style>
