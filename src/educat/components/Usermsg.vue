@@ -7,7 +7,9 @@
         </div>
         <div class="cots">
              <div class="imgs">
-                <img src="" alt="">
+                 <div class="user_img">
+                    <img src="../../share/img/corgi.jpg" alt="">
+                 </div>
              </div>
              <div class="uplode">
                  <p @click="dialogVisible = true"><i class="el-icon-edit-outline"></i>更换头像</p>
@@ -288,7 +290,7 @@ export default {
   margin-bottom: 26px;
   background-color: #fff;
 }
-.cots>.imgs{
+.cots .imgs{
   display: inline-block;
   width:126px;
   height:126px; 
@@ -300,12 +302,17 @@ export default {
   align-items: center;
   justify-content: center;
 }
-.cots>.imgs>img{
+.user_img{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.user_img img{
   display: inline-block;
   width: 60px;
   height: 60px;
-  background-image: url('../../share/img/class_big.png');
-  border-radius: 50%;
+  background-image: url('../../share/img/corgi.jpg');
   background-repeat: no-repeat;
 }
 .uplode{

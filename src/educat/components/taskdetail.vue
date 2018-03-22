@@ -56,8 +56,16 @@
     	        </template>
     	      </div>
     	   </div>
-        </div>
-        <router-view :data_list = "data_list[dix]"></router-view>
+    	   	      <div class="block"style="margin-top:20px;text-align: center;">
+			    <el-pagination
+					@current-change="handleChange"
+					:page-size="page"
+					layout="total, prev, pager, next, jumper"
+					:total="allData1">
+			    </el-pagination>
+		 </div>  
+	      </div>
+        <router-view></router-view>
 	</div>
 </template>
 
@@ -85,6 +93,9 @@ export default {
     tot:'',
     teacherid:0,
     courseid:0,
+    page:2,
+    allData1:1,
+    currentPage: 1,
 	}
   },
     computed: {
@@ -99,14 +110,7 @@ export default {
     },
  	methods:{
 	  	goto(index){
-	  		this.dix = index;
-			this.$router.push({path:'/Educat/Teaching/taskdetail/examine'});
-			sessionStorage.setItem('name',this.data_list[index].name);
-	    	sessionStorage.setItem('fitime',this.data_list[index].fitime);
-	    	sessionStorage.setItem('endtime',this.data_list[index].endtime);
-            sessionStorage.setItem('tea_class',this.data_list[index].tea_class);
-            sessionStorage.setItem('grade',this.data_list[index].grade);
-            sessionStorage.setItem('comments',this.data_list[index].comments);
+          	this.$router.push({path:'/Educat/Teaching/taskdetail/examine',query: { id:this.taskdata[index].tenantId}});
 	  	},
 	  	curtea(){
 		    this.$http.post(`${this.$store.state.location}services/app/Course/GetCourseTeacherAssociateById`,
@@ -118,7 +122,7 @@ export default {
 						}
 		        }).then(res=>{
 		        	    this.curdata = res.body.result;
-					  	this.side = this.curdata.teacherName ;
+					  	this.side = this.curdata.course.title;
 						this.termName = this.curdata.teacherName ;
 						this.when = this.curdata.termName;
 					    this.collega = this.curdata.departmentName;
@@ -132,13 +136,17 @@ export default {
 	  	task(){
 	        this.$http.post(`${this.$store.state.location}/services/app/Mission/GetMissionsByCourseId`,
 	        {
-				"teacherId":this.teacherid,
-				"courseId":this.courseid
+				  "teacherId":0,
+				  "courseId": 0,
+				  "courseTeacherAssociateId":this.$route.query.id,
+				  "maxResultCount":this.page,
+				  "skipCount": (this.currentPage-1)*this.page,
 	        },{
 	         	headers: {
 					"Content-Type": "application/json"
 					}
 	        }).then(res=>{
+	        	    this.allData1 = res.body.result.totalCount;
 	        	    this.taskdata = res.body.result.items;
 	        	    this.result();
 	        },res=>{
@@ -180,15 +188,13 @@ export default {
 	  			}
 	  		}
 	  	},
+	  	handleChange(val) {
+			this.currentPage = val;
+			this.task();
+	    },
   },
 	destroyed() {
 		this.$store.commit("firstrouterCtrl",true);
-		sessionStorage.removeItem('name');
-		sessionStorage.removeItem('fitime');
-		sessionStorage.removeItem('endtime');
-		sessionStorage.removeItem('tea_class');
-		sessionStorage.removeItem('grade');
-		sessionStorage.removeItem('comments');
 	},
  }
 

@@ -214,10 +214,10 @@ export default {
 	    	// sessionStorage.setItem('setname',this.gridDataitemindex[index].name);
 	    	// sessionStorage.setItem('teacher',this.gridDataitemindex[index].teacher);
 	    	// sessionStorage.setItem('when',this.gridDataitemindex[index].when);
-      //       sessionStorage.setItem('college',this.gridDataitemindex[index].college);  
-      //       sessionStorage.setItem('classs',this.gridDataitemindex[index].classs);
-      //       sessionStorage.setItem('tea_class',this.gridDataitemindex[index].tea_class);
-      //       sessionStorage.setItem('degree',this.gridDataitemindex[index].degree);
+            // sessionStorage.setItem('college',this.gridDataitemindex[index].college);  
+            // sessionStorage.setItem('classs',this.gridDataitemindex[index].classs);
+            // sessionStorage.setItem('tea_class',this.gridDataitemindex[index].tea_class);
+            // sessionStorage.setItem('degree',this.gridDataitemindex[index].degree);
 	    },
 	    handleCurrentChange(val) {
 	    	this.currentPage4 = val;

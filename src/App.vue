@@ -314,7 +314,6 @@ header {
     box-sizing: border-box;
     white-space: normal;
     word-break: break-all;
-    /*text-align: center;*/
 }
 .tables  .el-table th.is-leaf{
     background:rgba(248,248,248,1);
@@ -412,17 +411,11 @@ header {
     padding: 10px 39px 0 36px;
     border-radius: 4px;
     height: 36px;
+    margin: 0px 10px;
 }
-/*.g_bu .el-radio__inner::before {
-    width: 4px;
-    height: 4px;
-    border-radius: 100%;
-    background-color: #7ED321;
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-}*/
+.g_bu .el-radio__inner:hover {
+    border-color: transparent;
+}
 .g_bu .el-radio--medium.is-bordered .el-radio__inner{
     height:14px; 
     width:14px; 
@@ -542,5 +535,44 @@ header {
     transition: transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms,-webkit-transform .15s cubic-bezier(.71,-.46,.88,.6) 50ms;
     -webkit-transform-origin: center;
     transform-origin: center;
+}
+.g_bu .el-checkbox__inner {
+    border-radius: 50%;
+}
+.g_bu .el-checkbox.is-bordered+.el-checkbox.is-bordered {
+    margin-right: 25px;
+}
+.g_bu .el-checkbox.is-bordered.el-checkbox--medium {
+    margin-right: 25px;
+}
+/*select账号管理的select框*/
+.tea_table_top ul>li>.el-select {
+    display: inline-block;
+    position: relative;
+    top: 0px;
+    left: -15px;
+    width: 120px;
+}
+.tea_table_top ul>li>.el-select .el-input__inner {
+    -webkit-appearance: none;
+    background-color: rgba(248,248,248,1);
+    background-image: none;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    color: #606266;
+    display: inline-block;
+    font-size: inherit;
+    height: 40px;
+    line-height: 1;
+    outline: 0;
+    padding: 0 15px;
+    -webkit-transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    width: 100%;
+}
+.tea_table_top ul>li> .el-select .el-input.is-focus .el-input__inner {
+    border-color:rgba(248,248,248,1) ;
 }
 </style>

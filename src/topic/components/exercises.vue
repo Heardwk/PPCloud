@@ -25,11 +25,33 @@
       <div class="dxcontainer">
         <p>{{topic.id}}.{{topic.question}}{{topic.caseType}}</p>
         <p v-for="(item,index) in topic.answer" :key="index">
-          【{{String.fromCharCode(index+65)}}】{{item}}
+          【{{String.fromCharCode(index+65)}}】{{item.content}}
         </p>
-        <slot></slot>
+        <div class="g_bu">
+          <div style="margin-top: 60px"  v-for="(item,index) in topic.answer" :key="index">
+              <el-radio @change="radiochange" v-model="radio" :label="item.content" border size="medium">{{String.fromCharCode(index+65)}}</el-radio>          
+          </div>
+        </div> 
       </div>  
     </div>
+    <!-- 多选题 -->
+<!--     <div v-if="topic.caseType=='单选题'" class="danxaun">
+      <div class="dxcontainer">
+        <p>{{topic.id}}.{{topic.question}}{{topic.caseType}}</p>
+        <p v-for="(item,index) in topic.answer" :key="index">
+          【{{String.fromCharCode(index+65)}}】{{item.content}}
+        </p>
+        <div class="g_bu">
+          <template>
+            <div style="margin: 15px 0;"></div>
+            <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
+              <el-checkbox v-for="city in cities" :label="city" border :key="city" size="medium">{{city}}</el-checkbox>
+            </el-checkbox-group>
+            {{checkedCities}}
+          </template>
+        </div> 
+      </div>  
+    </div> -->
   </div>
 </template>
 
@@ -44,15 +66,17 @@ export default {
   },
   data () {
     return {
+      checkAll: false,
+      checkedCities: [],
+      cities:['上海', '北京'],
+      isIndeterminate: true,
+      radio:'',
       ishide: true,
       topic: {
         id: 1,
         caseType: '单选题',
-        classType: '基础会计',
-        classify: '错账更正 > 划线更正法概念 > 适用范围和操作要求',
-        caseCount: 16,
-        question: '下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
-        answer: ["债券的票面利率大于市场利率。","债券的票面利率等于市场利率","债券的票面利率小于市场利率","以上都不对"],
+        question: '',
+        answer: [],
         auxiliaryData: {
           name: '资料名',
           text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
@@ -63,6 +87,8 @@ export default {
       trueheight: 260,
       scale: 1,
       aa: 0,
+      Single:{},
+      topics:[]
     }
   },
   directives: {
@@ -92,6 +118,9 @@ export default {
       }
     }
   },
+  mounted(){
+    this.GetTtheTitle();
+  },
   methods: {
     auxiliaryDatascale(ctrl) {
       if(ctrl) {
@@ -102,6 +131,33 @@ export default {
     },
     drage(val) {
       this.val = val;
+    },
+    // 获取单选题题目
+    GetTtheTitle(){
+      this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
+          {
+            "version": 1,
+            "uniqueId": "47bc282b-0b64-48ee-afc6-5d9d6759c843"
+          },{
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }).then(response=>{
+            this.Single = response.body.result;
+            // console.log(this.Single)
+            // this.topic.question = this.Single.content;  
+            // this.topic.answer = this.Single.options;
+          },response=>{
+            console.log("error")
+          })  
+    },
+    radiochange(){
+      console.log(this.radio)
+    },
+    handleCheckedCitiesChange(value) {
+      let checkedCount = value.length;
+      this.checkAll = checkedCount === this.cities.length;
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
     },
   },
   computed: {
@@ -207,4 +263,37 @@ export default {
     font-size: 14px;
     color: #151E26;
   }
+  .g_bu{
+   margin-left: 30px;
+   display: flex;
+}
+.g_bu>button>span{
+   color:rgba(104,113,120,1);
+}
+.g_bu>button{
+  color: #D8D8D8;
+}
+.el-button.is-active, .g_bu>button:active{
+   background-color:#7ED321;
+   border-color: transparent;
+   color: #fff;
+}
+.g_bu>button:focus{
+   background-color:#7ED321;
+   border-color: transparent;
+   color: #fff;
+}
+.g_bu>button:hover{
+   background-color:#7ED321;
+   border-color: transparent;
+   color: #fff;
+}
+.g_bu>button:hover{
+   background-color:#7ED321;
+   border-color: transparent;
+   color: #fff;
+}
+.g_bu>.el-button--medium{
+  padding: 10px 40px;
+}
 </style>
