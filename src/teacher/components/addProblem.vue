@@ -166,7 +166,7 @@
           <div class="titleMsgBox">
             <p>
               <span class="leftSpan">题组名称</span>
-              <el-input v-model="tizuName" placeholder="请输入内容" clearable></el-input>
+              <el-input v-model="tizuName" placeholder="请输入题组名" @keyup.native="tizuName = filte(tizuName)" clearable></el-input>
             </p>
             <div style="margin-top: 20px;">
               <span class="leftSpan">备&nbsp;&nbsp;注</span>
@@ -175,6 +175,7 @@
                 placeholder="请输入内容"
                 resize="none"
                 :autosize="{ minRows: 6, maxRows: 8}"
+                @keyup.native="textarea = filte(textarea)"
                 v-model="textarea">
               </el-input>
             </div>
@@ -270,6 +271,9 @@ export default {
     },
   },
   methods: {
+    filte(val) {
+      return val.replace(/^(\s|\u00A0)+/,'').replace(/(\s|\u00A0)+$/,'')
+    },
     getTree() {
       this.$http.post(`${this.$store.state.location}/services/app/Course/GetKnowledgeTree`,
         {

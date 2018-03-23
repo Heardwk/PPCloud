@@ -3,7 +3,7 @@
     <div class="componentBox">
       <p class="path">
         <router-link :to="{ name: 'Shixun'}">实训中心</router-link> &gt;
-        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}" @click.native="save">{{bookName}}</router-link> &gt;
+        <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">{{bookName}}</router-link> &gt;
         修改题组
       </p>
       <div class="topContentBox">
@@ -111,7 +111,7 @@
               <div class="titleMsgBox">
                 <p>
                   <span class="leftSpan">题组名称</span>
-                  <el-input v-model="tizuName" placeholder="请输入内容" clearable></el-input>
+                  <el-input v-model="tizuName" placeholder="题组名不能为空" @keyup.native="tizuName = filte(tizuName)" clearable></el-input>
                 </p>
                 <div style="margin-top: 20px;">
                   <span class="leftSpan">备&nbsp;&nbsp;注</span>
@@ -120,6 +120,7 @@
                     placeholder="请输入内容"
                     resize="none"
                     :autosize="{ minRows: 6, maxRows: 8}"
+                    @keyup.native="textarea = filte(textarea)"
                     v-model="textarea">
                   </el-input>
                 </div>
@@ -129,7 +130,8 @@
             <p><span class="el-icon-info"></span>设置个性的名称和备注，以便更快速的找到目标题组。</p>
             <div style="text-align: right">
               <el-button type="primary" @click="save">
-                <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">保存</router-link>
+                <!-- <router-link :to="{ name: 'Course', query: { bookid: bookid, bookname: bookName }}">保存</router-link> -->
+                保存
               </el-button>
             </div>
           </div>
@@ -145,6 +147,7 @@ export default {
   name: 'editProblem',
   data () {
     return {
+      aa: false,
       bookName: '',
       bookid: 0,
       activeName: 'third',
@@ -168,12 +171,15 @@ export default {
       this.bookName = this.$route.query.bookname
       this.bookid = parseInt(this.$route.query.bookid)
       this.id = parseInt(this.$route.query.questionid)
+      this.getQuertionMsg()
     }else {
       window.location.href = '#/Teacher/Shixun';
     } 
-    this.getQuertionMsg()
   },
   methods: {
+    filte(val) {
+      return val.replace(/^(\s|\u00A0)+/,'').replace(/(\s|\u00A0)+$/,'')
+    },
     getQuertionMsg() {
       this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Get`,
         {
@@ -247,25 +253,29 @@ export default {
       }
     },
     save() {
-      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Update`,
-        {
-          "title": this.tizuName,
-          "knowledgeCount": this.topicList.point,
-          "courseId": this.bookid,
-          "remark": this.textarea,
-          "isActive": true,
-          "associates": this.datalist.questions,
-          "id": this.id
-        },{
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }).then(response=>{
-          // console.log(response.body)
-          // location.reload()
-        },response=>{
-          console.log('error')
-        })
+      if(this.tizuName==""){
+        this.$message({message: '请填写题组名',type: 'error',duration: 1000});
+        return
+      }else{
+        this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Update`,
+          {
+            "title": this.tizuName,
+            "knowledgeCount": this.topicList.point,
+            "courseId": this.bookid,
+            "remark": this.textarea,
+            "isActive": true,
+            "associates": this.datalist.questions,
+            "id": this.id
+          },{
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }).then(response=>{
+            window.location.href = `#/Teacher/Shixun/Course?bookid=${this.bookid}&bookname=${this.bookName}`;
+          },response=>{
+            console.log('error')
+          })
+      }
     },
     handleClick(tab, event) {
       

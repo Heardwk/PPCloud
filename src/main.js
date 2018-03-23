@@ -42,6 +42,12 @@ Vue.http.interceptors.push((request, next) => {
 
 });
 
+// Vue.directive('filterSpace', {
+//   update: function (el,binding) {
+//     binding.value = binding.value.replace(/^(\s|\u00A0)+/,'').replace(/(\s|\u00A0)+$/,'')
+//     return binding.value.replace(/^(\s|\u00A0)+/,'').replace(/(\s|\u00A0)+$/,'')
+//   }
+// })
 /* eslint-disable no-new */
 let vue = new Vue({
   el: '#app',

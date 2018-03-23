@@ -27,10 +27,10 @@
         <div class="ctrlBox">
           <span @click="daanjiexi">答案解析</span>
           <span @click="jisaunqi">计算器</span>
-          <span @click="next" class="right">上一题</span>
-          <span @click="prev">下一题</span>
+          <span @click="prev" class="right">上一题</span>
+          <span @click="next">下一题</span>
         </div>
-        <exercises :id="activeId" style="padding:20px"></exercises>
+        <exercises :id="unid" style="padding:20px"></exercises>
       </div>
     </div>
   </div>
@@ -43,39 +43,64 @@ export default {
   data () {
     return {
       tizu: {
-        tizuId: 1,
-        tizuName: '题组一',
         tizuType: '基础会计',
-        timu: [
-          {
-            id: 1,
-            caseType: '单选题',
-          },{
-            id: 2,
-            caseType: '单选题',
-          },{
-            id: 3,
-            caseType: '多选题',
-          },{
-            id: 4,
-            caseType: '多选题',
-          },{
-            id: 5,
-            caseType: '计算题',
-          },{
-            id: 6,
-            caseType: '综合题',
-          },
-        ]
+        timu: []
       },
-      activeId: 1,
+      activeId: -1,
       menuCtrl: false,
+      datalist: [],
+      unid: '',
     }
   },
   components: {
     exercises
   },
+  mounted() {
+    if(this.$route.query.hasOwnProperty("questionid")){
+      this.tizu.tizuId = parseInt(this.$route.query.questionid)
+      this.getData()
+    }else {
+      window.close()
+    }
+  },
+  watch: {
+    activeId() {
+      for(let i=0; i<this.tizu.timu.length; i++) {
+        if(this.activeId==this.tizu.timu[i].id) {
+          this.unid = this.tizu.timu[i].uniqueId
+        }
+      }
+    },
+  },
   methods: {
+    getData() {
+      this.$http.post(`${this.$store.state.location}/services/app/QuestionGroup/Get`,
+        {
+          "id": this.tizu.tizuId,
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.datalist = response.body.result;
+          this.showData()
+        },response=>{
+          console.log('error')
+        })
+    },
+    showData() {
+      this.tizu.tizuName = this.datalist.title;
+      this.tizu.remark = this.datalist.remark;
+      this.tizu.timu = [];
+      for(let i in this.datalist.questions) {
+        this.tizu.timu.push({
+          id: this.datalist.questions[i].id,
+          caseType: this.datalist.questions[i].styleName,
+          uniqueId: this.datalist.questions[i].questionUniqueId
+        })
+      }
+      this.activeId = this.tizu.timu[0].id
+    },
     daanjiexi() {
 
     },
@@ -83,10 +108,30 @@ export default {
 
     },
     next() {
-      
+      let index = 0;
+      for(let i=0; i<this.tizu.timu.length; i++) {
+        if(this.activeId==this.tizu.timu[i].id) {
+          if(i==this.tizu.timu.length-1) {
+            index = i 
+          }else {
+            index = i+1
+          }
+        }
+      }
+      this.activeId = this.tizu.timu[index].id
     },
     prev() {
-      
+      let index = 0
+      for(let i=0; i<this.tizu.timu.length; i++) {
+        if(this.activeId==this.tizu.timu[i].id) {
+          if(i==0) {
+            index = i
+          }else {
+            index = i-1
+          }
+        }
+      }
+      this.activeId = this.tizu.timu[index].id
     },
   },
   computed: {
