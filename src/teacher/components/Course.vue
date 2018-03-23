@@ -34,11 +34,13 @@
                 <div v-if="this.topicList.length>0">
                   <div v-for="(item,index) in topicList" :key="index" class="tizuBox">
                     <div class="ctrlBox">
-                      <p><span>逐题预览</span></p>
                       <p>
-                        <router-link tag="span" :to="{ name: 'editProblem', query: { bookid: bookAttr.id, bookname: bookAttr.name, questionid: item.questionId }}">编辑题组</router-link>
+                        <router-link :to="{ name: 'teacTiZu', query: { questionid: item.questionId }}" target="_blank">逐题预览</router-link>
                       </p>
-                      <p><span>发布任务</span></p>
+                      <p>
+                        <router-link  :to="{ name: 'editProblem', query: { bookid: bookAttr.id, bookname: bookAttr.name, questionid: item.questionId }}">编辑题组</router-link>
+                      </p>
+                      <p><router-link to="">发布任务</router-link></p>
                       <div><span @click="deletList(item.questionId)">删除</span><span>下载</span></div>
                     </div>
                     <div class="borR">
@@ -203,7 +205,7 @@ export default {
           text: '第一课笔记的内容，包括:什么是会计？会计的岗位职责。',
           img: '#',
           downloadCount: 10,
-          time: '2017-07-01',
+          time: '2018-03-22',
           clas: '1701班 1703班'
         }
       ],
@@ -272,7 +274,7 @@ export default {
             id: obj.id,
             src: require('../../share/img/image_class_cover.png'),
             text: obj.introduction,
-            topic: 1234
+            topic: 3281
           }
         },response=>{
           console.log('error')
@@ -649,19 +651,19 @@ export default {
   right: 10px;
   font-size: 12px;
 }
-.ctrlBox span {
+.ctrlBox a,.ctrlBox span {
   cursor: pointer;
   background-repeat: no-repeat;
   background-position: 12px 5px;
 }
-.ctrlBox span:hover {
+.ctrlBox a:hover,.ctrlBox span:hover {
   color: #F77676;
 }
 .ctrlBox p {
   text-align: center;
   margin: 8px 0 16px 0;
 }
-.ctrlBox p span {
+.ctrlBox p a {
   margin: 0 auto;
   width: 110px;
   line-height: 30px;
@@ -672,22 +674,22 @@ export default {
   color: rgba(0,176,255,1);
   background-image: url('../../share/img/icon_recyclecopy4.png');
 }
-.ctrlBox p span:hover {
+.ctrlBox p a:hover {
   background-image: url('../../share/img/icon_recyclecopy10.png');
 }
-.ctrlBox p:first-child span {
+.ctrlBox p:first-child a {
   background-image: url('../../share/img/icon_recyclecopy3.png');
 }
-.ctrlBox p:last-child span {
+.ctrlBox p:last-child a {
   background-image: url('../../share/img/icon_recyclecopy5.png');
 }
-.ctrlBox p:first-child span:hover {
+.ctrlBox p:first-child a:hover {
   background-image: url('../../share/img/icon_recyclecopy9.png');
 }
-.ctrlBox p:last-child span:hover {
+.ctrlBox p:last-child a:hover {
   background-image: url('../../share/img/icon_recyclecopy11.png');
 }
-.ctrlBox p span:hover {
+.ctrlBox p a:hover {
   color: #F77676;
   border-color: #F77676;
 }

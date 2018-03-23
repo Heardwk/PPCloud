@@ -171,10 +171,10 @@ export default {
       this.bookName = this.$route.query.bookname
       this.bookid = parseInt(this.$route.query.bookid)
       this.id = parseInt(this.$route.query.questionid)
+      this.getQuertionMsg()
     }else {
       window.location.href = '#/Teacher/Shixun';
     } 
-    this.getQuertionMsg()
   },
   methods: {
     filte(val) {

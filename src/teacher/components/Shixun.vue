@@ -84,7 +84,7 @@ export default {
           name: this.getall[i].title,
           id: this.getall[i].id,
           number: '3281',
-          time: '2017/8/22',
+          time: '2018/3/22',
           src: require('../../share/img/class_big.png'),
           text: this.getall[i].introduction
         });

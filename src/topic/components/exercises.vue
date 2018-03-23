@@ -23,35 +23,44 @@
     <!-- 单选题 -->
     <div v-if="topic.caseType=='单选题'" class="danxaun">
       <div class="dxcontainer">
-        <p>{{topic.id}}.{{topic.question}}{{topic.caseType}}</p>
+        <p>{{topic.question}}</p>
         <p v-for="(item,index) in topic.answer" :key="index">
           【{{String.fromCharCode(index+65)}}】{{item.content}}
         </p>
-        <div class="g_bu">
+        <!-- <div class="g_bu">
           <div style="margin-top: 60px"  v-for="(item,index) in topic.answer" :key="index">
               <el-radio @change="radiochange" v-model="radio" :label="item.content" border size="medium">{{String.fromCharCode(index+65)}}</el-radio>          
           </div>
-        </div> 
+        </div> -->
       </div>  
     </div>
     <!-- 多选题 -->
-<!--     <div v-if="topic.caseType=='单选题'" class="danxaun">
+    <div v-if="topic.caseType=='多选题'" class="danxaun">
       <div class="dxcontainer">
-        <p>{{topic.id}}.{{topic.question}}{{topic.caseType}}</p>
+        <p>{{topic.question}}</p>
         <p v-for="(item,index) in topic.answer" :key="index">
           【{{String.fromCharCode(index+65)}}】{{item.content}}
         </p>
-        <div class="g_bu">
+        <!-- <div class="g_bu">
           <template>
             <div style="margin: 15px 0;"></div>
             <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
-              <el-checkbox v-for="city in cities" :label="city" border :key="city" size="medium">{{city}}</el-checkbox>
+              <el-checkbox v-for="item in cities" :label="item.content" border :key="item.content" size="medium"></el-checkbox>
             </el-checkbox-group>
-            {{checkedCities}}
           </template>
-        </div> 
+        </div> -->
       </div>  
-    </div> -->
+    </div>
+    <!-- 判断题 -->
+    <div v-if="topic.caseType=='判断题'" class="danxaun">
+      <div class="dxcontainer">
+        <p>{{topic.question}}</p>
+        <p v-for="(item,index) in topic.answer" :key="index">
+          {{item.content}}
+        </p> 
+      </div>  
+    </div>
+
   </div>
 </template>
 
@@ -60,7 +69,7 @@ export default {
   name: 'exercises',
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true
     }
   },
@@ -68,12 +77,13 @@ export default {
     return {
       checkAll: false,
       checkedCities: [],
-      cities:['上海', '北京'],
+      cities:[],
       isIndeterminate: true,
       radio:'',
       ishide: true,
+      topics: {},
       topic: {
-        id: 1,
+        version: 1,
         caseType: '单选题',
         question: '',
         answer: [],
@@ -86,9 +96,6 @@ export default {
       truewidth: 500,
       trueheight: 260,
       scale: 1,
-      aa: 0,
-      Single:{},
-      topics:[]
     }
   },
   directives: {
@@ -119,9 +126,55 @@ export default {
     }
   },
   mounted(){
+    this.topic.uniqueId = this.id
     this.GetTtheTitle();
+    this.checkedCities = [];
+    this.radio = ''
+  },
+  watch: {
+    id() {
+      this.topic.uniqueId = this.id
+      this.GetTtheTitle();
+      this.checkedCities = [];
+      this.radio = ''
+    }
   },
   methods: {
+    // 获取题目
+    GetTtheTitle(){
+      this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
+        {
+          "version": this.topic.version,
+          "uniqueId": this.topic.uniqueId
+        },{
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(response=>{
+          this.topics = response.body.result;
+          this.showData()
+        },response=>{
+          console.log("error")
+        })  
+    },
+    showData() {
+      // this.topic = {};
+      this.topic.caseType = this.topics.styleName;
+      this.topic.question = this.topics.title;
+      this.topic.answer    =  [];
+      this.cities = [];
+      for(let i in this.topics.options) {
+        this.cities.push({
+          content: this.topics.options[i].content,
+          isTrue: this.topics.options[i].isCorrect,
+        })
+        this.topic.answer.push({
+          content: this.topics.options[i].content,
+          isTrue: this.topics.options[i].isCorrect,
+        })
+      }
+      
+    },
     auxiliaryDatascale(ctrl) {
       if(ctrl) {
         this.truewidth * (this.scale+.2) > document.documentElement.clientWidth-20 ? '' : this.scale += .2;
@@ -132,27 +185,8 @@ export default {
     drage(val) {
       this.val = val;
     },
-    // 获取单选题题目
-    GetTtheTitle(){
-      this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
-          {
-            "version": 1,
-            "uniqueId": "47bc282b-0b64-48ee-afc6-5d9d6759c843"
-          },{
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }).then(response=>{
-            this.Single = response.body.result;
-            // console.log(this.Single)
-            // this.topic.question = this.Single.content;  
-            // this.topic.answer = this.Single.options;
-          },response=>{
-            console.log("error")
-          })  
-    },
     radiochange(){
-      console.log(this.radio)
+
     },
     handleCheckedCitiesChange(value) {
       let checkedCount = value.length;
