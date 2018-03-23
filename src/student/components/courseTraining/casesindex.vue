@@ -1,83 +1,49 @@
     <template>
 	 <div>
 	     <div class="casesindex_top">
-	         <b>{{msgtochild.name}}</b>
+	         <b>这是名称</b>
 	     </div>
-<!-- 	     <div class="correct">
-	         <b>{{msgtochild.name}} &gt;</b>
-	         <router-link to="/Student/SeeTheCase"v-if='showst.student'>
-	         	<div class="news"><i></i><span>新建题组</span></div>
-	         </router-link>
-			<el-tag
-			  v-for="(tag,index) in dynamicTags"
-			  :key="index"
-			  closable
-			  :disable-transitions="false"
-			  @close="handleClose(tag)">
-			  {{tag.name}}
-			</el-tag>
-			<el-input
-			  class="input-new-tag"
-			  v-if="inputVisible"
-			  v-model="inputValue"
-			  ref="saveTagInput"
-			  size="small"
-			  @keyup.enter.native="handleInputConfirm"
-			  @blur="handleInputConfirm"
-			>
-			</el-input>
-	     </div>
-	     <div class="casesindex_top_m">
-	     	   <ul v-for="item in productList">
-	     	     <b>{{item.title}}</b>
-	     	     <div class="casesindex_top_Lis">
-	     	   		 <template v-for="(item,index) in dataA">
-	     	   		   <li @click="qiehuan(index,$event)" >{{item.name}}</li>
-	     	   		 </template>
-	     	   	 </div>
-	     	   </ul>
-	     </div>  
-	     <div class="casesindex_top_m "v-if='showst.student'>
-	     	   <ul v-for="item in productList">
-	     	     <b>题型:</b>
-	     	     <div class="casesindex_top_Lis">
-	     	   		 <template v-for="(item,index) in tx">
-	     	   		   <li>{{item.title}}({{item.num}})</li>
-	     	   		 </template>
-	     	   	 </div>
-	     	   </ul>
-	     </div> -->
 	     <div class="table_list">
-	           <el-table
-			    :data="msgtochild.tableData2"
-			    style="width: 90%;margin: auto;"
-			    :row-class-name="tableRowClassName"
-			    >
-			    <el-table-column
-			      prop="date"
-			      label="序号"
-			     >
-			    </el-table-column>
-			    <el-table-column
-			      prop="name"
-			      label="案例名称"
-			      width="350"
-			      >
-			    </el-table-column>
-			   <el-table-column
-                        prop="tag"
-                        label="题型"
-                        sortable
-                        width="140"
-                      >
-                </el-table-column>
-			  </el-table>
+			<div class="tea_table_top">
+		   	    <ul>
+		   	     	<li>序号</li>
+		   	     	<li>
+		   	     		案例名称
+		   	     	</li>
+		   	     	<li>
+		   	     	   <template>
+						  <el-select v-model="values" @clear = "cusclear" @change="changeClass1" clearable placeholder="题型">
+						    <el-option
+						      v-for="item in question_types"
+						      :key="item.value"
+						      :label="item.label"
+						      :value="item.label"
+						      size="mini">
+						    </el-option>
+						  </el-select>
+					  </template>
+					</li>		   	   
+				</ul>
+		   	</div>
+			<table>
+			    <tbody class="tabod">
+			       <tr 
+			       	v-for="(itemgridData,index) in tableData2"
+			       	:key="index">
+			       	<td>{{ currentPage<2? `0${index+1}`: index+1+(10*(currentPage-1))}}</td>
+			        <td  v-for="(item,index) in itemgridData">
+			        	<i v-if="index == 'degree'" class="el-icon"></i>
+			        	{{item}}
+			        </td>
+			      </tr>
+			    </tbody>
+			</table>
 	     </div>
 	     <div class="block">
 		     <el-pagination
 		      @size-change="handleSizeChange"
 		      @current-change="handleCurrentChange"
-		      :current-page="currentPage4"
+		      :current-page="currentPage"
 		      :page-sizes="[100, 200, 300, 400,600]"
 		      :page-size="100"
 		      layout=" prev, pager, next,total, jumper"
@@ -96,9 +62,6 @@
 </template>
 <script>
   export default {
-  	 props:{  
-		    msgtochild:{}
-		  }, 
     data() {
       return {  
       	thisClass:'active',
@@ -106,7 +69,23 @@
         inputVisible: false,
         inputValue: '',
         dynamicTags:[],
-        currentPage4: 1,
+        currentPage: 1,
+        values:'',
+        tableData2: [
+        {name: '提供的原始单据、记账凭证、账薄资料等,要',tag: '单选题',}, 
+        {name: '提供的原始单据、记账凭证、账薄资料等,要',tag: '多选题',},
+        {name: '提供的原始单据、记账凭证、账薄资料等,要',tag: '单选题',}
+        ],
+		question_types:[
+			{
+				label:'单选题',
+				value:'单选题'
+			},
+			{
+				label:'多选题',
+				value:'多选题'
+			}
+		],
         productList: {
 	        pc: {
 	          title: '知识点',
@@ -135,13 +114,7 @@
 		      num:10
 		   },
         ],
-        dataA: []
       }
-    },
-    watch: {
-    msgtochild(){
-    	this.dataA = this.msgtochild.child
-    	},
     },
      computed: {
 	    showst() {
@@ -149,23 +122,11 @@
 	  },
 	 },
      methods: {
-      qiehuan(index,event){
-	        var el = event.target;
-	        if(this.dynamicTags.indexOf(this.dataA[index])>0){
-			}else{
-				this.dynamicTags.push(this.dataA[index]);
-			}
-			let arr = [];
-			this.dynamicTags[this.dynamicTags.length-1].child? arr = this.dynamicTags[this.dynamicTags.length-1].child : arr = [];
-
-			this.dataA = arr;
-      }, 
-      handleClose(tag) {
-	        this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
-	        this.dynamicTags.length>0? this.dataA = this.dynamicTags[this.dynamicTags.length-1].child : this.dataA = this.msgtochild.child
+      changeClass1(){
+      	    console.log("change事件")
       },
-      handleInputConfirm() {
-
+      cusclear(){
+            console.log("这是select删除按钮的事件")
       },
 	  tableRowClassName({row, rowIndex}) {
 	        if (rowIndex %2 !==0 ) {
@@ -192,9 +153,9 @@
        		return row[property] === value;
       }
     },
-	mounted() {
-	 		this.dataA = this.msgtochild.child
-    },
+	// mounted() {
+	//  		this.dataA = this.msgtochild.child
+ //    },
     destroyed() {
      // this.$store.commit("studentshow",true)
   },
@@ -372,5 +333,64 @@ ul{
 	height:14px; 
 	color: #00B0FF;
 	margin-right: 5px;
+}
+.tea_table_top ul{
+	display: flex;
+	height:48px; 
+	background:rgba(248,248,248,1);
+	box-shadow: 0px -1px 0px 0px rgba(232,232,232,1);
+	border-radius: 2px 2px 0px 0px ; 
+	margin-bottom: 0px;
+}
+ul{
+	-webkit-padding-start: 0px;
+}
+.tea_table_top ul>li{
+	text-align: center;
+	height: 48px;
+	line-height: 48px;
+	width: 100%;
+	font-size: 14px;
+	color: #909399;
+	font-weight: 500;
+}
+.tea_table_top ul>li:first-child{
+	text-align: center;
+	height: 48px;
+	line-height: 48px;
+	width: 24%;
+}
+.tea_table_top ul>li:last-child{
+	text-align: center;
+	height: 48px;
+	line-height: 48px;
+	width: 25%;
+}
+table{
+	border-collapse: collapse;
+}
+.tabod>tr>td{
+    text-align: center;
+    width: 11.3%;
+    position: relative;
+    font-size: 14px;
+    color: #606266;
+}
+.tabod>tr>td:first-child{
+    width: 3%;
+    position: relative;
+}
+.tabod>tr>td:last-child{
+    width: 5%;
+    position: relative;
+}
+.tabod>tr{
+	height: 48px;
+	line-height: 48px;
+	cursor: pointer;
+}
+.tabod>tr:hover{
+	cursor: pointer;
+	background-color: rgb(245,247,250);
 }
 </style>

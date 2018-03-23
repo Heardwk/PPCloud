@@ -16,10 +16,10 @@
     </div>
     <div style="background: white; padding-bottom: 20px;"v-if='showst.firstrouter'>
       <div style="width: 960px;margin: auto;">
-      <div class="componentBox" v-for="(item,index) in classType" :key="index">
-        <p class="boxTitle">{{item.type}}</p>
+      <div class="componentBox">
+        <p class="boxTitle">课程实训</p>
         <div>
-          <router-link class="recentlyList recentlyListBot" tag="div" v-for="(item,index) in item.bookList" :key="index" to="/Student/trainingCenter/Basic_Accounting" @click.native="goto(item.name)">
+          <router-link class="recentlyList recentlyListBot" tag="div" v-for="(item,index) in classType" :key="index" :to="{ path:'/Student/trainingCenter/Basic_Accounting',query: { id:cousetData[index].id}}" @click.native="goto(item.name)">
             <img :src="item.src" width="100%">
             <div>
               <h4>{{item.name}}</h4>
@@ -60,75 +60,11 @@ export default {
           text: '一套专注于会计基础的课程。'
         },
       ],
-      classType: [
-        {
-          type: '课程实训',
-          bookList: [
-            {
-              name: '基础会计',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '初级会计电算化',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },
-          ] 
-        },
-        {
-          type: '综合实训',
-          bookList: [
-            {
-              name: '基础会计',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '初级会计电算化',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },
-            {
-              name: '初级会计电算化',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },{
-              name: '财务管理',
-              number: '3281',
-              time: '2017/8/22',
-              src: require('../../share/img/calss_small.png'),
-            },
-          ] 
-        },
-      ],
-    }
+      classType: [] 
+     }
   },
   mounted() {
-
+      this.coursehttp();
   },
   computed: {
     showst() {
@@ -137,16 +73,41 @@ export default {
   },
   methods: {
     goto(name) {
-      localStorage.setItem("kcname",name);
-    }
-    // goDetail(name){
-    //     // this.$router.push({ path:'trainingCenter/Basic_Accounting',params: {id:id,name:name,imgs:imgs}});
-    //      localStorage.setItem("kcname",name)
-    // },
-  },
+      // localStorage.setItem("kcname",name);
+      // this.$router.push({ path:'/Educat/Teaching/taskdetail',query: { id:this.gridData[index].id}});
+    },
+    coursehttp(){
+      this.$http.post(`${this.$store.state.location}services/app/Course/GetCourseStudentAssociate`,{
+                "studentId":9,
+                "termId": 1,
+                "maxResultCount": 10,
+                "skipCount": 0,
+            },{
+                headers: {
+                    "Content-Type": "application/json",
+            }
+            }).then(response=>{
+              this.cousetData = response.body.result.items;
+              this.courselist();
+            },response=>{
+              console.log('error')
+           })
+    },
+      courselist(){
+         for (let i in this.cousetData) {
+            this.classType.push({
+               name: this.cousetData[i].course.title,
+               number: '3281',
+               time: '2017/8/22',
+               src: require('../../share/img/calss_small.png'),
+            })
+         }
+      },  
+    },
   components: {
     
   }
+
 }
 </script>
 
