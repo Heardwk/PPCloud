@@ -2,7 +2,7 @@
   <div class="">
     <div class="Account_top">
     	    <p style="color: #687178;font-size: 12px;padding-top:20px;padding-bottom:10px;"></p>
-    	    <el-tabs :tab-position="tabPosition" @tab-click="">
+    	    <el-tabs :tab-position="tabPosition">
 				    <el-tab-pane label="教师账号">
 				    	 <p class="title_t">教师账号 <span>{{this.allData1}}</span>个，<span>{{this.allData1}}</span>使用中</p>
 				    	   <div class="tea_table">
@@ -77,7 +77,7 @@
 				    	   	     	<li>开启时间</li>
 				    	   	     </ul>
 				    	   	 </div>
-							 <table>
+							<table>
 							    <tbody class="tabod">
 							       <tr 
 							       	v-for="(itemgridData,index) in gridData_student"
@@ -89,7 +89,7 @@
 							        </td>
 							      </tr>
 							    </tbody>
-							  </table>
+							</table>
 			    	</div>
 			    	<div class="block"style="margin-top:20px;">
 					    <el-pagination
@@ -187,7 +187,6 @@ export default {
 		},
         student(){
         	this.$http.post(`${this.$store.state.location}/services/app/Student/GetStudentList`,{
-
 					"departmentId":this.academy,
 				  	"enrollmentYear": this.class,
 					"maxResultCount": this.page1,

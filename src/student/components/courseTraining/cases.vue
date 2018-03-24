@@ -15,17 +15,19 @@
 						<div class="cases_cot_left_content">
 						    <el-tree
 							  class="filter-tree"
-							  :data="data2"
+							  :data="data"
 							  :props="defaultProps"
 							  default-expand-all
 							  :filter-node-method="filterNode"
-							  ref="tree2">
+							  ref="tree2"
+							  @check-change="aa"
+							  @node-click="aa">
 							</el-tree>
 						</div> 
 	              </div>
 	         </div>
 	         <div class="cases_cot_rig">
-	             <casesindex :msgtochild="knowledge[bb]"></casesindex>
+	             <casesindex></casesindex>
 	         </div>
 	     </div>
 	 </div>
@@ -35,136 +37,13 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
   export default {
     data() {
       return {
-         input21:'',
-         parentMsg:'1',
-         knowledge :[
-             {
-		        name: "错账更正",
-		        dynamicTags:['11'],
-		        child: [
-		          {
-		            name: "这是1.1",
-		            number:"1",
-		            child: [
-			           {
-			            name: "这是1.1.2",
-			            number:"2",
-			            child: [
-					           {
-					            name: "这是1.1.2.3",
-					            number:"2",
-					           },
-					           {
-					            name: "这是1.1.2.4",
-					            number:"2",
-					           },
-					         ]
-			            },
-			            {
-			            name: "这是1.1.3",
-			            number:"3",
-			           },
-			             {
-			            name: "这是1.1.4",
-			            number:"4",
-			           }
-		            ]
-		          },
-		          {
-		            name: "这是2.1",
-		            number:"1",
-		            child: [
-			              {
-			            name: "这是2.1.2",
-			            number:"2",
-			           }
-		            ]
-		          },
-		        ],
-		        tableData2: [{
-			          date: '1',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			        }, {
-			          date: '2',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '多选题',
-			          degree:'102'
-			        }, {
-			          date: '3',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			        }, {
-			          date: '4',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			        }, {
-			          date: '5',
-			           name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			        }, {
-			          date: '6',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '多选题',
-			          degree:'102'
-			        }, {
-			          date: '7',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			      }, {
-			          date: '8',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			      },{
-			          date: '9',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			      },{
-			          date: '10',
-			          name: '提供的原始单据、记账凭证、账薄资料等,要',
-			          tag: '单选题',
-			          degree:'102'
-			      }]
-		      },
-              {
-		        name: "会计账务处理程序",
-		        dynamicTags:['ss'],
-		        child: [
-		          {
-		            name: "这是2.1",
-		            number:"1",
-		            child: [
-			              {
-			            name: "这是2.1.2",
-			            number:"2",
-			           }
-		            ]
-		          },
-		          {
-		            name: "这是2.2",
-		            number:"1",
-		            child: [
-			              {
-			            name: "这是2.1.2",
-			            number:"2",
-			           }
-		            ]
-		          },
-		        ]
-		      },
-         ],
+        input21:'',
+        parentMsg:'1',
         restaurants: [],
         bb:'0',
         ind:0,
         filterText: '',
-        data2: [{
+        data: [{
           id: 1,
           label: '一级 1',
           children: [{
@@ -210,41 +89,65 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
         this.$refs.tree2.filter(val);
       }
     },
+    mounted() {
+      this.restaurants = this.loadAll();
+      this.knowledge_by();
+    },
     methods: {
       querySearch(queryString, cb) {
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         cb(results);
       },
-      createFilter(queryString) {
-        return (restaurant) => {
-          return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
-        };
-      },
-      handleNodeClick(data) {
-        console.log(data);
-      },
-      loadAll() {
-        return this.sidess
-      },
-      list_s(id,name,imgs){
-        this.$router.push({ name:'casesindex',query: {id:id,name:name,imgs:imgs}});
-        
-      },
-      aa(index,event) {
-	     this.bb = index
-	     this.ind = index
-	  },
-	   filterNode(value, data) {
-        if (!value) return true;
-        return data.label.indexOf(value) !== -1;
-      }
+      
+    knowledge_by(){
+    this.$http.post(`${this.$store.state.location}services/app/Question/GetQuestionsByKnowledge`,{
+			  "knowledgeId": 17,
+			  "maxResultCount": 10,
+			  "skipCount": 0,
+        },{
+            headers: {
+               "Content-Type": "application/json",
+        }
+        }).then(response=>{
+          this.detailsData = response.body.result.items;
+          console.log( this.detailsData)
+        },response=>{
+          console.log(  'error')
+       })
+    },
+    knowledge_list(){
+
+    },
+	createFilter(queryString) {
+		return (restaurant) => {
+		  return (restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+		};
 	},
+	handleNodeClick(data) {
+		console.log(data);
+	},
+	aa(){
+		console.log("节点被点击")
+	},
+	loadAll() {
+		return this.sidess
+	},
+	list_s(id,name,imgs){
+		this.$router.push({ name:'casesindex',query: {id:id,name:name,imgs:imgs}});
+
+	},
+	aa(index,event) {
+		 this.bb = index
+		 this.ind = index
+	},
+	filterNode(value, data) {
+		if (!value) return true;
+		return data.label.indexOf(value) !== -1;
+		}
+    },
     components:{
     	casesindex,
-    },
-    mounted() {
-      this.restaurants = this.loadAll();
     },
   };
 </script>

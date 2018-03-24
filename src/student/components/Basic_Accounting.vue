@@ -14,10 +14,10 @@
 		        <div class="book">
 		          <h3>{{eattr.listName}}</h3>
 		          <span class="upload">{{bookAttr.turnover}}</span>
-		          <p>{{bookAttr.text}}</p>
+		          <p>{{eattr.text}}</p>
 		          <p class="ico">
 		            <span class="one" @click="setDailog=true">
-		              {{bookAttr.teacher}}老师
+		              {{eattr.tea}}老师
 		            </span>
 		            <span class="three">{{bookAttr.topic}}题</span>
 		          </p>
@@ -29,7 +29,7 @@
 	      	<div style="width:960px;margin:0 auto;">
 	     	 <div class="Basic_index_bot">
 	       		<detailscon></detailscon>
-	        </div>
+	         </div>
 			      <router-view />
 	         </div>
 		   </div>
@@ -44,16 +44,18 @@ export default{
 	data(){
 		return {
 		    eattr:{
-				listImg:'获取数据失败',
-				listId:'获取数据失败',
-				listName:'获取数据失败',
+				listImg:'',
+				listId:'',
+				listName:'',
+				text: '',
+				tea :''
 			},
 		    bookAttr: {
-	        	name: '没有',
+	        	name: '',
 		        turnover:'17年8月更新',
-		        teacher:'张中全',
+		        teacher:'',
 		        src: require('../../share/img/image_class_cover.png'),
-		        text: '文字描述，对课程的简介，描述描述描述描述描述描述描述描述描述描述描述描述描述描描述描述描述描述描述描述描述描述描述描述',
+		        text: '',
 		        topic: 1234
 	        },
 	         teac: {
@@ -68,19 +70,35 @@ export default{
 	    	this.eattr.listName = sessionStorage.getItem("kcname")
 	    }else {
 	    	// window.location.href = '#/Student/trainingCenter';
-	    }
+	    };
+	    this.details();
+ 	},
+ 	methods:{
+ 		details(){
+		    this.$http.post(`${this.$store.state.location}services/app/Course/GetCourseTeacherAssociateById`,{
+	                'id':this.$route.query.id
+	            },{
+	                headers: {
+	                    "Content-Type": "application/json",
+	            }
+	            }).then(response=>{
+	              this.detailsData = response.body.result;
+	              this.detailslist();
+	            },response=>{
+	              console.log(  'error')
+	           })
+		    },
+	    detailslist(){	    	
+          this.eattr.listId = this.detailsData.course.title;
+          this.eattr.listName =  this.detailsData.course.title;
+          this.eattr.text = this.detailsData.course.introduction;
+          this.eattr.tea = this.detailsData.teacherName;
+        },
  	},
 	computed: {
 	      Basic(){
 	      return this.$store.state
 		},
-	},
-	watch: {
-        '$route': function () {
-	        this.eattr.listId = this.$route.query.id,
-		    this.eattr.listName = this.$route.query.name,
-		    this.eattr.listImg = this.$route.query.imgs
-        }
 	},
 	components: {
 		detailscon,
@@ -154,10 +172,6 @@ export default{
   position: relative;
   display: flex;
 }
-.booktop {
-
-}
-
 .book {
   height: 180px;
   margin-left: 20px;
@@ -165,6 +179,7 @@ export default{
   padding-right: 20px;
   padding: 0px 20px 0 0;
   margin-bottom: 50px;
+  width: 100%;
 }
 .book h3 {
   font-size: 16px;
@@ -176,6 +191,9 @@ export default{
   font-size: 12px;
   color: rgba(104,113,120,1);
   line-height: 20px;
+  /*width: 960px;*/
+  width: 100%;
+  height:20px;
 }
 .book .ico {
   position: absolute;
@@ -300,8 +318,7 @@ export default{
 	margin-right:11px ;
 }
 .Basic_index_top_rig>b>i:hover{
-	background: url(../../share/img/icon_setclass_normal_copy@2x.png);
-	 
+	background: url(../../share/img/icon_setclass_normal_copy@2x.png);	 
 }
 .Basic_index_bot{
 	
