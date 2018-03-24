@@ -85,6 +85,7 @@ export default {
           this.datalist = response.body.result;
           this.showData()
         },response=>{
+          window.close()
           console.log('error')
         })
     },

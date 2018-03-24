@@ -323,6 +323,7 @@ export default {
             "Content-Type": "application/json",
           }
         }).then(response=>{
+          console.log(response.body.result.classes)
           let that = this;
           this.hasClass = [];
           for(let i in response.body.result.classes){
@@ -330,8 +331,8 @@ export default {
               missionId: 0,
               class: response.body.result.classes[i].serialNumber,
               id: response.body.result.classes[i].id,
-              // classesId: response.body.result.classes[i].departmentId,
-              // serialNumber response.body.result.classes[i].departmentId,
+              serialNumber: response.body.result.classes[i].serialNumber,
+              classesId: response.body.result.classes[i].departmentId,
             })
           }
           if(this.hasClass.length==0){
@@ -512,54 +513,56 @@ export default {
       }
     },
     created() {
-      // let arr = [];
-      // for(let i in this.allChooseQuestion) {
-      //   for(let j in this.allChooseQuestion[i].questions){
-      //     arr.push({
-      //       "missionId": 0,
-      //       "questionUniqueId": this.allChooseQuestion[i].questions[j].uniqueId,
-      //       "questionVersion": this.allChooseQuestion[i].questions[j].version,
-      //       "questionName": this.allChooseQuestion[i].questions[j].name,
-      //       "questionStyle": this.allChooseQuestion[i].questions[j].style,
-      //       "questionWeighting": this.allChooseQuestion[i].questions[j].count,
-      //     })
-      //   }
-      // }
-      // this.$http.post(`${this.$store.state.location}/services/app/Mission/Create`,
-      //   {
-      //     "title": this.missName,
-      //     "startTime": this.begintime,
-      //     "endTime": this.endtime,
-      //     "remark": this.textarea,
-      //     "classes": this.classNum,
-      //     "students": [],
-      //     "questions": arr
-      //   },{
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     }
-      //   }).then(response=>{
-      //     console.log(response.body)
-      //   },response=>{
-      //     console.log('创建题组error')
-      //   })
+      let arr = [];
+      for(let i in this.allChooseQuestion) {
+        for(let j in this.allChooseQuestion[i].questions){
+          arr.push({
+            "missionId": 0,
+            "questionUniqueId": this.allChooseQuestion[i].questions[j].uniqueId,
+            "questionVersion": this.allChooseQuestion[i].questions[j].version,
+            "questionName": this.allChooseQuestion[i].questions[j].name,
+            "questionStyle": this.allChooseQuestion[i].questions[j].style,
+            "questionWeighting": this.allChooseQuestion[i].questions[j].count,
+          })
+        }
+      }
+      // students
+      this.$http.post(`${this.$store.state.location}/services/app/Mission/Create`,
+        {
+          "title": this.missName,
+          "startTime": this.begintime,
+          "endTime": this.endtime,
+          "remark": this.textarea,
+          "classes": this.classNum,
+          "students": [],
+          "questions": arr
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          console.log(response.body)
+        },response=>{
+          console.log('创建题组error')
+        })
     },
     changeBegintime() {
       let index = this.slideVal.indexOf(this.pick);
+      let t = this.begintime.getTime();
       switch(index){
         case 0: break;
         case 1: 
-          this.endtime = this.begintime.getTime() + 24*60*60*1000; break;
+          this.endtime = t + 24*60*60*1000; break;
         case 2: 
-          this.endtime = this.begintime.getTime() + 12*60*60*1000; break;
+          this.endtime = t + 12*60*60*1000; break;
         case 3: 
-          this.endtime = this.begintime.getTime() +  6*60*60*1000; break;
+          this.endtime = t +  6*60*60*1000; break;
         case 4: 
-          this.endtime = this.begintime.getTime() +  3*60*60*1000; break;
+          this.endtime = t +  3*60*60*1000; break;
         case 5: 
-          this.endtime = this.begintime.getTime() +  1*60*60*1000; break;
+          this.endtime = t +  1*60*60*1000; break;
         case 6: 
-          this.endtime = this.begintime.getTime() +    30*60*1000; break;
+          this.endtime = t +    30*60*1000; break;
       }
     },
     timeOut() {
@@ -585,20 +588,21 @@ export default {
     },
     getT(val) {
       this.pick = this.slideVal[val];
+      let t = this.begintime.getTime();
       switch(val){
         case 0: break;
         case 1: 
-          this.endtime = this.begintime.getTime() + 24*60*60*1000; break;
+          this.endtime = t + 24*60*60*1000; break;
         case 2: 
-          this.endtime = this.begintime.getTime() + 12*60*60*1000; break;
+          this.endtime = t + 12*60*60*1000; break;
         case 3: 
-          this.endtime = this.begintime.getTime() +  6*60*60*1000; break;
+          this.endtime = t +  6*60*60*1000; break;
         case 4: 
-          this.endtime = this.begintime.getTime() +  3*60*60*1000; break;
+          this.endtime = t +  3*60*60*1000; break;
         case 5: 
-          this.endtime = this.begintime.getTime() +  1*60*60*1000; break;
+          this.endtime = t +  1*60*60*1000; break;
         case 6: 
-          this.endtime = this.begintime.getTime() +    30*60*1000; break;
+          this.endtime = t +    30*60*1000; break;
       }
     },
     changeEndtime() {
