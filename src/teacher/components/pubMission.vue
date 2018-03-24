@@ -197,8 +197,8 @@
               <span class="leftSpan">参与班级</span>
               <div class="checkClas">
                 <span v-for="(item,index) in hasClass" :key="index">
-                  <input :id="index" type="checkbox" name="cls" :value="item.class" v-model="classNum">
-                  <label :for="index">{{item.class}}</label>
+                  <input :id="item" type="checkbox" name="cls" :value="item" v-model="classNum">
+                  <label :for="item">{{item.class}}</label>
                 </span>
               </div>
               <p class="all">
@@ -269,13 +269,7 @@ export default {
       begintime: new Date(),
       endtime: new Date(new Date().getTime() + 24*60*60*1000),
       slideVal: ["自定义","24小时","12小时","6小时","3小时","1小时","半小时"],
-      hasClass: [
-        {
-          class: '18会计',
-        },{
-          class: '18财会',
-        }
-      ],
+      hasClass: [],
       classNum: [],
       textarea: '',
       timeCtrl: {},
@@ -294,6 +288,7 @@ export default {
       window.location.href = '#/Teacher/Shixun';
     }
     this.getTree();
+    this.getMyClass()
   },
   watch: {
     filterText(val) {
@@ -318,6 +313,35 @@ export default {
     }
   },
   methods: {
+    getMyClass() {
+      // 得到老师课程关联班级
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetCourseClasses`,
+        {
+          "id": this.bookid
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          let that = this;
+          this.hasClass = [];
+          for(let i in response.body.result.classes){
+            this.hasClass.push({
+              missionId: 0,
+              class: response.body.result.classes[i].serialNumber,
+              id: response.body.result.classes[i].id,
+              // classesId: response.body.result.classes[i].departmentId,
+              // serialNumber response.body.result.classes[i].departmentId,
+            })
+          }
+          if(this.hasClass.length==0){
+            this.$message.error('请先设置班级');
+            window.location.href = `#/Teacher/Shixun/Course?bookid=${that.bookid}&bookname=${that.bookName}`;
+          }
+        },response=>{
+          console.log('得到设置的班级信息error')
+        })
+    },
     filte(val) {
       return val.replace(/^(\s|\u00A0)+/,'').replace(/(\s|\u00A0)+$/,'')
     },
@@ -503,12 +527,12 @@ export default {
       // }
       // this.$http.post(`${this.$store.state.location}/services/app/Mission/Create`,
       //   {
-      //     "title": this.missName
+      //     "title": this.missName,
       //     "startTime": this.begintime,
       //     "endTime": this.endtime,
       //     "remark": this.textarea,
-      //     "classes": [],
-      //     "students": []
+      //     "classes": this.classNum,
+      //     "students": [],
       //     "questions": arr
       //   },{
       //     headers: {

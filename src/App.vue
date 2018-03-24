@@ -42,6 +42,7 @@ url-prefix(file:///), url-prefix(http://), url-prefix(https://){
 html,
 body {
   height: 100%;
+  min-width: 1000px;
   width: 100%;
   font-family: PingFang SC,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Microsoft Yahei,\\5FAE\8F6F\96C5\9ED1,STHeiti,sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -501,7 +502,7 @@ header {
     background-color: #7ED321;
     margin-right: 25px;
 }
-.g_bu .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+.g_bu .el-checkbox__input.is-checked .el-checkbox__inner,.g_bu .el-checkbox__input.is-indeterminate .el-checkbox__inner {
     background-color: #fff;
     border-color: #fff;
     border-radius: 7px;

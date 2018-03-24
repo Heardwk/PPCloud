@@ -70,15 +70,15 @@ export default {
             "Content-Type": "application/json",
           }
         }).then(response=>{
-          this.getall = response.body.result.items;
+          this.getall = response.body.result.items
           this.showBook()
         },response=>{
           console.log('error')
-        });
+        })
     },
     showBook() {
-      this.recentlyData  = [];
-      this.classType[0].bookList = [];
+      this.recentlyData  = []
+      this.classType[0].bookList = []
       for(let i in this.getall) {
         this.recentlyData.push({
           name: this.getall[i].title,
@@ -87,7 +87,7 @@ export default {
           time: '2018/3/22',
           src: require('../../share/img/class_big.png'),
           text: this.getall[i].introduction
-        });
+        })
         this.classType[0].bookList.push({
           name: this.getall[i].title,
           id: this.getall[i].id,
