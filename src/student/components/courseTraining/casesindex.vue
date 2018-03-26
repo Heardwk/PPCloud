@@ -28,7 +28,7 @@
 			       <tr 
 			       	v-for="(itemgridData,index) in tableData"
 			       	:key="index"
-			       	@click = "totop(tableData)">
+			       	@click = "totop(contentData,index)">
 			       	<td>{{ currentPage<2? `0${index+1}`: index+1+(10*(currentPage-1))}}</td>
 			        <td  v-for="(item,index) in itemgridData">
 			        	<i v-if="index == 'degree'" class="el-icon"></i>
@@ -63,6 +63,9 @@
     	id: {
             type: Number,  
         },  
+        tren: {
+             
+        },
         titlename:{
         	type: String,  
         }
@@ -85,8 +88,8 @@
     },
     computed: {
 	    showst() {
-	    return this.$store.state
-	  },
+	        return this.$store.state
+		},
 	 },
 	  watch: {
 	    contentData() {
@@ -95,7 +98,7 @@
 	        this.tableData.push({
 	          "name": this.contentData[i].title,
 	          "type": this.contentData[i].styleName,
-	        })
+	        });
 	      }
 	    },
 	    id(){
@@ -128,8 +131,8 @@
 		    }
 		}
 	},
-	totop(all){
-		this.$router.push({path:'/tizu/practice',query: { knowledge:this.id,styleid:2}});
+	totop(all,index){
+		this.$router.push({path:'/tizu/practice',query: { knowledge:all[index].uniqueId,versionId:all[index].version,styleid:this.tren,topicid:this.id}});
 		console.log(all)
 	},
     content(){
@@ -145,7 +148,6 @@
 	        }).then(response=>{
 		        this.contentData = response.body.result.items;
 	            this.allData = response.body.result.totalCount;
-		        console.log(this.contentData)
 		        this.screen();
 	        },response=>{
 	            console.log('知识点树获取error')

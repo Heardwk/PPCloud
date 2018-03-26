@@ -118,21 +118,21 @@ export default{
     },
     methods:{
     httpchoice(){
-        // this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
-        //     {
-        //       "version": 1,
-        //       "uniqueId": "47bc282b-0b64-48ee-afc6-5d9d6759c843"
-        //     },{
-        //       headers: {
-        //         "Content-Type": "application/json"
-        //       }
-        //     }).then(response=>{
-        //       this.Single = response.body.result;
-        //       this.topic.question = this.Single.content;
-        //       this.topic.answer = this.Single.options;
-        //     },response=>{
-        //       console.log("error")
-        //     })  
+        this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
+            {
+              "version": 1,
+              "uniqueId": "47bc282b-0b64-48ee-afc6-5d9d6759c843"
+            },{
+              headers: {
+                "Content-Type": "application/json"
+              }
+            }).then(response=>{
+              this.Single = response.body.result;
+              this.topic.question = this.Single.content;
+              this.topic.answer = this.Single.options;
+            },response=>{
+              console.log("error")
+            })  
         },
     aa(index) {
       this.number = index  

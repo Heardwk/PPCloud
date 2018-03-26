@@ -27,9 +27,8 @@
 	              </div>
 	         </div>
 	         <div class="cases_cot_rig">
-	             <casesindex  :id="checkPointId" :titlename="detailsDatas"></casesindex>
+	             <casesindex  :id="checkPointId" :tren = "idindex" :titlename="detailsDatas"></casesindex>
 	         </div>
-	         {{this.$route.query.id}}
 	     </div>
 	 </div>
 </template>
@@ -50,6 +49,11 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
         }
       };
     },
+    computed:{
+    	idindex(){
+      	return this.$route.query.id
+        }
+    },
     watch: {
       filterText(val) {
         this.$refs.tree2.filter(val);
@@ -68,7 +72,7 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
     knowledge_by(){
       this.$http.post(`${this.$store.state.location}/services/app/Course/GetKnowledgeTree`,
         {
-          "courseId": this.$route.query.id,
+          "courseId":this.idindex,
           "onlyIncludeChild": false
         },{
           headers: {
@@ -77,7 +81,7 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
         }).then(response=>{
           this.detailsData = response.body.result;
           this.knowledge_list()
-          // console.log(this.detailsData)
+          console.log(this.detailsData)
           this.checkPointId = this.detailsData[0].id;
           this.detailsDatas = this.detailsData[0].name;
         },response=>{
