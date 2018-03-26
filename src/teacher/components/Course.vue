@@ -137,7 +137,7 @@
         <span>选择班级：</span>
         <div id="checkClas" class="checkClas">
           <span v-for="(item,index) in hasClass" :key="index">
-            <input :id="index" type="checkbox" name="cls" :disabled="item.chec" :value="item.class" v-model="classNum">
+            <input :id="index" type="checkbox" name="cls" :disabled="item.chec" :value="item.id" :label="item.class" v-model="classNum">
             <label v-if="!item.chec" :for="index">{{item.class}}</label>
             <el-tooltip v-else effect="dark" :content="item.teac+str" placement="top-start">
               <label :for="index">{{item.class}}</label>
@@ -195,7 +195,7 @@ export default {
       bookAttr: {},
       teac: {
         classone: ["暂无"],
-        classtwo: "暂无",
+        classtwo: '暂无'
       },
       activeName: 'first',
       topicList: [],
@@ -225,6 +225,7 @@ export default {
     this.getBook()
     this.getQuestionList();
     this.getClassData();
+    this.getMyClass();
   },
   watch: {
     questionList() {
@@ -280,14 +281,43 @@ export default {
           console.log('error')
         });
     },
+    getMyClass() {
+      // 得到老师课程关联班级
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetCourseClasses`,
+        {
+          "id": this.id
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          // console.log(response.body.result)
+          let arr = [];
+          for(let i in response.body.result.classes){
+            arr.push(response.body.result.classes[i].serialNumber)
+          }
+          if(arr.length==0){
+            arr.push("暂无")
+          }
+          this.teac.classone = arr;
+          if(response.body.result.termName==''){
+            this.teac.classtwo = "暂无"
+          }else{
+            this.teac.classtwo = response.body.result.termName;
+          }
+        },response=>{
+          console.log('得到设置的班级信息error')
+        })
+    },
     getClassData() {
-      // 获得任教师间
+      // 获得任教时间
       this.$http.post(`${this.$store.state.location}/services/app/Term/GetCurrentTerm`,
         {},{
           headers: {
             "Content-Type": "application/json",
           }
         }).then(response=>{
+          // console.log(response.body.result)
           this.setTime = response.body.result.termName
         },response=>{
           console.log('获取任教时间error')
@@ -316,7 +346,7 @@ export default {
             "Content-Type": "application/json",
           }
         }).then(response=>{
-          console.log(response.body.result);
+          // console.log(response.body.result);
           this.setOptionsA = [];
           for(let i in response.body.result){
             this.setOptionsA.push({
@@ -337,7 +367,7 @@ export default {
             "Content-Type": "application/json",
           }
         }).then(response=>{
-          console.log(response.body.result);
+          // console.log(response.body);
           this.setClass = [];
           for(let i in response.body.result){
             this.setClass.push({
@@ -345,7 +375,8 @@ export default {
               xibie: response.body.result[i].departmentId,
               nianji: '2017',
               chec: false,
-              teac: ''
+              teac: '',
+              id: response.body.result[i].id
             })
           }
         },response=>{
@@ -357,19 +388,21 @@ export default {
     },
     setDailogT() {
       this.setDailog = false;
-      let checkClas = document.getElementById("checkClas");
-      let checkI = checkClas.getElementsByTagName("input");
-      let arr = [];
-      for(let i=0; i<checkI.length; i++) {
-        if(checkI[i].checked) {
-          arr.push(checkI[i].value);
-        }
-      }
-      if(arr.length==0){
-        arr.push("暂无")
-      }
-      this.teac.classone = arr;
-      this.teac.classtwo = this.setTime;
+      // 设置老师课程关联班级
+      this.$http.post(`${this.$store.state.location}/services/app/Course/SetCourseClassesAndTerm`,
+        {
+          "courseId": this.id,
+          "classesIds": this.classNum,
+          "termId": 1
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.getMyClass()
+        },response=>{
+          console.log('删除题组error')
+        })
     },
     deletList(item) {
       this.$confirm('确认删除？')

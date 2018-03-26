@@ -197,8 +197,8 @@
               <span class="leftSpan">参与班级</span>
               <div class="checkClas">
                 <span v-for="(item,index) in hasClass" :key="index">
-                  <input :id="index" type="checkbox" name="cls" :value="item.class" v-model="classNum">
-                  <label :for="index">{{item.class}}</label>
+                  <input :id="item" type="checkbox" name="cls" :value="item" v-model="classNum">
+                  <label :for="item">{{item.class}}</label>
                 </span>
               </div>
               <p class="all">
@@ -269,13 +269,7 @@ export default {
       begintime: new Date(),
       endtime: new Date(new Date().getTime() + 24*60*60*1000),
       slideVal: ["自定义","24小时","12小时","6小时","3小时","1小时","半小时"],
-      hasClass: [
-        {
-          class: '18会计',
-        },{
-          class: '18财会',
-        }
-      ],
+      hasClass: [],
       classNum: [],
       textarea: '',
       timeCtrl: {},
@@ -294,6 +288,7 @@ export default {
       window.location.href = '#/Teacher/Shixun';
     }
     this.getTree();
+    this.getMyClass()
   },
   watch: {
     filterText(val) {
@@ -318,6 +313,36 @@ export default {
     }
   },
   methods: {
+    getMyClass() {
+      // 得到老师课程关联班级
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetCourseClasses`,
+        {
+          "id": this.bookid
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          console.log(response.body.result.classes)
+          let that = this;
+          this.hasClass = [];
+          for(let i in response.body.result.classes){
+            this.hasClass.push({
+              missionId: 0,
+              class: response.body.result.classes[i].serialNumber,
+              id: response.body.result.classes[i].id,
+              serialNumber: response.body.result.classes[i].serialNumber,
+              classesId: response.body.result.classes[i].departmentId,
+            })
+          }
+          if(this.hasClass.length==0){
+            this.$message.error('请先设置班级');
+            window.location.href = `#/Teacher/Shixun/Course?bookid=${that.bookid}&bookname=${that.bookName}`;
+          }
+        },response=>{
+          console.log('得到设置的班级信息error')
+        })
+    },
     filte(val) {
       return val.replace(/^(\s|\u00A0)+/,'').replace(/(\s|\u00A0)+$/,'')
     },
@@ -488,54 +513,56 @@ export default {
       }
     },
     created() {
-      // let arr = [];
-      // for(let i in this.allChooseQuestion) {
-      //   for(let j in this.allChooseQuestion[i].questions){
-      //     arr.push({
-      //       "missionId": 0,
-      //       "questionUniqueId": this.allChooseQuestion[i].questions[j].uniqueId,
-      //       "questionVersion": this.allChooseQuestion[i].questions[j].version,
-      //       "questionName": this.allChooseQuestion[i].questions[j].name,
-      //       "questionStyle": this.allChooseQuestion[i].questions[j].style,
-      //       "questionWeighting": this.allChooseQuestion[i].questions[j].count,
-      //     })
-      //   }
-      // }
-      // this.$http.post(`${this.$store.state.location}/services/app/Mission/Create`,
-      //   {
-      //     "title": this.missName
-      //     "startTime": this.begintime,
-      //     "endTime": this.endtime,
-      //     "remark": this.textarea,
-      //     "classes": [],
-      //     "students": []
-      //     "questions": arr
-      //   },{
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     }
-      //   }).then(response=>{
-      //     console.log(response.body)
-      //   },response=>{
-      //     console.log('创建题组error')
-      //   })
+      let arr = [];
+      for(let i in this.allChooseQuestion) {
+        for(let j in this.allChooseQuestion[i].questions){
+          arr.push({
+            "missionId": 0,
+            "questionUniqueId": this.allChooseQuestion[i].questions[j].uniqueId,
+            "questionVersion": this.allChooseQuestion[i].questions[j].version,
+            "questionName": this.allChooseQuestion[i].questions[j].name,
+            "questionStyle": this.allChooseQuestion[i].questions[j].style,
+            "questionWeighting": this.allChooseQuestion[i].questions[j].count,
+          })
+        }
+      }
+      // students
+      this.$http.post(`${this.$store.state.location}/services/app/Mission/Create`,
+        {
+          "title": this.missName,
+          "startTime": this.begintime,
+          "endTime": this.endtime,
+          "remark": this.textarea,
+          "classes": this.classNum,
+          "students": [],
+          "questions": arr
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          console.log(response.body)
+        },response=>{
+          console.log('创建题组error')
+        })
     },
     changeBegintime() {
       let index = this.slideVal.indexOf(this.pick);
+      let t = this.begintime.getTime();
       switch(index){
         case 0: break;
         case 1: 
-          this.endtime = this.begintime.getTime() + 24*60*60*1000; break;
+          this.endtime = t + 24*60*60*1000; break;
         case 2: 
-          this.endtime = this.begintime.getTime() + 12*60*60*1000; break;
+          this.endtime = t + 12*60*60*1000; break;
         case 3: 
-          this.endtime = this.begintime.getTime() +  6*60*60*1000; break;
+          this.endtime = t +  6*60*60*1000; break;
         case 4: 
-          this.endtime = this.begintime.getTime() +  3*60*60*1000; break;
+          this.endtime = t +  3*60*60*1000; break;
         case 5: 
-          this.endtime = this.begintime.getTime() +  1*60*60*1000; break;
+          this.endtime = t +  1*60*60*1000; break;
         case 6: 
-          this.endtime = this.begintime.getTime() +    30*60*1000; break;
+          this.endtime = t +    30*60*1000; break;
       }
     },
     timeOut() {
@@ -561,20 +588,21 @@ export default {
     },
     getT(val) {
       this.pick = this.slideVal[val];
+      let t = this.begintime.getTime();
       switch(val){
         case 0: break;
         case 1: 
-          this.endtime = this.begintime.getTime() + 24*60*60*1000; break;
+          this.endtime = t + 24*60*60*1000; break;
         case 2: 
-          this.endtime = this.begintime.getTime() + 12*60*60*1000; break;
+          this.endtime = t + 12*60*60*1000; break;
         case 3: 
-          this.endtime = this.begintime.getTime() +  6*60*60*1000; break;
+          this.endtime = t +  6*60*60*1000; break;
         case 4: 
-          this.endtime = this.begintime.getTime() +  3*60*60*1000; break;
+          this.endtime = t +  3*60*60*1000; break;
         case 5: 
-          this.endtime = this.begintime.getTime() +  1*60*60*1000; break;
+          this.endtime = t +  1*60*60*1000; break;
         case 6: 
-          this.endtime = this.begintime.getTime() +    30*60*1000; break;
+          this.endtime = t +    30*60*1000; break;
       }
     },
     changeEndtime() {
