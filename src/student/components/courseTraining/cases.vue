@@ -15,19 +15,19 @@
 						<div class="cases_cot_left_content">
 						    <el-tree
 							  class="filter-tree"
-							  :data="data"
+							  :data="datalist"
 							  :props="defaultProps"
-							  default-expand-all
-							  :filter-node-method="filterNode"
+							  node-key="id"
 							  ref="tree2"
-							  @check-change="aa"
+							  :filter-node-method="filterNode"
+							  accordion
 							  @node-click="aa">
 							</el-tree>
 						</div> 
 	              </div>
 	         </div>
 	         <div class="cases_cot_rig">
-	             <casesindex></casesindex>
+	             <casesindex  :id="checkPointId" :titlename="detailsDatas"></casesindex>
 	         </div>
 	     </div>
 	 </div>
@@ -37,50 +37,15 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
   export default {
     data() {
       return {
-        input21:'',
         parentMsg:'1',
         restaurants: [],
-        bb:'0',
-        ind:0,
         filterText: '',
-        data: [{
-          id: 1,
-          label: '一级 1',
-          children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1'
-            }, {
-              id: 10,
-              label: '三级 1-1-2'
-            }]
-          }]
-        }, {
-          id: 2,
-          label: '一级 2',
-          children: [{
-            id: 5,
-            label: '二级 2-1'
-          }, {
-            id: 6,
-            label: '二级 2-2'
-          }]
-        }, {
-          id: 3,
-          label: '一级 3',
-          children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2'
-          }]
-        }],
+        datalist: [],
+        detailsDatas:'',
+        checkPointId:0,
         defaultProps: {
-          children: 'children',
-          label: 'label'
+            children: 'children',
+            label: 'name'
         }
       };
     },
@@ -98,26 +63,28 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
         var restaurants = this.restaurants;
         var results = queryString ? restaurants.filter(this.createFilter(queryString)) : restaurants;
         cb(results);
-      },
-      
+      },    
     knowledge_by(){
-    this.$http.post(`${this.$store.state.location}services/app/Question/GetQuestionsByKnowledge`,{
-			  "knowledgeId": 17,
-			  "maxResultCount": 10,
-			  "skipCount": 0,
+      this.$http.post(`${this.$store.state.location}/services/app/Course/GetKnowledgeTree`,
+        {
+          "courseId": this.$route.query.id,
+          "onlyIncludeChild": false
         },{
-            headers: {
-               "Content-Type": "application/json",
-        }
+          headers: {
+            "Content-Type": "application/json",
+          }
         }).then(response=>{
-          this.detailsData = response.body.result.items;
-          console.log( this.detailsData)
+          this.detailsData = response.body.result;
+          this.knowledge_list()
+          // console.log(this.detailsData)
+          this.checkPointId = this.detailsData[0].id;
+          this.detailsDatas = this.detailsData[0].name;
         },response=>{
-          console.log(  'error')
-       })
+          console.log('获取知识点树error')
+        })
     },
     knowledge_list(){
-
+      this.datalist = this.detailsData;
     },
 	createFilter(queryString) {
 		return (restaurant) => {
@@ -127,23 +94,17 @@ import casesindex  from '@/student/components/courseTraining/casesindex'
 	handleNodeClick(data) {
 		console.log(data);
 	},
-	aa(){
-		console.log("节点被点击")
-	},
 	loadAll() {
 		return this.sidess
 	},
-	list_s(id,name,imgs){
-		this.$router.push({ name:'casesindex',query: {id:id,name:name,imgs:imgs}});
-
-	},
-	aa(index,event) {
-		 this.bb = index
-		 this.ind = index
+	aa(obj) {
+		this.checkPointId = obj.id;
+		this.detailsDatas = obj.name;
+		console.log(this.checkPointId)
 	},
 	filterNode(value, data) {
 		if (!value) return true;
-		return data.label.indexOf(value) !== -1;
+		return data.name.indexOf(value) !== -1;
 		}
     },
     components:{

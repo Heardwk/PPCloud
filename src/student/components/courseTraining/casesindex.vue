@@ -1,15 +1,13 @@
     <template>
 	 <div>
 	     <div class="casesindex_top">
-	         <b>这是名称</b>
+	         <b>{{titlename}}</b>
 	     </div>
 	     <div class="table_list">
 			<div class="tea_table_top">
 		   	    <ul>
 		   	     	<li>序号</li>
-		   	     	<li>
-		   	     		案例名称
-		   	     	</li>
+		   	     	<li>案例名称</li>
 		   	     	<li>
 		   	     	   <template>
 						  <el-select v-model="values" @clear = "cusclear" @change="changeClass1" clearable placeholder="题型">
@@ -28,8 +26,9 @@
 			<table>
 			    <tbody class="tabod">
 			       <tr 
-			       	v-for="(itemgridData,index) in tableData2"
-			       	:key="index">
+			       	v-for="(itemgridData,index) in tableData"
+			       	:key="index"
+			       	@click = "totop(tableData)">
 			       	<td>{{ currentPage<2? `0${index+1}`: index+1+(10*(currentPage-1))}}</td>
 			        <td  v-for="(item,index) in itemgridData">
 			        	<i v-if="index == 'degree'" class="el-icon"></i>
@@ -41,13 +40,11 @@
 	     </div>
 	     <div class="block">
 		     <el-pagination
-		      @size-change="handleSizeChange"
-		      @current-change="handleCurrentChange"
 		      :current-page="currentPage"
-		      :page-sizes="[100, 200, 300, 400,600]"
-		      :page-size="100"
+		      :page-size="pageSize"
 		      layout=" prev, pager, next,total, jumper"
-		      :total="1000">
+		      :total="allData"
+		      @current-change="changePage">
 		    </el-pagination>
 		 </div>
         <div class="at_present">
@@ -58,10 +55,19 @@
         	<span>问答题<b>231</b>道</span>
         	<span>综合题<b>231</b>道</span>
         </div>
+        {{id}}
 	 </div>
 </template>
 <script>
   export default {
+    props: {
+    	id: {
+            type: Number,  
+        },  
+        titlename:{
+        	type: String,  
+        }
+    },  
     data() {
       return {  
       	thisClass:'active',
@@ -70,60 +76,84 @@
         inputValue: '',
         dynamicTags:[],
         currentPage: 1,
+        pageSize:2,
         values:'',
-        tableData2: [
-        {name: '提供的原始单据、记账凭证、账薄资料等,要',tag: '单选题',}, 
-        {name: '提供的原始单据、记账凭证、账薄资料等,要',tag: '多选题',},
-        {name: '提供的原始单据、记账凭证、账薄资料等,要',tag: '单选题',}
-        ],
-		question_types:[
-			{
-				label:'单选题',
-				value:'单选题'
-			},
-			{
-				label:'多选题',
-				value:'多选题'
-			}
-		],
-        productList: {
-	        pc: {
-	          title: '知识点',
-	          num:0
-	        },
-	      },
-       tx: [
-		   {
-		      title: '单选题:',
-		      num:50
-		   },
-		   {
-		      title: '多选题',
-		      num:40
-		   },
-		   {
-		      title: '填表题',
-		      num:30
-		   },
-		   {
-		      title: '制表题',
-		      num:20
-		   },
-		   {
-		      title: '综合题',
-		      num:10
-		   },
-        ],
+        allData:0,
+        tableData: [],
+        contentData:[],
+		question_types:[],
       }
     },
-     computed: {
+ //    mounted() {
+	//     this.content();
+	// },
+    computed: {
 	    showst() {
-	      return this.$store.state
+	    return this.$store.state
 	  },
 	 },
-     methods: {
-      changeClass1(){
+	  watch: {
+	    contentData() {
+	      this.tableData = [];
+	      for(let i in this.contentData) {
+	        this.tableData.push({
+	          "name": this.contentData[i].title,
+	          "type": this.contentData[i].styleName,
+	        })
+	      }
+	    },
+	    id(){
+	    	 this.content();
+	    }
+	  },
+    methods: {
+    changeClass1(){
       	    console.log("change事件")
+    },
+    screen(){
+           this.question_types = [];
+			for(let i in this.contentData) {
+				this.question_types.push({
+				'label': this.contentData[i].styleName,
+				'value': this.contentData[i].styleName 
+				})
+			}
+			this.unique( this.question_types);
+        },
+    unique(arr) { 
+		   for (var i = 0; i < arr.length - 1; i++) {
+		    for (var j = 1; j < arr.length; j++) {
+		        if (i != j) {
+		            if (arr[i].x == arr[j].x && arr[i].y == arr[j].y) {
+		                arr.splice(j, 1)
+		            }
+		        }
+
+		    }
+		}
+	},
+	totop(all){
+		this.$router.push({path:'/tizu/practice',query: { knowledge:this.id,styleid:2}});
+		console.log(all)
+	},
+    content(){
+	       this.$http.post(`${this.$store.state.location}/services/app/Question/GetQuestionsByKnowledge`,
+	        {
+	            "knowledgeId": this.id,
+	            "maxResultCount": this.pageSize,
+	            "skipCount":(this.currentPage-1) * this.pageSize,
+	        },{
+	          headers: {
+	            "Content-Type": "application/json",
+	          }
+	        }).then(response=>{
+	          this.contentData = response.body.result.items;
+              this.allData = response.body.result.totalCount;
+	          console.log(this.contentData)
+	          this.screen();
+	        },response=>{
+	          console.log('知识点树获取error')
+	        })
       },
       cusclear(){
             console.log("这是select删除按钮的事件")
@@ -136,11 +166,9 @@
 	        }
 	        return '';
       },
-      handleSizeChange(val) {
-        	console.log(`每页 ${val} 条`);
-      },
-      handleCurrentChange(val) {
-      	 	console.log(`当前页: ${val}`);
+      changePage(val) {
+      	 	this.currentPage = val;
+      	 	this.content();
       },
       formatter(row, column) {
       	  	return row.address;
@@ -153,12 +181,6 @@
        		return row[property] === value;
       }
     },
-	// mounted() {
-	//  		this.dataA = this.msgtochild.child
- //    },
-    destroyed() {
-     // this.$store.commit("studentshow",true)
-  },
   }
 
 </script>
@@ -191,8 +213,10 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
+	padding-bottom: 25px;
+    border-bottom: 5px solid #157cf0;
 }	
-.casesindex_top>b::after{
+/*.casesindex_top>b::after{
 	content:'' ;
 	width:8%;
 	height:5px; 
@@ -202,7 +226,7 @@
     top:23px;
     left: 43px;
     background-color: #157CF0;
-}	
+}	*/
 .correct{
 	width: 100%;
 	margin-top: 28px;

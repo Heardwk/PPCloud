@@ -27,39 +27,39 @@
         <p v-for="(item,index) in topic.answer" :key="index">
           【{{String.fromCharCode(index+65)}}】{{item.content}}
         </p>
-        <!-- <div class="g_bu">
+        <div class="g_bu">
           <div style="margin-top: 60px"  v-for="(item,index) in topic.answer" :key="index">
               <el-radio @change="radiochange" v-model="radio" :label="item.content" border size="medium">{{String.fromCharCode(index+65)}}</el-radio>          
           </div>
-        </div> -->
+        </div>
       </div>  
     </div>
     <!-- 多选题 -->
-    <div v-if="topic.caseType=='多选题'" class="danxaun">
+<!--     <div v-if="topic.caseType=='多选题'" class="danxaun">
       <div class="dxcontainer">
         <p>{{topic.question}}</p>
         <p v-for="(item,index) in topic.answer" :key="index">
           【{{String.fromCharCode(index+65)}}】{{item.content}}
         </p>
-        <!-- <div class="g_bu">
+        <div class="g_bu">
           <template>
             <div style="margin: 15px 0;"></div>
             <el-checkbox-group v-model="checkedCities" @change="handleCheckedCitiesChange">
               <el-checkbox v-for="item in cities" :label="item.content" border :key="item.content" size="medium"></el-checkbox>
             </el-checkbox-group>
           </template>
-        </div> -->
+        </div>
       </div>  
-    </div>
+    </div> -->
     <!-- 判断题 -->
-    <div v-if="topic.caseType=='判断题'" class="danxaun">
+<!--     <div v-if="topic.caseType=='判断题'" class="danxaun">
       <div class="dxcontainer">
         <p>{{topic.question}}</p>
         <p v-for="(item,index) in topic.answer" :key="index">
           {{item.content}}
         </p> 
       </div>  
-    </div>
+    </div> -->
 
   </div>
 </template>
@@ -69,7 +69,7 @@ export default {
   name: 'exercises',
   props: {
     id: {
-      type: String,
+      type:   Number,
       required: true
     }
   },

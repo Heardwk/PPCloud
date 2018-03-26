@@ -94,11 +94,15 @@ export default{
     components: {
       exercises,
     },
+    mounted(){
+       console.log(this.$route.query.knowledge)
+        console.log(this.$route.query.styleid)
+    },
     methods:{
-    aa(index) {
-      this.number = index  
-      this.ins = index
-      },
+      aa(index) {
+          this.number = index  
+          this.ins = index
+        },
     chakandaan() {
 
     },
