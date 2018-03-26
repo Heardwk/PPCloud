@@ -142,20 +142,20 @@ export default {
   methods: {
     // 获取题目
     GetTtheTitle(){
-      this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
-        {
-          "version": this.topic.version,
-          "uniqueId": this.topic.uniqueId
-        },{
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }).then(response=>{
-          this.topics = response.body.result;
-          this.showData()
-        },response=>{
-          console.log("error")
-        })  
+      // this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
+      //   {
+      //     "version": this.topic.version,
+      //     "uniqueId": this.topic.uniqueId
+      //   },{
+      //     headers: {
+      //       "Content-Type": "application/json"
+      //     }
+      //   }).then(response=>{
+      //     this.topics = response.body.result;
+      //     this.showData()
+      //   },response=>{
+      //     console.log("error")
+      //   })  
     },
     showData() {
       // this.topic = {};

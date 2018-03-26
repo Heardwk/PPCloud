@@ -55,7 +55,6 @@
         	<span>问答题<b>231</b>道</span>
         	<span>综合题<b>231</b>道</span>
         </div>
-        {{id}}
 	 </div>
 </template>
 <script>
@@ -84,9 +83,6 @@
 		question_types:[],
       }
     },
- //    mounted() {
-	//     this.content();
-	// },
     computed: {
 	    showst() {
 	    return this.$store.state
@@ -147,24 +143,16 @@
 	            "Content-Type": "application/json",
 	          }
 	        }).then(response=>{
-	          this.contentData = response.body.result.items;
-              this.allData = response.body.result.totalCount;
-	          console.log(this.contentData)
-	          this.screen();
+		        this.contentData = response.body.result.items;
+	            this.allData = response.body.result.totalCount;
+		        console.log(this.contentData)
+		        this.screen();
 	        },response=>{
-	          console.log('知识点树获取error')
+	            console.log('知识点树获取error')
 	        })
       },
       cusclear(){
             console.log("这是select删除按钮的事件")
-      },
-	  tableRowClassName({row, rowIndex}) {
-	        if (rowIndex %2 !==0 ) {
-	          return 'warning-row';
-	        } else if (rowIndex %2 ==0) {
-	          return 'success-row';
-	        }
-	        return '';
       },
       changePage(val) {
       	 	this.currentPage = val;
@@ -175,10 +163,6 @@
       },
       filterTag(value, row) {
         	return row.tag === value;
-      },
-      filterHandler(value, row, column) {
-        	const property = column['property'];
-       		return row[property] === value;
       }
     },
   }

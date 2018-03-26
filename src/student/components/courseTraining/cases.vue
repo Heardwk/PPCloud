@@ -29,6 +29,7 @@
 	         <div class="cases_cot_rig">
 	             <casesindex  :id="checkPointId" :titlename="detailsDatas"></casesindex>
 	         </div>
+	         {{this.$route.query.id}}
 	     </div>
 	 </div>
 </template>
