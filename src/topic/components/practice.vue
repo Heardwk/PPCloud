@@ -19,12 +19,11 @@
                      </div>
                   </div>
                  <div  style="padding-left: 20px;padding-top: 20px;">
-                   <exercises :id = "knowledgeid"></exercises> 
+                   <exercises :ques = "{unid:knowledgeid,version:versionId}" ></exercises> 
                     <div class="g_bu">
                       <div style="margin-top: 60px"  v-for="(item,index) in topic.answer" :key="index">
                           <el-radio @change="radiochange" v-model="radio" :label="item.content" border size="medium">{{String.fromCharCode(index+65)}}</el-radio>  
                       </div>
-                   <exercises :ques = "{unid:'',version:1}" ></exercises> 
                     <div class="g_bu"  v-if="isshow" >
 <!--                    <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>
@@ -36,6 +35,7 @@
                             <el-radio v-model="radio" label="C" border size="medium">C</el-radio>
                             <el-radio v-model="radio" label="D" border size="medium">D</el-radio>
                         </div>
+                      </div>
                     </div>
                  </div>
               </div>
@@ -63,6 +63,7 @@ export default{
       return {
         mode: true,
         ins:0,
+        versionId: 0,
         number:0,
         active: 0,
         radio:'',
@@ -97,6 +98,7 @@ export default{
        exercises,
     },
     mounted(){
+      this.versionId = this.$route.query.versionId;
        this.topicid = this.$route.query.topicid
        this.practicelist();
     },

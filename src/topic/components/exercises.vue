@@ -67,14 +67,10 @@
 export default {
   name: 'exercises',
   props: {
-    id: {
-      type: String,
-      required: true
-    }
     ques: {
       type: Object,
       required: true      
-    },
+    }
   },
   data () {
     return {
