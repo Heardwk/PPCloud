@@ -30,7 +30,7 @@
                      </div>
                   </div>
                  <div style="padding-left: 20px;padding-top: 20px;">
-                   <exercises :id="1" ></exercises> 
+                   <exercises :ques = "{unid:'',version:1}" ></exercises> 
                     <div class="g_bu" >
                         <div style="margin-top: 20px">
                            <el-checkbox-group v-model="checkboxGroup5" size="small">

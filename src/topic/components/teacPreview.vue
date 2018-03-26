@@ -11,7 +11,7 @@
       <span @click="prev">下一题</span>
     </div>
     <div class="timu">
-      <exercises :id="topic.id"></exercises>
+      <exercises :ques = "{unid:'',version:1}"></exercises>
     </div>
   </div>
 </template>

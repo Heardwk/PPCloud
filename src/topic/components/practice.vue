@@ -24,6 +24,18 @@
                       <div style="margin-top: 60px"  v-for="(item,index) in topic.answer" :key="index">
                           <el-radio @change="radiochange" v-model="radio" :label="item.content" border size="medium">{{String.fromCharCode(index+65)}}</el-radio>  
                       </div>
+                   <exercises :ques = "{unid:'',version:1}" ></exercises> 
+                    <div class="g_bu"  v-if="isshow" >
+<!--                    <el-button  size="medium" plain icon="el-icon-success">A</el-button>
+                        <el-button  size="medium" plain icon="el-icon-success">B</el-button>
+                        <el-button  size="medium" plain icon="el-icon-success">C</el-button>
+                        <el-button  size="medium" plain icon="el-icon-success">D</el-button> -->
+                        <div style="margin-top: 60px">
+                            <el-radio v-model="radio" label="A" border size="medium">A</el-radio>
+                            <el-radio v-model="radio" label="B" border size="medium">B</el-radio>
+                            <el-radio v-model="radio" label="C" border size="medium">C</el-radio>
+                            <el-radio v-model="radio" label="D" border size="medium">D</el-radio>
+                        </div>
                     </div>
                  </div>
               </div>

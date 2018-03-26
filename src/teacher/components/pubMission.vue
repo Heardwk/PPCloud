@@ -526,7 +526,6 @@ export default {
           })
         }
       }
-      // students
       this.$http.post(`${this.$store.state.location}/services/app/Mission/Create`,
         {
           "title": this.missName,
@@ -534,7 +533,6 @@ export default {
           "endTime": this.endtime,
           "remark": this.textarea,
           "classes": this.classNum,
-          "students": [],
           "questions": arr
         },{
           headers: {
@@ -543,7 +541,7 @@ export default {
         }).then(response=>{
           console.log(response.body)
         },response=>{
-          console.log('创建题组error')
+          console.log('创建任务error')
         })
     },
     changeBegintime() {

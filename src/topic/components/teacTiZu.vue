@@ -30,7 +30,7 @@
           <span @click="prev" class="right">上一题</span>
           <span @click="next">下一题</span>
         </div>
-        <exercises :id="unid" style="padding:20px"></exercises>
+        <exercises :ques = "{unid:unid,version:1}" style="padding:20px"></exercises>
       </div>
     </div>
   </div>
