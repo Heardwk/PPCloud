@@ -3,12 +3,12 @@
     <div class="content_choi">
       <div class="content_top">
           <p class="titles">基础会计任务一</p>
-          <p class="title_con">{{topic.classify}} &gt<b>适用范围和操作要求</b> <span>案例数量：(1/{{topic.caseCount}})</span></p>
+          <p class="title_con"> &gt<b>适用范围和操作要求</b> <span>案例数量：(1/{{topic.caseCount}})</span></p>
       </div>
         <div style="display:flex; background-color:#F0F2F5;">
              <div style="width:100%">
                   <div class="fun">
-                         <el-button plain disabled>答案解析</el-button>
+                      <el-button plain disabled>答案解析</el-button>
                       <span @click="jisaunqi">计算器</span>
                      <div class="place">
                           <span>上一题</span>
@@ -19,7 +19,7 @@
                  <div  style="padding-left: 20px;padding-top: 20px;">
                    <exercises :ques = "{unid:'',version:1}" ></exercises> 
                     <div class="g_bu"  v-if="isshow" >
-<!--                         <el-button  size="medium" plain icon="el-icon-success">A</el-button>
+<!--                    <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">C</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">D</el-button> -->
@@ -28,7 +28,6 @@
                             <el-radio v-model="radio" label="B" border size="medium">B</el-radio>
                             <el-radio v-model="radio" label="C" border size="medium">C</el-radio>
                             <el-radio v-model="radio" label="D" border size="medium">D</el-radio>
-                            {{radio}}
                         </div>
                     </div>
                  </div>
@@ -50,6 +49,7 @@ export default{
         active: 0,
         radio:'1',
         isshow:true,
+        detailsData:'', 
         topic: {
           id: 1,
           caseType: '单选题',
@@ -94,16 +94,35 @@ export default{
     components: {
       exercises,
     },
-    methods:{
-    aa(index) {
-      this.number = index  
-      this.ins = index
-      },
-    chakandaan() {
-
+    mounted(){
+      console.log(this.$route.query.knowledge)
+      console.log(this.$route.query.styleid)
+      this. knowledgetree();
     },
-    daanjiexi() {
-
+    methods:{
+      knowledgetree(){
+        this.$http.post(`${this.$store.state.location}/services/app/Course/GetKnowledgeTree`,
+        {
+          "courseId": 1,
+          "onlyIncludeChild": false
+        },{
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }).then(response=>{
+          this.detailsData = response.body.result;
+          this.knowledge_list()
+          console.log(this.detailsData)
+        },response=>{
+          console.log('获取知识点树error')
+        })
+    },
+    aa(index) {
+          this.number = index  
+          this.ins = index
+    },
+    knowledge_list(){
+       
     },
     jisaunqi() {
 

@@ -576,4 +576,25 @@ header {
 .tea_table_top ul>li> .el-select .el-input.is-focus .el-input__inner {
     border-color:rgba(248,248,248,1) ;
 }
+.cases_cot_left_t .el-tree {
+    cursor: default;
+    background: #fff;
+    color: #606266;
+}
+.cases_cot_left_content{
+  overflow:auto;
+  height:510px;
+/*  width:90px;*/
+}
+.cases_cot_left_content .el-tree{
+  width: 100%;
+  /*overflow-x: scroll;*/
+}
+.cases_cot_left_content .el-tree>.el-tree-node{
+  display: inline-block !important;
+  min-width: 100%;
+}
+.block .el-pagination {
+    text-align: center;
+}
 </style>

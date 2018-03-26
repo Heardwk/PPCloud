@@ -30,6 +30,7 @@
                      </div>
                   </div>
                  <div style="padding-left: 20px;padding-top: 20px;">
+
                    <exercises :ques="{unid:'',version:1}" >
 <!--                         <div class="g_bu" >
                           <div style="margin-top: 60px">
@@ -69,6 +70,7 @@ export default{
         mode: true,
         activeId: 1,
         ins:0,
+        servi:"b57d39ca-834b-4dca-8446-1239714b0dd1",
         number:0,
         radio8:'1',
         active: 0,
@@ -117,24 +119,22 @@ export default{
     },
     methods:{
     httpchoice(){
-      // this.$http.post(){
-      //   this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
-      //       {
-      //         "version": 1,
-      //         "uniqueId": "47bc282b-0b64-48ee-afc6-5d9d6759c843"
-      //       },{
-      //         headers: {
-      //           "Content-Type": "application/json"
-      //         }
-      //       }).then(response=>{
-      //         this.Single = response.body.result;
-      //         this.topic.question = this.Single.content;
-      //         this.topic.answer = this.Single.options;
-      //       },response=>{
-      //         console.log("error")
-      //       })  
-      // }
-    },
+        // this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
+        //     {
+        //       "version": 1,
+        //       "uniqueId": "47bc282b-0b64-48ee-afc6-5d9d6759c843"
+        //     },{
+        //       headers: {
+        //         "Content-Type": "application/json"
+        //       }
+        //     }).then(response=>{
+        //       this.Single = response.body.result;
+        //       this.topic.question = this.Single.content;
+        //       this.topic.answer = this.Single.options;
+        //     },response=>{
+        //       console.log("error")
+        //     })  
+        },
     aa(index) {
       this.number = index  
       this.ins = index

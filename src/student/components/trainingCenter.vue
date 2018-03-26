@@ -87,21 +87,26 @@ export default {
                     "Content-Type": "application/json",
             }
             }).then(response=>{
-              this.cousetData = response.body.result.items;
-              this.courselist();
+               this.cousetData = response.body.result.items;
+               this.courselist();
+               console.log(this.cousetData)
             },response=>{
               console.log('error')
            })
     },
       courselist(){
-         for (let i in this.cousetData) {
+        if(this.cousetData !== [] ){
+            for (let i in this.cousetData) {
             this.classType.push({
-               name: this.cousetData[i].course.title,
+               name: this.cousetData[i].title,
                number: '3281',
                time: '2017/8/22',
                src: require('../../share/img/calss_small.png'),
             })
-         }
+          }
+        }else{
+          console.log("没有请求到数据")
+        }
       },  
     },
   components: {
