@@ -68,10 +68,10 @@
 export default {
   name: 'exercises',
   props: {
-    id: {
-      type: String,
-      required: true
-    }
+    ques: {
+      type: Object,
+      required: true      
+    },
   },
   data () {
     return {
@@ -126,14 +126,16 @@ export default {
     }
   },
   mounted(){
-    this.topic.uniqueId = this.id
+    this.topic.uniqueId = this.ques.unid;
+    this.topic.version = this.ques.version;
     this.GetTtheTitle();
     this.checkedCities = [];
     this.radio = ''
   },
   watch: {
-    id() {
-      this.topic.uniqueId = this.id
+    ques() {
+      this.topic.uniqueId = this.ques.unid;
+      this.topic.version = this.ques.version;
       this.GetTtheTitle();
       this.checkedCities = [];
       this.radio = ''

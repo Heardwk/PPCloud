@@ -45,7 +45,7 @@
           <span @click="next" class="right">上一题</span>
           <span @click="prev">下一题</span>
         </div>
-        <exercises :id="activeId" style="padding:20px"></exercises>
+        <exercises :ques = "{unid:'',version:1}" style="padding:20px"></exercises>
         <div class="evaluateBox">
           <div v-if="tizu.timu[activeId-1].review[0]" class="dui">
             <p>答对，获得{{tizu.timu[activeId-1].review[0].point}}分</p>

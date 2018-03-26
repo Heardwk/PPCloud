@@ -30,7 +30,7 @@
                      </div>
                   </div>
                  <div style="padding-left: 20px;padding-top: 20px;">
-                   <exercises :id="1" >
+                   <exercises :ques="{unid:'',version:1}" >
 <!--                         <div class="g_bu" >
                           <div style="margin-top: 60px">
                               <el-radio v-model="radio8" label="A" border size="medium">A</el-radio>
