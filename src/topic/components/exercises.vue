@@ -35,7 +35,7 @@
       </div>  
     </div>
     <!-- 多选题 -->
-<!--     <div v-if="topic.caseType=='多选题'" class="danxaun">
+    <div v-if="topic.caseType=='多选题'" class="danxaun">
       <div class="dxcontainer">
         <p>{{topic.question}}</p>
         <p v-for="(item,index) in topic.answer" :key="index">
@@ -50,16 +50,16 @@
           </template>
         </div>
       </div>  
-    </div> -->
+    </div>
     <!-- 判断题 -->
-<!--     <div v-if="topic.caseType=='判断题'" class="danxaun">
+    <div v-if="topic.caseType=='判断题'" class="danxaun">
       <div class="dxcontainer">
         <p>{{topic.question}}</p>
         <p v-for="(item,index) in topic.answer" :key="index">
           {{item.content}}
         </p> 
       </div>  
-    </div> -->
+    </div>
 
   </div>
 </template>
@@ -144,20 +144,20 @@ export default {
   methods: {
     // 获取题目
     GetTtheTitle(){
-      // this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
-      //   {
-      //     "version": this.topic.version,
-      //     "uniqueId": this.topic.uniqueId
-      //   },{
-      //     headers: {
-      //       "Content-Type": "application/json"
-      //     }
-      //   }).then(response=>{
-      //     this.topics = response.body.result;
-      //     this.showData()
-      //   },response=>{
-      //     console.log("error")
-      //   })  
+      this.$http.post(`${this.$store.state.location}/services/app/Question/Get`,
+        {
+          "version": this.topic.version,
+          "uniqueId": this.topic.uniqueId
+        },{
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(response=>{
+          this.topics = response.body.result;
+          this.showData()
+        },response=>{
+          console.log("error")
+        })  
     },
     showData() {
       // this.topic = {};
