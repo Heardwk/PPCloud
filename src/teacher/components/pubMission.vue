@@ -173,6 +173,7 @@
               <span class="leftSpan">开始时间</span>
               <el-date-picker
                 v-model="begintime"
+                :editable='false'
                 type="datetime"
                 @change = "changeBegintime"
                 placeholder="选择日期时间">
@@ -188,6 +189,7 @@
               </div>
               <el-date-picker
                 v-model="endtime"
+                :editable='false'
                 type="datetime"
                 @change = "changeEndtime"
                 placeholder="选择日期时间">
@@ -323,7 +325,6 @@ export default {
             "Content-Type": "application/json",
           }
         }).then(response=>{
-          console.log(response.body.result.classes)
           let that = this;
           this.hasClass = [];
           for(let i in response.body.result.classes){
@@ -533,6 +534,7 @@ export default {
           "endTime": this.endtime,
           "remark": this.textarea,
           "classes": this.classNum,
+          "students": [],
           "questions": arr
         },{
           headers: {
@@ -541,26 +543,29 @@ export default {
         }).then(response=>{
           console.log(response.body)
         },response=>{
-          console.log('创建任务error')
+          console.log(response)
         })
     },
     changeBegintime() {
       let index = this.slideVal.indexOf(this.pick);
+      this.getEndTime(index);
+    },
+    getEndTime(index) {
       let t = this.begintime.getTime();
       switch(index){
         case 0: break;
         case 1: 
-          this.endtime = t + 24*60*60*1000; break;
+          this.endtime = new Date(t + 24*60*60*1000); break;
         case 2: 
-          this.endtime = t + 12*60*60*1000; break;
+          this.endtime = new Date(t + 12*60*60*1000); break;
         case 3: 
-          this.endtime = t +  6*60*60*1000; break;
+          this.endtime = new Date(t +  6*60*60*1000); break;
         case 4: 
-          this.endtime = t +  3*60*60*1000; break;
+          this.endtime = new Date(t +  3*60*60*1000); break;
         case 5: 
-          this.endtime = t +  1*60*60*1000; break;
+          this.endtime = new Date(t +  1*60*60*1000); break;
         case 6: 
-          this.endtime = t +    30*60*1000; break;
+          this.endtime = new Date(t +    30*60*1000); break;
       }
     },
     timeOut() {
@@ -586,22 +591,7 @@ export default {
     },
     getT(val) {
       this.pick = this.slideVal[val];
-      let t = this.begintime.getTime();
-      switch(val){
-        case 0: break;
-        case 1: 
-          this.endtime = t + 24*60*60*1000; break;
-        case 2: 
-          this.endtime = t + 12*60*60*1000; break;
-        case 3: 
-          this.endtime = t +  6*60*60*1000; break;
-        case 4: 
-          this.endtime = t +  3*60*60*1000; break;
-        case 5: 
-          this.endtime = t +  1*60*60*1000; break;
-        case 6: 
-          this.endtime = t +    30*60*1000; break;
-      }
+      this.getEndTime(val);
     },
     changeEndtime() {
       this.pick = this.slideVal[0]
