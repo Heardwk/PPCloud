@@ -153,16 +153,16 @@ export default {
           }
         }).then(response=>{
           this.topics = response.body.result;
+          console.log(this.topics)
           this.showData()
         },response=>{
           console.log("error")
         })  
     },
     showData() {
-      // this.topic = {};
       this.topic.caseType = this.topics.styleName;
       this.topic.question = this.topics.title;
-      this.topic.answer    =  [];
+      this.topic.answer   =  [];
       this.cities = [];
       for(let i in this.topics.options) {
         this.cities.push({

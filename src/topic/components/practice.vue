@@ -25,10 +25,6 @@
                           <el-radio @change="radiochange" v-model="radio" :label="item.content" border size="medium">{{String.fromCharCode(index+65)}}</el-radio>  
                       </div>
                     <div class="g_bu"  v-if="isshow" >
-<!--                    <el-button  size="medium" plain icon="el-icon-success">A</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">B</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">C</el-button>
-                        <el-button  size="medium" plain icon="el-icon-success">D</el-button> -->
                         <div style="margin-top: 60px">
                             <el-radio v-model="radio" label="A" border size="medium">A</el-radio>
                             <el-radio v-model="radio" label="B" border size="medium">B</el-radio>
@@ -63,7 +59,7 @@ export default{
       return {
         mode: true,
         ins:0,
-        versionId: 0,
+        versionId:1,
         number:0,
         active: 0,
         radio:'',
