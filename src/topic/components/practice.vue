@@ -3,7 +3,9 @@
     <div class="content_choi">
       <div class="content_top">
           <p class="titles">基础会计任务一</p>
-          <p class="title_con"> &gt<b>适用范围和操作要求</b> <span>案例数量：(1/{{topic.caseCount}})</span></p>
+          <p class="title_con">
+          <b @click="descend">全真案例</b> 
+          <span>案例数量：(1/{{allData}})</span></p>
       </div>
         <div style="display:flex; background-color:#F0F2F5;">
              <div style="width:100%">
@@ -11,13 +13,17 @@
                       <el-button plain disabled>答案解析</el-button>
                       <span @click="jisaunqi">计算器</span>
                      <div class="place">
-                          <span>上一题</span>
-                          <span>下一题</span>
-                          <p>提交</p>
+                          <span @click = "pre">上一题</span>
+                          <span @click = "next">下一题</span>
+                          <p @click="dialogVisible = true">提交</p>
                      </div>
                   </div>
                  <div  style="padding-left: 20px;padding-top: 20px;">
-                   <exercises :ques = "{unid:'',version:1}" ></exercises> 
+                   <exercises :ques = "{unid:knowledgeid,version:versionId}" ></exercises> 
+                    <div class="g_bu">
+                      <div style="margin-top: 60px"  v-for="(item,index) in topic.answer" :key="index">
+                          <el-radio @change="radiochange" v-model="radio" :label="item.content" border size="medium">{{String.fromCharCode(index+65)}}</el-radio>  
+                      </div>
                     <div class="g_bu"  v-if="isshow" >
 <!--                    <el-button  size="medium" plain icon="el-icon-success">A</el-button>
                         <el-button  size="medium" plain icon="el-icon-success">B</el-button>
@@ -29,11 +35,23 @@
                             <el-radio v-model="radio" label="C" border size="medium">C</el-radio>
                             <el-radio v-model="radio" label="D" border size="medium">D</el-radio>
                         </div>
+                      </div>
                     </div>
                  </div>
               </div>
           </div>
-      </div>    
+      </div>   
+      <el-dialog
+          :visible.sync="dialogVisible"
+          width="30%"
+          :before-close="handleClose">
+          <span class="title_dialog"><i class="el-icon-question"></i>确认要交卷吗？</span>
+          <div class="title_dialog_content">交卷之后将不能在修改答案，既结束本次练习。</div>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+          </span>
+        </el-dialog> 
    </div>
 </template>
 
@@ -45,81 +63,108 @@ export default{
       return {
         mode: true,
         ins:0,
+        versionId: 0,
         number:0,
         active: 0,
-        radio:'1',
+        radio:'',
         isshow:true,
-        detailsData:'', 
+        dialogVisible:false,
+        detailsData:'',
+        allData:'',
         topic: {
-          id: 1,
-          caseType: '单选题',
-          classType: '基础会计',
-          classify: '错账更正 > 划线更正法概念',
-          caseCount: 16,
-          question: '下列各种情况中会导致企业折价发行债券的是下列各种情况中会导致企业折价发行债券的是，下列各种情况中会导致企业折价发行债券的是( )。',
-          answer: ["债券的票面利率大于市场利率。","债券的票面利率等于市场利率","债券的票面利率小于市场利率","以上都不对"],
+          question: '',
+          answer: [],
           auxiliaryData: [
                 {
                   text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
                   src: '#'
-                },{
-                  text: '3月3日，副总经理吴涵申请借款3000元，用于购买办公用品，经批准，出纳以现金支付。',
-                  src: '#'
-                  } 
-                ],
-              elect:[
-                {
-                  Letter:'A',
-                  options:'债券的票面利率大于市场利率债券的票面利率'
-                },
-                {
-                 Letter:'B',
-                 options:'债券的票面利率等于市场利率'
-                },
-                {
-                  Letter:'C',
-                  options:'债券的票面利率小于市场利率'
-                },
-                {
-                  Letter:'D',
-                  options:'以上都不对'
-                }
-          ],
+                }],
+          elect:[],
         },
       };
     },
     computed: {
-
+      styleid(){
+        return this.$route.query.styleid
+      }, 
+      tot(){
+        return this.$route.query.tot
+      },
+      knowledgeid(){
+        return this.$route.query.knowledge
+      }
     },
     components: {
-      exercises,
+       exercises,
     },
     mounted(){
-      console.log(this.$route.query.knowledge)
-      console.log(this.$route.query.styleid)
-      this. knowledgetree();
+      this.versionId = this.$route.query.versionId;
+       this.topicid = this.$route.query.topicid
+       this.practicelist();
     },
     methods:{
-      knowledgetree(){
-        this.$http.post(`${this.$store.state.location}/services/app/Course/GetKnowledgeTree`,
-        {
-          "courseId": 1,
-          "onlyIncludeChild": false
-        },{
-          headers: {
-            "Content-Type": "application/json",
-          }
-        }).then(response=>{
-          this.detailsData = response.body.result;
-          this.knowledge_list()
-          console.log(this.detailsData)
-        },response=>{
-          console.log('获取知识点树error')
-        })
+    practicelist(){
+      this.$http.post(`${this.$store.state.location}/services/app/Question/GetQuestionsByKnowledge`,
+          {
+              "knowledgeId": this.topicid,
+              "maxResultCount":10,
+              "skipCount":0,
+          },{
+            headers: {
+              "Content-Type": "application/json",
+            }
+          }).then(response=>{
+              this.practicelist = response.body.result.items;
+              this.allData = response.body.result.totalCount;
+              console.log(this.practicelist)
+          },response=>{
+              console.log('题目获取error')
+          })
     },
     aa(index) {
-          this.number = index  
-          this.ins = index
+        this.number = index  
+        this.ins = index
+    },
+    handleClose(done) {
+        this.$confirm('确认关闭？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    },
+    pre(){
+      console.log(this.practicelist.length)
+      let index = 0;
+      for(let i=0; i<this.practicelist.length; i++) {
+        if(this.activeId==this.practicelist[i].id) {
+          if(i==this.practicelist.length-1) {
+            index = i 
+          }else {
+            index = i+1
+          }
+        }
+      }
+      this.activeId = this.practicelist[index].id
+    },
+    next(){
+      console.log(this.practicelist.length)
+       let index = 0
+        for(let i=0; i<this.practicelist.length; i++) {
+          if(this.activeId==this.practicelist[i].id) {
+            if(i==0) {
+              index = i
+            }else {
+              index = i-1
+            }
+          }
+        }
+        this.activeId = this.practicelist[index].id
+    },
+    descend(){
+        this.$router.push({path:'/Student/trainingCenter/Basic_Accounting',query: { id:this.styleid}});
+    },
+    radiochange(){
+         console.log("这是单选框的点击事件")
     },
     knowledge_list(){
        

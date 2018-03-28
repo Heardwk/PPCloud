@@ -101,7 +101,8 @@ export default {
                name: this.cousetData[i].title,
                number: '3281',
                time: '2017/8/22',
-               src: require('../../share/img/calss_small.png'),
+               // src: 'http://' + this.cousetData[i].pictureUrl,
+               src:require('../../share/img/class_big.png')
             })
           }
         }else{
@@ -153,6 +154,8 @@ export default {
   box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.09);
 }
 .recentlyList img {
+  width:224px;
+  height:134px; 
   display: block;
   border: 0;
   border: none;
