@@ -66,7 +66,7 @@ export default new Router({
       path: '/Load',
       name: 'Load',
       component: Load
-    },
+    },z
     {
       path: '/Teacher',
       component: Teacher,

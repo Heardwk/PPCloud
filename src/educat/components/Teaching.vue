@@ -147,7 +147,6 @@ export default {
             }
           }
 	    },
-
     },
 	methods: {
 		pipeiData() {
